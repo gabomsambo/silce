@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-fade-in-delay {
+    animation: fadeIn 1s ease-out 0.3s both;
+  }
+
+  .animate-fade-in-delay-2 {
+    animation: fadeIn 1s ease-out 0.6s both;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hospitable Widget Z-Index Overrides */
+hospitable-direct-mps,
+hospitable-direct-mps *,
+.hospitable-widget-container,
+.hospitable-widget-container *,
+[class*="hospitable"],
+[id*="hospitable"],
+.flatpickr-calendar,
+.flatpickr-months,
+.flatpickr-weekdays,
+.flatpickr-days,
+.flatpickr-time,
+.flatpickr-current-month,
+.flatpickr-prev-month,
+.flatpickr-next-month,
+div[class*="calendar"],
+div[class*="picker"],
+div[class*="dropdown"],
+div[id*="calendar"],
+div[id*="picker"],
+div[id*="dropdown"] {
+  z-index: 2147483647 !important;
+  isolation: auto !important;
+}
+
+/* Ensure dropdowns and overlays from Hospitable widget are on top */
+hospitable-direct-mps .dropdown,
+hospitable-direct-mps .calendar,
+hospitable-direct-mps .picker,
+hospitable-direct-mps .overlay,
+hospitable-direct-mps .popup,
+hospitable-direct-mps .modal,
+hospitable-direct-mps div[class*="calendar"],
+hospitable-direct-mps div[class*="picker"],
+hospitable-direct-mps div[class*="dropdown"] {
+  z-index: 2147483647 !important;
+  position: fixed !important;
+  isolation: auto !important;
+}
+
+/* Force all potential popup elements to the top */
+body > div:last-child,
+body > div[style*="z-index"],
+div[style*="position: absolute"],
+div[style*="position: fixed"] {
+  z-index: 2147483647 !important;
+}
+
+/* Magic UI Animations */
+@keyframes shine {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  to {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-shine {
+  animation: shine var(--duration) ease-in-out infinite;
+}
+
+/* Shimmer Button Animations */
+@keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), calc(100cqh - 100%));
+  }
+}
+
+@keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+  }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+  }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+  }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+  }
+}
+
+.animate-shimmer-slide {
+  animation: shimmer-slide var(--speed) ease-in-out infinite alternate;
+}
+
+.animate-spin-around {
+  animation: spin-around calc(var(--speed) * 2) infinite linear;
+}
