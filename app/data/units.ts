@@ -23,7 +23,7 @@ export const UNITS: Unit[] = [
     slug: "studio-apartment",             // Unit 2528 in your current data
     title: "Studio — Compact · Unit 2528",
     category: "studio-compact",
-    priceFrom: 199,
+    priceFrom: 59,
     maxGuests: 2,
     bedrooms: 0,
     bathrooms: 1,
@@ -73,12 +73,12 @@ export const UNITS: Unit[] = [
     maxGuests: 3,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "King",
+    bedType: "Queen",
     sqFt: 440,
     floor: "Ground",
     extras: ["Workspace"],
     hospitable_id: "1887648",
-    images: ["/2.jpg","/4.jpg","/6.jpg","/PHOTO-2025-06-19-12-33-37 (1).jpg"],
+    images: [],
   },
   // add two more to reach 4 total comfort studios as you finalize slugs
 
@@ -96,7 +96,7 @@ export const UNITS: Unit[] = [
     floor: "Ground",
     extras: ["Dining table in kitchen"],
     hospitable_id: "1887662",
-    images: ["/1.jpg","/3.jpg","/5.jpg","/7.jpg"],
+    images: [],
   },
 
   // 1 bed / 1 bath
@@ -112,13 +112,13 @@ export const UNITS: Unit[] = [
     sqFt: 600,
     floor: "Upper",
     hospitable_id: "1887652",
-    images: ["/1.jpg","/2.jpg","/3.jpg","/4.jpg"],
+    images: [],
   },
 
   // 2 bed / 1 bath (add when you publish the page/slug)
   {
-    slug: "two-bedroom-1-bath",
-    title: "2 Bedroom, 1 Bath · Unit 25XX",
+    slug: "pineapple-103",
+    title: "2 Bedroom, 1 Bath · Pineapple 103",
     category: "two-bed-1-bath",
     priceFrom: 379,
     maxGuests: 5,
@@ -130,4 +130,20 @@ export const UNITS: Unit[] = [
     hospitable_id: "1887650",
     images: ["/two-bed-1.jpg","/two-bed-2.jpg"],
   },
+    // 2 bed / 1 bath (add when you publish the page/slug)
+    {
+      slug: "pineapple-101",
+      title: "2 Bedroom, 1 Bath · Pineapple 101",
+      category: "two-bed-1-bath",
+      priceFrom: 379,
+      maxGuests: 5,
+      bedrooms: 2,
+      bathrooms: 1,
+      bedType: "Queen + Queen",
+      sqFt: 720,
+      floor: "Upper",
+      hospitable_id: "1983780",
+      images: ["/two-bed-1.jpg","/two-bed-2.jpg"],
+    },
+    
 ]

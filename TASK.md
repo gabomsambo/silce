@@ -11,6 +11,7 @@
 - [ ] Add contact form (static → email service like Formspree) 
 - [ ] Configure analytics (Plausible/GA4 env var controlled)
 - [ ] Set up Vercel project
+- [ ] Review environment secrets handling and add `.env.example`
 
 ## Discovered During Work
 - [ ] Image optimization pass (Next/Image + srcset)
@@ -25,4 +26,8 @@
 - [ ] Admin content workflow
 
 ## Done
+- [x] Add ethical `.gitignore` for Next.js/Node on macOS
+  - Ignore: `.next`, `node_modules`, build outputs, logs, caches, editor/OS cruft
+  - Protect secrets: ignore `.env*` but keep `!.env.example` for onboarding
+  - Do not ignore user content like `public/` images to preserve assets in repo
 - [ ] (placeholder)
