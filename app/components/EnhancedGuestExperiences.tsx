@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Star, Calendar, MapPin, Users } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { MagicCard } from "@/components/ui/magic-card"
 import NumberTicker from "@/components/ui/number-ticker"
 
@@ -300,6 +301,18 @@ export default function EnhancedGuestExperiences() {
                 <div className="text-sm text-gray-600">{platform.reviews} reviews</div>
               </MagicCard>
             ))}
+          </div>
+
+          {/* CTA to Reviews Page */}
+          <div className="mt-12">
+            <Link
+              href="/reviews"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-tan text-white font-semibold rounded-lg
+                hover:bg-tan/90 transition-all duration-300 hover:shadow-lg hover:scale-105"
+            >
+              Share Your Experience
+              <ChevronRight className="w-5 h-5" />
+            </Link>
           </div>
         </div>
       </div>

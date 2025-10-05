@@ -131,3 +131,27 @@ div[style*="position: fixed"] {
 .animate-spin-around {
   animation: spin-around calc(var(--speed) * 2) infinite linear;
 }
+
+/* Leaflet Map Customization */
+.leaflet-container {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.leaflet-tooltip {
+  background-color: rgba(26, 26, 26, 0.9);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.leaflet-popup-tip {
+  background-color: white;
+}

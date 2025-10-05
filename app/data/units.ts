@@ -20,7 +20,7 @@ export interface Unit {
 export const UNITS: Unit[] = [
   // ——— Studios (example mapping to your current slugs) ———
   {
-    slug: "studio-apartment",             // Unit 2528 in your current data
+    slug: "unit-2528",             // Unit 2528 in your current data
     title: "Studio — Compact · Unit 2528",
     category: "studio-compact",
     priceFrom: 59,
@@ -34,7 +34,7 @@ export const UNITS: Unit[] = [
     images: ["/5.jpg","/6.jpg","/7.jpg","/PHOTO-2025-06-19-12-33-37.jpg"],
   },
   {
-    slug: "premium-studio",               // Unit 2536 in your current data
+    slug: "unit-2536",               // Unit 2536 in your current data
     title: "Studio — Compact · Unit 2536",
     category: "studio-compact",
     priceFrom: 249,
@@ -51,7 +51,7 @@ export const UNITS: Unit[] = [
 
   // 4 larger studios (map 2–3 of your placeholders here)
   {
-    slug: "boutique-loft",               // use as Studio — Comfort
+    slug: "unit-2538",               // use as Studio — Comfort
     title: "Studio — Comfort · Unit 2538",
     category: "studio-comfort",
     priceFrom: 329,
@@ -66,7 +66,7 @@ export const UNITS: Unit[] = [
     images: ["/6.jpg","/2.jpg","/4.jpg","/PHOTO-2025-06-19-12-33-37.jpg"],
   },
   {
-    slug: "executive-apartment",         // use as Studio — Comfort
+    slug: "pineapple-102",         // use as Studio — Comfort
     title: "Studio — Comfort · Pineapple 102",
     category: "studio-comfort",
     priceFrom: 349,
@@ -84,7 +84,7 @@ export const UNITS: Unit[] = [
 
   // 1 huge studio with dining table
   {
-    slug: "deluxe-suite",                // repurpose to Studio — Plus (Large)
+    slug: "sea-grape-102",                // repurpose to Studio — Plus (Large)
     title: "Studio — Plus (Large) · Sea Grape 102",
     category: "studio-plus",
     priceFrom: 399,
@@ -101,7 +101,7 @@ export const UNITS: Unit[] = [
 
   // 1 bed / 1 bath
   {
-    slug: "one-bedroom-suite",
+    slug: "unit-2526",
     title: "1 Bedroom · Unit 2526",
     category: "one-bed-1-bath",
     priceFrom: 299,
@@ -132,8 +132,22 @@ export const UNITS: Unit[] = [
   },
     // 2 bed / 1 bath (add when you publish the page/slug)
     {
-      slug: "pineapple-101",
-      title: "2 Bedroom, 1 Bath · Pineapple 101",
+      slug: "pineapple-104",
+      title: "2 Bedroom, 1 Bath · Pineapple 104",
+      category: "two-bed-1-bath",
+      priceFrom: 379,
+      maxGuests: 5,
+      bedrooms: 2,
+      bathrooms: 1,
+      bedType: "Queen + Queen",
+      sqFt: 720,
+      floor: "Upper",
+      hospitable_id: "1983780",
+      images: ["/two-bed-1.jpg","/two-bed-2.jpg"],
+    },
+    {
+      slug: "seagrape-104",
+      title: "2 Bedroom, 1 Bath · Sea Grape 104",
       category: "two-bed-1-bath",
       priceFrom: 379,
       maxGuests: 5,

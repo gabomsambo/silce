@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import Introduction from "./components/Introduction"
-import FeaturedRooms from "./components/FeaturedRooms"
+import DiscoverLocationSection from "./components/DiscoverLocationSection"
 import EnhancedGuestExperiences from "./components/EnhancedGuestExperiences"
 import BoutiqueNewsletterSignup from "./components/BoutiqueNewsletterSignup"
 import InstagramFeed from "./components/InstagramFeed"
@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Introduction />
-      <FeaturedRooms />
+      <DiscoverLocationSection />
       <EnhancedGuestExperiences />
       <BoutiqueNewsletterSignup />
       <InstagramFeed />
