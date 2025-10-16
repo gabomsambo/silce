@@ -25,14 +25,11 @@ export interface Review {
   avatar?: string  // Path to avatar image
 }
 
-// Consolidated reviews from homepage and reviews page
+// Real guest reviews from Silver Pineapple properties
 export const REVIEWS: Review[] = [
-  // Featured reviews from EnhancedGuestExperiences
   {
     id: "rev-001",
-    guestName: "Sarah Johnson",
-    propertySlug: "unit-2528",
-    propertyName: "Studio — Compact · Unit 2528",
+    guestName: "Arturo",
     overallRating: 5,
     categoryRatings: {
       cleanliness: 5,
@@ -40,19 +37,16 @@ export const REVIEWS: Review[] = [
       location: 5,
       value: 5
     },
-    text: "StayLokal exceeded all expectations! The penthouse was absolutely stunning with breathtaking city views. The attention to detail was incredible - from the welcome amenities to the personalized local recommendations. The host was incredibly responsive and made our anniversary celebration truly unforgettable. The location was perfect for exploring Center City.",
-    date: "2024-12-15",
+    text: "Overall clean and nice place to stay the night, me and my family of 6 stayed for a single night, host let me book the same day of and was super responsive the entire time! Would recommend this stay for a quick get away trip!",
+    date: "2024-10-15",
     platform: "Airbnb",
-    stayDuration: "3 nights",
-    highlight: "Perfect for special occasions",
-    verified: true,
-    avatar: "/1.jpg"
+    stayDuration: "1 night",
+    highlight: "Super responsive host",
+    verified: true
   },
   {
     id: "rev-002",
-    guestName: "Michael Chen",
-    propertySlug: "unit-2536",
-    propertyName: "Studio — Compact · Unit 2536",
+    guestName: "Jason",
     overallRating: 5,
     categoryRatings: {
       cleanliness: 5,
@@ -60,19 +54,24 @@ export const REVIEWS: Review[] = [
       location: 5,
       value: 5
     },
-    text: "The oceanfront suite was a dream come true. Waking up to panoramic Atlantic views every morning was magical. The property was immaculately clean and beautifully decorated. The private balcony was perfect for morning coffee and sunset cocktails. The host provided excellent local dining recommendations and beach access was seamless.",
-    date: "2024-11-20",
-    platform: "Booking.com",
-    stayDuration: "5 nights",
-    highlight: "Stunning ocean views",
-    verified: true,
-    avatar: "/2.jpg"
+    text: "Great spot, close to everything and yet away from the hustle. Perfect place for a few days of exploring and such.",
+    date: "2024-10-20",
+    platform: "Airbnb",
+    highlight: "Perfect location balance",
+    verified: true
   },
   {
     id: "rev-003",
-    guestName: "Emily Rodriguez",
-    propertySlug: "unit-2538",
-    propertyName: "Studio — Comfort · Unit 2538",
+    guestName: "Kimberly",
+    overallRating: 5,
+    text: "Definitely a great place to stay on vacation! Will definitely be booking with her again in the future!",
+    date: "2024-10-25",
+    platform: "Airbnb",
+    verified: true
+  },
+  {
+    id: "rev-004",
+    guestName: "David",
     overallRating: 5,
     categoryRatings: {
       cleanliness: 5,
@@ -80,136 +79,200 @@ export const REVIEWS: Review[] = [
       location: 5,
       value: 5
     },
-    text: "The historic loft perfectly blended old-world charm with modern luxury. The exposed brick walls and high ceilings created such a unique atmosphere. The location in the historic district was unbeatable - we could walk to amazing restaurants, museums, and attractions. The space was thoughtfully designed and incredibly comfortable.",
-    date: "2024-10-10",
-    platform: "VRBO",
-    stayDuration: "4 nights",
-    highlight: "Perfect location & design",
-    verified: true,
-    avatar: "/3.jpg"
-  },
-
-  // Quick reviews from EnhancedGuestExperiences
-  {
-    id: "rev-004",
-    guestName: "David Kim",
-    overallRating: 5,
-    text: "Exceptional service and beautiful properties. Will definitely book again!",
-    date: "2024-11-25",
-    platform: "Google",
+    text: "Thank you Ada for your responsiveness and accurate description of your property. I work extremely early mornings so a private unit was perfect for me. I would recommend this unit for a single professional or couple.",
+    date: "2024-09-28",
+    platform: "Booking.com",
+    highlight: "Perfect for professionals",
     verified: true
   },
   {
     id: "rev-005",
-    guestName: "Lisa Thompson",
-    propertySlug: "pineapple-102",
+    guestName: "Ryan",
     overallRating: 5,
-    text: "The most memorable stay we've ever had. Every detail was perfect.",
-    date: "2024-12-05",
+    categoryRatings: {
+      cleanliness: 5,
+      location: 5,
+      value: 5
+    },
+    text: "This is a great beach getaway that won't break the bank. Your only 10 mins from a beautiful clean beach and less than 5 minutes from great restaurants. Gotta check out Squid Lips. The AC in this house is better than in my car - if you turn it down it will be like your sleeping in the fridge. Highly recommend!",
+    date: "2024-07-18",
     platform: "Airbnb",
+    stayDuration: "3 nights",
+    highlight: "Great value beach getaway",
     verified: true
   },
   {
     id: "rev-006",
-    guestName: "James Wilson",
+    guestName: "Elice",
     overallRating: 5,
-    text: "Outstanding hospitality and gorgeous accommodations. Highly recommend!",
-    date: "2024-10-15",
-    platform: "Booking.com",
+    categoryRatings: {
+      cleanliness: 5,
+      communication: 5,
+      value: 5
+    },
+    text: "Excelente lugar, cómodo, todo el tiempos que necesite hacer preguntas mi anfitriona estaba para contestar y asistir. Definitivamente lo recomiendo y espero regresar pronto 🙏",
+    date: "2024-06-22",
+    platform: "Airbnb",
     verified: true
   },
   {
     id: "rev-007",
-    guestName: "Maria Garcia",
-    propertySlug: "sea-grape-102",
-    overallRating: 4,
-    text: "Beautiful property with amazing amenities. Great communication from host.",
-    date: "2024-09-20",
-    platform: "VRBO",
+    guestName: "David",
+    overallRating: 5,
+    text: "Ada is a great host. This is my third visit and I'll be back!",
+    date: "2024-06-15",
+    platform: "Airbnb",
+    highlight: "Repeat guest - 3rd visit",
     verified: true
   },
   {
     id: "rev-008",
-    guestName: "Robert Brown",
+    guestName: "Jimmy",
     overallRating: 5,
-    text: "Exceeded expectations in every way. The attention to detail was incredible.",
-    date: "2024-11-10",
+    categoryRatings: {
+      cleanliness: 5,
+      communication: 5,
+      location: 5
+    },
+    text: "Great cute place, close to the water/beaches. Ada is a responsive and great host. The place was just as described, we had a short stay but if we are ever back in the area we would like to stay with them.",
+    date: "2024-06-10",
     platform: "Airbnb",
     verified: true
   },
   {
     id: "rev-009",
-    guestName: "Jennifer Lee",
+    guestName: "Tim",
     overallRating: 5,
-    text: "Perfect getaway! The property was exactly as described and even better.",
-    date: "2024-12-01",
-    platform: "Google",
+    categoryRatings: {
+      cleanliness: 5,
+      location: 5,
+      value: 5
+    },
+    text: "Always stay here while I'm working away from home. It really is a great deal and always clean. Very private and you can see the river across the street.",
+    date: "2024-05-28",
+    platform: "Booking.com",
+    highlight: "Repeat guest - work stays",
     verified: true
   },
-
-  // Reviews from reviews page
   {
     id: "rev-010",
-    guestName: "Michael R.",
+    guestName: "Jose",
     overallRating: 5,
-    text: "Absolutely stunning property with incredible attention to detail. The self-check-in was seamless, and the apartment was immaculate. The location couldn't be better - walking distance to everything we wanted to see.",
-    date: "2024-11-18",
+    text: "Place was very comfortable. Perfect for one person and a short stay depending on your needs. Pretty small place, but the layout fits everything well in the space. I slept very well.",
+    date: "2024-05-24",
     platform: "Airbnb",
     verified: true
   },
   {
     id: "rev-011",
-    guestName: "Jennifer L.",
+    guestName: "Melissa",
     overallRating: 5,
-    text: "This place is a gem! The design is beautiful, modern yet cozy. The kitchen was fully equipped, and the bed was incredibly comfortable. The neighborhood guide they provided was spot-on with great local recommendations.",
-    date: "2024-10-22",
-    platform: "Google",
+    text: "Great place for our one night stay… we live in Orlando and love weekend getaways.",
+    date: "2024-05-20",
+    platform: "Airbnb",
+    stayDuration: "1 night",
     verified: true
   },
   {
     id: "rev-012",
-    guestName: "David K.",
+    guestName: "Jacquelyn",
     overallRating: 5,
-    text: "Perfect for our business trip. The workspace was well-designed, WiFi was excellent, and the quiet atmosphere allowed us to be productive. The contactless experience was exactly what we needed.",
-    date: "2024-09-30",
-    platform: "Booking.com",
-    verified: true
-  },
-  {
-    id: "rev-013",
-    guestName: "Emma T.",
-    overallRating: 5,
-    text: "We stayed for a week and felt completely at home. The apartment had everything we needed, and the location was perfect for exploring the city. The host was responsive and helpful throughout our stay.",
-    date: "2024-11-05",
+    text: "Absolutely loved my stay here, unfortunately I did have to cut my time short due to some plans changing but overall it was a beautiful stay! 😊",
+    date: "2024-05-18",
     platform: "Airbnb",
     verified: true
   },
   {
-    id: "rev-014",
-    guestName: "Robert H.",
+    id: "rev-013",
+    guestName: "Jared",
     overallRating: 5,
-    text: "Exceptional experience from start to finish. The property photos don't do it justice - it's even more beautiful in person. The amenities were top-notch, and we loved the local coffee shop recommendations.",
-    date: "2024-10-08",
-    platform: "Google",
+    categoryRatings: {
+      communication: 5,
+      value: 5
+    },
+    text: "I highly recommend this stay. My fiancé and I were waiting to close on a house and the host was more than happy to accommodate us for a temporary stay. Thanks again.",
+    date: "2024-05-15",
+    platform: "Booking.com",
+    highlight: "Accommodating host",
+    verified: true
+  },
+  {
+    id: "rev-014",
+    guestName: "Adrian",
+    overallRating: 5,
+    categoryRatings: {
+      cleanliness: 5,
+      location: 5,
+      value: 5
+    },
+    text: "The place was very clean, comfortable and close to fun things to do. We loved the spaciousness of the rooms and the comfort of the beds and couches. The kitchen was stocked with pots and pans, dishes and silverware and there were more than enough towels and comfy bedding! We had such a nice stay!",
+    date: "2024-04-28",
+    platform: "Airbnb",
+    highlight: "Spacious and well-equipped",
     verified: true
   },
   {
     id: "rev-015",
-    guestName: "Lisa P.",
-    propertySlug: "unit-2526",
+    guestName: "Joshua",
     overallRating: 5,
-    text: "This was our third stay at StayLokal, and it never disappoints. The consistency in quality and service is remarkable. We always feel welcomed and comfortable, which is why we keep coming back.",
-    date: "2024-12-10",
-    platform: "Booking.com",
+    categoryRatings: {
+      cleanliness: 5,
+      communication: 5
+    },
+    text: "Perfect for what I needed! Well kept, plenty of parking, great communication.",
+    date: "2024-04-24",
+    platform: "Airbnb",
     verified: true
   },
   {
     id: "rev-016",
-    guestName: "Sarah M.",
+    guestName: "Tim",
     overallRating: 5,
-    text: "StayLokal exceeded every expectation. The attention to detail, the seamless check-in process, and the thoughtful touches throughout our suite made this the most memorable stay we've ever had. It truly felt like a home away from home, but with all the luxury amenities we could want.",
-    date: "2024-11-28",
-    platform: "Google",
+    categoryRatings: {
+      cleanliness: 5,
+      location: 5
+    },
+    text: "It was perfect and peaceful. Quiet at night and the place was very clean. Check-in was a breeze and parking was perfect, right in front of your room. I will stay here again.",
+    date: "2024-04-20",
+    platform: "Booking.com",
+    highlight: "Peaceful and quiet",
+    verified: true
+  },
+  {
+    id: "rev-017",
+    guestName: "Kavi",
+    overallRating: 5,
+    categoryRatings: {
+      cleanliness: 5,
+      communication: 5,
+      value: 5
+    },
+    text: "Absolutely adorable! Everything you need for a 'stay away.' Check-in and communication was absolutely fabulous and easy. You can tell that they care about hosting this fabulous place and I definitely recommend it because I will be back.",
+    date: "2024-04-15",
+    platform: "Airbnb",
+    highlight: "Caring hosts",
+    verified: true
+  },
+  {
+    id: "rev-018",
+    guestName: "Kayla",
+    overallRating: 5,
+    categoryRatings: {
+      location: 5,
+      value: 5
+    },
+    text: "Great place for a quick overnight or extended stay. Central to the important places but not right in the middle of the hustle and bustle.",
+    date: "2024-04-10",
+    platform: "Airbnb",
+    verified: true
+  },
+  {
+    id: "rev-019",
+    guestName: "Tori",
+    overallRating: 5,
+    text: "This apartment was great! Perfect amount of space and just what we needed! We will definitely stay here again!",
+    date: "2024-04-05",
+    platform: "Airbnb",
     verified: true
   }
 ]

@@ -13,7 +13,7 @@ export default function Testimonials() {
       name: "Sarah Johnson",
       avatar: "/placeholder.svg?height=80&width=80",
       rating: 5,
-      text: "StayLokal exceeded all expectations. The attention to detail and personalized service made our Philadelphia getaway absolutely unforgettable.",
+      text: "Silver Pineapple exceeded all expectations. The attention to detail and personalized service made our Philadelphia getaway absolutely unforgettable.",
     },
     {
       id: 2,
@@ -40,15 +40,16 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-transparent">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">GUEST EXPERIENCES</h2>
-          <p className="text-lg text-gray-600">What our guests are saying about their StayLokal experience</p>
+          <p className="text-lg text-gray-600">What our guests are saying about their Silver Pineapple experience</p>
         </div>
 
         <div className="relative">
-          <div className="bg-muted rounded-lg p-8 md:p-12 text-center">
+          <div className="bg-gradient-to-br from-white/90 via-coastal-mist/10 to-white/80
+  backdrop-blur-sm rounded-lg p-8 md:p-12 text-center shadow-md">
             <div className="flex justify-center mb-6">
               {[...Array(testimonials[currentSlide].rating)].map((_, i) => (
                 <Star key={i} className="w-6 h-6 text-tan fill-current" />

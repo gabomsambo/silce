@@ -13,7 +13,7 @@ export default function AmenityGrid() {
   ]
 
   return (
-    <section className="py-20 px-4 bg-gray-50">
+    <section className="py-20 px-4 bg-gradient-to-b from-coastal-teal/10 to-coastal-foam/15">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">Included Amenities</h2>
@@ -24,7 +24,7 @@ export default function AmenityGrid() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {amenities.map((A, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div key={i} className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="w-16 h-16 bg-tan/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <A.icon className="w-8 h-8 text-tan" />
               </div>

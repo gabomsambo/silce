@@ -47,6 +47,15 @@ const config: Config = {
         primary: "#1a1a1a",
         tan: "#D2B48C",
         muted: "#F5F5F5",
+        // Coastal Palette - Beach vacation aesthetic
+        "coastal-blue": "#0EA5E9",      // Ocean blue (Tailwind sky-500)
+        "coastal-teal": "#14B8A6",      // Coastal teal (Tailwind teal-500)
+        "coastal-aqua": "#22D3EE",      // Bright aqua (Tailwind cyan-400)
+        "coastal-sand": "#FCD34D",      // Sandy yellow (Tailwind amber-300)
+        "coastal-mist": "#F0F9FF",      // Soft blue-gray (Tailwind sky-50)
+        "coastal-sunrise": "#FB923C",   // Peachy sunrise (Tailwind orange-400)
+        "coastal-foam": "#A5F3FC",      // Seafoam (Tailwind cyan-200)
+        "coastal-dune": "#FDE68A",      // Light sand (Tailwind amber-200)
       },
       borderRadius: {
         lg: "var(--radius)",

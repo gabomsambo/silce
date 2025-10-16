@@ -122,7 +122,7 @@ export default function EnhancedNewsletterSignup() {
             <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <Check className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Welcome to StayLokal VIP! 🎉</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Welcome to Silver Pineapple VIP! 🎉</h2>
             <p className="text-xl text-gray-600 mb-6">
               Thank you, {formData.firstName}! You're now part of our exclusive community of discerning travelers.
             </p>

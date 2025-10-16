@@ -137,7 +137,7 @@ export default function SearchPage() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-coastal-mist">
       <Navbar />
       
       {/* Custom CSS to hide property counts */}

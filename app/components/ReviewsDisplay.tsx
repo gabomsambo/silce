@@ -52,7 +52,7 @@ export default function ReviewsDisplay() {
   }
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-transparent">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">

@@ -24,6 +24,79 @@
   .animate-fade-in-delay-2 {
     animation: fadeIn 1s ease-out 0.6s both;
   }
+
+  /* === COASTAL GRADIENT UTILITIES === */
+
+  /* Ocean Sunrise - Homepage hero and main sections */
+  .bg-ocean-sunrise {
+    background: linear-gradient(
+      to bottom,
+      hsl(199, 89%, 95%),      /* Light sky blue */
+      hsl(192, 82%, 90%) 50%,   /* Soft cyan */
+      hsl(43, 96%, 90%)         /* Pale amber */
+    );
+  }
+
+  /* Coastal Mist - Subtle content sections */
+  .bg-coastal-mist {
+    background: linear-gradient(
+      to bottom right,
+      hsl(200, 100%, 97%) 0%,   /* sky-50 */
+      hsl(0, 0%, 100%) 60%,     /* white center */
+      hsl(39, 67%, 94%)         /* Very pale tan */
+    );
+  }
+
+  /* Tropical Waters - Energetic rooms page */
+  .bg-tropical-waters {
+    background: linear-gradient(
+      to bottom right,
+      hsl(188, 94%, 85%) 0%,    /* Cyan-200 */
+      hsl(173, 58%, 78%) 50%,   /* Teal-300 */
+      hsl(158, 64%, 82%)        /* Emerald-200 */
+    );
+  }
+
+  /* Sunset Beach - Warm CTA sections */
+  .bg-sunset-beach {
+    background: linear-gradient(
+      to right,
+      hsl(27, 96%, 85%) 0%,     /* Orange-200 */
+      hsl(38, 92%, 75%),        /* Amber-300 */
+      hsl(39, 67%, 75%)         /* Tan blend */
+    );
+  }
+
+  /* Sand Fade - Subtle room detail pages */
+  .bg-sand-fade {
+    background: linear-gradient(
+      to bottom,
+      hsl(0, 0%, 100%) 0%,      /* White top */
+      hsl(188, 94%, 97%) 70%    /* Cyan-50 bottom */
+    );
+  }
+
+  /* Radial Sunrise - Hero focal point */
+  .bg-radial-sunrise {
+    background: radial-gradient(
+      circle at top,
+      hsl(199, 89%, 92%),       /* Sky-200 */
+      hsl(192, 82%, 85%),       /* Cyan-200 */
+      transparent 60%
+    );
+  }
+
+  /* Print-friendly override */
+  @media print {
+    .bg-ocean-sunrise,
+    .bg-coastal-mist,
+    .bg-tropical-waters,
+    .bg-sunset-beach,
+    .bg-sand-fade,
+    .bg-radial-sunrise {
+      background: white !important;
+    }
+  }
 }
 
 @keyframes fadeIn {

@@ -9,14 +9,14 @@ import Footer from "./components/Footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-ocean-sunrise">
       <Navbar />
       <Hero />
       <Introduction />
       <DiscoverLocationSection />
-      <EnhancedGuestExperiences />
+      {/* <EnhancedGuestExperiences /> */}
       <BoutiqueNewsletterSignup />
-      <InstagramFeed />
+      {/* <InstagramFeed /> */}
       <Footer />
     </main>
   )

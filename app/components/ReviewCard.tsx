@@ -14,7 +14,8 @@ interface ReviewCardProps {
 
 export default function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+    <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 shadow-md
+  hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
       {/* Rating Stars */}
       <div className="flex mb-4">
         {[...Array(review.rating)].map((_, i) => (

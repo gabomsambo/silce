@@ -23,7 +23,8 @@ export default function FeaturedRoomCard({ room }: FeaturedRoomCardProps) {
 
   return (
     <div 
-      className="group relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
+      className="group relative overflow-hidden rounded-2xl bg-white/95
+  backdrop-blur-sm shadow-lg transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

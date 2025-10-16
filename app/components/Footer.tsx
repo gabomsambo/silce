@@ -76,8 +76,8 @@ export default function Footer() {
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 text-tan mr-3 mt-1 flex-shrink-0" />
                 <div className="text-gray-300">
-                  <p>123 Main Street</p>
-                  <p>Philadelphia, PA 19103</p>
+                  <p></p>
+                  <p>Melbourne, FL 32935</p>
                 </div>
               </div>
               <div className="flex items-center">
@@ -102,7 +102,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2024 StayLokal. All rights reserved.</p>
+            <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2024 Silver Pineapple. All rights reserved.</p>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-tan transition-colors duration-300">
                 Privacy Policy

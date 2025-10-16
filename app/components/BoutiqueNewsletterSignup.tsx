@@ -83,11 +83,11 @@ export default function BoutiqueNewsletterSignup() {
 
   if (isSubmitted) {
     return (
-      <section className="py-24 bg-gradient-to-br from-tan/5 to-primary/5 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-coastal-sunrise/10 to-coastal-teal/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/6.jpg')] bg-cover bg-center opacity-5" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl mx-auto text-center">
-            <MagicCard className="p-12 bg-white/95 backdrop-blur-sm">
+            <MagicCard className="p-12 bg-white/90 backdrop-blur-md">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Check className="w-10 h-10 text-green-600" />
               </div>
@@ -111,7 +111,7 @@ export default function BoutiqueNewsletterSignup() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-br from-tan/5 to-primary/5 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-coastal-sunrise/10 to-coastal-teal/5 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/6.jpg')] bg-cover bg-center opacity-5" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">

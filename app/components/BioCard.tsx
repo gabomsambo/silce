@@ -10,7 +10,8 @@ interface BioCardProps {
 
 export default function BioCard({ name, title, image, bio, quote }: BioCardProps) {
   return (
-    <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+    <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl
+  transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl">
       <div className="flex flex-col items-center">
         {/* Profile Image */}
         <div className="relative w-32 h-32 md:w-40 md:h-40 mb-8">

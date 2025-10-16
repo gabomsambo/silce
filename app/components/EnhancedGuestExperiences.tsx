@@ -21,7 +21,7 @@ export default function EnhancedGuestExperiences() {
       date: "December 2024",
       stayDuration: "3 nights",
       property: "Philadelphia Penthouse",
-      text: "StayLokal exceeded all expectations! The penthouse was absolutely stunning with breathtaking city views. The attention to detail was incredible - from the welcome amenities to the personalized local recommendations. The host was incredibly responsive and made our anniversary celebration truly unforgettable. The location was perfect for exploring Center City.",
+      text: "Silver Pineapple exceeded all expectations! The penthouse was absolutely stunning with breathtaking city views. The attention to detail was incredible - from the welcome amenities to the personalized local recommendations. The host was incredibly responsive and made our anniversary celebration truly unforgettable. The location was perfect for exploring Center City.",
       highlight: "Perfect for special occasions",
       verified: true
     },
@@ -124,7 +124,7 @@ export default function EnhancedGuestExperiences() {
   }
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-white to-muted/30">
+    <section className="py-24 px-4 bg-gradient-to-b from-coastal-foam/20 to-coastal-mist/30">
       <div className="max-w-7xl mx-auto">
         
         {/* Header with Stats */}
@@ -133,7 +133,7 @@ export default function EnhancedGuestExperiences() {
             GUEST EXPERIENCES
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Discover why travelers choose StayLokal for their most memorable getaways
+            Discover why travelers choose Silver Pineapple for their most memorable getaways
           </p>
           
           {/* Animated Stats */}

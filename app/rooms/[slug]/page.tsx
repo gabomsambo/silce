@@ -41,7 +41,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
   }, [property?.hospitable_id])
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-sand-fade">
       <Navbar />
 
       {/* Gallery */}

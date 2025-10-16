@@ -169,7 +169,7 @@ export default function ReviewSubmissionForm() {
             SHARE YOUR EXPERIENCE
           </h2>
           <p className="text-lg text-gray-600">
-            Help future guests by sharing your StayLokal experience
+            Help future guests by sharing your Silver Pineapple experience
           </p>
         </div>
 

@@ -47,7 +47,7 @@ export default function DiscoverLocationSection() {
   ]
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-muted/30 to-white">
+    <section className="py-24 px-4 bg-gradient-to-b from-coastal-mist/40 via-white via-60% to-coastal-dune/20">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}

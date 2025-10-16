@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function LocationSection() {
   return (
-    <section className="py-20 px-4 bg-gray-50">
+    <section className="py-20 px-4 bg-gradient-to-b from-white to-coastal-dune/15">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text Column */}
@@ -25,25 +25,25 @@ export default function LocationSection() {
 
             {/* Neighborhood Highlights */}
             <div className="grid grid-cols-2 gap-4 mt-8">
-              <div className="bg-white p-4 rounded-xl">
+              <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
                 <h4 className="font-semibold text-primary mb-2">Arts & Murals</h4>
                 <p className="text-sm text-gray-600">
                   EGAD’s open-air art scene with galleries, studios, and 30+ murals a short walk away.
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-xl">
+              <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
                 <h4 className="font-semibold text-primary mb-2">Dining & Drinks</h4>
                 <p className="text-sm text-gray-600">
                   Rooftops, waterfront seafood, craft brews, and local coffee — all nearby.
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-xl">
+              <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
                 <h4 className="font-semibold text-primary mb-2">River & Parks</h4>
                 <p className="text-sm text-gray-600">
                   Ballard Park boat ramp, Eau Gallie Pier, and green spaces for sunrise walks.
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-xl">
+              <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
                 <h4 className="font-semibold text-primary mb-2">Beach & Access</h4>
                 <p className="text-sm text-gray-600">
                   Beaches in ~10–15 min via Eau Gallie Causeway; quick routes to US-1, I-95, and MLB airport.
@@ -55,7 +55,7 @@ export default function LocationSection() {
           {/* Image Column */}
           <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden">
             <Image
-              src="/6.jpg"
+              src="/beach+artsdistrict.jpeg"
               alt="Eau Gallie neighborhood and riverfront"
               fill
               className="object-cover"

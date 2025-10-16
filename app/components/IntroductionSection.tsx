@@ -2,13 +2,13 @@ import Image from "next/image"
 
 export default function IntroductionSection() {
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-transparent">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image Column */}
           <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden">
             <Image
-              src="/5.jpg"
+              src="/collage-about.png"
               alt="Silver Pineapple courtyard and buildings"
               fill
               className="object-cover"

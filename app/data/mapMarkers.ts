@@ -18,7 +18,7 @@ export const MAP_MARKERS: MapMarker[] = [
   {
     id: "staylokal-main",
     position: [28.1345, -80.6287],  // Eau Gallie main area
-    title: "StayLokal Properties",
+    title: "Silver Pineapple Properties",
     description: "Luxury vacation rentals in the heart of Eau Gallie Arts District",
     type: "property"
   },

@@ -38,10 +38,12 @@ dist/
 
 # MacOS
 .DS_Store
+**/.DS_Store
 .AppleDouble
 .LSOverride
 Icon?
 __MACOSX/
+._*
 
 # Editor / IDE
 .vscode/
@@ -91,10 +93,22 @@ storybook-static/
 *.db
 
 # Lockfiles (keep if you use a single manager; ignore others)
-# Uncomment one of the following to enforce a single lockfile policy:
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
+# Using npm (package-lock.json), ignore other package managers
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
 
-# Images: DO NOT ignore project images; keep user content under version control
-# (We intentionally do not ignore /public or /Property Photos)
+# Images: DO NOT ignore /public images (website assets)
+# Ignore source/working directories with duplicates
+Property Photos/
+Property\ Photos/
+
+# Working files (temporary, not needed in repo)
+real_reviews.md
+*_working.md
+*_draft.md
+scratch.*
+
+# Cursor AI specific
+.cursorrules
+.cursor/
