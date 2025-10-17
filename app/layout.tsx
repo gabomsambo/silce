@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
+import GoogleAnalytics from './components/GoogleAnalytics'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ html {
 }
         `}</style>
         <script src="https://hospitable.b-cdn.net/direct-property-search-widget/hospitable-search-widget.prod.js"></script>
+        <GoogleAnalytics />
       </head>
       <body>{children}</body>
     </html>
