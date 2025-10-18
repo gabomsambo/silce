@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from "next/navigation"
 import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
@@ -9,8 +10,77 @@ import { buildUnitLongDescription, formatPrice } from "../../data/copy"
 // Configure this route to use Edge Runtime for Cloudflare Pages compatibility
 export const runtime = 'edge'
 
-export default function PropertyPage({ params }: { params: { slug: string } }) {
-  const property = UNITS.find(p => p.slug === params.slug)
+// CRITICAL: Next.js 15 requires async params
+interface Props {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // CRITICAL: MUST await params in Next.js 15
+  const { slug } = await params
+  const unit = UNITS.find((u) => u.slug === slug)
+
+  if (!unit) {
+    return {
+      title: 'Property Not Found',
+      description: 'The requested property could not be found.',
+    }
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://silverpineapple.net'
+  const pageUrl = `${baseUrl}/rooms/${slug}`
+
+  return {
+    title: unit.title,  // Uses template from layout: "Unit 2528 | Silver Pineapple"
+    description: `${unit.title} in Melbourne, FL. Sleeps ${unit.maxGuests}, ${unit.bedrooms} bedroom, ${unit.bathrooms} bath. From ${formatPrice(unit.priceFrom)}/night.`,
+    keywords: [
+      unit.category,
+      'vacation rental',
+      'Melbourne FL',
+      'Eau Gallie',
+      `${unit.bedrooms} bedroom`,
+      'short-term rental',
+      'Florida vacation',
+    ],
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      type: 'website',
+      url: pageUrl,
+      title: `${unit.title} | Silver Pineapple`,
+      description: `Sleeps ${unit.maxGuests} · ${unit.bedrooms} bed · ${unit.bathrooms} bath · From ${formatPrice(unit.priceFrom)}/night`,
+      siteName: 'Silver Pineapple',
+      images: unit.images.length > 0 ? [
+        {
+          url: unit.images[0],  // Use first property photo as OG image
+          width: 1200,
+          height: 630,
+          alt: unit.title,
+        }
+      ] : [
+        {
+          url: '/og-rooms.jpg',  // Fallback to generic rooms image
+          width: 1200,
+          height: 630,
+          alt: 'Silver Pineapple Properties',
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${unit.title} | Silver Pineapple`,
+      description: `Sleeps ${unit.maxGuests} · From ${formatPrice(unit.priceFrom)}/night`,
+      images: unit.images.length > 0 ? [unit.images[0]] : ['/og-rooms.jpg'],
+    },
+  }
+}
+
+// CRITICAL: Page component also needs async params
+export default async function PropertyPage({ params }: Props) {
+  const { slug } = await params  // MUST await
+  const property = UNITS.find(p => p.slug === slug)
   if (!property) notFound()
 
   return (

@@ -1,8 +1,16 @@
-"use client"
-
+import type { Metadata } from "next"
 import Link from "next/link"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+
+export const metadata: Metadata = {
+  title: "Test Page - Do Not Index",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+}
 
 export default function TestBookingPage() {
   return (

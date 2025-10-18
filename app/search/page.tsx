@@ -17,9 +17,6 @@ export default function SearchPage() {
       // Clear any existing content and append the widget
       widgetRef.current.innerHTML = ''
       widgetRef.current.appendChild(hospElement)
-      
-      // Log for debugging
-      console.log('Hospitable search results widget created and added to DOM')
     }
 
     // Function to customize the widget text after it loads

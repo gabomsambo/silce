@@ -43,8 +43,6 @@ export default function BoutiqueNewsletterSignup() {
       spread: 70,
       origin: { y: 0.6 }
     })
-
-    console.log("Boutique newsletter signup:", formData)
   }
 
   // Boutique family business benefits

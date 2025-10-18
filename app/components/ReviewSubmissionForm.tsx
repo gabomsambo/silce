@@ -99,8 +99,6 @@ export default function ReviewSubmissionForm() {
       // For now, simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500))
 
-      console.log("Review submitted:", data)
-
       // Success state
       setIsSuccess(true)
 

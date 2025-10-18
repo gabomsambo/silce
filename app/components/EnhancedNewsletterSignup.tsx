@@ -67,8 +67,6 @@ export default function EnhancedNewsletterSignup() {
         origin: { x: 1 }
       })
     }, 400)
-
-    console.log("Enhanced newsletter signup:", formData)
   }
 
   const benefits = [

@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react"
 import Logo from "./Logo"
 
@@ -32,13 +33,21 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-6 tracking-wide">QUICK LINKS</h3>
             <ul className="space-y-3">
-              {["Hotels", "Homes", "About", "Reviews", "Shop", "Contact"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                    {link}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link href="/rooms" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                  Rooms
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/reviews" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                  Reviews
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -47,23 +56,13 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-6 tracking-wide">BOOKING</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                  Make a Reservation
-                </a>
+                <Link href="/rooms" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                  Browse Properties
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <a href="mailto:silverpineapplehosto@gmail.com?subject=Group Booking Inquiry" className="text-gray-300 hover:text-tan transition-colors duration-300">
                   Group Bookings
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                  Special Offers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                  Gift Cards
                 </a>
               </li>
             </ul>
@@ -89,7 +88,7 @@ export default function Footer() {
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-tan mr-3" />
                 <a
-                  href="mailto:hello@staylokal.com"
+                  href="mailto:silverpineapplehosto@gmail.com"
                   className="text-gray-300 hover:text-tan transition-colors duration-300"
                 >
                   silverpineapplehosto@gmail.com
@@ -101,19 +100,8 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2024 Silver Pineapple. All rights reserved.</p>
-            <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-tan transition-colors duration-300">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-tan transition-colors duration-300">
-                Terms & Conditions
-              </a>
-              <a href="#" className="text-gray-400 hover:text-tan transition-colors duration-300">
-                Accessibility
-              </a>
-            </div>
+          <div className="flex flex-col md:flex-row justify-center items-center">
+            <p className="text-gray-400 text-sm">© 2024 Silver Pineapple. All rights reserved.</p>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "silver-pineapple-website",
+  "version": "1.0.0",
+  "description": "Boutique short-term rental website for Silver Pineapple properties in Melbourne, FL",
   "private": true,
   "scripts": {
     "build": "next build",
