@@ -6,42 +6,36 @@ export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://silverpineapple.net'
+  const locales = ['en', 'es']
 
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/rooms`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/reviews`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
-  ]
+  const allPages: MetadataRoute.Sitemap = []
 
-  // Dynamic property pages (9 units from UNITS array)
-  const propertyPages: MetadataRoute.Sitemap = UNITS.map((unit) => ({
-    url: `${baseUrl}/rooms/${unit.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.9,  // High priority - conversion pages
-  }))
+  // Static pages with locale prefixes
+  const staticRoutes = ['', '/rooms', '/about', '/reviews']
+  const staticPriorities = [1.0, 0.8, 0.5, 0.6]
 
-  return [...staticPages, ...propertyPages]
+  staticRoutes.forEach((route, index) => {
+    locales.forEach(locale => {
+      allPages.push({
+        url: `${baseUrl}/${locale}${route}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: staticPriorities[index],
+      })
+    })
+  })
+
+  // Dynamic property pages (9 units × 2 locales = 18 pages)
+  UNITS.forEach((unit) => {
+    locales.forEach(locale => {
+      allPages.push({
+        url: `${baseUrl}/${locale}/rooms/${unit.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,  // High priority - conversion pages
+      })
+    })
+  })
+
+  return allPages
 }

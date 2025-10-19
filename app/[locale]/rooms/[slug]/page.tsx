@@ -121,7 +121,6 @@ export default async function PropertyPage({ params }: Props) {
   if (!property) notFound();
 
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
-  const tCommon = await getTranslations({ locale, namespace: 'common' });
 
   return (
     <main className="min-h-screen bg-sand-fade">

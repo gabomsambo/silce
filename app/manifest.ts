@@ -1,8 +1,5 @@
 import type { MetadataRoute } from 'next'
 
-// CRITICAL: Edge runtime required for Cloudflare Pages
-export const runtime = 'edge'
-
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Silver Pineapple | Boutique Short-Term Rentals',

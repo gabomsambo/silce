@@ -16,3 +16,7 @@ const nextConfig = {
 }
 
 export default withNextIntl(nextConfig)
+
+// Enable Cloudflare bindings in local development
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();

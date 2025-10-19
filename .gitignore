@@ -116,6 +116,13 @@ scratch.*
 # Vercel deployment outputs
 .vercel
 
+# Cloudflare
+.open-next/
+.worker-next/
+.wrangler/
+.dev.vars
+cloudflare-env.d.ts
+
 # Turbo build cache
 .turbo
 

@@ -1,0 +1,12 @@
+name = "silver-pineapple"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+pages_build_output_dir = ".open-next"
+
+# Environment variables (client-side only, no secrets)
+[vars]
+NEXT_PUBLIC_SITE_URL = "https://silverpineapple.net"
+
+# Note: For secrets (like API keys), use Cloudflare dashboard:
+# Settings > Environment Variables > Production
