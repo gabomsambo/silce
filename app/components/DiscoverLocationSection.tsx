@@ -5,43 +5,46 @@ import Image from "next/image"
 import { MagicCard } from "@/components/ui/magic-card"
 import MapWrapper from "./MapWrapper"
 import { MAP_MARKERS, EAU_GALLIE_CENTER } from "@/app/data/mapMarkers"
+import { useTranslations } from "next-intl"
 
 export default function DiscoverLocationSection() {
+  const t = useTranslations("discoverLocation")
+
   const highlights = [
     {
       icon: Palette,
-      title: "Arts & Culture",
-      description: "30+ vibrant murals and 50+ galleries in the historic Eau Gallie Arts District (EGAD)",
+      title: t("highlights.arts.title"),
+      description: t("highlights.arts.description"),
       color: "text-purple-600"
     },
     {
       icon: Waves,
-      title: "Beach Access",
-      description: "10-15 minute drive to pristine Atlantic beaches via the scenic Eau Gallie Causeway",
+      title: t("highlights.beach.title"),
+      description: t("highlights.beach.description"),
       color: "text-blue-600"
     },
     {
       icon: UtensilsCrossed,
-      title: "Dining & Drinks",
-      description: "Waterfront dining, craft breweries, and local cafés steps from your door",
+      title: t("highlights.dining.title"),
+      description: t("highlights.dining.description"),
       color: "text-orange-600"
     },
     {
       icon: Leaf,
-      title: "Nature & Wildlife",
-      description: "Indian River Lagoon home to 700+ dolphins, sea turtle nesting beaches, and scenic trails",
+      title: t("highlights.nature.title"),
+      description: t("highlights.nature.description"),
       color: "text-green-600"
     },
     {
       icon: Rocket,
-      title: "Space Exploration",
-      description: "Kennedy Space Center just 50 minutes north - witness launches from the Space Coast",
+      title: t("highlights.space.title"),
+      description: t("highlights.space.description"),
       color: "text-red-600"
     },
     {
       icon: Music,
-      title: "Nightlife & Events",
-      description: "Live music, weekly art walks, and year-round festivals in a walkable historic district",
+      title: t("highlights.nightlife.title"),
+      description: t("highlights.nightlife.description"),
       color: "text-pink-600"
     }
   ]
@@ -53,10 +56,10 @@ export default function DiscoverLocationSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold text-primary mb-6 tracking-tight">
-            DISCOVER EAU GALLIE & THE SPACE COAST
+            {t("mainHeading")}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Your gateway to Florida's vibrant arts scene, pristine beaches, and legendary space exploration
+            {t("introText")}
           </p>
         </div>
 
@@ -67,40 +70,33 @@ export default function DiscoverLocationSection() {
           <div className="space-y-8">
             <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
               <p>
-                Welcome to <span className="font-semibold text-primary">Eau Gallie</span> (pronounced "oh-GAL-ee"),
-                Melbourne's creative heart. Named for the colorful coquina rocks found in the shallow waters, this
-                historic riverfront neighborhood has evolved into one of Florida's most vibrant arts communities.
+                {t("welcome")}
               </p>
               <p>
-                From your doorstep, wander the <span className="font-semibold">Eau Gallie Arts District</span> with
-                its 30+ outdoor murals, 50+ galleries and boutiques, craft breweries like Intracoastal Brewing Company,
-                and waterfront dining. Cross the scenic causeway to reach pristine Atlantic beaches in just 10-15 minutes,
-                or venture north to witness rocket launches from Kennedy Space Center.
+                {t("fromDoorstep")}
               </p>
               <p>
-                Whether you're here for art walks and live music, dolphin watching on the Indian River Lagoon, or
-                exploring the Space Coast's natural beauty, Eau Gallie offers the perfect base for an unforgettable
-                Florida experience.
+                {t("whetherHere")}
               </p>
             </div>
 
             {/* Quick Stats Bar */}
             <div className="grid grid-cols-2 gap-4 pt-4">
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">10 min</div>
-                <div className="text-sm text-gray-600">to Atlantic Beaches</div>
+                <div className="text-3xl font-bold text-tan mb-1">{t("stats.beaches.value")}</div>
+                <div className="text-sm text-gray-600">{t("stats.beaches.label")}</div>
               </div>
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">50+</div>
-                <div className="text-sm text-gray-600">Galleries & Murals</div>
+                <div className="text-3xl font-bold text-tan mb-1">{t("stats.galleries.value")}</div>
+                <div className="text-sm text-gray-600">{t("stats.galleries.label")}</div>
               </div>
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">50 min</div>
-                <div className="text-sm text-gray-600">to Kennedy Space Center</div>
+                <div className="text-3xl font-bold text-tan mb-1">{t("stats.spaceCenter.value")}</div>
+                <div className="text-sm text-gray-600">{t("stats.spaceCenter.label")}</div>
               </div>
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">700+</div>
-                <div className="text-sm text-gray-600">Dolphins in Lagoon</div>
+                <div className="text-3xl font-bold text-tan mb-1">{t("stats.dolphins.value")}</div>
+                <div className="text-sm text-gray-600">{t("stats.dolphins.label")}</div>
               </div>
             </div>
           </div>
@@ -122,7 +118,7 @@ export default function DiscoverLocationSection() {
         {/* Highlights Grid */}
         <div>
           <h3 className="text-2xl md:text-3xl font-bold text-primary mb-8 text-center">
-            What Makes This Location Special
+            {t("sectionHeading")}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {highlights.map((highlight, index) => {
@@ -147,14 +143,14 @@ export default function DiscoverLocationSection() {
         {/* CTA */}
         <div className="text-center mt-16">
           <p className="text-gray-600 mb-6 text-lg">
-            Ready to experience the best of Florida's Space Coast?
+            {t("ready")}
           </p>
           <a
             href="/rooms"
             className="inline-block px-8 py-4 bg-tan text-white font-semibold rounded-lg
             hover:bg-tan/90 transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
-            Explore Our Properties
+            {t("ctaButton")}
           </a>
         </div>
       </div>

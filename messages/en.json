@@ -1,0 +1,315 @@
+{
+  "navbar": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "about": "About",
+    "reviews": "Reviews",
+    "bookNow": "BOOK NOW",
+    "languageToggle": "ES",
+    "translateTo": "TRANSLATE TO SPANISH"
+  },
+  "footer": {
+    "tagline": "Redefining hospitality through carefully curated boutique experiences that connect travelers with the authentic spirit of each destination.",
+    "quickLinksHeading": "QUICK LINKS",
+    "bookingHeading": "BOOKING",
+    "contactHeading": "CONTACT",
+    "rooms": "Rooms",
+    "about": "About",
+    "reviews": "Reviews",
+    "browseProperties": "Browse Properties",
+    "groupBookings": "Group Bookings",
+    "copyright": "© 2024 Silver Pineapple. All rights reserved."
+  },
+  "hero": {
+    "heading": "UPGRADE YOUR NEXT STAY",
+    "subheading": "Experience charming boutique accommodations near the ocean",
+    "bookNow": "Book Now"
+  },
+  "introduction": {
+    "heading": "REDEFINING HOSPITALITY",
+    "body": "At Silver Pineapple, we believe that every journey deserves an extraordinary destination. Our carefully curated collection of boutique properties offers more than just a place to rest— we provide immersive experiences that connect you with the authentic spirit of each location."
+  },
+  "discoverLocation": {
+    "mainHeading": "DISCOVER EAU GALLIE & THE SPACE COAST",
+    "sectionHeading": "What Makes This Location Special",
+    "introText": "Your gateway to Florida's vibrant arts scene, pristine beaches, and legendary space exploration",
+    "welcome": "Welcome to Eau Gallie, Melbourne's creative heart. Named for the colorful coquina rocks found in the shallow waters, this historic riverfront neighborhood has evolved into one of Florida's most vibrant arts communities.",
+    "fromDoorstep": "From your doorstep, wander the Eau Gallie Arts District with its 30+ outdoor murals, 50+ galleries and boutiques, craft breweries like Intracoastal Brewing Company, and waterfront dining. Cross the scenic causeway to reach pristine Atlantic beaches in just 10-15 minutes, or venture north to witness rocket launches from Kennedy Space Center.",
+    "whetherHere": "Whether you're here for art walks and live music, dolphin watching on the Indian River Lagoon, or exploring the Space Coast's natural beauty, Eau Gallie offers the perfect base for an unforgettable Florida experience.",
+    "ready": "Ready to experience the best of Florida's Space Coast?",
+    "ctaButton": "Explore Our Properties",
+    "highlights": {
+      "arts": {
+        "title": "Arts & Culture",
+        "description": "30+ vibrant murals and 50+ galleries in the historic Eau Gallie Arts District (EGAD)"
+      },
+      "beach": {
+        "title": "Beach Access",
+        "description": "10-15 minute drive to pristine Atlantic beaches via the scenic Eau Gallie Causeway"
+      },
+      "dining": {
+        "title": "Dining & Drinks",
+        "description": "Waterfront dining, craft breweries, and local cafés steps from your door"
+      },
+      "nature": {
+        "title": "Nature & Wildlife",
+        "description": "Indian River Lagoon home to 700+ dolphins, sea turtle nesting beaches, and scenic trails"
+      },
+      "space": {
+        "title": "Space Exploration",
+        "description": "Kennedy Space Center just 50 minutes north - witness launches from the Space Coast"
+      },
+      "nightlife": {
+        "title": "Nightlife & Events",
+        "description": "Live music, weekly art walks, and year-round festivals in a walkable historic district"
+      }
+    },
+    "stats": {
+      "beaches": {
+        "value": "10 min",
+        "label": "to Atlantic Beaches"
+      },
+      "galleries": {
+        "value": "50+",
+        "label": "Galleries & Murals"
+      },
+      "spaceCenter": {
+        "value": "50 min",
+        "label": "to Kennedy Space Center"
+      },
+      "dolphins": {
+        "value": "700+",
+        "label": "Dolphins in Lagoon"
+      }
+    }
+  },
+  "newsletter": {
+    "headingJoin": "Join Our Family",
+    "headingSpecial": "What Makes Us Special",
+    "headingStayConnected": "Stay Connected",
+    "headingSuccess": "Welcome to Our Family!",
+    "bodyIntro": "Be part of our close-knit community and receive personal recommendations, family discounts, and insider tips from our hearts to yours.",
+    "bodySuccess1": "Thank you for joining our close-knit community. We're excited to share our personal recommendations and help make your stays truly special.",
+    "bodySuccess2": "Keep an eye on your inbox for a warm welcome message from our family, including your exclusive discount code!",
+    "bodyCta": "Join our family for personal touches and exclusive offers",
+    "privacyText": "We respect your privacy. Unsubscribe at any time.",
+    "benefits": {
+      "personal": {
+        "title": "Personal Recommendations",
+        "description": "Handpicked suggestions from our family to yours"
+      },
+      "discounts": {
+        "title": "Family Discounts",
+        "description": "Exclusive offers for our close-knit community"
+      },
+      "tips": {
+        "title": "Local Insider Tips",
+        "description": "Hidden gems and local favorites we love to share"
+      },
+      "hospitality": {
+        "title": "Warm Hospitality",
+        "description": "Personal touches that make you feel at home"
+      }
+    },
+    "form": {
+      "labelFirstName": "First Name",
+      "placeholderFirstName": "Your first name",
+      "labelEmail": "Email Address",
+      "placeholderEmail": "your@email.com",
+      "labelInterests": "What interests you most?",
+      "buttonSubmit": "Join Our Family",
+      "interests": {
+        "studios": "New Studio Openings",
+        "experiences": "Local Experiences",
+        "discounts": "Family Discounts",
+        "seasonal": "Seasonal Recommendations"
+      }
+    }
+  },
+  "rooms": {
+    "hero": {
+      "heading": "Our Accommodations",
+      "subheading": "Find Your Perfect Home Away From Home"
+    },
+    "introduction": "Each of our thoughtfully designed accommodations combines the comfort of home with the luxury of a boutique hotel. Whether you're staying for business or pleasure, our spaces are crafted to provide an exceptional experience that exceeds your expectations.",
+    "amenities": {
+      "heading": "Included Amenities",
+      "subheading": "Practical comforts across all Silver Pineapple stays",
+      "list": {
+        "wifi": {
+          "title": "High-Speed Wi-Fi",
+          "description": "Reliable internet in every unit"
+        },
+        "keyless": {
+          "title": "Keyless Entry",
+          "description": "Secure digital access"
+        },
+        "checkin": {
+          "title": "Self Check-In",
+          "description": "Flexible arrivals"
+        },
+        "parking": {
+          "title": "Parking",
+          "description": "Convenient on-site options"
+        },
+        "laundry": {
+          "title": "On-Site Laundry",
+          "description": "Easy, practical stays"
+        },
+        "coffee": {
+          "title": "Coffee & Tea",
+          "description": "Complimentary in every unit"
+        },
+        "tv": {
+          "title": "Smart TV",
+          "description": "Log into your streaming apps"
+        },
+        "ac": {
+          "title": "A/C & Heating",
+          "description": "Comfort year-round"
+        }
+      }
+    },
+    "category": {
+      "pricingSuffix": "/night",
+      "ctaLink": "View details & book"
+    },
+    "card": {
+      "buttonPrimary": "View Details & Book",
+      "buttonFallback": "Check Availability"
+    }
+  },
+  "about": {
+    "hero": {
+      "heading": "About Silver Pineapple",
+      "subheading": "Short stays, local charm — steps from the Eau Gallie Public Library."
+    },
+    "introduction": {
+      "heading": "Two Buildings. One Backyard. All Welcome.",
+      "paragraph1": "Silver Pineapple is a pair of friendly, locally managed buildings that share a sunny backyard — a simple, comfortable home base for short stays, work trips, and seasonal escapes in the heart of Eau Gallie.",
+      "paragraph2": "We keep things easy: renovated units, on-site laundry, and hassle-free parking. Step outside and you're beside the Eau Gallie Public Library and a walkable arts district full of color, coffee, galleries, and river breezes.",
+      "paragraph3": "Our goal is neighborly hospitality — clear communication, practical comforts, and a real connection to the neighborhood so you can live like a local from day one."
+    },
+    "founder": {
+      "heading": "How We Operate",
+      "body": "Silver Pineapple is locally managed by a small, hands-on team. We value clear communication, quick responses, and the kind of thoughtful touches that make short stays feel effortless. While we keep a low profile, we're always nearby when you need us a friendly, reliable, and committed to a great experience."
+    },
+    "philosophy": {
+      "heading": "What We Value",
+      "subheading": "Four simple pillars that guide every stay at Silver Pineapple.",
+      "comfort": {
+        "title": "Comfort & Convenience",
+        "description": "Renovated, practical spaces with on-site laundry and easy parking — the essentials handled so you can relax."
+      },
+      "seamless": {
+        "title": "Seamless Stays",
+        "description": "Simple bookings, clear communication, and flexible short-term or seasonal options for stress-free travel."
+      },
+      "local": {
+        "title": "Local Connection",
+        "description": "Live steps from the Eau Gallie Public Library, murals, galleries, coffee, and riverfront parks in Melbourne's arts district."
+      },
+      "trusted": {
+        "title": "Trusted Hospitality",
+        "description": "Friendly, responsive, locally based management focused on cleanliness, comfort, and a worry-free stay."
+      }
+    },
+    "location": {
+      "heading": "Discover Eau Gallie",
+      "paragraph1": "Welcome to Melbourne's creative heart. From our doorstep beside the Eau Gallie Public Library, you can wander a walkable district filled with colorful murals, independent galleries, cozy cafés, and breezy riverfront parks — with the Atlantic beaches just a quick drive over the causeway.",
+      "paragraph2": "Whether you're here for a few nights or a few months, Eau Gallie offers an easy rhythm of art, markets, live music, and waterfront sunsets — the perfect base for Space Coast adventures.",
+      "arts": {
+        "title": "Arts & Murals",
+        "description": "EGAD's open-air art scene with galleries, studios, and 30+ murals a short walk away."
+      },
+      "dining": {
+        "title": "Dining & Drinks",
+        "description": "Rooftops, waterfront seafood, craft brews, and local coffee — all nearby."
+      },
+      "parks": {
+        "title": "River & Parks",
+        "description": "Ballard Park boat ramp, Eau Gallie Pier, and green spaces for sunrise walks."
+      },
+      "beach": {
+        "title": "Beach & Access",
+        "description": "Beaches in ~10–15 min via Eau Gallie Causeway; quick routes to US-1, I-95, and MLB airport."
+      }
+    },
+    "cta": {
+      "heading": "Ready to Experience Our Space?",
+      "body": "Tell us your dates and what you need we'll help you plan a comfortable short stay at Silver Pineapple.",
+      "buttonRooms": "Explore Our Rooms",
+      "buttonBook": "Book Now"
+    }
+  },
+  "reviews": {
+    "hero": {
+      "heading": "GUEST REVIEWS",
+      "subheading": "Read what our guests say and share your own Silver Pineapple experience"
+    },
+    "stats": {
+      "heading": "TRUSTED ACROSS ALL PLATFORMS",
+      "body": "Our commitment to excellence is reflected in our consistent ratings across all major booking platforms. Every review represents a real guest experience and our dedication to hospitality."
+    },
+    "display": {
+      "heading": "RECENT GUEST REVIEWS",
+      "subheading": "Authentic experiences from our valued guests"
+    }
+  },
+  "metadata": {
+    "home": {
+      "title": "Home",
+      "description": "Discover boutique short-term rentals in Eau Gallie, Melbourne FL.",
+      "ogTitle": "Silver Pineapple | Boutique Short-Term Rentals",
+      "ogDescription": "Live like a local in Melbourne's arts district.",
+      "twitterTitle": "Silver Pineapple | Boutique Short-Term Rentals",
+      "twitterDescription": "Boutique rentals in Eau Gallie, Melbourne FL."
+    },
+    "rooms": {
+      "title": "Our Properties",
+      "description": "Browse our collection of boutique short-term rentals.",
+      "ogTitle": "Our Properties | Silver Pineapple",
+      "ogDescription": "Explore renovated units in Melbourne's arts district.",
+      "twitterTitle": "Our Properties | Silver Pineapple",
+      "twitterDescription": "Boutique short-term rentals in Eau Gallie."
+    },
+    "about": {
+      "title": "About Silver Pineapple",
+      "description": "Stay steps from the Eau Gallie Public Library.",
+      "ogTitle": "About Silver Pineapple",
+      "ogDescription": "Live like a local in Melbourne's arts district.",
+      "twitterTitle": "About Silver Pineapple",
+      "twitterDescription": "Live like a local in Melbourne's arts district."
+    },
+    "reviews": {
+      "title": "Guest Reviews",
+      "description": "Read authentic guest reviews.",
+      "ogTitle": "Guest Reviews | Silver Pineapple",
+      "ogDescription": "Real reviews from real guests.",
+      "twitterTitle": "Guest Reviews | Silver Pineapple",
+      "twitterDescription": "Read what our guests say."
+    },
+    "global": {
+      "defaultTitle": "Silver Pineapple | Boutique Short-Term Rentals in Melbourne, FL",
+      "titleTemplate": "%s | Silver Pineapple",
+      "description": "Discover boutique short-term rentals in Eau Gallie, Melbourne FL.",
+      "keywords": ["short-term rental", "Melbourne FL", "Eau Gallie"],
+      "ogTitle": "Silver Pineapple | Boutique Short-Term Rentals",
+      "ogDescription": "Boutique short-term rentals in Eau Gallie.",
+      "twitterTitle": "Silver Pineapple | Boutique Short-Term Rentals",
+      "twitterDescription": "Boutique rentals in Melbourne FL."
+    }
+  },
+  "propertyDetail": {
+    "templates": {
+      "metaDescription": "{title} in Melbourne, FL. Sleeps {maxGuests}.",
+      "ogDescription": "Sleeps {maxGuests}",
+      "specsGuests": "{maxGuests} guests",
+      "specsBedrooms": "{bedrooms} bedroom",
+      "specsBedroomsPlural": "{bedrooms} bedrooms",
+      "specsBathrooms": "{bathrooms} bathroom",
+      "specsBathroomsPlural": "{bathrooms} bathrooms",
+      "pricing": "From {price}/night"
+    }
+  }
+}

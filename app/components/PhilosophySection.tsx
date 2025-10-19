@@ -1,30 +1,31 @@
+"use client"
+
 import { Heart, Zap, MapPin, Shield } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export default function PhilosophySection() {
+  const t = useTranslations("about.philosophy")
+
   const philosophies = [
     {
       icon: Heart,
-      title: "Comfort & Convenience",
-      description:
-        "Renovated, practical spaces with on-site laundry and easy parking — the essentials handled so you can relax.",
+      title: t("comfort.title"),
+      description: t("comfort.description"),
     },
     {
       icon: Zap,
-      title: "Seamless Stays",
-      description:
-        "Simple bookings, clear communication, and flexible short-term or seasonal options for stress-free travel.",
+      title: t("seamless.title"),
+      description: t("seamless.description"),
     },
     {
       icon: MapPin,
-      title: "Local Connection",
-      description:
-        "Live steps from the Eau Gallie Public Library, murals, galleries, coffee, and riverfront parks in Melbourne’s arts district.",
+      title: t("local.title"),
+      description: t("local.description"),
     },
     {
       icon: Shield,
-      title: "Trusted Hospitality",
-      description:
-        "Friendly, responsive, locally based management focused on cleanliness, comfort, and a worry-free stay.",
+      title: t("trusted.title"),
+      description: t("trusted.description"),
     },
   ]
 
@@ -32,9 +33,9 @@ export default function PhilosophySection() {
     <section className="py-20 px-4 bg-transparent">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">What We Value</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">{t("heading")}</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Four simple pillars that guide every stay at Silver Pineapple.
+            {t("subheading")}
           </p>
         </div>
 

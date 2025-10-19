@@ -1,13 +1,18 @@
+"use client"
+
 import { Star } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { MagicCard } from "@/components/ui/magic-card"
 import { PLATFORM_STATS, getAverageRating, getTotalReviewCount } from "@/app/data/reviews"
 
 export default function ReviewStatsSection() {
+  const t = useTranslations("reviews.stats")
+
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-white to-muted/30">
       <div className="max-w-5xl mx-auto">
         <h3 className="text-3xl md:text-4xl font-bold text-primary mb-12 text-center tracking-tight">
-          TRUSTED ACROSS ALL PLATFORMS
+          {t("heading")}
         </h3>
 
         {/* Overall Stats */}
@@ -60,8 +65,7 @@ export default function ReviewStatsSection() {
         {/* Trust Message */}
         <div className="mt-12 text-center">
           <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Our commitment to excellence is reflected in our consistent ratings across all major booking platforms.
-            Every review represents a real guest experience and our dedication to hospitality.
+            {t("body")}
           </p>
         </div>
       </div>

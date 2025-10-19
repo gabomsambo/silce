@@ -1,10 +1,14 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import { formatPrice, buildUnitShortDescription } from "../data/copy"
 import type { CategoryMeta } from "../data/categories"
 import type { Unit } from "../data/units"
 
 export default function RoomCategorySection({ category, units }: { category: CategoryMeta, units: Unit[] }) {
+  const t = useTranslations("rooms.category")
   if (!units.length) return null
   const featured = units[0]
 
@@ -43,11 +47,11 @@ export default function RoomCategorySection({ category, units }: { category: Cat
             <div className="p-5">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="text-xl font-semibold text-gray-900">{featured.title}</h3>
-                <div className="text-tan font-semibold">{formatPrice(featured.priceFrom)}/night</div>
+                <div className="text-tan font-semibold">{formatPrice(featured.priceFrom)}{t("pricingSuffix")}</div>
               </div>
               <p className="text-sm text-gray-600">{buildUnitShortDescription(featured)}</p>
               <div className="mt-4 inline-flex items-center text-sm font-medium text-tan group-hover:underline">
-                View details & book →
+                {t("ctaLink")} →
               </div>
             </div>
           </Link>
@@ -62,7 +66,7 @@ export default function RoomCategorySection({ category, units }: { category: Cat
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-1">
                     <h4 className="font-semibold text-gray-900">{u.title}</h4>
-                    <div className="text-tan font-semibold text-sm">{formatPrice(u.priceFrom)}/night</div>
+                    <div className="text-tan font-semibold text-sm">{formatPrice(u.priceFrom)}{t("pricingSuffix")}</div>
                   </div>
                   <p className="text-xs text-gray-600">{buildUnitShortDescription(u)}</p>
                 </div>

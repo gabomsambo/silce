@@ -2,11 +2,13 @@
 
 import { useState, useMemo } from "react"
 import { Star, Filter } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { MagicCard } from "@/components/ui/magic-card"
 import { REVIEWS, getReviewsSortedByDate, type ReviewPlatform } from "@/app/data/reviews"
 import { UNITS } from "@/app/data/units"
 
 export default function ReviewsDisplay() {
+  const t = useTranslations("reviews.display")
   const [selectedProperty, setSelectedProperty] = useState<string>("all")
   const [minRating, setMinRating] = useState<number>(1)
   const [selectedPlatform, setSelectedPlatform] = useState<string>("all")
@@ -56,10 +58,10 @@ export default function ReviewsDisplay() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
-            RECENT GUEST REVIEWS
+            {t("heading")}
           </h2>
           <p className="text-lg text-gray-600">
-            Authentic experiences from our valued guests
+            {t("subheading")}
           </p>
         </div>
 

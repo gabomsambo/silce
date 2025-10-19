@@ -1,0 +1,708 @@
+{
+  "_metadata": {
+    "language": "es",
+    "dialect": "Latin American Spanish (neutral)",
+    "target_market": "Florida / US Hispanic market",
+    "version": "1.0",
+    "last_updated": "2025-10-19",
+    "translator_notes": "Translations use neutral Latin American Spanish (vosotros forms avoided). Formal 'usted' used for respect in hospitality context. Marketing tone preserved. Brand names, place names, and technical terms kept in English per inventory guidelines."
+  },
+
+  "navbar": {
+    "home": "Inicio",
+    "rooms": "Alojamientos",
+    "about": "Nosotros",
+    "reviews": "Opiniones",
+    "book_now": "RESERVAR AHORA",
+    "language_toggle": "EN",
+    "translate_to_spanish": "TRADUCIR AL INGLÉS",
+    "_notes": {
+      "rooms": "Using 'Alojamientos' (accommodations) instead of 'Habitaciones' (rooms) as it's more upscale and appropriate for boutique rentals",
+      "language_toggle": "Shows 'EN' when Spanish is active (indicates switch to English)",
+      "translate_button": "Mobile menu shows opposite language when Spanish is active"
+    }
+  },
+
+  "footer": {
+    "tagline": "Redefiniendo la hospitalidad a través de experiencias boutique cuidadosamente seleccionadas que conectan a los viajeros con el espíritu auténtico de cada destino.",
+    "quick_links_heading": "ENLACES RÁPIDOS",
+    "booking_heading": "RESERVAS",
+    "contact_heading": "CONTACTO",
+    "links": {
+      "rooms": "Alojamientos",
+      "about": "Nosotros",
+      "reviews": "Opiniones",
+      "browse_properties": "Explorar Propiedades",
+      "group_bookings": "Reservas Grupales"
+    },
+    "location_text": "Melbourne, FL 32935",
+    "copyright": "© 2024 Silver Pineapple. Todos los derechos reservados.",
+    "_notes": {
+      "tagline": "Maintained elevated, aspirational tone of English version",
+      "copyright": "Standard Spanish copyright format"
+    }
+  },
+
+  "home_page": {
+    "metadata": {
+      "title": "Inicio",
+      "description": "Descubra alquileres boutique a corto plazo en Eau Gallie, Melbourne FL. A pasos del distrito de las artes, a 10 minutos de las playas. Unidades renovadas con estacionamiento, lavandería y encanto costero.",
+      "og_title": "Silver Pineapple | Alquileres Boutique a Corto Plazo en Melbourne, FL",
+      "og_description": "Viva como un local en el distrito de las artes de Melbourne. Unidades renovadas, estacionamiento fácil, lavandería en el lugar, a pasos de murales y cafés, playas a minutos de distancia.",
+      "twitter_title": "Silver Pineapple | Alquileres Boutique a Corto Plazo",
+      "twitter_description": "Alquileres boutique en Eau Gallie, Melbourne FL. Ubicación en el distrito de las artes, acceso a la playa, unidades renovadas con todas las comodidades."
+    }
+  },
+
+  "hero": {
+    "heading": "MEJORE SU PRÓXIMA ESTADÍA",
+    "subheading": "Experimente encantadores alojamientos boutique cerca del océano",
+    "_notes": {
+      "heading": "Using 'MEJORE' (upgrade) maintains aspirational tone; 'ESTADÍA' is neutral LatAm Spanish for 'stay'",
+      "subheading": "Using 'alojamientos' for upscale feel, 'océano' rather than 'mar' for Atlantic Ocean context"
+    }
+  },
+
+  "introduction": {
+    "heading": "REDEFINIENDO LA HOSPITALIDAD",
+    "body": "En Silver Pineapple, creemos que cada viaje merece un destino extraordinario. Nuestra colección cuidadosamente seleccionada de propiedades boutique ofrece más que solo un lugar para descansar: brindamos experiencias inmersivas que lo conectan con el espíritu auténtico de cada lugar.",
+    "_notes": {
+      "body": "Using formal 'lo' (you) for hospitality tone; 'lugar' instead of 'ubicación' for warmer feel"
+    }
+  },
+
+  "discover_location": {
+    "main_heading": "DESCUBRA EAU GALLIE Y EL SPACE COAST",
+    "section_heading": "Qué Hace Especial Este Lugar",
+    "intro_text": "Su puerta de entrada a la vibrante escena artística de Florida, playas vírgenes y la legendaria exploración espacial",
+    "paragraphs": {
+      "welcome": "Bienvenido a Eau Gallie (se pronuncia "oh-GAL-ee"), el corazón creativo de Melbourne. Nombrado por las coloridas rocas coquina que se encuentran en las aguas poco profundas, este histórico vecindario frente al río ha evolucionado para convertirse en una de las comunidades artísticas más vibrantes de Florida.",
+      "from_doorstep": "Desde su puerta, pasee por el Distrito de las Artes de Eau Gallie con sus más de 30 murales al aire libre, más de 50 galerías y boutiques, cervecerías artesanales como Intracoastal Brewing Company y restaurantes frente al agua. Cruce la pintoresca calzada para llegar a las playas vírgenes del Atlántico en solo 10-15 minutos, o aventúrese al norte para presenciar lanzamientos de cohetes desde el Kennedy Space Center.",
+      "whether_here": "Ya sea que esté aquí por paseos de arte y música en vivo, avistamiento de delfines en el Indian River Lagoon, o explorando la belleza natural del Space Coast, Eau Gallie ofrece la base perfecta para una experiencia inolvidable en Florida.",
+      "ready": "¿Listo para experimentar lo mejor del Space Coast de Florida?"
+    },
+    "highlights": [
+      {
+        "title": "Arte y Cultura",
+        "description": "Más de 30 murales vibrantes y más de 50 galerías en el histórico Distrito de las Artes de Eau Gallie (EGAD)"
+      },
+      {
+        "title": "Acceso a la Playa",
+        "description": "10-15 minutos en auto a playas vírgenes del Atlántico a través de la pintoresca Eau Gallie Causeway"
+      },
+      {
+        "title": "Restaurantes y Bebidas",
+        "description": "Restaurantes frente al agua, cervecerías artesanales y cafés locales a pasos de su puerta"
+      },
+      {
+        "title": "Naturaleza y Vida Silvestre",
+        "description": "Indian River Lagoon hogar de más de 700 delfines, playas de anidación de tortugas marinas y senderos escénicos"
+      },
+      {
+        "title": "Exploración Espacial",
+        "description": "Kennedy Space Center a solo 50 minutos al norte - presencie lanzamientos desde el Space Coast"
+      },
+      {
+        "title": "Vida Nocturna y Eventos",
+        "description": "Música en vivo, paseos de arte semanales y festivales durante todo el año en un distrito histórico caminable"
+      }
+    ],
+    "quick_stats": [
+      {
+        "value": "10 min",
+        "label": "a Playas del Atlántico"
+      },
+      {
+        "value": "50+",
+        "label": "Galerías y Murales"
+      },
+      {
+        "value": "50 min",
+        "label": "al Kennedy Space Center"
+      },
+      {
+        "value": "700+",
+        "label": "Delfines en la Laguna"
+      }
+    ],
+    "cta_button": "Explorar Nuestras Propiedades",
+    "_notes": {
+      "pronunciation": "Kept English pronunciation guide in parentheses as it's helpful for Spanish speakers too",
+      "stats_format": "Kept numbers and abbreviations (min) in English format as standard in LatAm Spanish for brevity",
+      "highlights_order": "Maintained same order as English for consistency"
+    }
+  },
+
+  "newsletter": {
+    "heading_join": "Únase a Nuestra Familia",
+    "heading_special": "Qué Nos Hace Especiales",
+    "heading_stay_connected": "Manténgase Conectado",
+    "heading_success": "¡Bienvenido a Nuestra Familia!",
+    "body_intro": "Sea parte de nuestra comunidad cercana y reciba recomendaciones personales, descuentos familiares y consejos exclusivos de nuestros corazones al suyo.",
+    "body_success_1": "Gracias por unirse a nuestra comunidad cercana. Estamos emocionados de compartir nuestras recomendaciones personales y ayudar a hacer que sus estadías sean verdaderamente especiales.",
+    "body_success_2": "¡Esté atento a su bandeja de entrada para recibir un cálido mensaje de bienvenida de nuestra familia, incluido su código de descuento exclusivo!",
+    "body_cta": "Únase a nuestra familia para toques personales y ofertas exclusivas",
+    "privacy_text": "Respetamos su privacidad. Cancele la suscripción en cualquier momento.",
+    "benefits": [
+      {
+        "title": "Recomendaciones Personales",
+        "description": "Sugerencias seleccionadas de nuestra familia a la suya"
+      },
+      {
+        "title": "Descuentos Familiares",
+        "description": "Ofertas exclusivas para nuestra comunidad cercana"
+      },
+      {
+        "title": "Consejos de Locales",
+        "description": "Gemas ocultas y favoritos locales que nos encanta compartir"
+      },
+      {
+        "title": "Hospitalidad Cálida",
+        "description": "Toques personales que lo hacen sentir como en casa"
+      }
+    ],
+    "form": {
+      "label_first_name": "Nombre",
+      "placeholder_first_name": "Su nombre",
+      "label_email": "Correo Electrónico",
+      "placeholder_email": "su@email.com",
+      "label_interests": "¿Qué le interesa más?",
+      "interests": [
+        "Nuevas Aperturas de Estudios",
+        "Experiencias Locales",
+        "Descuentos Familiares",
+        "Recomendaciones de Temporada"
+      ],
+      "button_submit": "Unirse a Nuestra Familia"
+    },
+    "_notes": {
+      "family_theme": "Maintained warm 'family' theme throughout as it's core to brand voice",
+      "formality": "Using formal 'su' (your) and 'le' (you) for professional hospitality context",
+      "email_placeholder": "Kept lowercase format as standard in forms"
+    }
+  },
+
+  "rooms_page": {
+    "metadata": {
+      "title": "Nuestras Propiedades",
+      "description": "Explore nuestra colección de alquileres boutique a corto plazo en Eau Gallie, Melbourne FL. Estudios y unidades de múltiples habitaciones con comodidades modernas, estacionamiento fácil, lavandería y encanto costero.",
+      "og_title": "Nuestras Propiedades | Silver Pineapple",
+      "og_description": "Explore unidades renovadas en el distrito de las artes de Melbourne. Desde estudios hasta suites de múltiples habitaciones, todos con WiFi, AC, cocinas completas y acceso a la playa.",
+      "twitter_title": "Nuestras Propiedades | Silver Pineapple",
+      "twitter_description": "Alquileres boutique a corto plazo en Eau Gallie. Estudios y apartamentos con comodidades modernas, a pasos del distrito de las artes."
+    }
+  },
+
+  "rooms_hero": {
+    "heading": "Nuestros Alojamientos",
+    "subheading": "Encuentre Su Hogar Perfecto Lejos del Hogar",
+    "_notes": {
+      "subheading": "Classic hospitality phrase works well in Spanish; using 'Hogar' (capital H) for emphasis"
+    }
+  },
+
+  "rooms_introduction": {
+    "body": "Cada uno de nuestros alojamientos cuidadosamente diseñados combina la comodidad del hogar con el lujo de un hotel boutique. Ya sea que se hospede por negocios o placer, nuestros espacios están diseñados para brindar una experiencia excepcional que supera sus expectativas.",
+    "_notes": {
+      "tone": "Maintained aspirational yet welcoming tone; 'se hospede' is formal subjunctive appropriate for hospitality"
+    }
+  },
+
+  "amenities": {
+    "heading": "Comodidades Incluidas",
+    "subheading": "Comodidades prácticas en todas las estadías de Silver Pineapple",
+    "list": [
+      {
+        "title": "Wi-Fi de Alta Velocidad",
+        "description": "Internet confiable en cada unidad"
+      },
+      {
+        "title": "Entrada Sin Llave",
+        "description": "Acceso digital seguro"
+      },
+      {
+        "title": "Auto Check-In",
+        "description": "Llegadas flexibles"
+      },
+      {
+        "title": "Estacionamiento",
+        "description": "Opciones convenientes en el lugar"
+      },
+      {
+        "title": "Lavandería en el Lugar",
+        "description": "Estadías fáciles y prácticas"
+      },
+      {
+        "title": "Café y Té",
+        "description": "Cortesía en cada unidad"
+      },
+      {
+        "title": "Smart TV",
+        "description": "Inicie sesión en sus aplicaciones de streaming"
+      },
+      {
+        "title": "A/C y Calefacción",
+        "description": "Comodidad durante todo el año"
+      }
+    ],
+    "_notes": {
+      "wifi": "Wi-Fi kept in English as standard technical term",
+      "smart_tv": "Smart TV kept in English as universally recognized brand/tech term",
+      "ac": "A/C kept as abbreviation (standard in Spanish too); could alternatively use 'Aire Acondicionado'"
+    }
+  },
+
+  "room_category": {
+    "pricing_suffix": "/noche",
+    "cta_link": "Ver detalles y reservar →",
+    "_notes": {
+      "pricing": "Using 'noche' (night) in singular form as standard in Spanish pricing"
+    }
+  },
+
+  "room_card": {
+    "button_primary": "Ver Detalles y Reservar",
+    "button_fallback": "Consultar Disponibilidad",
+    "_notes": {
+      "primary_cta": "Combined CTA maintains urgency while being clear",
+      "fallback": "Using 'Consultar' (check/inquire) for softer approach when booking unavailable"
+    }
+  },
+
+  "categories": {
+    "studio_compact": {
+      "name": "Estudio — Compacto",
+      "badge": "Mejor Valor",
+      "blurb": "Estudios inteligentes y eficientes, ideales para viajeros solos o parejas que buscan una base económica y caminable junto a la Biblioteca Pública de Eau Gallie.",
+      "amenities": [
+        "Capacidad 2 personas",
+        "Cama Queen",
+        "Kitchenette",
+        "Wi-Fi de alta velocidad",
+        "Smart TV",
+        "Lavandería en el lugar",
+        "Estacionamiento"
+      ]
+    },
+    "studio_comfort": {
+      "name": "Estudio — Confort",
+      "blurb": "Estudios más espaciosos con un poco más de espacio para respirar — una elección fácil para estadías cortas más largas cerca de murales, cafés y parques frente al río.",
+      "amenities": [
+        "Capacidad 2 personas",
+        "Cama Queen",
+        "Kitchenette",
+        "Wi-Fi de alta velocidad",
+        "Smart TV",
+        "Lavandería en el lugar",
+        "Estacionamiento"
+      ]
+    },
+    "studio_plus": {
+      "name": "Estudio — Plus (Grande)",
+      "badge": "Espacio Extra",
+      "blurb": "Un estudio grande con un rincón de comedor dedicado en la cocina — excelente para días de trabajo desde casa o estadías más largas.",
+      "amenities": [
+        "Capacidad 2-3 personas",
+        "Cama Queen",
+        "Kitchenette + mesa de comedor",
+        "Wi-Fi de alta velocidad",
+        "Smart TV",
+        "Lavandería en el lugar",
+        "Estacionamiento"
+      ]
+    },
+    "one_bed_1_bath": {
+      "name": "1 Habitación, 1 Baño",
+      "blurb": "Habitación y sala de estar separadas para más privacidad — una configuración cómoda para parejas, amigos o viajes de trabajo.",
+      "amenities": [
+        "Capacidad 3-4 personas",
+        "King/Queen + sofá cama",
+        "Cocina completa",
+        "Wi-Fi de alta velocidad",
+        "Smart TV",
+        "Lavandería en el lugar",
+        "Estacionamiento"
+      ]
+    },
+    "two_bed_1_bath": {
+      "name": "2 Habitaciones, 1 Baño",
+      "badge": "Ideal para Grupos",
+      "blurb": "Dos habitaciones, un baño — el mayor espacio para amigos o familias que buscan una base caminable en Eau Gallie cerca del río.",
+      "amenities": [
+        "Capacidad 4-5 personas",
+        "Dos habitaciones",
+        "Cocina completa",
+        "Wi-Fi de alta velocidad",
+        "Smart TV",
+        "Lavandería en el lugar",
+        "Estacionamiento"
+      ]
+    },
+    "_notes": {
+      "bedroom_vs_habitacion": "Using 'Habitación' for bedroom (standard in real estate); 'Dormitorio' is alternative but less common in LatAm",
+      "sleeps": "Using 'Capacidad X personas' (capacity X people) as standard hotel/rental terminology",
+      "kitchenette": "Keeping 'Kitchenette' as loanword (widely understood); alternative 'cocineta' less common in Florida market",
+      "badges": "Maintained marketing tone with badges like 'Mejor Valor', 'Espacio Extra', 'Ideal para Grupos'"
+    }
+  },
+
+  "property_detail": {
+    "templates": {
+      "meta_description": "{title} en Melbourne, FL. Capacidad {maxGuests} personas, {bedrooms} habitación, {bathrooms} baño. Desde {price}/noche.",
+      "og_description": "Capacidad {maxGuests} personas · {bedrooms} hab · {bathrooms} baño · Desde {price}/noche",
+      "specs_guests": "{maxGuests} personas",
+      "specs_bedrooms_singular": "{bedrooms} habitación",
+      "specs_bedrooms_plural": "{bedrooms} habitaciones",
+      "specs_bathrooms_singular": "{bathrooms} baño",
+      "specs_bathrooms_plural": "{bathrooms} baños",
+      "pricing": "Desde {price}/noche"
+    },
+    "_notes": {
+      "variables": "Keep {curly braces} intact - these are template variables that get replaced dynamically",
+      "pluralization": "Spanish requires separate strings for singular/plural bedroom/bathroom forms",
+      "abbreviations": "Using 'hab' as abbreviation for habitación in OG description for brevity"
+    }
+  },
+
+  "about_page": {
+    "metadata": {
+      "title": "Acerca de Silver Pineapple | Estadías Cortas en Eau Gallie",
+      "description": "Hospédese a pasos de la Biblioteca Pública de Eau Gallie. Unidades renovadas de corto plazo, estacionamiento fácil, lavandería en el lugar, murales, cafés y playas a minutos de distancia.",
+      "og_title": "Acerca de Silver Pineapple | Estadías Cortas en Eau Gallie",
+      "og_description": "Viva como un local en el distrito de las artes de Melbourne. Dos edificios hermanos con un patio trasero compartido, unidades renovadas, lavandería, estacionamiento fácil y playas en 10-15 minutos.",
+      "twitter_title": "Acerca de Silver Pineapple | Estadías Cortas en Eau Gallie",
+      "twitter_description": "Viva como un local en el distrito de las artes de Melbourne. Dos edificios hermanos con un patio trasero compartido, unidades renovadas, lavandería, estacionamiento fácil y playas en 10-15 minutos."
+    }
+  },
+
+  "about_hero": {
+    "heading": "Acerca de Silver Pineapple",
+    "subheading": "Estadías cortas, encanto local — a pasos de la Biblioteca Pública de Eau Gallie.",
+    "_notes": {
+      "subheading": "Using em dash (—) to maintain stylistic consistency with English version"
+    }
+  },
+
+  "about_introduction": {
+    "heading": "Dos Edificios. Un Patio. Todos Bienvenidos.",
+    "paragraphs": [
+      "Silver Pineapple es un par de edificios amigables, administrados localmente, que comparten un soleado patio trasero — una base simple y cómoda para estadías cortas, viajes de trabajo y escapadas de temporada en el corazón de Eau Gallie.",
+      "Mantenemos las cosas fáciles: unidades renovadas, lavandería en el lugar y estacionamiento sin complicaciones. Salga afuera y estará junto a la Biblioteca Pública de Eau Gallie y un distrito de las artes caminable lleno de color, café, galerías y brisas del río.",
+      "Nuestro objetivo es hospitalidad de vecino — comunicación clara, comodidades prácticas y una conexión real con el vecindario para que pueda vivir como un local desde el primer día."
+    ],
+    "_notes": {
+      "heading": "Maintained punchy three-part structure of original; 'Un Patio' (one yard/backyard) conveys shared space",
+      "vecino": "Using 'vecino' (neighbor) to convey community/neighborly feel central to brand",
+      "local_desde_dia_uno": "Idiomatic translation of 'from day one' that flows naturally in Spanish"
+    }
+  },
+
+  "founder": {
+    "heading": "Cómo Operamos",
+    "body": "Silver Pineapple es administrado localmente por un pequeño equipo dedicado. Valoramos la comunicación clara, las respuestas rápidas y el tipo de toques reflexivos que hacen que las estadías cortas se sientan sin esfuerzo. Aunque mantenemos un perfil discreto, siempre estamos cerca cuando nos necesita — amigables, confiables y comprometidos con una gran experiencia.",
+    "_notes": {
+      "profile_discreto": "Using 'perfil discreto' for 'low profile' - maintains professional yet approachable tone",
+      "sin_esfuerzo": "Translating 'effortless' as 'sin esfuerzo' (without effort) - idiomatic in hospitality context"
+    }
+  },
+
+  "philosophy": {
+    "heading": "Qué Valoramos",
+    "subheading": "Cuatro pilares simples que guían cada estadía en Silver Pineapple.",
+    "values": [
+      {
+        "title": "Comodidad y Conveniencia",
+        "description": "Espacios renovados y prácticos con lavandería en el lugar y estacionamiento fácil — lo esencial cubierto para que pueda relajarse."
+      },
+      {
+        "title": "Estadías Sin Complicaciones",
+        "description": "Reservas simples, comunicación clara y opciones flexibles de corto plazo o temporada para viajes sin estrés."
+      },
+      {
+        "title": "Conexión Local",
+        "description": "Viva a pasos de la Biblioteca Pública de Eau Gallie, murales, galerías, café y parques frente al río en el distrito de las artes de Melbourne."
+      },
+      {
+        "title": "Hospitalidad Confiable",
+        "description": "Administración amigable, receptiva y con base local enfocada en limpieza, comodidad y una estadía sin preocupaciones."
+      }
+    ],
+    "_notes": {
+      "seamless": "Translating 'seamless' as 'sin complicaciones' (without complications) - clearer than direct translation",
+      "values_order": "Maintained same order as English for brand consistency"
+    }
+  },
+
+  "location_section": {
+    "heading": "Descubra Eau Gallie",
+    "paragraphs": [
+      "Bienvenido al corazón creativo de Melbourne. Desde nuestra puerta junto a la Biblioteca Pública de Eau Gallie, puede pasear por un distrito caminable lleno de coloridos murales, galerías independientes, acogedores cafés y parques frente al río con brisa — con las playas del Atlántico a solo un rápido viaje sobre la calzada.",
+      "Ya sea que esté aquí por unas noches o unos meses, Eau Gallie ofrece un ritmo fácil de arte, mercados, música en vivo y atardeceres frente al agua — la base perfecta para aventuras en el Space Coast."
+    ],
+    "highlights": [
+      {
+        "title": "Arte y Murales",
+        "description": "Escena artística al aire libre de EGAD con galerías, estudios y más de 30 murales a poca distancia."
+      },
+      {
+        "title": "Restaurantes y Bebidas",
+        "description": "Terrazas, mariscos frente al agua, cervezas artesanales y café local — todo cerca."
+      },
+      {
+        "title": "Río y Parques",
+        "description": "Rampa para botes de Ballard Park, Eau Gallie Pier y espacios verdes para caminatas al amanecer."
+      },
+      {
+        "title": "Playa y Acceso",
+        "description": "Playas en ~10-15 min por Eau Gallie Causeway; rutas rápidas a US-1, I-95 y el aeropuerto MLB."
+      }
+    ],
+    "_notes": {
+      "corazon_creativo": "Repeating 'corazón creativo' (creative heart) from earlier section for brand consistency",
+      "ritmo_facil": "Using 'ritmo fácil' (easy rhythm) to convey laid-back lifestyle appeal",
+      "al_aire_libre": "Translating 'open-air' as 'al aire libre' - standard phrase in Spanish"
+    }
+  },
+
+  "about_cta": {
+    "heading": "¿Listo para Experimentar Nuestro Espacio?",
+    "body": "Cuéntenos sus fechas y lo que necesita — lo ayudaremos a planificar una estadía corta cómoda en Silver Pineapple.",
+    "button_rooms": "Explorar Nuestros Alojamientos",
+    "button_book": "Reservar Ahora",
+    "_notes": {
+      "espacio": "Using 'Espacio' (space/place) maintains warm, welcoming brand voice",
+      "ayudaremos": "Using first-person plural 'lo ayudaremos' (we will help you) for personal touch"
+    }
+  },
+
+  "reviews_page": {
+    "metadata": {
+      "title": "Opiniones de Huéspedes",
+      "description": "Lea opiniones auténticas de huéspedes de nuestros alquileres boutique a corto plazo en Eau Gallie, Melbourne FL. Vea lo que los viajeros aman de las propiedades de Silver Pineapple.",
+      "og_title": "Opiniones de Huéspedes | Silver Pineapple",
+      "og_description": "Opiniones reales de huéspedes reales. Vea qué hace de Silver Pineapple la mejor opción para alojamientos boutique en Melbourne, FL.",
+      "twitter_title": "Opiniones de Huéspedes | Silver Pineapple",
+      "twitter_description": "Lea lo que nuestros huéspedes dicen sobre sus estadías en el distrito de las artes de Eau Gallie."
+    },
+    "hero": {
+      "heading": "OPINIONES DE HUÉSPEDES",
+      "subheading": "Lea lo que dicen nuestros huéspedes y comparta su propia experiencia en Silver Pineapple"
+    },
+    "_notes": {
+      "opiniones_vs_resenas": "Using 'Opiniones' (opinions) instead of 'Reseñas' (reviews) - more conversational and common in LatAm Spanish",
+      "huespedes": "Using 'Huéspedes' (guests) as standard hospitality term"
+    }
+  },
+
+  "review_form": {
+    "heading_share": "COMPARTA SU EXPERIENCIA",
+    "heading_info": "Su Información",
+    "heading_rating": "Su Calificación",
+    "heading_success": "¡Gracias!",
+    "body_intro": "Ayude a futuros huéspedes compartiendo su experiencia en Silver Pineapple",
+    "body_success": "Su opinión ha sido enviada exitosamente. ¡Apreciamos que se haya tomado el tiempo para compartir su experiencia con nosotros!",
+    "labels": {
+      "name": "Su Nombre *",
+      "email": "Correo Electrónico *",
+      "property": "Propiedad en la que se Hospedó *",
+      "stay_date": "Fecha de Estadía (Opcional)",
+      "overall": "Experiencia General *",
+      "cleanliness": "Limpieza",
+      "communication": "Comunicación",
+      "location": "Ubicación",
+      "value": "Relación Calidad-Precio",
+      "review": "Su Opinión *"
+    },
+    "placeholders": {
+      "name": "Juan Pérez",
+      "email": "[email protected]",
+      "property": "Seleccione una propiedad...",
+      "review": "Cuéntenos sobre su estadía... ¿Qué le encantó? ¿Qué la hizo memorable?"
+    },
+    "help_text": {
+      "email": "Su correo electrónico no se mostrará públicamente",
+      "review": "Mínimo 50 caracteres, máximo 500 caracteres"
+    },
+    "validation": {
+      "name_min": "El nombre debe tener al menos 2 caracteres",
+      "name_max": "El nombre debe tener menos de 50 caracteres",
+      "email_invalid": "Por favor ingrese un correo electrónico válido",
+      "property_required": "Por favor seleccione la propiedad en la que se hospedó",
+      "rating_required": "Por favor califique su estadía",
+      "review_min": "La opinión debe tener al menos 50 caracteres",
+      "review_max": "La opinión debe tener menos de 500 caracteres"
+    },
+    "buttons": {
+      "submit": "Enviar Opinión",
+      "submitting": "Enviando..."
+    },
+    "_notes": {
+      "name_example": "Changed placeholder name to 'Juan Pérez' (common Spanish name) for cultural relevance",
+      "review_placeholder": "Using informal 'le' to match conversational tone of review request",
+      "value_translation": "Translating 'Value' as 'Relación Calidad-Precio' (quality-price relationship) - standard term in Spanish reviews"
+    }
+  },
+
+  "review_stats": {
+    "heading": "CONFIABLE EN TODAS LAS PLATAFORMAS",
+    "body": "Nuestro compromiso con la excelencia se refleja en nuestras calificaciones consistentes en todas las principales plataformas de reserva. Cada opinión representa una experiencia real de huésped y nuestra dedicación a la hospitalidad.",
+    "labels": {
+      "average_rating": "Calificación Promedio",
+      "total_reviews": "Total de Opiniones",
+      "reviews_count": "opiniones"
+    },
+    "_notes": {
+      "calificacion": "Using 'Calificación' (rating/score) as standard term for review scores",
+      "opiniones_lowercase": "Using lowercase 'opiniones' after number count as grammatically correct in Spanish"
+    }
+  },
+
+  "reviews_display": {
+    "heading": "OPINIONES RECIENTES DE HUÉSPEDES",
+    "subheading": "Experiencias auténticas de nuestros valiosos huéspedes",
+    "filter_section": {
+      "heading": "Filtrar Opiniones",
+      "reset_button": "Restablecer Filtros",
+      "property_label": "Propiedad",
+      "all_properties": "Todas las Propiedades",
+      "rating_label": "Calificación Mínima",
+      "rating_all": "Todas",
+      "rating_4plus": "4★+",
+      "rating_5": "5★",
+      "platform_label": "Plataforma",
+      "all_platforms": "Todas las Plataformas",
+      "showing_count": "Mostrando {displayed} de {total} opiniones"
+    },
+    "empty_state": {
+      "message": "No hay opiniones que coincidan con sus filtros",
+      "reset_button": "Restablecer Filtros"
+    },
+    "review_card": {
+      "stayed_duration": "Se hospedó {duration}",
+      "verified_badge": "Huésped Verificado"
+    },
+    "load_more": "Cargar Más Opiniones",
+    "_notes": {
+      "filter_ui": "Using formal 'sus' (your) in filter context for consistency",
+      "stayed_duration": "Template string - will receive values like '3 noches' (3 nights)",
+      "star_symbols": "Keeping ★ symbol as universal; no translation needed"
+    }
+  },
+
+  "button_component": {
+    "book_check_keywords": ["reservar", "reserva", "book"],
+    "_notes": {
+      "keywords": "Component checks if button text contains 'book' to apply special styling. Added Spanish equivalents 'reservar/reserva' to the check logic."
+    }
+  },
+
+  "global_metadata": {
+    "default_title": "Silver Pineapple | Alquileres Boutique a Corto Plazo en Melbourne, FL",
+    "title_template": "%s | Silver Pineapple",
+    "description": "Descubra alquileres boutique a corto plazo en Eau Gallie, Melbourne FL. A pasos del distrito de las artes, a 10 minutos de las playas. Unidades renovadas con estacionamiento y lavandería.",
+    "keywords": [
+      "alquiler a corto plazo",
+      "Melbourne FL",
+      "Eau Gallie",
+      "alquiler vacacional",
+      "alojamientos boutique",
+      "vacaciones en la playa",
+      "alquileres en Florida"
+    ],
+    "og_title": "Silver Pineapple | Alquileres Boutique a Corto Plazo en Melbourne, FL",
+    "og_description": "Alquileres boutique a corto plazo en Eau Gallie. A pasos del distrito de las artes, a minutos de las playas.",
+    "twitter_title": "Silver Pineapple | Alquileres Boutique a Corto Plazo",
+    "twitter_description": "Alquileres boutique en Melbourne FL. Ubicación en el distrito de las artes, acceso a la playa.",
+    "_notes": {
+      "seo_keywords": "Translated keywords using terms Hispanic travelers in Florida would search for",
+      "short_term_rental": "Using 'alquiler a corto plazo' as standard translation; alternative 'renta' used in some LatAm regions but less formal",
+      "vacation_rental": "Using 'alquiler vacacional' as standard in tourism industry"
+    }
+  },
+
+  "common_terms": {
+    "and": "y",
+    "or": "o",
+    "from": "desde",
+    "to": "a",
+    "per_night": "por noche",
+    "night": "noche",
+    "nights": "noches",
+    "guest": "huésped",
+    "guests": "huéspedes",
+    "person": "persona",
+    "people": "personas",
+    "bedroom": "habitación",
+    "bedrooms": "habitaciones",
+    "bathroom": "baño",
+    "bathrooms": "baños",
+    "sleeps": "capacidad",
+    "minimum": "mínimo",
+    "maximum": "máximo",
+    "available": "disponible",
+    "unavailable": "no disponible",
+    "optional": "opcional",
+    "required": "requerido",
+    "loading": "cargando",
+    "error": "error",
+    "success": "éxito",
+    "close": "cerrar",
+    "open": "abrir",
+    "more": "más",
+    "less": "menos",
+    "all": "todos/todas",
+    "none": "ninguno/ninguna",
+    "_notes": {
+      "gender_agreement": "Some terms like 'todos/todas' have masculine/feminine forms - implementation should select based on context",
+      "capitalization": "Common terms shown in lowercase; capitalize as needed based on position in sentence"
+    }
+  },
+
+  "translator_notes": {
+    "general": [
+      "All translations use neutral Latin American Spanish to appeal to the Florida Hispanic market",
+      "Formal 'usted' (you) form used throughout for professional hospitality tone",
+      "Brand name 'Silver Pineapple' kept in English as it's a proper noun",
+      "Place names kept in English: Eau Gallie, Melbourne, Space Coast, Kennedy Space Center, Indian River Lagoon, etc.",
+      "Technical terms kept in English: Wi-Fi, Smart TV, A/C (though 'Aire Acondicionado' is alternative)",
+      "Em dashes (—) maintained in Spanish text for stylistic consistency with English version"
+    ],
+    "terminology_choices": {
+      "rooms_vs_alojamientos": "Chose 'Alojamientos' (accommodations) over 'Habitaciones' (rooms) for more upscale boutique feel",
+      "opiniones_vs_resenas": "Chose 'Opiniones' (opinions) over 'Reseñas' (reviews) as more conversational and common in Latin America",
+      "estadía_vs_estancia": "Chose 'Estadía' (stay) as neutral LatAm term; 'Estancia' more common in Spain",
+      "hospedarse_vs_alojarse": "Used 'Hospedarse' (to stay/lodge) for hospitality context; both are acceptable",
+      "huésped_vs_cliente": "Chose 'Huésped' (guest) over 'Cliente' (client/customer) for warmer hospitality tone",
+      "calificación_vs_puntuación": "Chose 'Calificación' (rating) as standard term for review scores in LatAm",
+      "correo_electrónico": "Used full 'Correo Electrónico' for email; 'Email' also widely understood but less formal"
+    },
+    "cultural_considerations": [
+      "Florida Hispanic market includes diverse origins (Cuban, Puerto Rican, South American, Mexican, etc.) so neutral LatAm Spanish is most appropriate",
+      "Hospitality language uses formal 'usted' to convey respect and professionalism while maintaining warmth",
+      "Marketing tone preserved - aspirational yet approachable, emphasizing family/community values",
+      "Placeholder names changed to culturally relevant examples (e.g., 'Juan Pérez' instead of 'John Doe')",
+      "Number formats kept as English standard (e.g., 10-15 min) as this is common in bilingual US context"
+    ],
+    "implementation_recommendations": [
+      "Consider URL structure: /es/ prefix vs. language parameter vs. subdomain",
+      "Implement hreflang tags for SEO: <link rel='alternate' hreflang='es' href='...' />",
+      "Use next-intl or similar i18n library for Next.js 15 App Router",
+      "Pluralization rules: Spanish requires handling singular/plural for bedroom/bathroom/night/guest",
+      "Date formatting: Spanish uses DD/MM/YYYY format (e.g., 19/10/2025)",
+      "Currency: Keep USD $ but consider clarifying 'USD' for international audience",
+      "Button component: Update keyword check to include 'reservar'/'reserva' for special styling",
+      "Form validation: Ensure error messages are clear and use consistent terminology",
+      "Consider right-to-left handling for labels (Spanish reads left-to-right same as English)",
+      "Test with actual Hispanic users from Florida market for cultural appropriateness"
+    ],
+    "future_considerations": [
+      "Reviews: Current data is in English from real guests - decide whether to translate or keep original with language indicator",
+      "Unit titles: Individual property names in /app/data/units.ts may need translation or localization",
+      "Map markers: Location descriptions in /app/data/mapMarkers.ts should be translated for Spanish version",
+      "Hospitable widget: Check if Hospitable booking widget supports Spanish localization",
+      "Images with text: Some images have text overlays that would need Spanish versions for full localization",
+      "Email communications: Newsletter confirmation emails should be in Spanish for Spanish-language signups",
+      "Phone support: Consider if Spanish language support is available for guest inquiries"
+    ]
+  }
+}

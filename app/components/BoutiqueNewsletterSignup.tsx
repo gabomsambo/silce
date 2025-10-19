@@ -2,11 +2,13 @@
 
 import { useState, useRef } from "react"
 import { Mail, Heart, Star, Coffee, Gift, MapPin, Check } from "lucide-react"
-
+import { useTranslations } from "next-intl"
 import { Confetti, type ConfettiRef } from "@/components/ui/confetti"
+import { MagicCard } from "@/components/ui/magic-card"
 
 
 export default function BoutiqueNewsletterSignup() {
+  const t = useTranslations("newsletter")
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -49,32 +51,32 @@ export default function BoutiqueNewsletterSignup() {
   const benefits = [
     {
       icon: <Heart className="w-6 h-6" />,
-      title: "Personal Recommendations",
-      description: "Handpicked suggestions from our family to yours"
+      title: t("benefits.personal.title"),
+      description: t("benefits.personal.description")
     },
     {
       icon: <Gift className="w-6 h-6" />,
-      title: "Family Discounts",
-      description: "Exclusive offers for our close-knit community"
+      title: t("benefits.discounts.title"),
+      description: t("benefits.discounts.description")
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Local Insider Tips",
-      description: "Hidden gems and local favorites we love to share"
+      title: t("benefits.tips.title"),
+      description: t("benefits.tips.description")
     },
     {
       icon: <Star className="w-6 h-6" />,
-      title: "Warm Hospitality",
-      description: "Personal touches that make you feel at home"
+      title: t("benefits.hospitality.title"),
+      description: t("benefits.hospitality.description")
     }
   ]
 
   // Simple interest options
   const interests = [
-    { id: "new-studios", label: "New Studio Openings" },
-    { id: "local-tips", label: "Local Experiences" },
-    { id: "special-offers", label: "Family Discounts" },
-    { id: "seasonal", label: "Seasonal Recommendations" }
+    { id: "new-studios", label: t("form.interests.studios") },
+    { id: "local-tips", label: t("form.interests.experiences") },
+    { id: "special-offers", label: t("form.interests.discounts") },
+    { id: "seasonal", label: t("form.interests.seasonal") }
   ]
 
 
@@ -89,15 +91,13 @@ export default function BoutiqueNewsletterSignup() {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Check className="w-10 h-10 text-green-600" />
               </div>
-              <h2 className="text-3xl font-bold text-primary mb-4">Welcome to Our Family!</h2>
+              <h2 className="text-3xl font-bold text-primary mb-4">{t("headingSuccess")}</h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Thank you for joining our close-knit community. We're excited to share our personal 
-                recommendations and help make your stays truly special.
+                {t("bodySuccess1")}
               </p>
               <div className="mt-8 p-4 bg-tan/10 rounded-lg">
                 <p className="text-sm text-gray-700">
-                  Keep an eye on your inbox for a warm welcome message from our family, 
-                  including your exclusive discount code!
+                  {t("bodySuccess2")}
                 </p>
               </div>
             </MagicCard>
@@ -117,11 +117,10 @@ export default function BoutiqueNewsletterSignup() {
           {/* Header with Personal Touch */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-              Join Our Family
+              {t("headingJoin")}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Be part of our close-knit community and receive personal recommendations, 
-              family discounts, and insider tips from our hearts to yours.
+              {t("bodyIntro")}
             </p>
           </div>
 
@@ -131,7 +130,7 @@ export default function BoutiqueNewsletterSignup() {
             
             {/* Benefits Section */}
             <div>
-              <h3 className="text-2xl font-bold text-primary mb-8">What Makes Us Special</h3>
+              <h3 className="text-2xl font-bold text-primary mb-8">{t("headingSpecial")}</h3>
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/50 transition-colors">
@@ -154,14 +153,14 @@ export default function BoutiqueNewsletterSignup() {
                     <div className="w-16 h-16 bg-tan/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Mail className="w-8 h-8 text-tan" />
                     </div>
-                    <h3 className="text-2xl font-bold text-primary mb-2">Stay Connected</h3>
-                    <p className="text-gray-600">Join our family for personal touches and exclusive offers</p>
+                    <h3 className="text-2xl font-bold text-primary mb-2">{t("headingStayConnected")}</h3>
+                    <p className="text-gray-600">{t("bodyCta")}</p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6 bg-white text-gray-900">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                        First Name
+                        {t("form.labelFirstName")}
                       </label>
                       <input
                         type="text"
@@ -172,18 +171,18 @@ export default function BoutiqueNewsletterSignup() {
                         onFocus={() => setFocusedField("firstName")}
                         onBlur={() => setFocusedField(null)}
                         className={`w-full px-4 py-3 border rounded-lg transition-all duration-300 bg-white text-gray-900 ${
-                          focusedField === "firstName" 
-                            ? "border-tan ring-2 ring-tan/20 shadow-lg" 
+                          focusedField === "firstName"
+                            ? "border-tan ring-2 ring-tan/20 shadow-lg"
                             : "border-gray-300 hover:border-tan/50"
                         }`}
-                        placeholder="Your first name"
+                        placeholder={t("form.placeholderFirstName")}
                         required
                       />
                     </div>
 
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address
+                        {t("form.labelEmail")}
                       </label>
                       <input
                         type="email"
@@ -194,18 +193,18 @@ export default function BoutiqueNewsletterSignup() {
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField(null)}
                         className={`w-full px-4 py-3 border rounded-lg transition-all duration-300 bg-white text-gray-900 ${
-                          focusedField === "email" 
-                            ? "border-tan ring-2 ring-tan/20 shadow-lg" 
+                          focusedField === "email"
+                            ? "border-tan ring-2 ring-tan/20 shadow-lg"
                             : "border-gray-300 hover:border-tan/50"
                         }`}
-                        placeholder="your@email.com"
+                        placeholder={t("form.placeholderEmail")}
                         required
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-3">
-                        What interests you most?
+                        {t("form.labelInterests")}
                       </label>
                       <div className="grid grid-cols-1 gap-3">
                         {interests.map((interest) => (
@@ -228,11 +227,11 @@ export default function BoutiqueNewsletterSignup() {
                       type="submit"
                       className="w-full bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
                     >
-                      Join Our Family
+                      {t("form.buttonSubmit")}
                     </button>
 
                     <p className="text-xs text-gray-500 text-center">
-                      We respect your privacy. Unsubscribe at any time.
+                      {t("privacyText")}
                     </p>
                   </form>
               </div>

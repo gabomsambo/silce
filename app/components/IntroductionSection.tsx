@@ -1,6 +1,11 @@
+"use client"
+
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 
 export default function IntroductionSection() {
+  const t = useTranslations("about.introduction")
+
   return (
     <section className="py-20 px-4 bg-transparent">
       <div className="max-w-7xl mx-auto">
@@ -19,20 +24,17 @@ export default function IntroductionSection() {
           {/* Text Column */}
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 tracking-tight">
-              Two Buildings. One Backyard. All Welcome.
+              {t("heading")}
             </h2>
             <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
               <p>
-                Silver Pineapple is a pair of friendly, locally managed buildings that share a sunny backyard — a
-                simple, comfortable home base for short stays, work trips, and seasonal escapes in the heart of Eau Gallie.
+                {t("paragraph1")}
               </p>
               <p>
-                We keep things easy: renovated units, on-site laundry, and hassle-free parking. Step outside and you’re
-                beside the Eau Gallie Public Library and a walkable arts district full of color, coffee, galleries, and river breezes.
+                {t("paragraph2")}
               </p>
               <p>
-                Our goal is neighborly hospitality — clear communication, practical comforts, and a real connection to
-                the neighborhood so you can live like a local from day one.
+                {t("paragraph3")}
               </p>
             </div>
           </div>

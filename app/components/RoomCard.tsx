@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ChevronLeft, ChevronRight, Users, Bed, ChefHat, Wifi, Tv, Car, Coffee } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useTranslations } from "next-intl"
 
 interface Amenity {
   icon: string
@@ -39,6 +40,7 @@ export default function RoomCard({
   price,
   slug,
 }: RoomCardProps) {
+  const t = useTranslations("rooms.card")
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   // Add safety check for images
@@ -144,15 +146,15 @@ export default function RoomCard({
 
         {/* CTA Button */}
         {slug ? (
-          <Link 
+          <Link
             href={`/rooms/${slug}`}
             className="inline-block w-full md:w-auto bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-center"
           >
-            View Details & Book
+            {t("buttonPrimary")}
           </Link>
         ) : (
           <button className="w-full md:w-auto bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-            Check Availability
+            {t("buttonFallback")}
           </button>
         )}
       </div>

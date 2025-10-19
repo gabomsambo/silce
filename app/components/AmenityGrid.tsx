@@ -1,24 +1,29 @@
+"use client"
+
 import { Wifi, Key, Clock, Car, Coffee, Tv2, Wind, WashingMachine } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export default function AmenityGrid() {
+  const t = useTranslations("rooms.amenities")
+
   const amenities = [
-    { icon: Wifi,  title: "High-Speed Wi-Fi",   description: "Reliable internet in every unit" },
-    { icon: Key,   title: "Keyless Entry",      description: "Secure digital access" },
-    { icon: Clock, title: "Self Check-In",      description: "Flexible arrivals" },
-    { icon: Car,   title: "Parking",            description: "Convenient on-site options" },
-    { icon: WashingMachine, title: "On-Site Laundry", description: "Easy, practical stays" },
-    { icon: Coffee, title: "Coffee & Tea",      description: "Complimentary in every unit" },
-    { icon: Tv2,   title: "Smart TV",           description: "Log into your streaming apps" },
-    { icon: Wind,  title: "A/C & Heating",      description: "Comfort year-round" },
+    { icon: Wifi,  title: t("list.wifi.title"),   description: t("list.wifi.description") },
+    { icon: Key,   title: t("list.keyless.title"),      description: t("list.keyless.description") },
+    { icon: Clock, title: t("list.checkin.title"),      description: t("list.checkin.description") },
+    { icon: Car,   title: t("list.parking.title"),            description: t("list.parking.description") },
+    { icon: WashingMachine, title: t("list.laundry.title"), description: t("list.laundry.description") },
+    { icon: Coffee, title: t("list.coffee.title"),      description: t("list.coffee.description") },
+    { icon: Tv2,   title: t("list.tv.title"),           description: t("list.tv.description") },
+    { icon: Wind,  title: t("list.ac.title"),      description: t("list.ac.description") },
   ]
 
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-coastal-teal/10 to-coastal-foam/15">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">Included Amenities</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">{t("heading")}</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Practical comforts across all Silver Pineapple stays
+            {t("subheading")}
           </p>
         </div>
 

@@ -1,6 +1,11 @@
+"use client"
+
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 
 export default function LocationSection() {
+  const t = useTranslations("about.location")
+
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-white to-coastal-dune/15">
       <div className="max-w-7xl mx-auto">
@@ -8,45 +13,42 @@ export default function LocationSection() {
           {/* Text Column */}
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 tracking-tight">
-              Discover Eau Gallie
+              {t("heading")}
             </h2>
 
             <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
               <p>
-                Welcome to Melbourne’s creative heart. From our doorstep beside the Eau Gallie Public Library, you can
-                wander a walkable district filled with colorful murals, independent galleries, cozy cafés, and breezy
-                riverfront parks — with the Atlantic beaches just a quick drive over the causeway.
+                {t("paragraph1")}
               </p>
               <p>
-                Whether you’re here for a few nights or a few months, Eau Gallie offers an easy rhythm of art, markets,
-                live music, and waterfront sunsets — the perfect base for Space Coast adventures.
+                {t("paragraph2")}
               </p>
             </div>
 
             {/* Neighborhood Highlights */}
             <div className="grid grid-cols-2 gap-4 mt-8">
               <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-                <h4 className="font-semibold text-primary mb-2">Arts & Murals</h4>
+                <h4 className="font-semibold text-primary mb-2">{t("arts.title")}</h4>
                 <p className="text-sm text-gray-600">
-                  EGAD’s open-air art scene with galleries, studios, and 30+ murals a short walk away.
+                  {t("arts.description")}
                 </p>
               </div>
               <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-                <h4 className="font-semibold text-primary mb-2">Dining & Drinks</h4>
+                <h4 className="font-semibold text-primary mb-2">{t("dining.title")}</h4>
                 <p className="text-sm text-gray-600">
-                  Rooftops, waterfront seafood, craft brews, and local coffee — all nearby.
+                  {t("dining.description")}
                 </p>
               </div>
               <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-                <h4 className="font-semibold text-primary mb-2">River & Parks</h4>
+                <h4 className="font-semibold text-primary mb-2">{t("parks.title")}</h4>
                 <p className="text-sm text-gray-600">
-                  Ballard Park boat ramp, Eau Gallie Pier, and green spaces for sunrise walks.
+                  {t("parks.description")}
                 </p>
               </div>
               <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-                <h4 className="font-semibold text-primary mb-2">Beach & Access</h4>
+                <h4 className="font-semibold text-primary mb-2">{t("beach.title")}</h4>
                 <p className="text-sm text-gray-600">
-                  Beaches in ~10–15 min via Eau Gallie Causeway; quick routes to US-1, I-95, and MLB airport.
+                  {t("beach.description")}
                 </p>
               </div>
             </div>

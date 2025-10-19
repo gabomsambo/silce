@@ -112,3 +112,17 @@ scratch.*
 # Cursor AI specific
 .cursorrules
 .cursor/
+
+# Vercel deployment outputs
+.vercel
+
+# Turbo build cache
+.turbo
+
+# Next.js TypeScript
+next-env.d.ts
+
+# Old/deprecated code (backups, not needed in repo)
+app/_old_pages/
+*_old/
+*_backup/

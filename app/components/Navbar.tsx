@@ -1,7 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Languages } from "lucide-react"
+import { useLocale, useTranslations } from 'next-intl'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from "next/link"
 import Logo from "./Logo"
 import Button from "./Button"
@@ -9,6 +11,10 @@ import Button from "./Button"
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const t = useTranslations('navbar')
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,11 +25,18 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Rooms", href: "/rooms" },
-    { name: "About", href: "/about" },
-    { name: "Reviews", href: "/reviews" },
+    { name: t('home'), href: `/${locale}` },
+    { name: t('rooms'), href: `/${locale}/rooms` },
+    { name: t('about'), href: `/${locale}/about` },
+    { name: t('reviews'), href: `/${locale}/reviews` },
   ]
+
+  const switchLanguage = () => {
+    const newLocale = locale === 'en' ? 'es' : 'en'
+    // Remove current locale from pathname and add new locale
+    const pathWithoutLocale = pathname.replace(`/${locale}`, '')
+    router.push(`/${newLocale}${pathWithoutLocale}`)
+  }
 
   return (
     <nav
@@ -37,7 +50,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
+            <Link href={`/${locale}`}>
               <Logo />
             </Link>
           </div>
@@ -53,7 +66,14 @@ export default function Navbar() {
                 {link.name.toUpperCase()}
               </Link>
             ))}
-            <Button text="BOOK NOW" variant="primary" isBookingButton={true} />
+            <Button text={t('bookNow')} variant="primary" isBookingButton={true} />
+            <button
+              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan"
+              onClick={switchLanguage}
+            >
+              <Languages size={18} />
+              <span>{t('languageToggle')}</span>
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -79,7 +99,19 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button text="BOOK NOW" variant="primary" isBookingButton={true} />
+                <Button text={t('bookNow')} variant="primary" isBookingButton={true} />
+              </div>
+              <div className="px-3 py-2">
+                <button
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan"
+                  onClick={() => {
+                    switchLanguage()
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  <Languages size={18} />
+                  <span>{t('translateTo')}</span>
+                </button>
               </div>
             </div>
           </div>
