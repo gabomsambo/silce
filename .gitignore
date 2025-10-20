@@ -58,6 +58,7 @@ __MACOSX/
 *.d.ts.map
 
 .claude/
+!.claude/routes.json
 
 # Next/Image cache
 public/_next/
