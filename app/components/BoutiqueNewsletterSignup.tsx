@@ -103,7 +103,7 @@ export default function BoutiqueNewsletterSignup() {
             </MagicCard>
           </div>
         </div>
-        <Confetti ref={confettiRef} className="fixed inset-0 pointer-events-none z-50" />
+        <Confetti ref={confettiRef} manualstart={true} className="fixed inset-0 pointer-events-none z-50" />
       </section>
     )
   }
@@ -239,7 +239,7 @@ export default function BoutiqueNewsletterSignup() {
           </div>
         </div>
       </div>
-      <Confetti ref={confettiRef} className="fixed inset-0 pointer-events-none z-50" />
+      <Confetti ref={confettiRef} manualstart={true} className="fixed inset-0 pointer-events-none z-50" />
     </section>
   )
 }
