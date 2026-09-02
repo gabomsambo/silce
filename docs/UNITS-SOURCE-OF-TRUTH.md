@@ -49,10 +49,10 @@ Hospitable is authoritative for IDs. All 13 map 1:1 to a photo folder.
 Non-unit folders: `Fotos amenidades` (15), `Fotos de exterior` (23).
 Library total: **129 files, all byte-distinct** (checksummed — no duplicates).
 
-## Site ID migration
+## Site ID migration — applied
 
-Every `hospitable_id` in `app/data/units.ts` is stale. The old IDs are in the
-`18876xx / 1983780` space; Hospitable now issues `22829xx`.
+Applied to `app/data/units.ts`. The old IDs were in the `18876xx / 1983780`
+space (all returning HTTP 500); Hospitable now issues `22829xx`.
 
 | Site slug | Current (stale) | Correct |
 |---|---|---|
@@ -66,8 +66,12 @@ Every `hospitable_id` in `app/data/units.ts` is stale. The old IDs are in the
 | `pineapple-104` | `1983780` ⚠ | `2282923` |
 | `pineapple-101` | `1983780` ⚠ | `2282914` |
 
-⚠ `pineapple-101` and `pineapple-104` currently share one ID — one of the two
-pages books the wrong apartment. The new IDs resolve it.
+⚠ `pineapple-101` and `pineapple-104` previously shared one ID — one of the two
+pages booked the wrong apartment. The new IDs resolve it.
+
+`priceFrom` is the minimum nightly `price` over the next 12 months, read from
+`.../properties/<id>/calendar`. Re-derive it there rather than editing by hand;
+every value below the true floor advertises a rate no guest can book.
 
 ## Embed method
 
@@ -85,10 +89,13 @@ the site UUID, which is expected.
 
 1. **Four unlisted units.** PA105, SG101, SG201, and 101 Ed 1052 SG are live in
    Hospitable and have photos, but no page. Publish them?
-2. **`pineapple-104` metadata.** Titled "Studio - Comfort", `sqFt: 720`,
-   `maxGuests: 2` — identical to `pineapple-101`, likely copy-paste from when
-   they shared an ID. Verify against Hospitable.
-3. **Embed migration.** Move to the script loader, or keep the iframe (which
+2. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
+   `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
+   still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
+3. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
+   count, so `bedrooms` is derived from the listing name. The seven studios read
+   `0`, which renders as "0 bedrooms" in the specs line — cosmetic, not a data bug.
+4. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding)?
 
 ## Photo library defects

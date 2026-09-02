@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter, usePathname } from "@/i18n/navigation"
 import { ShimmerButton } from "@/components/ui/shimmer-button"
 
 interface ButtonProps {
@@ -48,7 +48,7 @@ export default function Button({ text, variant = "primary", onClick, className =
   }
 
   const handleClick = () => {
-    if (isBookingButton && text.toLowerCase().includes('book')) {
+    if (isBookingButton) {
       handleSmartBooking()
     } else if (onClick) {
       onClick()
@@ -56,7 +56,7 @@ export default function Button({ text, variant = "primary", onClick, className =
   }
 
   // Use ShimmerButton for booking buttons, regular button for others
-  if (isBookingButton && text.toLowerCase().includes('book')) {
+  if (isBookingButton) {
     return (
       <ShimmerButton
         onClick={handleClick}

@@ -2,6 +2,7 @@
 
 import { Palette, Waves, UtensilsCrossed, Leaf, Rocket, Music } from "lucide-react"
 import Image from "next/image"
+import { Link } from "@/i18n/navigation"
 import { MagicCard } from "@/components/ui/magic-card"
 import MapWrapper from "./MapWrapper"
 import { MAP_MARKERS, EAU_GALLIE_CENTER } from "@/app/data/mapMarkers"
@@ -145,13 +146,13 @@ export default function DiscoverLocationSection() {
           <p className="text-gray-600 mb-6 text-lg">
             {t("ready")}
           </p>
-          <a
+          <Link
             href="/rooms"
             className="inline-block px-8 py-4 bg-tan text-white font-semibold rounded-lg
             hover:bg-tan/90 transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
             {t("ctaButton")}
-          </a>
+          </Link>
         </div>
       </div>
     </section>

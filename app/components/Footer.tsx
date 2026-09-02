@@ -1,13 +1,12 @@
 "use client"
 
 import { useTranslations } from 'next-intl';
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react"
 import Logo from "./Logo"
 
 export default function Footer() {
   const t = useTranslations('footer');
-  // Links use relative paths so the locale prefix is preserved by the middleware
 
   return (
     <footer className="bg-primary text-white py-16 px-4">
@@ -39,17 +38,17 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-6 tracking-wide">{t('quickLinksHeading')}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="./rooms" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <Link href="/rooms" className="text-gray-300 hover:text-tan transition-colors duration-300">
                   {t('rooms')}
                 </Link>
               </li>
               <li>
-                <Link href="./about" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <Link href="/about" className="text-gray-300 hover:text-tan transition-colors duration-300">
                   {t('about')}
                 </Link>
               </li>
               <li>
-                <Link href="./reviews" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <Link href="/reviews" className="text-gray-300 hover:text-tan transition-colors duration-300">
                   {t('reviews')}
                 </Link>
               </li>
@@ -61,7 +60,7 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-6 tracking-wide">{t('bookingHeading')}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="./rooms" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <Link href="/rooms" className="text-gray-300 hover:text-tan transition-colors duration-300">
                   {t('browseProperties')}
                 </Link>
               </li>
