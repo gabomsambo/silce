@@ -3,9 +3,7 @@
 import { useState, useEffect } from "react"
 import { Menu, X, Languages } from "lucide-react"
 import { useLocale, useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
-import { usePathname as useLocalizedPathname } from '@/i18n/navigation'
-import Link from "next/link"
+import { Link, usePathname as useLocalizedPathname, useRouter } from '@/i18n/navigation'
 import Logo from "./Logo"
 import Button, { bookingActionForPath } from "./Button"
 
@@ -27,15 +25,15 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: t('home'), href: `/${locale}` },
-    { name: t('rooms'), href: `/${locale}/rooms` },
-    { name: t('about'), href: `/${locale}/about` },
-    { name: t('reviews'), href: `/${locale}/reviews` },
+    { name: t('home'), href: '/' },
+    { name: t('rooms'), href: '/rooms' },
+    { name: t('about'), href: '/about' },
+    { name: t('reviews'), href: '/reviews' },
   ]
 
   const switchLanguage = () => {
     const newLocale = locale === 'en' ? 'es' : 'en'
-    router.push(`/${newLocale}${localizedPath === '/' ? '' : localizedPath}`)
+    router.push(localizedPath, { locale: newLocale })
   }
 
   return (
@@ -50,7 +48,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href={`/${locale}`}>
+            <Link href="/">
               <Logo />
             </Link>
           </div>
