@@ -1,3 +1,4 @@
+import { type CategoryKey } from "@/app/data/categories";
 import type { Translate } from "@/app/data/copy";
 import { UNITS, type Unit } from "@/app/data/units";
 import { toAbsoluteUrl } from "@/lib/site";
@@ -24,9 +25,21 @@ const BUILDING_ADDRESSES = [
 
 const UNIT_TYPES = ["Product", "Accommodation"];
 
+const BEDROOMS_BY_CATEGORY: Record<CategoryKey, number> = {
+  "studio-compact": 0,
+  "studio-comfort": 0,
+  "studio-plus": 0,
+  "one-bed-1-bath": 1,
+  "two-bed-1-bath": 2,
+};
+
 interface BreadcrumbItem {
   name: string;
   path: string;
+}
+
+function getCorroboratedBedroomCount(unit: Unit): number | undefined {
+  return BEDROOMS_BY_CATEGORY[unit.category] === unit.bedrooms ? unit.bedrooms : undefined;
 }
 
 function normalizeLocale(locale: string): SupportedLocale {
@@ -114,6 +127,7 @@ export function createUnitJsonLd(locale: string, unit: Unit, t: Translate) {
   const normalizedLocale = normalizeLocale(locale);
   const unitUrl = getUnitUrl(normalizedLocale, unit);
   const unitId = `${unitUrl}#unit`;
+  const bedrooms = getCorroboratedBedroomCount(unit);
 
   return {
     "@context": "https://schema.org",
@@ -143,7 +157,7 @@ export function createUnitJsonLd(locale: string, unit: Unit, t: Translate) {
           value: unit.maxGuests,
           unitCode: "C62",
         },
-        numberOfBedrooms: unit.bedrooms,
+        ...(bedrooms === undefined ? {} : { numberOfBedrooms: bedrooms }),
         numberOfBathroomsTotal: unit.bathrooms,
         offers: {
           "@type": "Offer",
