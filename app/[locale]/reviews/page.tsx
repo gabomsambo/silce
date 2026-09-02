@@ -22,7 +22,8 @@ export async function generateMetadata({
       canonical: `/${locale}/reviews`,
       languages: {
         'en': '/en/reviews',
-        'es': '/es/reviews'
+        'es': '/es/reviews',
+        'x-default': '/en/reviews'
       }
     },
     openGraph: {

@@ -23,7 +23,8 @@ export async function generateMetadata({
       canonical: `/${locale}`,
       languages: {
         'en': '/en',
-        'es': '/es'
+        'es': '/es',
+        'x-default': '/en'
       }
     },
     openGraph: {

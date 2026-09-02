@@ -25,7 +25,8 @@ export async function generateMetadata({
       canonical: `/${locale}/about`,
       languages: {
         'en': '/en/about',
-        'es': '/es/about'
+        'es': '/es/about',
+        'x-default': '/en/about'
       }
     },
     openGraph: {

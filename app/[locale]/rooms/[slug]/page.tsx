@@ -7,6 +7,7 @@ import BookingIframe from "../../../components/BookingIframe";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { UNITS } from "../../../data/units";
 import { buildUnitLongDescription, formatPrice } from "../../../data/copy";
+import { createBreadcrumbJsonLd, createUnitJsonLd } from "@/lib/structuredData";
 
 // Generate static params for all rooms in both locales
 export function generateStaticParams() {
@@ -81,7 +82,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: pageUrl,
       languages: {
         'en': `/en/rooms/${slug}`,
-        'es': `/es/rooms/${slug}`
+        'es': `/es/rooms/${slug}`,
+        'x-default': `/en/rooms/${slug}`
       }
     },
     openGraph: {
@@ -125,9 +127,25 @@ export default async function PropertyPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
   const tRoot = await getTranslations({ locale });
   const title = tRoot(property.titleKey);
+  const localizedHome = locale === "es" ? "Inicio" : "Home";
+  const localizedRooms = locale === "es" ? "Alojamientos" : "Rooms";
+  const unitJsonLd = createUnitJsonLd(locale, property, tRoot);
+  const breadcrumbJsonLd = createBreadcrumbJsonLd(locale, [
+    { name: localizedHome, path: `/${locale}` },
+    { name: localizedRooms, path: `/${locale}/rooms` },
+    { name: title, path: `/${locale}/rooms/${property.slug}` },
+  ]);
 
   return (
     <main className="min-h-screen bg-sand-fade">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(unitJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Navbar />
 
       {/* Gallery */}
