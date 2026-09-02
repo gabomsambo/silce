@@ -373,7 +373,10 @@
     },
     "stats": {
       "heading": "TRUSTED ACROSS ALL PLATFORMS",
-      "body": "Our commitment to excellence is reflected in our consistent ratings across all major booking platforms. Every review represents a real guest experience and our dedication to hospitality."
+      "body": "Our commitment to excellence is reflected in our consistent ratings across all major booking platforms. Every review represents a real guest experience and our dedication to hospitality.",
+      "averageRating": "Average Rating",
+      "totalReviews": "Total Reviews",
+      "platformReviews": "{count} reviews"
     },
     "display": {
       "heading": "RECENT GUEST REVIEWS",

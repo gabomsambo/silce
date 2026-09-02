@@ -184,7 +184,7 @@
       }
     },
     "categoryAmenities": {
-      "sleeps": "Hasta {count} huéspedes",
+      "sleeps": "Capacidad {count} huéspedes",
       "queenBed": "Cama Queen",
       "kingQueenSofaBed": "Cama King/Queen + sofá cama",
       "twoBedrooms": "Dos habitaciones",
@@ -373,7 +373,10 @@
     },
     "stats": {
       "heading": "CONFIABLE EN TODAS LAS PLATAFORMAS",
-      "body": "Nuestro compromiso con la excelencia se refleja en nuestras calificaciones consistentes en todas las principales plataformas de reserva. Cada opinión representa una experiencia real de huésped y nuestra dedicación a la hospitalidad."
+      "body": "Nuestro compromiso con la excelencia se refleja en nuestras calificaciones consistentes en todas las principales plataformas de reserva. Cada opinión representa una experiencia real de huésped y nuestra dedicación a la hospitalidad.",
+      "averageRating": "Calificación Promedio",
+      "totalReviews": "Opiniones Totales",
+      "platformReviews": "{count} opiniones"
     },
     "display": {
       "heading": "OPINIONES RECIENTES DE HUÉSPEDES",
