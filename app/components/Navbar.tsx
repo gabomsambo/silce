@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Menu, X, Languages } from "lucide-react"
 import { useLocale, useTranslations } from 'next-intl'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { usePathname as useLocalizedPathname } from '@/i18n/navigation'
 import Link from "next/link"
 import Logo from "./Logo"
@@ -15,8 +15,8 @@ export default function Navbar() {
   const t = useTranslations('navbar')
   const locale = useLocale()
   const router = useRouter()
-  const pathname = usePathname()
-  const bookingAction = bookingActionForPath(useLocalizedPathname())
+  const localizedPath = useLocalizedPathname()
+  const bookingAction = bookingActionForPath(localizedPath)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,9 +35,7 @@ export default function Navbar() {
 
   const switchLanguage = () => {
     const newLocale = locale === 'en' ? 'es' : 'en'
-    // Remove current locale from pathname and add new locale
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '')
-    router.push(`/${newLocale}${pathWithoutLocale}`)
+    router.push(`/${newLocale}${localizedPath === '/' ? '' : localizedPath}`)
   }
 
   return (
