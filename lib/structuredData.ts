@@ -166,7 +166,7 @@ export function createUnitJsonLd(locale: string, unit: Unit, t: Translate) {
         },
         occupancy: {
           "@type": "QuantitativeValue",
-          value: unit.maxGuests,
+          maxValue: unit.maxGuests,
           unitCode: "C62",
         },
         ...(bedrooms === undefined ? {} : { numberOfBedrooms: bedrooms }),
