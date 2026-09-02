@@ -45,7 +45,7 @@ export async function generateMetadata({
       template: t('titleTemplate')
     },
     description: t('description'),
-    keywords: t('keywords'),
+    keywords: t.raw('keywords'),
     openGraph: {
       type: 'website',
       locale: locale === 'es' ? 'es_ES' : 'en_US',

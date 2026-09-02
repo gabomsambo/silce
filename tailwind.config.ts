@@ -17,7 +17,7 @@ const config: Config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#1a1a1a",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -29,7 +29,7 @@ const config: Config = {
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
+          DEFAULT: "#F5F5F5",
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
@@ -44,9 +44,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        primary: "#1a1a1a",
         tan: "#D2B48C",
-        muted: "#F5F5F5",
         // Coastal Palette - Beach vacation aesthetic
         "coastal-blue": "#0EA5E9",      // Ocean blue (Tailwind sky-500)
         "coastal-teal": "#14B8A6",      // Coastal teal (Tailwind teal-500)

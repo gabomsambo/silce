@@ -1,13 +1,13 @@
-import { getTranslations } from 'next-intl/server';
-import { useLocale } from 'next-intl';
+"use client"
+
+import { useTranslations } from 'next-intl';
 import Link from "next/link"
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react"
 import Logo from "./Logo"
 
-export default async function Footer() {
-  const t = await getTranslations('footer');
-  // Get locale for link paths - we'll use a workaround since useLocale is for client components
-  // For now, we'll use relative paths that work with middleware
+export default function Footer() {
+  const t = useTranslations('footer');
+  // Links use relative paths so the locale prefix is preserved by the middleware
 
   return (
     <footer className="bg-primary text-white py-16 px-4">
