@@ -38,6 +38,22 @@ interface BreadcrumbItem {
   path: string;
 }
 
+function createUnitOffer(unit: Unit, unitUrl: string) {
+  return {
+    "@type": "Offer",
+    price: unit.priceFrom,
+    priceCurrency: "USD",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      minPrice: unit.priceFrom,
+      priceCurrency: "USD",
+      unitCode: "DAY",
+    },
+    url: unitUrl,
+    availability: "https://schema.org/InStock",
+  };
+}
+
 function getCorroboratedBedroomCount(unit: Unit): number | undefined {
   return BEDROOMS_BY_CATEGORY[unit.category] === unit.bedrooms ? unit.bedrooms : undefined;
 }
@@ -106,11 +122,7 @@ export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
           const unitUrl = getUnitUrl(normalizedLocale, unit);
 
           return {
-            "@type": "Offer",
-            price: unit.priceFrom,
-            priceCurrency: "USD",
-            url: unitUrl,
-            availability: "https://schema.org/InStock",
+            ...createUnitOffer(unit, unitUrl),
             itemOffered: {
               "@type": UNIT_TYPES,
               "@id": `${unitUrl}#unit`,
@@ -159,13 +171,7 @@ export function createUnitJsonLd(locale: string, unit: Unit, t: Translate) {
         },
         ...(bedrooms === undefined ? {} : { numberOfBedrooms: bedrooms }),
         numberOfBathroomsTotal: unit.bathrooms,
-        offers: {
-          "@type": "Offer",
-          price: unit.priceFrom,
-          priceCurrency: "USD",
-          url: unitUrl,
-          availability: "https://schema.org/InStock",
-        },
+        offers: createUnitOffer(unit, unitUrl),
       },
     ],
   };
