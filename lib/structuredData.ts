@@ -25,6 +25,8 @@ const BUILDING_ADDRESSES = [
 
 const UNIT_TYPES = ["Product", "Accommodation"];
 
+const BUSINESS_POSTAL_CODE = "32935";
+
 const BEDROOMS_BY_CATEGORY: Record<CategoryKey, number> = {
   "studio-compact": 0,
   "studio-comfort": 0,
@@ -54,6 +56,10 @@ function createUnitOffer(unit: Unit, unitUrl: string) {
   };
 }
 
+function getUnitImageUrls(unit: Unit): string[] {
+  return Array.from(new Set(unit.images)).map(toAbsoluteUrl);
+}
+
 function getCorroboratedBedroomCount(unit: Unit): number | undefined {
   return BEDROOMS_BY_CATEGORY[unit.category] === unit.bedrooms ? unit.bedrooms : undefined;
 }
@@ -62,12 +68,13 @@ function normalizeLocale(locale: string): SupportedLocale {
   return locale === "es" ? "es" : "en";
 }
 
-function toPostalAddress(streetAddress: string) {
+function toPostalAddress(streetAddress: string, postalCode?: string) {
   return {
     "@type": "PostalAddress",
     streetAddress,
     addressLocality: "Melbourne",
     addressRegion: "FL",
+    ...(postalCode === undefined ? {} : { postalCode }),
     addressCountry: "US",
   };
 }
@@ -80,8 +87,8 @@ function getWebSiteId(locale: SupportedLocale): string {
   return `${getLocaleRootUrl(locale)}#website`;
 }
 
-function getLodgingBusinessId(locale: SupportedLocale): string {
-  return `${getLocaleRootUrl(locale)}#lodging-business`;
+function getLodgingBusinessId(): string {
+  return `${toAbsoluteUrl("/")}#lodging-business`;
 }
 
 function getUnitUrl(locale: SupportedLocale, unit: Unit): string {
@@ -91,7 +98,7 @@ function getUnitUrl(locale: SupportedLocale, unit: Unit): string {
 export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
   const normalizedLocale = normalizeLocale(locale);
   const localeRootUrl = getLocaleRootUrl(normalizedLocale);
-  const businessId = getLodgingBusinessId(normalizedLocale);
+  const businessId = getLodgingBusinessId();
 
   return {
     "@context": "https://schema.org",
@@ -108,8 +115,8 @@ export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
         "@type": "LodgingBusiness",
         "@id": businessId,
         name: BUSINESS_NAME,
-        url: localeRootUrl,
-        address: toPostalAddress(BUILDING_ADDRESSES[0]),
+        url: toAbsoluteUrl("/"),
+        address: toPostalAddress(BUILDING_ADDRESSES[0], BUSINESS_POSTAL_CODE),
         location: BUILDING_ADDRESSES.map((streetAddress) => ({
           "@type": "Place",
           address: toPostalAddress(streetAddress),
@@ -120,6 +127,7 @@ export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
         ],
         makesOffer: UNITS.map((unit) => {
           const unitUrl = getUnitUrl(normalizedLocale, unit);
+          const [primaryImage] = getUnitImageUrls(unit);
 
           return {
             ...createUnitOffer(unit, unitUrl),
@@ -127,6 +135,7 @@ export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
               "@type": UNIT_TYPES,
               "@id": `${unitUrl}#unit`,
               name: t(unit.titleKey),
+              ...(primaryImage === undefined ? {} : { image: primaryImage }),
             },
           };
         }),
@@ -159,7 +168,7 @@ export function createUnitJsonLd(locale: string, unit: Unit, t: Translate) {
         "@id": unitId,
         name: t(unit.titleKey),
         url: unitUrl,
-        image: Array.from(new Set(unit.images)).map(toAbsoluteUrl),
+        image: getUnitImageUrls(unit),
         brand: {
           "@type": "Brand",
           name: BUSINESS_NAME,
