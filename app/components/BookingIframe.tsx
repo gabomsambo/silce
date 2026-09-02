@@ -41,6 +41,9 @@ export default function BookingIframe({ hospitableId, propertyTitle }: BookingIf
     updateIframeSrc()
   }, [hospitableId])
 
+  // `allow-forms` and `allow-popups` in the sandbox below are load-bearing: without
+  // them the guest cannot submit the Hospitable booking form, even though the widget
+  // itself renders fine — the failure is silent.
   return (
     <iframe
       id="booking-iframe"

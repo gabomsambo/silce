@@ -54,7 +54,7 @@ Library total: **129 files, all byte-distinct** (checksummed — no duplicates).
 Applied to `app/data/units.ts`. The old IDs were in the `18876xx / 1983780`
 space (all returning HTTP 500); Hospitable now issues `22829xx`.
 
-| Site slug | Current (stale) | Correct |
+| Site slug | Old (retired) | Live in `units.ts` |
 |---|---|---|
 | `unit-2528` | `1887660` | `2282925` |
 | `unit-2536` | `1887654` | `2282918` |
