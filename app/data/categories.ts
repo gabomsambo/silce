@@ -39,7 +39,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badge: "Extra Space",
     blurb:
       "A large studio with a dedicated dining nook in the kitchen — great for work-from-home days or longer stays.",
-    defaultAmenities: ["Sleeps 2-3", "Queen bed", "Kitchenette + dining table", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    defaultAmenities: ["Sleeps 4", "Queen bed", "Kitchenette + dining table", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
     heroImage: "/rooms/studio-plus.jpg",
   },
   "one-bed-1-bath": {

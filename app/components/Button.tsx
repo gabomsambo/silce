@@ -25,26 +25,17 @@ export default function Button({ text, variant = "primary", onClick, className =
     if (!mounted) return
 
     // Smart context-aware booking logic
-    if (pathname === '/') {
-      // Homepage: Scroll to Hero search widget
-      const heroWidget = document.getElementById('hero-search-widget')
-      if (heroWidget) {
-        heroWidget.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      } else {
-        // Fallback: scroll to the hero section
-        const heroSection = document.querySelector('section')
-        heroSection?.scrollIntoView({ behavior: 'smooth' })
-      }
-    } else if (pathname.startsWith('/rooms/') && pathname !== '/rooms') {
+    if (pathname.startsWith('/rooms/') && pathname !== '/rooms') {
       // Individual property page: Scroll to booking widget
       const bookingWidget = document.getElementById('booking-iframe')
       if (bookingWidget) {
         bookingWidget.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
       }
-    } else {
-      // Other pages: Redirect to search
-      router.push('/search')
     }
+
+    // Any page without a booking widget: send the guest to the inventory
+    router.push('/rooms')
   }
 
   const handleClick = () => {
