@@ -6,57 +6,99 @@ export type CategoryKey =
   | "one-bed-1-bath"     // 1 unit
   | "two-bed-1-bath"     // 1 unit
 
+/**
+ * An amenity chip shown at category level. `key` names a message under
+ * `rooms.categoryAmenities`; `values` carries the facts (e.g. capacity) that
+ * belong to the data rather than to the copy.
+ */
+export interface CategoryAmenity {
+  key: string
+  values?: Record<string, string | number>
+}
+
+/**
+ * Category metadata. Visible copy lives in `messages/{locale}.json` — the
+ * fields below hold message keys, never literals, so both locales render from
+ * the same catalog.
+ */
 export interface CategoryMeta {
   key: CategoryKey
-  name: string
-  badge?: string
-  blurb: string
-  defaultAmenities: string[] // shown at category level (shared)
+  nameKey: string
+  badgeKey?: string
+  blurbKey: string
+  defaultAmenities: CategoryAmenity[] // shown at category level (shared)
   heroImage?: string
 }
+
+const SHARED_AMENITIES: CategoryAmenity[] = [
+  { key: "wifi" },
+  { key: "smartTv" },
+  { key: "onSiteLaundry" },
+  { key: "parking" },
+]
 
 export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
   "studio-compact": {
     key: "studio-compact",
-    name: "Studio — Compact",
-    badge: "Best Value",
-    blurb:
-      "Smart, efficient studios ideal for solo travelers or couples who want a budget-friendly, walkable base beside the Eau Gallie Public Library.",
-    defaultAmenities: ["Sleeps 2", "Queen bed", "Kitchenette", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    nameKey: "rooms.categories.studio-compact.name",
+    badgeKey: "rooms.categories.studio-compact.badge",
+    blurbKey: "rooms.categories.studio-compact.blurb",
+    defaultAmenities: [
+      { key: "sleeps", values: { count: "2" } },
+      { key: "queenBed" },
+      { key: "kitchenette" },
+      ...SHARED_AMENITIES,
+    ],
     heroImage: "/rooms/studio-compact.jpg",
   },
   "studio-comfort": {
     key: "studio-comfort",
-    name: "Studio — Comfort",
-    blurb:
-      "Roomier studios with a bit more breathing space — an easy pick for longer short stays near murals, cafés, and riverfront parks.",
-    defaultAmenities: ["Sleeps 2-3", "Queen bed", "Kitchenette", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    nameKey: "rooms.categories.studio-comfort.name",
+    blurbKey: "rooms.categories.studio-comfort.blurb",
+    defaultAmenities: [
+      { key: "sleeps", values: { count: "2" } },
+      { key: "queenBed" },
+      { key: "kitchenette" },
+      ...SHARED_AMENITIES,
+    ],
     heroImage: "/rooms/studio-comfort.jpg",
   },
   "studio-plus": {
     key: "studio-plus",
-    name: "Studio — Plus (Large)",
-    badge: "Extra Space",
-    blurb:
-      "A large studio with a dedicated dining nook in the kitchen — great for work-from-home days or longer stays.",
-    defaultAmenities: ["Sleeps 4", "Queen bed", "Kitchenette + dining table", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    nameKey: "rooms.categories.studio-plus.name",
+    badgeKey: "rooms.categories.studio-plus.badge",
+    blurbKey: "rooms.categories.studio-plus.blurb",
+    defaultAmenities: [
+      { key: "sleeps", values: { count: "2-3" } },
+      { key: "queenBed" },
+      { key: "kitchenetteDiningTable" },
+      ...SHARED_AMENITIES,
+    ],
     heroImage: "/rooms/studio-plus.jpg",
   },
   "one-bed-1-bath": {
     key: "one-bed-1-bath",
-    name: "1 Bedroom, 1 Bath",
-    blurb:
-      "Separate bedroom and living area for more privacy — a comfy setup for couples, friends, or work trips.",
-    defaultAmenities: ["Sleeps 3", "King/Queen + sofa bed", "Full kitchen", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    nameKey: "rooms.categories.one-bed-1-bath.name",
+    blurbKey: "rooms.categories.one-bed-1-bath.blurb",
+    defaultAmenities: [
+      { key: "sleeps", values: { count: "3-4" } },
+      { key: "kingQueenSofaBed" },
+      { key: "fullKitchen" },
+      ...SHARED_AMENITIES,
+    ],
     heroImage: "/rooms/one-bed.jpg",
   },
   "two-bed-1-bath": {
     key: "two-bed-1-bath",
-    name: "2 Bedroom, 1 Bath",
-    badge: "Great for Groups",
-    blurb:
-      "Two bedrooms, one bath — the most space for friends or families who want a walkable Eau Gallie base near the river.",
-    defaultAmenities: ["Sleeps 6", "Two bedrooms", "Full kitchen", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    nameKey: "rooms.categories.two-bed-1-bath.name",
+    badgeKey: "rooms.categories.two-bed-1-bath.badge",
+    blurbKey: "rooms.categories.two-bed-1-bath.blurb",
+    defaultAmenities: [
+      { key: "sleeps", values: { count: "4-5" } },
+      { key: "twoBedrooms" },
+      { key: "fullKitchen" },
+      ...SHARED_AMENITIES,
+    ],
     heroImage: "/rooms/two-bed.jpg",
   },
 }

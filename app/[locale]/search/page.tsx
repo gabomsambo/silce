@@ -1,10 +1,12 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
 
 export default function SearchPage() {
+  const t = useTranslations("search")
   const widgetRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -145,10 +147,10 @@ export default function SearchPage() {
       <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Search Results
+            {t("heading")}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover your perfect boutique accommodation from our curated selection
+            {t("subheading")}
           </p>
         </div>
       </section>

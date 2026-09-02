@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -9,29 +10,32 @@ import { MagicCard } from "@/components/ui/magic-card"
 import { UNITS } from "@/app/data/units"
 import confetti from "canvas-confetti"
 
-// Zod validation schema
-const reviewSchema = z.object({
+// Zod validation schema. Built from the active translator so validation
+// messages follow the page locale like every other string on the form.
+type Translate = (key: string) => string
+
+const buildReviewSchema = (t: Translate) => z.object({
   guestName: z.string()
-    .min(2, "Name must be at least 2 characters")
-    .max(50, "Name must be less than 50 characters"),
+    .min(2, t("validation.nameMin"))
+    .max(50, t("validation.nameMax")),
   email: z.string()
-    .email("Please enter a valid email address"),
+    .email(t("validation.email")),
   propertySlug: z.string()
-    .min(1, "Please select the property you stayed at"),
+    .min(1, t("validation.property")),
   overallRating: z.number()
-    .min(1, "Please rate your stay")
+    .min(1, t("validation.rating"))
     .max(5),
   cleanliness: z.number().min(1).max(5).optional(),
   communication: z.number().min(1).max(5).optional(),
   location: z.number().min(1).max(5).optional(),
   value: z.number().min(1).max(5).optional(),
   reviewText: z.string()
-    .min(50, "Review must be at least 50 characters")
-    .max(500, "Review must be less than 500 characters"),
+    .min(50, t("validation.reviewMin"))
+    .max(500, t("validation.reviewMax")),
   stayDate: z.string().optional()
 })
 
-type ReviewFormData = z.infer<typeof reviewSchema>
+type ReviewFormData = z.infer<ReturnType<typeof buildReviewSchema>>
 
 // Star Rating Component
 interface StarRatingProps {
@@ -71,6 +75,8 @@ function StarRating({ rating, onChange, label }: StarRatingProps) {
 }
 
 export default function ReviewSubmissionForm() {
+  const t = useTranslations("reviews.form")
+  const reviewSchema = useMemo(() => buildReviewSchema(t), [t])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [overallRating, setOverallRating] = useState(0)
@@ -124,7 +130,7 @@ export default function ReviewSubmissionForm() {
 
     } catch (error) {
       console.error("Error submitting review:", error)
-      alert("There was an error submitting your review. Please try again.")
+      alert(t("errorAlert"))
     } finally {
       setIsSubmitting(false)
     }
@@ -147,10 +153,9 @@ export default function ReviewSubmissionForm() {
           <MagicCard className="p-12 text-center">
             <div className="flex flex-col items-center space-y-4">
               <CheckCircle2 className="w-16 h-16 text-green-500" />
-              <h3 className="text-3xl font-bold text-primary">Thank You!</h3>
+              <h3 className="text-3xl font-bold text-primary">{t("successHeading")}</h3>
               <p className="text-lg text-gray-600 max-w-md">
-                Your review has been submitted successfully. We appreciate you taking the time
-                to share your experience with us!
+                {t("successBody")}
               </p>
             </div>
           </MagicCard>
@@ -164,10 +169,10 @@ export default function ReviewSubmissionForm() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
-            SHARE YOUR EXPERIENCE
+            {t("heading")}
           </h2>
           <p className="text-lg text-gray-600">
-            Help future guests by sharing your Silver Pineapple experience
+            {t("subheading")}
           </p>
         </div>
 
@@ -175,18 +180,18 @@ export default function ReviewSubmissionForm() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {/* Guest Information */}
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-primary">Your Information</h3>
+              <h3 className="text-xl font-bold text-primary">{t("sectionInfo")}</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Name *
+                    {t("labelName")}
                   </label>
                   <input
                     type="text"
                     {...register("guestName")}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
-                    placeholder="John Doe"
+                    placeholder={t("placeholderName")}
                   />
                   {errors.guestName && (
                     <p className="mt-1 text-sm text-red-600">{errors.guestName.message}</p>
@@ -195,31 +200,31 @@ export default function ReviewSubmissionForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
+                    {t("labelEmail")}
                   </label>
                   <input
                     type="email"
                     {...register("email")}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
-                    placeholder="[email protected]"
+                    placeholder={t("placeholderEmail")}
                   />
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
                   )}
-                  <p className="mt-1 text-xs text-gray-500">Your email will not be displayed publicly</p>
+                  <p className="mt-1 text-xs text-gray-500">{t("emailPrivacy")}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Property You Stayed At *
+                    {t("labelProperty")}
                   </label>
                   <select
                     {...register("propertySlug")}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
                   >
-                    <option value="">Select a property...</option>
+                    <option value="">{t("placeholderProperty")}</option>
                     {UNITS.map(unit => (
                       <option key={unit.slug} value={unit.slug}>
                         {unit.title}
@@ -233,7 +238,7 @@ export default function ReviewSubmissionForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Stay Date (Optional)
+                    {t("labelStayDate")}
                   </label>
                   <input
                     type="date"
@@ -246,11 +251,11 @@ export default function ReviewSubmissionForm() {
 
             {/* Rating Section */}
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-primary">Your Rating</h3>
+              <h3 className="text-xl font-bold text-primary">{t("sectionRating")}</h3>
 
               <div className="bg-tan/5 p-6 rounded-lg">
                 <StarRating
-                  label="Overall Experience *"
+                  label={t("labelOverall")}
                   rating={overallRating}
                   onChange={handleOverallRatingChange}
                 />
@@ -261,22 +266,22 @@ export default function ReviewSubmissionForm() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <StarRating
-                  label="Cleanliness"
+                  label={t("labelCleanliness")}
                   rating={categoryRatings.cleanliness}
                   onChange={(rating) => handleCategoryRatingChange("cleanliness", rating)}
                 />
                 <StarRating
-                  label="Communication"
+                  label={t("labelCommunication")}
                   rating={categoryRatings.communication}
                   onChange={(rating) => handleCategoryRatingChange("communication", rating)}
                 />
                 <StarRating
-                  label="Location"
+                  label={t("labelLocation")}
                   rating={categoryRatings.location}
                   onChange={(rating) => handleCategoryRatingChange("location", rating)}
                 />
                 <StarRating
-                  label="Value"
+                  label={t("labelValue")}
                   rating={categoryRatings.value}
                   onChange={(rating) => handleCategoryRatingChange("value", rating)}
                 />
@@ -286,18 +291,18 @@ export default function ReviewSubmissionForm() {
             {/* Review Text */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Your Review *
+                {t("labelReview")}
               </label>
               <textarea
                 {...register("reviewText")}
                 rows={6}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent resize-none"
-                placeholder="Tell us about your stay... What did you love? What made it memorable?"
+                placeholder={t("placeholderReview")}
               />
               {errors.reviewText && (
                 <p className="mt-1 text-sm text-red-600">{errors.reviewText.message}</p>
               )}
-              <p className="mt-1 text-xs text-gray-500">Minimum 50 characters, maximum 500 characters</p>
+              <p className="mt-1 text-xs text-gray-500">{t("reviewHint")}</p>
             </div>
 
             {/* Submit Button */}
@@ -312,12 +317,12 @@ export default function ReviewSubmissionForm() {
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    Submitting...
+                    {t("submitting")}
                   </>
                 ) : (
                   <>
                     <Send className="w-5 h-5" />
-                    Submit Review
+                    {t("submit")}
                   </>
                 )}
               </button>

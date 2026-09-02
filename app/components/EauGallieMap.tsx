@@ -2,6 +2,7 @@
 
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet"
 import { Icon, LatLngExpression } from "leaflet"
+import { useTranslations } from "next-intl"
 import "leaflet/dist/leaflet.css"
 import { MapMarker } from "@/app/data/mapMarkers"
 
@@ -43,6 +44,8 @@ export default function EauGallieMap({
   center = [28.1345, -80.6287],  // Eau Gallie center
   zoom = 12  // Zoom level showing ~10 mile radius
 }: EauGallieMapProps) {
+  const t = useTranslations()
+
   return (
     <div className="h-full w-full rounded-lg overflow-hidden shadow-lg">
       <MapContainer
@@ -67,15 +70,15 @@ export default function EauGallieMap({
             {/* Tooltip on hover */}
             <Tooltip direction="top" offset={[0, -20]} opacity={0.9}>
               <div className="font-sans">
-                <strong>{marker.title}</strong>
+                <strong>{t(marker.titleKey)}</strong>
               </div>
             </Tooltip>
 
             {/* Popup on click */}
             <Popup>
               <div className="font-sans">
-                <h3 className="font-bold text-lg mb-1">{marker.title}</h3>
-                <p className="text-sm">{marker.description}</p>
+                <h3 className="font-bold text-lg mb-1">{t(marker.titleKey)}</h3>
+                <p className="text-sm">{t(marker.descriptionKey)}</p>
               </div>
             </Popup>
           </Marker>

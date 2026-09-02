@@ -53,14 +53,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     maxGuests: unit.maxGuests,
     bedrooms: unit.bedrooms,
     bathrooms: unit.bathrooms,
-    price: formatPrice(unit.priceFrom)
+    price: formatPrice(unit.priceFrom, locale)
   });
 
   const ogDescription = t('ogDescription', {
     maxGuests: unit.maxGuests,
     bedrooms: unit.bedrooms,
     bathrooms: unit.bathrooms,
-    price: formatPrice(unit.priceFrom)
+    price: formatPrice(unit.priceFrom, locale)
   });
 
   return {
@@ -121,6 +121,7 @@ export default async function PropertyPage({ params }: Props) {
   if (!property) notFound();
 
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
+  const tRoot = await getTranslations({ locale });
 
   return (
     <main className="min-h-screen bg-sand-fade">
@@ -163,7 +164,7 @@ export default async function PropertyPage({ params }: Props) {
                   </span>
                 </div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  {buildUnitLongDescription(property)}
+                  {buildUnitLongDescription(property, tRoot)}
                 </p>
               </div>
             </div>
@@ -175,13 +176,14 @@ export default async function PropertyPage({ params }: Props) {
                   <BorderBeam size={200} duration={8} colorFrom="#9c40ff" colorTo="#ffaa40" />
                   <div className="mb-6">
                     <div className="text-2xl font-bold text-gray-900">
-                      {t('pricing', { price: formatPrice(property.priceFrom) })}
+                      {t('pricing', { price: formatPrice(property.priceFrom, locale) })}
                     </div>
                   </div>
                   <div className="booking-widget-container">
                     <BookingIframe
                       hospitableId={property.hospitable_id}
                       propertyTitle={property.title}
+                      locale={locale}
                     />
                   </div>
                 </div>
