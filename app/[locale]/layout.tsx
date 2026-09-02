@@ -6,6 +6,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { createLodgingBusinessJsonLd } from '@/lib/structuredData';
+import { SITE_URL } from '@/lib/site';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import CookieConsentBanner from '../components/CookieConsentBanner';
 import '../globals.css';
@@ -24,7 +25,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'metadata.global' });
 
   return {
-    metadataBase: new URL('https://silverpineapple.net'),
+    metadataBase: new URL(SITE_URL),
     authors: [{ name: 'Silver Pineapple LLC' }],
     creator: 'Silver Pineapple',
     publisher: 'Silver Pineapple',
@@ -51,7 +52,7 @@ export async function generateMetadata({
     openGraph: {
       type: 'website',
       locale: locale === 'es' ? 'es_ES' : 'en_US',
-      url: 'https://silverpineapple.net',
+      url: SITE_URL,
       siteName: 'Silver Pineapple',
       title: t('ogTitle'),
       description: t('ogDescription'),

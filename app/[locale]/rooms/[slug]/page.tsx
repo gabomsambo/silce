@@ -7,7 +7,8 @@ import BookingIframe from "../../../components/BookingIframe";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { UNITS } from "../../../data/units";
 import { buildUnitLongDescription, formatPrice } from "../../../data/copy";
-import { createBreadcrumbJsonLd, createUnitJsonLd } from "@/lib/structuredData";
+import { createRoomsBreadcrumbJsonLd, createUnitJsonLd } from "@/lib/structuredData";
+import { SITE_URL } from "@/lib/site";
 
 // Generate static params for all rooms in both locales
 export function generateStaticParams() {
@@ -47,8 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
   const tRoot = await getTranslations({ locale });
   const title = tRoot(unit.titleKey);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://silverpineapple.net';
-  const pageUrl = `${baseUrl}/${locale}/rooms/${slug}`;
+  const pageUrl = `${SITE_URL}/${locale}/rooms/${slug}`;
 
   // Build translated description using template
   const metaDescription = t('metaDescription', {
@@ -127,14 +127,8 @@ export default async function PropertyPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
   const tRoot = await getTranslations({ locale });
   const title = tRoot(property.titleKey);
-  const localizedHome = locale === "es" ? "Inicio" : "Home";
-  const localizedRooms = locale === "es" ? "Alojamientos" : "Rooms";
   const unitJsonLd = createUnitJsonLd(locale, property, tRoot);
-  const breadcrumbJsonLd = createBreadcrumbJsonLd(locale, [
-    { name: localizedHome, path: `/${locale}` },
-    { name: localizedRooms, path: `/${locale}/rooms` },
-    { name: title, path: `/${locale}/rooms/${property.slug}` },
-  ]);
+  const breadcrumbJsonLd = createRoomsBreadcrumbJsonLd(locale, tRoot, property);
 
   return (
     <main className="min-h-screen bg-sand-fade">

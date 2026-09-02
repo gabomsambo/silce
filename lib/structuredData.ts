@@ -1,14 +1,19 @@
 import type { Translate } from "@/app/data/copy";
 import { UNITS, type Unit } from "@/app/data/units";
+import { toAbsoluteUrl } from "@/lib/site";
 
 type SupportedLocale = "en" | "es";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://silverpineapple.net";
 const BUSINESS_NAME = "Silver Pineapple";
 
 const LANGUAGE_BY_LOCALE: Record<SupportedLocale, string> = {
   en: "en-US",
   es: "es-ES",
+};
+
+const BREADCRUMB_LABELS: Record<SupportedLocale, { home: string; rooms: string }> = {
+  en: { home: "Home", rooms: "Rooms" },
+  es: { home: "Inicio", rooms: "Alojamientos" },
 };
 
 const BUILDING_ADDRESSES = [
@@ -17,6 +22,8 @@ const BUILDING_ADDRESSES = [
   "1052 Sea Grape",
 ];
 
+const UNIT_TYPES = ["Product", "Accommodation"];
+
 interface BreadcrumbItem {
   name: string;
   path: string;
@@ -24,10 +31,6 @@ interface BreadcrumbItem {
 
 function normalizeLocale(locale: string): SupportedLocale {
   return locale === "es" ? "es" : "en";
-}
-
-function toAbsoluteUrl(path: string): string {
-  return new URL(path, SITE_URL).toString();
 }
 
 function toPostalAddress(streetAddress: string) {
@@ -40,87 +43,125 @@ function toPostalAddress(streetAddress: string) {
   };
 }
 
-export function getLocaleRootUrl(locale: string): string {
-  return toAbsoluteUrl(`/${normalizeLocale(locale)}`);
+function getLocaleRootUrl(locale: SupportedLocale): string {
+  return toAbsoluteUrl(`/${locale}`);
+}
+
+function getWebSiteId(locale: SupportedLocale): string {
+  return `${getLocaleRootUrl(locale)}#website`;
+}
+
+function getLodgingBusinessId(locale: SupportedLocale): string {
+  return `${getLocaleRootUrl(locale)}#lodging-business`;
+}
+
+function getUnitUrl(locale: SupportedLocale, unit: Unit): string {
+  return toAbsoluteUrl(`/${locale}/rooms/${unit.slug}`);
 }
 
 export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
   const normalizedLocale = normalizeLocale(locale);
   const localeRootUrl = getLocaleRootUrl(normalizedLocale);
+  const businessId = getLodgingBusinessId(normalizedLocale);
 
   return {
     "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
-    "@id": `${localeRootUrl}#lodging-business`,
-    name: BUSINESS_NAME,
-    url: localeRootUrl,
-    inLanguage: LANGUAGE_BY_LOCALE[normalizedLocale],
-    address: toPostalAddress(BUILDING_ADDRESSES[0]),
-    location: BUILDING_ADDRESSES.map((streetAddress) => ({
-      "@type": "Place",
-      address: toPostalAddress(streetAddress),
-    })),
-    image: [
-      toAbsoluteUrl("/Silver_pineapple_logo.png"),
-      toAbsoluteUrl("/silver_pineapple_home_update.jpeg"),
-    ],
-    makesOffer: UNITS.map((unit) => {
-      const unitUrl = toAbsoluteUrl(`/${normalizedLocale}/rooms/${unit.slug}`);
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": getWebSiteId(normalizedLocale),
+        name: BUSINESS_NAME,
+        url: localeRootUrl,
+        inLanguage: LANGUAGE_BY_LOCALE[normalizedLocale],
+        publisher: { "@id": businessId },
+      },
+      {
+        "@type": "LodgingBusiness",
+        "@id": businessId,
+        name: BUSINESS_NAME,
+        url: localeRootUrl,
+        address: toPostalAddress(BUILDING_ADDRESSES[0]),
+        location: BUILDING_ADDRESSES.map((streetAddress) => ({
+          "@type": "Place",
+          address: toPostalAddress(streetAddress),
+        })),
+        image: [
+          toAbsoluteUrl("/Silver_pineapple_logo.png"),
+          toAbsoluteUrl("/silver_pineapple_home_update.jpeg"),
+        ],
+        makesOffer: UNITS.map((unit) => {
+          const unitUrl = getUnitUrl(normalizedLocale, unit);
 
-      return {
-        "@type": "Offer",
-        price: unit.priceFrom,
-        priceCurrency: "USD",
-        url: unitUrl,
-        availability: "https://schema.org/InStock",
-        itemOffered: {
-          "@type": "Product",
-          "@id": `${unitUrl}#unit`,
-          name: t(unit.titleKey),
-          inLanguage: LANGUAGE_BY_LOCALE[normalizedLocale],
-        },
-      };
-    }),
+          return {
+            "@type": "Offer",
+            price: unit.priceFrom,
+            priceCurrency: "USD",
+            url: unitUrl,
+            availability: "https://schema.org/InStock",
+            itemOffered: {
+              "@type": UNIT_TYPES,
+              "@id": `${unitUrl}#unit`,
+              name: t(unit.titleKey),
+            },
+          };
+        }),
+      },
+    ],
   };
 }
 
 export function createUnitJsonLd(locale: string, unit: Unit, t: Translate) {
   const normalizedLocale = normalizeLocale(locale);
-  const unitPath = `/${normalizedLocale}/rooms/${unit.slug}`;
-  const unitUrl = toAbsoluteUrl(unitPath);
+  const unitUrl = getUnitUrl(normalizedLocale, unit);
+  const unitId = `${unitUrl}#unit`;
 
   return {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `${unitUrl}#unit`,
-    name: t(unit.titleKey),
-    url: unitUrl,
-    inLanguage: LANGUAGE_BY_LOCALE[normalizedLocale],
-    image: unit.images.map((imagePath) => toAbsoluteUrl(imagePath)),
-    brand: {
-      "@type": "Brand",
-      name: BUSINESS_NAME,
-    },
-    offers: {
-      "@type": "Offer",
-      price: unit.priceFrom,
-      priceCurrency: "USD",
-      url: unitUrl,
-      availability: "https://schema.org/InStock",
-    },
-    additionalProperty: [
-      { "@type": "PropertyValue", name: "maxGuests", value: unit.maxGuests },
-      { "@type": "PropertyValue", name: "bedrooms", value: unit.bedrooms },
-      { "@type": "PropertyValue", name: "bathrooms", value: unit.bathrooms },
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${unitUrl}#webpage`,
+        name: t(unit.titleKey),
+        url: unitUrl,
+        inLanguage: LANGUAGE_BY_LOCALE[normalizedLocale],
+        isPartOf: { "@id": getWebSiteId(normalizedLocale) },
+        breadcrumb: { "@id": `${unitUrl}#breadcrumb` },
+        mainEntity: { "@id": unitId },
+      },
+      {
+        "@type": UNIT_TYPES,
+        "@id": unitId,
+        name: t(unit.titleKey),
+        url: unitUrl,
+        image: Array.from(new Set(unit.images)).map(toAbsoluteUrl),
+        brand: {
+          "@type": "Brand",
+          name: BUSINESS_NAME,
+        },
+        occupancy: {
+          "@type": "QuantitativeValue",
+          value: unit.maxGuests,
+          unitCode: "C62",
+        },
+        numberOfBedrooms: unit.bedrooms,
+        numberOfBathroomsTotal: unit.bathrooms,
+        offers: {
+          "@type": "Offer",
+          price: unit.priceFrom,
+          priceCurrency: "USD",
+          url: unitUrl,
+          availability: "https://schema.org/InStock",
+        },
+      },
     ],
   };
 }
 
-export function createBreadcrumbJsonLd(locale: string, items: BreadcrumbItem[]) {
+function createBreadcrumbJsonLd(pageUrl: string, items: BreadcrumbItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    inLanguage: LANGUAGE_BY_LOCALE[normalizeLocale(locale)],
+    "@id": `${pageUrl}#breadcrumb`,
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -128,4 +169,19 @@ export function createBreadcrumbJsonLd(locale: string, items: BreadcrumbItem[]) 
       item: toAbsoluteUrl(item.path),
     })),
   };
+}
+
+export function createRoomsBreadcrumbJsonLd(locale: string, t: Translate, unit?: Unit) {
+  const normalizedLocale = normalizeLocale(locale);
+  const labels = BREADCRUMB_LABELS[normalizedLocale];
+  const items: BreadcrumbItem[] = [
+    { name: labels.home, path: `/${normalizedLocale}` },
+    { name: labels.rooms, path: `/${normalizedLocale}/rooms` },
+  ];
+
+  if (unit) {
+    items.push({ name: t(unit.titleKey), path: `/${normalizedLocale}/rooms/${unit.slug}` });
+  }
+
+  return createBreadcrumbJsonLd(toAbsoluteUrl(items[items.length - 1].path), items);
 }

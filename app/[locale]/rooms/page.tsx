@@ -9,7 +9,7 @@ import Footer from "../../components/Footer";
 import { CATEGORIES } from "../../data/categories";
 import { UNITS } from "../../data/units";
 import RoomCategorySection from "../../components/RoomCategorySection";
-import { createBreadcrumbJsonLd } from "@/lib/structuredData";
+import { createRoomsBreadcrumbJsonLd } from "@/lib/structuredData";
 
 export async function generateMetadata({
   params
@@ -54,12 +54,8 @@ interface RoomsPageProps {
 
 export default async function RoomsPage({ params }: RoomsPageProps) {
   const { locale } = await params;
-  const localizedHome = locale === "es" ? "Inicio" : "Home";
-  const localizedRooms = locale === "es" ? "Alojamientos" : "Rooms";
-  const breadcrumbJsonLd = createBreadcrumbJsonLd(locale, [
-    { name: localizedHome, path: `/${locale}` },
-    { name: localizedRooms, path: `/${locale}/rooms` },
-  ]);
+  const tRoot = await getTranslations({ locale });
+  const breadcrumbJsonLd = createRoomsBreadcrumbJsonLd(locale, tRoot);
 
   // group units by category
   const grouped = Object.values(CATEGORIES).map(cat => ({
