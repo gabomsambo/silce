@@ -311,5 +311,12 @@
       "specsBathroomsPlural": "{bathrooms} bathrooms",
       "pricing": "From {price}/night"
     }
+  },
+  "cookieConsent": {
+    "title": "Cookie preferences",
+    "description": "We use optional analytics cookies to understand site usage and improve this website. You can accept or decline analytics cookies below.",
+    "iframeNotice": "Our Hospitable booking widget is embedded in a third-party iframe. That provider may set cookies for booking, payments, or analytics, and those cookies cannot be controlled from this site.",
+    "accept": "Accept analytics cookies",
+    "decline": "Decline analytics cookies"
   }
 }

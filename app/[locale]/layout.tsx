@@ -6,6 +6,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import GoogleAnalytics from '../components/GoogleAnalytics';
+import CookieConsentBanner from '../components/CookieConsentBanner';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -108,11 +109,12 @@ html {
 }
         `}</style>
         <script src="https://hospitable.b-cdn.net/direct-property-search-widget/hospitable-search-widget.prod.js"></script>
-        <GoogleAnalytics />
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           {children}
+          <CookieConsentBanner />
+          <GoogleAnalytics />
         </NextIntlClientProvider>
       </body>
     </html>

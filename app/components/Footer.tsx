@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from "@/i18n/navigation"
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 import Logo from "./Logo"
 
 export default function Footer() {
@@ -20,17 +20,6 @@ export default function Footer() {
             <p className="text-gray-300 leading-relaxed mb-6">
               {t('tagline')}
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                <Twitter className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
