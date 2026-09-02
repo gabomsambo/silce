@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  COOKIE_CONSENT_UPDATED_EVENT,
   type CookieConsentChoice,
   readCookieConsent,
   writeCookieConsent,
@@ -14,8 +16,25 @@ export default function CookieConsentBanner() {
   const [consent, setConsent] = useState<CookieConsentChoice | null>(null)
 
   useEffect(() => {
-    setConsent(readCookieConsent())
+    const syncConsent = () => {
+      setConsent(readCookieConsent())
+    }
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === COOKIE_CONSENT_STORAGE_KEY) {
+        syncConsent()
+      }
+    }
+
+    syncConsent()
     setIsHydrated(true)
+    window.addEventListener("storage", handleStorage)
+    window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent)
+
+    return () => {
+      window.removeEventListener("storage", handleStorage)
+      window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent)
+    }
   }, [])
 
   const handleConsent = (choice: CookieConsentChoice) => {
@@ -28,8 +47,8 @@ export default function CookieConsentBanner() {
   }
 
   return (
-    <aside className="fixed top-20 inset-x-0 z-40 px-4 pointer-events-none">
-      <div className="pointer-events-auto mx-auto max-w-3xl rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm">
+    <aside className="fixed inset-x-0 bottom-0 z-40 p-4 pointer-events-none">
+      <div className="pointer-events-auto w-full sm:max-w-md rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm">
         <h2 className="text-lg font-semibold text-primary mb-2">{t("title")}</h2>
         <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("description")}</p>
         <p className="text-sm text-gray-700 leading-relaxed mb-4">{t("iframeNotice")}</p>

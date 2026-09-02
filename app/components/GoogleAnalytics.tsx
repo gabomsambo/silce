@@ -5,6 +5,7 @@ import Script from 'next/script'
 import {
   COOKIE_CONSENT_STORAGE_KEY,
   COOKIE_CONSENT_UPDATED_EVENT,
+  clearAnalyticsCookies,
   readCookieConsent,
 } from "./cookieConsent"
 
@@ -14,7 +15,17 @@ export default function GoogleAnalytics() {
 
   useEffect(() => {
     const syncConsent = () => {
-      setIsAllowed(readCookieConsent() === "accepted")
+      const allowed = readCookieConsent() === "accepted"
+
+      if (measurementId) {
+        (window as unknown as Record<string, boolean>)[`ga-disable-${measurementId}`] = !allowed
+      }
+
+      if (!allowed) {
+        clearAnalyticsCookies()
+      }
+
+      setIsAllowed(allowed)
     }
 
     const handleStorage = (event: StorageEvent) => {
@@ -31,7 +42,7 @@ export default function GoogleAnalytics() {
       window.removeEventListener("storage", handleStorage)
       window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent)
     }
-  }, [])
+  }, [measurementId])
 
   if (!measurementId || !isAllowed) {
     return null
