@@ -4,15 +4,24 @@ import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "@/i18n/navigation"
 import { ShimmerButton } from "@/components/ui/shimmer-button"
 
+export type BookingAction = "scroll-to-widget" | "go-to-rooms" | "already-there"
+
+export function bookingActionForPath(pathname: string): BookingAction {
+  if (pathname.startsWith('/rooms/')) return "scroll-to-widget"
+  if (pathname === '/rooms') return "already-there"
+  return "go-to-rooms"
+}
+
 interface ButtonProps {
   text: string
   variant?: "primary" | "secondary"
   onClick?: () => void
   className?: string
   isBookingButton?: boolean
+  bookingAction?: BookingAction
 }
 
-export default function Button({ text, variant = "primary", onClick, className = "", isBookingButton = false }: ButtonProps) {
+export default function Button({ text, variant = "primary", onClick, className = "", isBookingButton = false, bookingAction }: ButtonProps) {
   const router = useRouter()
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
@@ -24,8 +33,12 @@ export default function Button({ text, variant = "primary", onClick, className =
   const handleSmartBooking = () => {
     if (!mounted) return
 
-    // Smart context-aware booking logic
-    if (pathname.startsWith('/rooms/') && pathname !== '/rooms') {
+    const action = bookingAction ?? bookingActionForPath(pathname)
+
+    // Already on the inventory: neither navigating nor scrolling helps the guest
+    if (action === "already-there") return
+
+    if (action === "scroll-to-widget") {
       // Individual property page: Scroll to booking widget
       const bookingWidget = document.getElementById('booking-iframe')
       if (bookingWidget) {
@@ -39,10 +52,10 @@ export default function Button({ text, variant = "primary", onClick, className =
   }
 
   const handleClick = () => {
+    onClick?.()
+
     if (isBookingButton) {
       handleSmartBooking()
-    } else if (onClick) {
-      onClick()
     }
   }
 

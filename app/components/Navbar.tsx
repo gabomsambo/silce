@@ -4,9 +4,10 @@ import { useState, useEffect } from "react"
 import { Menu, X, Languages } from "lucide-react"
 import { useLocale, useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
+import { usePathname as useLocalizedPathname } from '@/i18n/navigation'
 import Link from "next/link"
 import Logo from "./Logo"
-import Button from "./Button"
+import Button, { bookingActionForPath } from "./Button"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -15,6 +16,7 @@ export default function Navbar() {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const bookingAction = bookingActionForPath(useLocalizedPathname())
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +68,7 @@ export default function Navbar() {
                 {link.name.toUpperCase()}
               </Link>
             ))}
-            <Button text={t('bookNow')} variant="primary" isBookingButton={true} />
+            <Button text={t('bookNow')} variant="primary" isBookingButton={true} bookingAction={bookingAction} />
             <button
               className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan"
               onClick={switchLanguage}
@@ -99,7 +101,13 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button text={t('bookNow')} variant="primary" isBookingButton={true} />
+                <Button
+                  text={t('bookNow')}
+                  variant="primary"
+                  isBookingButton={true}
+                  bookingAction={bookingAction}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
               </div>
               <div className="px-3 py-2">
                 <button
