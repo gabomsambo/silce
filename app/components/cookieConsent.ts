@@ -3,6 +3,8 @@
 export const COOKIE_CONSENT_STORAGE_KEY = "silver-pineapple-cookie-consent"
 export const COOKIE_CONSENT_UPDATED_EVENT = "silver-pineapple-cookie-consent-updated"
 
+// Only the first-party GA cookies this site sets (_ga, _ga_<id>, _gid, _gat*). Cookies set
+// inside the Hospitable booking iframe belong to that origin and are unreachable from here.
 const ANALYTICS_COOKIE_PATTERN = /^(_ga($|_)|_gid$|_gat($|_))/
 
 export type CookieConsentChoice = "accepted" | "declined"
@@ -55,6 +57,8 @@ export function clearCookieConsent() {
   window.dispatchEvent(new CustomEvent(COOKIE_CONSENT_UPDATED_EVENT, { detail: null }))
 }
 
+// Also expires GA cookies left from visits before consent gating existed, so declining
+// removes analytics state an earlier visit created rather than leaving it on the domain.
 export function clearAnalyticsCookies() {
   if (typeof document === "undefined") {
     return
@@ -77,6 +81,9 @@ export function clearAnalyticsCookies() {
   }
 }
 
+// GA writes _ga on the registrable domain (".example.com"), and a cookie can only be
+// removed by rewriting it with the same Domain attribute - so return host-only ("") plus
+// every parent-domain suffix and expire the cookie under each.
 function analyticsCookieDomains(hostname: string): string[] {
   const domains = [""]
   const parts = hostname.split(".")

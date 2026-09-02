@@ -46,6 +46,10 @@ export default function CookieConsentBanner() {
     return null
   }
 
+  // Bottom-anchored, with a pointer-events-none wrapper around a pointer-events-auto card,
+  // so the banner never covers or swallows clicks on the sticky booking column of a room
+  // page. z-40 also keeps it under the Hospitable widget overlays, which globals.css pins
+  // at z-index 2147483647 so their calendars and dropdowns stay reachable while it shows.
   return (
     <aside className="fixed inset-x-0 bottom-0 z-40 p-4 pointer-events-none">
       <div className="pointer-events-auto w-full sm:max-w-md rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm">
