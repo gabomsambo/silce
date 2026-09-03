@@ -39,6 +39,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   `bg-primary` surfaces (8.82:1 there). It is 1.97:1 on white, so it must never
   be text on a light surface — use `tan-ink` (`#8B6737`, 5.13:1 on white) for
   that. Text on a tan or gold button is `text-primary`, never `text-white`.
+  Its hover partner is `tan-hover` (`#6E512B`, 7.30:1 on white): on a light
+  surface hover darkens, it never fades. Never express a hover text colour as an
+  opacity modifier (`hover:text-tan-ink/80` was 3.47:1) — fading toward the page
+  drops contrast at the moment the user signals interest.
 - **The focus ring in `app/globals.css` uses `!important` deliberately.** It
   paints two bands (near-black inner, tan outer) so it reads on both the white
   pages and the near-black footer; without `!important`, Tailwind's `shadow-*`
