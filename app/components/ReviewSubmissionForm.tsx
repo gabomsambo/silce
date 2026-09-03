@@ -73,7 +73,7 @@ function StarRating({ rating, onChange, label, required = false, errorId, invali
         ref={groupRef}
         tabIndex={-1}
         className="flex gap-1 focus:outline-none"
-        role="radiogroup"
+        role="group"
         aria-labelledby={labelId}
         aria-invalid={invalid || undefined}
         aria-describedby={invalid && errorId ? errorId : undefined}
@@ -82,8 +82,7 @@ function StarRating({ rating, onChange, label, required = false, errorId, invali
           <button
             key={star}
             type="button"
-            role="radio"
-            aria-checked={rating === star}
+            aria-pressed={rating === star}
             aria-label={t("starLabel", { count: star, category: label })}
             onClick={() => onChange(star)}
             onMouseEnter={() => setHoverRating(star)}

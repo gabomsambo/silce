@@ -95,7 +95,6 @@ export default function Footer() {
                 <Mail aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                 <a
                   href={`mailto:${BUSINESS_CONTACT.email}`}
-                  aria-label={t('emailLabel')}
                   className="break-all text-base font-semibold text-white underline decoration-tan decoration-2 underline-offset-4 transition-colors duration-300 hover:text-tan"
                 >
                   {BUSINESS_CONTACT.email}
