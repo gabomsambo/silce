@@ -15,6 +15,12 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   `fsevents`, `unrs-resolver` and `workerd`; the latter two download binaries, so
   dropping `--ignore-scripts` is a real behaviour change that needs its own
   verification.
+- **Regenerate `package-lock.json` with the npm that ships with `.nvmrc`'s Node.**
+  npm 11 writes `peer: true` markers and prunes optional peer entries (`@emnapi/*`)
+  in a way npm 10 rejects outright: `npm ci` then dies with `EUSAGE ... can only
+  install packages when your package.json and package-lock.json are in sync`. CI
+  and Cloudflare Pages both install with `npm ci`, so a lockfile written by a newer
+  npm fails the build while `npm ci` on the authoring machine stays green.
 - **A green build no longer lies, but it still isn't a test suite.** The build now
   fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
   escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
@@ -109,8 +115,16 @@ Both are pinned to exact versions on purpose — do not reintroduce a caret on e
   (and versions `<1.17.1` carry a worker-runtime SSRF, GHSA-c7mq-gh6q-6q7c).
 - 1.19.11 requires `wrangler ^4.86.0`, and wrangler `>=4.86` declares
   `engines.node >=22`, so this pin sets the repo's build-time Node floor — hence
-  `.nvmrc` (`22`) and `engines.node` in `package.json`. Cloudflare Pages must build
-  on Node 22 or newer or `pages:build` dies in the adapter CLI.
+  `.nvmrc` and `engines.node` in `package.json`. Cloudflare Pages must build on
+  Node 20 or newer or `pages:build` dies in the adapter CLI before it prints
+  anything (`yargs-parser` hard-throws), and on Node 22 or newer for `wrangler`.
+- **`.nvmrc` must hold a full `major.minor.patch` version.** It is the only lever
+  in the repo over the Node version Cloudflare Pages builds with, and the Pages
+  build image wants an exact version: a bare major is not guaranteed to resolve,
+  and when it does not, Pages silently falls back to its image default (18.17.1
+  on build system v2) and the adapter CLI dies. `.github/workflows/ci.yml` reads
+  the same file via `node-version-file`, so CI and Pages cannot drift and an
+  unresolvable value fails CI first.
 
 ## Maintaining this file
 

@@ -18,9 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Read the version from .nvmrc so CI and the Cloudflare Pages build agree
+      # on one Node version, and so a version .nvmrc cannot resolve fails here
+      # first instead of silently falling back to the Pages image default.
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       # Keep --ignore-scripts: the Next build needs no postinstall step, and some
