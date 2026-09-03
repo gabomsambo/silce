@@ -40,6 +40,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   before editing anything.
 - **Never run `npm run deploy` / `wrangler pages deploy`** — deployment is the
   repo owner's call. `npm run preview` is broken by construction here.
+- **Icons must be static `public/` assets.** `.claude/routes.json` excludes image
+  extensions from the Worker, so Next metadata file-convention icon routes can
+  work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
+  to accommodate icons; verify them in `.open-next/` after `npm run pages:build`.
 
 ## Safety net
 
