@@ -90,7 +90,9 @@ export default function PropertySearchWidget() {
         Until that is done the widget renders an empty results area with no message
         of its own, so this panel is what stops the page being a dead end. When
         properties are attached, delete this notice and the `robots: noindex` in the
-        page's metadata together — see docs/UNITS-SOURCE-OF-TRUTH.md for the IDs.
+        page's metadata together — see docs/UNITS-SOURCE-OF-TRUTH.md for the IDs — and
+        in the same pass update or remove the `/search` bullet in AGENTS.md (it carries
+        a dated "returns []" claim) and the screenshots in docs/evidence/search/.
       */}
       <div className="mt-10 rounded-2xl border border-tan/30 bg-white/80 p-8 md:p-10 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-primary mb-3">

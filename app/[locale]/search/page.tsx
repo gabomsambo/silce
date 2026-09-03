@@ -21,7 +21,9 @@ export async function generateMetadata({
     // app/components/PropertySearchWidget.tsx). A page that answers nothing has
     // no business in the index, so it is excluded until it can. `follow` stays
     // on so the links out of it still carry weight. Drop this `robots` block and
-    // the notice panel in PropertySearchWidget together.
+    // the notice panel in PropertySearchWidget together, and in the same pass
+    // update or remove the `/search` bullet in AGENTS.md (it carries a dated
+    // "returns []" claim) and the before/after screenshots in docs/evidence/search/.
     robots: {
       index: false,
       follow: true,
