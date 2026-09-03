@@ -56,12 +56,13 @@ function StarRating({ rating, onChange, label }: StarRatingProps) {
   return (
     <div className="space-y-2">
       <span className="text-sm font-medium text-gray-700">{label}</span>
-      <div className="flex gap-1" role="group" aria-label={label}>
+      <div className="flex gap-1" role="radiogroup" aria-label={label}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
             type="button"
-            aria-pressed={rating === star}
+            role="radio"
+            aria-checked={rating === star}
             aria-label={t("starLabel", { count: star, category: label })}
             onClick={() => onChange(star)}
             onMouseEnter={() => setHoverRating(star)}
