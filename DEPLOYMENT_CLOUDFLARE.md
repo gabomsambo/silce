@@ -7,8 +7,12 @@ This document summarizes the successful setup of Cloudflare Pages deployment usi
 ### What Was Done
 
 #### 1. Dependencies Installed ✅
-- `@opennextjs/cloudflare@1.11.0` - OpenNext adapter for Cloudflare Workers
-- `wrangler@4.43.0` - Cloudflare Workers CLI tool (devDependency)
+- `@opennextjs/cloudflare` - OpenNext adapter for Cloudflare Workers
+- `wrangler` - Cloudflare Workers CLI tool (devDependency)
+
+`package.json` is the source of truth for the versions of these and of `next`;
+`next` and `@opennextjs/cloudflare` are exact-pinned on purpose — see the
+dependency-pinning section of `AGENTS.md` before changing either.
 
 #### 2. Configuration Files Created/Modified ✅
 
@@ -43,15 +47,13 @@ NEXT_PUBLIC_SITE_URL = "https://silverpineapple.net"
 ```
 
 #### package.json Scripts
-```json
-{
-  "pages:build": "opennextjs-cloudflare build",
-  "pages:dev": "npm run pages:build && wrangler pages dev .open-next --compatibility-date=2024-09-23 --compatibility-flag=nodejs_compat",
-  "preview": "npm run pages:build && opennextjs-cloudflare preview",
-  "deploy": "npm run pages:build && wrangler pages deploy .open-next",
-  "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
-}
-```
+
+The Cloudflare scripts (`pages:build`, `pages:dev`, `preview`, `deploy`,
+`cf-typegen`) live in `package.json`; read them there rather than from a copy.
+Note that `pages:build` no longer stops at `opennextjs-cloudflare build` — it
+chains unguarded `mv`/`cp` calls to reshape `.open-next/` into the Pages
+Advanced Mode layout (see "Issue #1" in `CLOUDFLARE_FIX_SUMMARY.md`), which is
+why the adapter version is pinned.
 
 ### Build Statistics
 
@@ -122,7 +124,13 @@ Error: INVALID_MESSAGE
    - `NEXT_PUBLIC_ANALYTICS_ID`: (Google Analytics ID)
 
 4. **Advanced Settings:**
-   - Node.js version: 18 or 20
+   - Node.js version: 22 or newer (the repo's `.nvmrc` pins `22`, which Pages reads
+     to select its build image). `@opennextjs/cloudflare` 1.19.11 requires
+     `wrangler ^4.86.0`, wrangler `>=4.86` declares `engines.node >=22`, and
+     `opennextjs-cloudflare build` imports wrangler at runtime — including an
+     `import("wrangler/package.json", { with: { type: "json" } })` that Node 18
+     cannot parse — so a Pages build on Node 18 dies in the adapter CLI before it
+     ever produces `.open-next`.
    - Compatibility date: 2024-09-23
    - Compatibility flags: nodejs_compat
    - (These should be inherited from wrangler.toml)
@@ -225,6 +233,6 @@ All configuration files are in place, build succeeds, and the application is rea
 ---
 
 **Implementation Date:** October 19, 2025
-**Next.js Version:** 15.2.4
-**OpenNext Version:** 1.11.0
-**Wrangler Version:** 4.43.0
+
+For the current `next`, `@opennextjs/cloudflare` and `wrangler` versions, read
+`package.json`.

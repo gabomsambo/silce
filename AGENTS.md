@@ -6,9 +6,21 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 
 ## Sharp edges
 
-- **`npm ci` fails on this repo.** The `rclone.js` postinstall downloads a binary
-  from a host that times out. Use `npm ci --ignore-scripts`; the Next build does
-  not need any postinstall step.
+- **Install with `npm ci --ignore-scripts`.** That is what CI runs and what to use
+  here; the Next build needs no postinstall step. The original reason — an
+  `rclone.js` postinstall that downloaded a binary from a host that timed out — is
+  gone as of the `next` 15.5.25 / `@opennextjs/cloudflare` 1.19.11 upgrade
+  (`rclone.js` came in via `@opennextjs/cloudflare` 1.11.0 and is no longer in the
+  lockfile). The packages that still have install scripts are `esbuild`,
+  `fsevents`, `unrs-resolver` and `workerd`; the latter two download binaries, so
+  dropping `--ignore-scripts` is a real behaviour change that needs its own
+  verification.
+- **Regenerate `package-lock.json` with the npm that ships with `.nvmrc`'s Node.**
+  npm 11 writes `peer: true` markers and prunes optional peer entries (`@emnapi/*`)
+  in a way npm 10 rejects outright: `npm ci` then dies with `EUSAGE ... can only
+  install packages when your package.json and package-lock.json are in sync`. CI
+  and Cloudflare Pages both install with `npm ci`, so a lockfile written by a newer
+  npm fails the build while `npm ci` on the authoring machine stays green.
 - **A green build no longer lies, but it still isn't a test suite.** The build now
   fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
   escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
@@ -82,6 +94,37 @@ from the catalog. Adding a unit or category means adding its keys to **both** ca
 that file doubles as the operational record; `copy.ts` maps the known values onto
 catalog keys and falls back to the raw literal, so an unrecognised value degrades
 rather than throwing.
+
+## Dependency pinning: `next` and `@opennextjs/cloudflare`
+
+Both are pinned to exact versions on purpose — do not reintroduce a caret on either.
+
+- **`next` must stay on the 15.5 backport line.** The 15.2.x and 15.3.x lines are no
+  longer security-backported: their newest releases still carry ~26 open advisories.
+  npm's `backport` dist-tag tracks the maintained 15.x line. Check any candidate against
+  the real advisory data before bumping — `https://api.github.com/advisories?ecosystem=npm&affects=next`
+  lists `vulnerable_version_range` per release line, and `npm audit` after installing
+  confirms it; guessing patch numbers from an advisory's `first_patched_version` is
+  unreliable because later advisories re-open earlier lines.
+- **`@opennextjs/cloudflare` is pinned because `pages:build` does unguarded file surgery.**
+  The script chains six `mv`/`cp` calls over `.open-next/worker.js` and `.open-next/assets/`
+  with no assertions, so a minor bump that relocates either breaks production behind a
+  fully green build. After any bump, assert the output contains `_worker.js`, `_next/`
+  and `_routes.json` and that `assets/` is gone.
+- Its `peerDependencies.next` range is the binding constraint on how low `next` may go
+  (and versions `<1.17.1` carry a worker-runtime SSRF, GHSA-c7mq-gh6q-6q7c).
+- 1.19.11 requires `wrangler ^4.86.0`, and wrangler `>=4.86` declares
+  `engines.node >=22`, so this pin sets the repo's build-time Node floor — hence
+  `.nvmrc` and `engines.node` in `package.json`. Cloudflare Pages must build on
+  Node 20 or newer or `pages:build` dies in the adapter CLI before it prints
+  anything (`yargs-parser` hard-throws), and on Node 22 or newer for `wrangler`.
+- **`.nvmrc` must hold a full `major.minor.patch` version.** It is the only lever
+  in the repo over the Node version Cloudflare Pages builds with, and the Pages
+  build image wants an exact version: a bare major is not guaranteed to resolve,
+  and when it does not, Pages silently falls back to its image default (18.17.1
+  on build system v2) and the adapter CLI dies. `.github/workflows/ci.yml` reads
+  the same file via `node-version-file`, so CI and Pages cannot drift and an
+  unresolvable value fails CI first.
 
 ## Maintaining this file
 
