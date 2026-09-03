@@ -9,12 +9,38 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - **`npm ci` fails on this repo.** The `rclone.js` postinstall downloads a binary
   from a host that times out. Use `npm ci --ignore-scripts`; the Next build does
   not need any postinstall step.
-- **A green build proves nothing.** `next.config.mjs` sets both
-  `eslint.ignoreDuringBuilds` and `typescript.ignoreBuildErrors`, and there are no
-  tests and no CI. Run `npx tsc --noEmit` explicitly, and verify UI changes in a
-  real browser against `npm run build && npx next start`.
+- **A green build no longer lies, but it still isn't a test suite.** The build now
+  fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
+  escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
+  build and the link crawl on every PR. There are still **no unit tests** — verify
+  UI changes in a real browser against `npm run build && npx next start`.
+- **`styles/globals.css` is orphaned.** Nothing imports it; the only stylesheet in
+  play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). The shadcn CSS
+  variables live only in the orphan, so `bg-background`, `text-muted-foreground`,
+  `rounded-lg` and friends silently render as nothing. Don't reach for them.
+- **Names lie in `app/components/` and `components/ui/`.** Roughly a quarter of
+  `app/components/` and most of the 56 files in `components/ui/` are unreferenced,
+  and near-duplicate names differ in which one is live. Grep for the importer
+  before editing anything.
 - **Never run `npm run deploy` / `wrangler pages deploy`** — deployment is the
   repo owner's call. `npm run preview` is broken by construction here.
+
+## Safety net
+
+- `npm run check:links` crawls the built output in a real `next start` server and
+  fails on internal 404s and on hrefs that drop the `/en` / `/es` prefix — the two
+  bug classes that have shipped past a green build here. It needs `npm run build`
+  first; `scripts/check-links.mjs` documents the rest.
+- `eslint.config.mjs` extends `next/core-web-vitals`. Two rules with pre-existing
+  violations (`react/no-unescaped-entities`, `@next/next/no-sync-scripts`) are
+  demoted to warnings so the config passes on the current tree; everything else,
+  notably `@next/next/no-html-link-for-pages`, is a hard error.
+- CI installs with `npm ci --ignore-scripts` for the reason above.
+
+## Shape
+
+No database, no API routes, no server actions, no `use server`. All content is
+hand-written TypeScript in `app/data/`, and every route prerenders at build time.
 
 ## Booking / units data
 
