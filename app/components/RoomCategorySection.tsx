@@ -24,7 +24,7 @@ export default function RoomCategorySection({ category, units }: { category: Cat
                 {t(category.nameKey)}
               </h2>
               {category.badgeKey && (
-                <span className="text-xs font-semibold bg-tan/15 text-tan px-2.5 py-1 rounded-full">
+                <span className="text-xs font-semibold bg-tan/15 text-tan-ink px-2.5 py-1 rounded-full">
                   {t(category.badgeKey)}
                 </span>
               )}
@@ -50,10 +50,10 @@ export default function RoomCategorySection({ category, units }: { category: Cat
             <div className="p-5">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="text-xl font-semibold text-gray-900">{t(featured.titleKey)}</h3>
-                <div className="text-tan font-semibold">{formatPrice(featured.priceFrom, locale)}{t("rooms.category.pricingSuffix")}</div>
+                <div className="text-tan-ink font-semibold">{formatPrice(featured.priceFrom, locale)}{t("rooms.category.pricingSuffix")}</div>
               </div>
               <p className="text-sm text-gray-600">{buildUnitShortDescription(featured, t)}</p>
-              <div className="mt-4 inline-flex items-center text-sm font-medium text-tan group-hover:underline">
+              <div className="mt-4 inline-flex items-center text-sm font-medium text-tan-ink group-hover:underline">
                 {t("rooms.category.ctaLink")} →
               </div>
             </div>
@@ -69,7 +69,7 @@ export default function RoomCategorySection({ category, units }: { category: Cat
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-1">
                     <h4 className="font-semibold text-gray-900">{t(u.titleKey)}</h4>
-                    <div className="text-tan font-semibold text-sm">{formatPrice(u.priceFrom, locale)}{t("rooms.category.pricingSuffix")}</div>
+                    <div className="text-tan-ink font-semibold text-sm">{formatPrice(u.priceFrom, locale)}{t("rooms.category.pricingSuffix")}</div>
                   </div>
                   <p className="text-xs text-gray-600">{buildUnitShortDescription(u, t)}</p>
                 </div>

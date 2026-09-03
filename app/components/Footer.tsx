@@ -16,7 +16,7 @@ export default function Footer() {
           {/* About Us */}
           <div>
             <div className="mb-6">
-              <Logo />
+              <Logo tone="light" />
             </div>
             <p className="text-gray-300 leading-relaxed mb-6">
               {t('tagline')}
@@ -55,7 +55,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:silverpineapplehosto@gmail.com?subject=Group Booking Inquiry" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <a
+                  href="mailto:silverpineapplehosto@gmail.com?subject=Group Booking Inquiry"
+                  aria-label={t('groupBookingsLabel')}
+                  className="text-gray-300 hover:text-tan transition-colors duration-300"
+                >
                   {t('groupBookings')}
                 </a>
               </li>
@@ -67,22 +71,28 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-6 tracking-wide">{t('contactHeading')}</h3>
             <div className="space-y-4">
               <div className="flex items-start">
-                <MapPin className="w-5 h-5 text-tan mr-3 mt-1 flex-shrink-0" />
+                <MapPin aria-hidden="true" className="w-5 h-5 text-tan mr-3 mt-1 flex-shrink-0" />
                 <div className="text-gray-300">
+                  <span className="sr-only">{t('addressLabel')}</span>
                   <p></p>
                   <p>Melbourne, FL 32935</p>
                 </div>
               </div>
               <div className="flex items-center">
-                <Phone className="w-5 h-5 text-tan mr-3" />
-                <a href="tel:+1234567890" className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <Phone aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
+                <a
+                  href="tel:+1234567890"
+                  aria-label={t('phoneLabel')}
+                  className="text-gray-300 hover:text-tan transition-colors duration-300"
+                >
                   {/* (123) 456-7890 */}
                 </a>
               </div>
               <div className="flex items-center">
-                <Mail className="w-5 h-5 text-tan mr-3" />
+                <Mail aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                 <a
                   href="mailto:silverpineapplehosto@gmail.com"
+                  aria-label={t('emailLabel')}
                   className="text-gray-300 hover:text-tan transition-colors duration-300"
                 >
                   silverpineapplehosto@gmail.com

@@ -122,7 +122,7 @@ export default function RoomCard({
         <div>
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-tight">{title}</h2>
           <p className="text-lg text-gray-700 leading-relaxed mb-6">{description}</p>
-          <div className="text-2xl font-semibold text-tan mb-8">{price}</div>
+          <div className="text-2xl font-semibold text-tan-ink mb-8">{price}</div>
         </div>
 
         {/* Amenities Grid */}
@@ -135,7 +135,7 @@ export default function RoomCard({
               return (
                 <div key={index} className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-tan/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <IconComponent className="w-5 h-5 text-tan" />
+                    <IconComponent className="w-5 h-5 text-tan-ink" />
                   </div>
                   <span className="text-gray-700 font-medium">{amenity.text}</span>
                 </div>
@@ -148,12 +148,12 @@ export default function RoomCard({
         {slug ? (
           <Link
             href={`/rooms/${slug}`}
-            className="inline-block w-full md:w-auto bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-center"
+            className="inline-block w-full md:w-auto bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-center"
           >
             {t("buttonPrimary")}
           </Link>
         ) : (
-          <button className="w-full md:w-auto bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <button className="w-full md:w-auto bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             {t("buttonFallback")}
           </button>
         )}

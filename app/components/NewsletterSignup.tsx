@@ -54,7 +54,7 @@ export default function NewsletterSignup() {
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent outline-none transition-all duration-300"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent outline-none transition-all duration-300"
               required
             />
             <input
@@ -63,7 +63,7 @@ export default function NewsletterSignup() {
               placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent outline-none transition-all duration-300"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent outline-none transition-all duration-300"
               required
             />
           </div>
@@ -74,7 +74,7 @@ export default function NewsletterSignup() {
             placeholder="Email Address"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent outline-none transition-all duration-300 mb-6"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent outline-none transition-all duration-300 mb-6"
             required
           />
 
@@ -87,7 +87,7 @@ export default function NewsletterSignup() {
                     type="checkbox"
                     checked={formData.interests.includes(interest)}
                     onChange={() => handleCheckboxChange(interest)}
-                    className="mr-3 w-4 h-4 text-tan border-gray-300 rounded focus:ring-tan"
+                    className="mr-3 w-4 h-4 text-tan-ink border-gray-300 rounded focus:ring-tan-ink"
                   />
                   <span className="text-sm text-gray-700">{interest}</span>
                 </label>
