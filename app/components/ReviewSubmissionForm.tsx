@@ -22,7 +22,12 @@ const buildReviewSchema = (t: Translate) => z.object({
     .email(t("validation.email")),
   propertySlug: z.string()
     .min(1, t("validation.property")),
-  overallRating: z.number()
+  // Without the explicit messages an unrated form falls back to zod's own
+  // English "Required", which no catalog can reach.
+  overallRating: z.number({
+    required_error: t("validation.rating"),
+    invalid_type_error: t("validation.rating")
+  })
     .min(1, t("validation.rating"))
     .max(5),
   cleanliness: z.number().min(1).max(5).optional(),
@@ -178,7 +183,7 @@ export default function ReviewSubmissionForm() {
         </div>
 
         <MagicCard className="p-8 md:p-12">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
             {/* Guest Information */}
             <div className="space-y-6">
               <h3 className="text-xl font-bold text-primary">{t("sectionInfo")}</h3>
