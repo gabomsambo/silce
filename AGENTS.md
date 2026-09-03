@@ -60,10 +60,16 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
 
 ## Form delivery
 
-- Static forms use FormSubmit; the shared recipient and endpoint live in
-  `app/data/contact.ts`. Use the activated hashed endpoint in browser code rather
-  than embedding the raw inbox address, and only show success after FormSubmit
-  accepts the request. The visible business email remains an intentional fallback.
+- Static forms use FormSubmit; the shared recipient, endpoint and the one-line slot
+  for a future phone/WhatsApp number all live in `app/data/contact.ts`. The endpoint
+  as shipped is the **raw-inbox** AJAX URL (`https://formsubmit.co/ajax/<address>`):
+  FormSubmit only issues a hashed alias once the inbox owner clicks its one-time
+  activation email, so no hashed endpoint exists in this repo yet and nothing is
+  delivered until that click. Swapping to the alias is a one-line change in that
+  file, and it is worth doing because `ContactForm.tsx` is a client component, so
+  whatever is in that string ships in the browser bundle.
+- Only show success after FormSubmit accepts the request — never on submit alone.
+  The visible business email remains an intentional fallback.
 
 ## Booking / units data
 
