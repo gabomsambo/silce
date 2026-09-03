@@ -1,9 +1,50 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Script from 'next/script'
+import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  COOKIE_CONSENT_UPDATED_EVENT,
+  clearAnalyticsCookies,
+  readCookieConsent,
+} from "./cookieConsent"
 
 export default function GoogleAnalytics() {
   const measurementId = process.env.NEXT_PUBLIC_ANALYTICS_ID
+  const [isAllowed, setIsAllowed] = useState(false)
 
-  if (!measurementId) {
+  useEffect(() => {
+    const syncConsent = () => {
+      const allowed = readCookieConsent() === "accepted"
+
+      if (measurementId) {
+        (window as unknown as Record<string, boolean>)[`ga-disable-${measurementId}`] = !allowed
+      }
+
+      if (!allowed) {
+        clearAnalyticsCookies()
+      }
+
+      setIsAllowed(allowed)
+    }
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === COOKIE_CONSENT_STORAGE_KEY) {
+        syncConsent()
+      }
+    }
+
+    syncConsent()
+    window.addEventListener("storage", handleStorage)
+    window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent)
+
+    return () => {
+      window.removeEventListener("storage", handleStorage)
+      window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent)
+    }
+  }, [measurementId])
+
+  if (!measurementId || !isAllowed) {
     return null
   }
 

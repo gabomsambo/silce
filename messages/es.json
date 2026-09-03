@@ -18,7 +18,8 @@
     "reviews": "Opiniones",
     "browseProperties": "Explorar Propiedades",
     "groupBookings": "Reservas Grupales",
-    "copyright": "© 2024 Silver Pineapple. Todos los derechos reservados."
+    "copyright": "© 2024 Silver Pineapple. Todos los derechos reservados.",
+    "cookiePreferences": "Preferencias de cookies"
   },
   "hero": {
     "heading": "MEJORE SU PRÓXIMA ESTADÍA",
@@ -311,5 +312,12 @@
       "specsBathroomsPlural": "{bathrooms} baños",
       "pricing": "Desde {price}/noche"
     }
+  },
+  "cookieConsent": {
+    "title": "Preferencias de cookies",
+    "description": "Usamos cookies analíticas opcionales para comprender el uso del sitio y mejorar este sitio web. Puede aceptar o rechazar las cookies analíticas abajo.",
+    "iframeNotice": "Nuestro widget de reservas de Hospitable está integrado en un iframe de terceros. Hospitable, y cualquier servicio que cargue dentro de ese iframe para pagos o analítica (por ejemplo Stripe o PostHog), puede establecer sus propias cookies. Esas cookies las establecen esos terceros, no nosotros, y no se pueden controlar, leer ni eliminar desde este sitio.",
+    "accept": "Aceptar cookies analíticas",
+    "decline": "Rechazar cookies analíticas"
   }
 }

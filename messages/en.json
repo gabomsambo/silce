@@ -18,7 +18,8 @@
     "reviews": "Reviews",
     "browseProperties": "Browse Properties",
     "groupBookings": "Group Bookings",
-    "copyright": "© 2024 Silver Pineapple. All rights reserved."
+    "copyright": "© 2024 Silver Pineapple. All rights reserved.",
+    "cookiePreferences": "Cookie preferences"
   },
   "hero": {
     "heading": "UPGRADE YOUR NEXT STAY",
@@ -311,5 +312,12 @@
       "specsBathroomsPlural": "{bathrooms} bathrooms",
       "pricing": "From {price}/night"
     }
+  },
+  "cookieConsent": {
+    "title": "Cookie preferences",
+    "description": "We use optional analytics cookies to understand site usage and improve this website. You can accept or decline analytics cookies below.",
+    "iframeNotice": "Our Hospitable booking widget is embedded in a third-party iframe. Hospitable, and any services it loads inside that iframe for payments or analytics (for example Stripe or PostHog), may set their own cookies. Those cookies are set by those third parties, not by us, and they cannot be controlled, read, or cleared from this site.",
+    "accept": "Accept analytics cookies",
+    "decline": "Decline analytics cookies"
   }
 }

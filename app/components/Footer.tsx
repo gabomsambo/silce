@@ -2,8 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from "@/i18n/navigation"
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 import Logo from "./Logo"
+import { clearCookieConsent } from "./cookieConsent"
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -20,17 +21,6 @@ export default function Footer() {
             <p className="text-gray-300 leading-relaxed mb-6">
               {t('tagline')}
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-tan transition-colors duration-300">
-                <Twitter className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -104,8 +94,15 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 pt-8">
-          <div className="flex flex-col md:flex-row justify-center items-center">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
             <p className="text-gray-400 text-sm">{t('copyright')}</p>
+            <button
+              type="button"
+              onClick={() => clearCookieConsent()}
+              className="text-gray-400 text-sm underline underline-offset-4 hover:text-tan transition-colors duration-300"
+            >
+              {t('cookiePreferences')}
+            </button>
           </div>
         </div>
       </div>
