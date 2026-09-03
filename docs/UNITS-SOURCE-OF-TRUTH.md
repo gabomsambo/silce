@@ -77,7 +77,7 @@ every value below the true floor advertises a rate no guest can book.
 
 Site UUID `9f9d3a07-f287-40dc-bb60-1966173ea154` is unchanged and still correct.
 
-- **Site today:** `<iframe src="https://booking.hospitable.com/widget/<site-uuid>/<property-id>">` (`app/components/BookingIframe.tsx`)
+- **Site today:** `<iframe src="https://booking.hospitable.com/widget/<site-uuid>/<property-id>?locale=<locale>">` (`app/components/BookingIframe.tsx`)
 - **Export prescribes:** `<script src="https://cdn.hsptb.com/direct-booking-widget/widget-loader.prod.js" data-site-uuid data-property-id data-theme="multi">`
 
 The multi-property search widget (`app/[locale]/layout.tsx:110`) still loads
@@ -92,11 +92,15 @@ the site UUID, which is expected.
 2. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
+   Titles now live in the message catalogs (`units.<slug>.title` in
+   `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
+   only `titleKey` — a title correction has to be made in both catalogs.
 3. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
    `0`, which renders as "0 bedrooms" in the specs line — cosmetic, not a data bug.
 4. **Embed migration.** Move to the script loader, or keep the iframe (which
-   also carries the checkin/checkout/guest query-param forwarding)?
+   also carries the checkin/checkout/guest query-param forwarding and the
+   widget-language handshake — see AGENTS.md)?
 
 ## Photo library defects
 
