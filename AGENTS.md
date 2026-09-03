@@ -83,6 +83,25 @@ that file doubles as the operational record; `copy.ts` maps the known values ont
 catalog keys and falls back to the raw literal, so an unrecognised value degrades
 rather than throwing.
 
+## Dependency pinning: `next` and `@opennextjs/cloudflare`
+
+Both are pinned to exact versions on purpose — do not reintroduce a caret on either.
+
+- **`next` must stay on the 15.5 backport line.** The 15.2.x and 15.3.x lines are no
+  longer security-backported: their newest releases still carry ~26 open advisories.
+  npm's `backport` dist-tag tracks the maintained 15.x line. Check any candidate against
+  the real advisory data before bumping — `https://api.github.com/advisories?ecosystem=npm&affects=next`
+  lists `vulnerable_version_range` per release line, and `npm audit` after installing
+  confirms it; guessing patch numbers from an advisory's `first_patched_version` is
+  unreliable because later advisories re-open earlier lines.
+- **`@opennextjs/cloudflare` is pinned because `pages:build` does unguarded file surgery.**
+  The script chains six `mv`/`cp` calls over `.open-next/worker.js` and `.open-next/assets/`
+  with no assertions, so a minor bump that relocates either breaks production behind a
+  fully green build. After any bump, assert the output contains `_worker.js`, `_next/`
+  and `_routes.json` and that `assets/` is gone.
+- Its `peerDependencies.next` range is the binding constraint on how low `next` may go
+  (and versions `<1.17.1` carry a worker-runtime SSRF, GHSA-c7mq-gh6q-6q7c).
+
 ## Maintaining this file
 
 Keep this file for knowledge useful to almost every future agent session in this project.
