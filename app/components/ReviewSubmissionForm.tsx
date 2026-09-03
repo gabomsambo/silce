@@ -76,6 +76,7 @@ function StarRating({ rating, onChange, label }: StarRatingProps) {
 
 export default function ReviewSubmissionForm() {
   const t = useTranslations("reviews.form")
+  const tRoot = useTranslations()
   const reviewSchema = useMemo(() => buildReviewSchema(t), [t])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -227,7 +228,7 @@ export default function ReviewSubmissionForm() {
                     <option value="">{t("placeholderProperty")}</option>
                     {UNITS.map(unit => (
                       <option key={unit.slug} value={unit.slug}>
-                        {unit.title}
+                        {tRoot(unit.titleKey)}
                       </option>
                     ))}
                   </select>

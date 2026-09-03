@@ -267,6 +267,35 @@
       "full": "{blurb} Lo más destacado: {specifics}. A pasos de la Biblioteca Pública de Eau Gallie, los murales del EGAD, cafeterías y parques junto al río; las playas quedan a unos 10–15 minutos."
     }
   },
+  "units": {
+    "unit-2528": {
+      "title": "Estudio - Compacto · Unidad 2528"
+    },
+    "unit-2536": {
+      "title": "Estudio — Compacto · Unidad 2536"
+    },
+    "unit-2538": {
+      "title": "Estudio — Confort · Unidad 2538"
+    },
+    "pineapple-102": {
+      "title": "1 Habitación, 1 Baño · Pineapple 102"
+    },
+    "sea-grape-102": {
+      "title": "2 Habitaciones, 1 Baño · Sea Grape 102"
+    },
+    "unit-2526": {
+      "title": "Estudio - Compacto · Unidad 2526"
+    },
+    "pineapple-103": {
+      "title": "Estudio - Confort · Pineapple 103"
+    },
+    "pineapple-104": {
+      "title": "Estudio - Confort · Pineapple 104"
+    },
+    "pineapple-101": {
+      "title": "Estudio — Plus (Grande) · Pineapple 101"
+    }
+  },
   "about": {
     "hero": {
       "heading": "Acerca de Silver Pineapple",

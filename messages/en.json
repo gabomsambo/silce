@@ -267,6 +267,35 @@
       "full": "{blurb} Highlights: {specifics}. Walk to the Eau Gallie Public Library, EGAD murals, cafés, and riverfront parks; beaches in ~10–15 minutes."
     }
   },
+  "units": {
+    "unit-2528": {
+      "title": "Studio - Compact · Unit 2528"
+    },
+    "unit-2536": {
+      "title": "Studio — Compact · Unit 2536"
+    },
+    "unit-2538": {
+      "title": "Studio — Comfort · Unit 2538"
+    },
+    "pineapple-102": {
+      "title": "1 Bedroom, 1 Bath · Pineapple 102"
+    },
+    "sea-grape-102": {
+      "title": "2 Bedroom, 1 Bath · Sea Grape 102"
+    },
+    "unit-2526": {
+      "title": "Studio - Compact · Unit 2526"
+    },
+    "pineapple-103": {
+      "title": "Studio - Comfort · Pineapple 103"
+    },
+    "pineapple-104": {
+      "title": "Studio - Comfort · Pineapple 104"
+    },
+    "pineapple-101": {
+      "title": "Studio — Plus (Large) · Pineapple 101"
+    }
+  },
   "about": {
     "hero": {
       "heading": "About Silver Pineapple",

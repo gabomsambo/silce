@@ -9,6 +9,7 @@ import { UNITS } from "@/app/data/units"
 
 export default function ReviewsDisplay() {
   const t = useTranslations("reviews.display")
+  const tRoot = useTranslations()
   const locale = useLocale()
   const [selectedProperty, setSelectedProperty] = useState<string>("all")
   const [minRating, setMinRating] = useState<number>(1)
@@ -101,7 +102,7 @@ export default function ReviewsDisplay() {
                 <option value="all">{t("allProperties")}</option>
                 {UNITS.map(unit => (
                   <option key={unit.slug} value={unit.slug}>
-                    {unit.title}
+                    {tRoot(unit.titleKey)}
                   </option>
                 ))}
               </select>

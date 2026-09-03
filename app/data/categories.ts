@@ -56,7 +56,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     nameKey: "rooms.categories.studio-comfort.name",
     blurbKey: "rooms.categories.studio-comfort.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "2" } },
+      { key: "sleeps", values: { count: "2-3" } },
       { key: "queenBed" },
       { key: "kitchenette" },
       ...SHARED_AMENITIES,
@@ -69,7 +69,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.studio-plus.badge",
     blurbKey: "rooms.categories.studio-plus.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "2-3" } },
+      { key: "sleeps", values: { count: "4" } },
       { key: "queenBed" },
       { key: "kitchenetteDiningTable" },
       ...SHARED_AMENITIES,
@@ -81,7 +81,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     nameKey: "rooms.categories.one-bed-1-bath.name",
     blurbKey: "rooms.categories.one-bed-1-bath.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "3-4" } },
+      { key: "sleeps", values: { count: "3" } },
       { key: "kingQueenSofaBed" },
       { key: "fullKitchen" },
       ...SHARED_AMENITIES,
@@ -94,7 +94,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.two-bed-1-bath.badge",
     blurbKey: "rooms.categories.two-bed-1-bath.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "4-5" } },
+      { key: "sleeps", values: { count: "6" } },
       { key: "twoBedrooms" },
       { key: "fullKitchen" },
       ...SHARED_AMENITIES,
