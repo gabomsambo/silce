@@ -74,6 +74,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'vacation rental',
       'Melbourne FL',
       'Eau Gallie',
+      // Same rule as the JSON-LD: never publish a zero-bedroom claim.
+      // See `getCorroboratedBedroomCount` in lib/structuredData.ts.
       ...(unit.bedrooms > 0 ? [`${unit.bedrooms} bedroom`] : []),
       'short-term rental',
       'Florida vacation',

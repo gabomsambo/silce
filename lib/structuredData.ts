@@ -27,6 +27,7 @@ const UNIT_TYPES = ["Product", "Accommodation"];
 
 const BUSINESS_POSTAL_CODE = "32935";
 
+// Independent corroboration for `unit.bedrooms`; see `getCorroboratedBedroomCount`.
 const BEDROOMS_BY_CATEGORY: Record<CategoryKey, number> = {
   "studio-compact": 0,
   "studio-comfort": 0,
@@ -60,6 +61,10 @@ function getUnitImageUrls(unit: Unit): string[] {
   return Array.from(new Set(unit.images)).map(toAbsoluteUrl);
 }
 
+// Hospitable's public booking API exposes no bedroom count, so `unit.bedrooms` is only
+// inferred from the listing name (docs/UNITS-SOURCE-OF-TRUTH.md). Publish it only when the
+// unit's category independently agrees, and never publish a literal 0 — for the studios
+// that value means "no separate bedroom", not a verified count of zero bedrooms.
 function getCorroboratedBedroomCount(unit: Unit): number | undefined {
   if (unit.bedrooms <= 0) {
     return undefined;
@@ -72,6 +77,10 @@ function normalizeLocale(locale: string): SupportedLocale {
   return locale === "es" ? "es" : "en";
 }
 
+// Deliberately emits no `streetAddress`. The business spans three buildings, so no single
+// street describes it, and the per-building streets are not confirmed in this repo —
+// docs/UNITS-SOURCE-OF-TRUTH.md records the 2456-vs-2546 Pineapple Ave discrepancy and
+// gives no street name for the Sea Grape buildings. Do not add one back unsourced.
 function toPostalAddress(postalCode?: string) {
   return {
     "@type": "PostalAddress",
@@ -90,6 +99,8 @@ function getWebSiteId(locale: SupportedLocale): string {
   return `${getLocaleRootUrl(locale)}#website`;
 }
 
+// Locale-independent on purpose: /en and /es describe one business, so both must resolve
+// to the same `@id`. Only the WebSite/WebPage nodes are locale-scoped.
 function getLodgingBusinessId(): string {
   return `${toAbsoluteUrl("/")}#lodging-business`;
 }
