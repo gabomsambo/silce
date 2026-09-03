@@ -1,5 +1,12 @@
 # Favicon and App Icon Generation Guide for Next.js 15
 
+> **Historical — superseded for this repo.** This guide recommends the Next.js
+> `app/` file-convention icon routes (`app/icon.png`, `app/apple-icon.png`, …).
+> Those 404 on Cloudflare Pages here; the shipped icons are static `public/`
+> assets declared explicitly in `app/[locale]/layout.tsx` and `app/manifest.ts`.
+> See the "Icons must be static `public/` assets" entry in `AGENTS.md`. The
+> format/size tables below are still accurate.
+
 ## Overview
 
 This guide covers the complete process of generating and implementing favicons and app icons for a Next.js 15 App Router project, including modern browser support, PWA requirements, and Apple touch icons.

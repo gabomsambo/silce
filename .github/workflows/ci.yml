@@ -45,3 +45,8 @@ jobs:
       # `next start` server and fails on internal 404s or dropped locale prefixes.
       - name: Link integrity
         run: npm run check:links
+
+      # The link crawl skips asset hrefs, so it cannot see a declared icon that
+      # no static file backs. This checks the icon/manifest half of that bug class.
+      - name: Icon integrity
+        run: npm run check:icons
