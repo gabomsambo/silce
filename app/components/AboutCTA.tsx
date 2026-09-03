@@ -1,6 +1,6 @@
 "use client"
 
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { useTranslations } from "next-intl"
 
 export default function AboutCTA() {
@@ -25,7 +25,7 @@ export default function AboutCTA() {
               {t("buttonRooms")}
             </Link>
             <Link
-              href="/"
+              href="/rooms"
               className="bg-white border-2 border-tan text-tan hover:bg-tan hover:text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
             >
               {t("buttonBook")}

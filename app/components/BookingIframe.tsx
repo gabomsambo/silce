@@ -41,10 +41,13 @@ export default function BookingIframe({ hospitableId, propertyTitle }: BookingIf
     updateIframeSrc()
   }, [hospitableId])
 
+  // `allow-forms` and `allow-popups` in the sandbox below are load-bearing: without
+  // them the guest cannot submit the Hospitable booking form, even though the widget
+  // itself renders fine — the failure is silent.
   return (
     <iframe
       id="booking-iframe"
-      sandbox="allow-top-navigation allow-scripts allow-same-origin"
+      sandbox="allow-top-navigation allow-scripts allow-same-origin allow-forms allow-popups"
       style={{ width: "100%", height: "600px" }}
       frameBorder="0"
       src={`https://booking.hospitable.com/widget/9f9d3a07-f287-40dc-bb60-1966173ea154/${hospitableId}`}

@@ -30,7 +30,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     name: "Studio — Comfort",
     blurb:
       "Roomier studios with a bit more breathing space — an easy pick for longer short stays near murals, cafés, and riverfront parks.",
-    defaultAmenities: ["Sleeps 2", "Queen bed", "Kitchenette", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    defaultAmenities: ["Sleeps 2-3", "Queen bed", "Kitchenette", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
     heroImage: "/rooms/studio-comfort.jpg",
   },
   "studio-plus": {
@@ -39,7 +39,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badge: "Extra Space",
     blurb:
       "A large studio with a dedicated dining nook in the kitchen — great for work-from-home days or longer stays.",
-    defaultAmenities: ["Sleeps 2-3", "Queen bed", "Kitchenette + dining table", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    defaultAmenities: ["Sleeps 4", "Queen bed", "Kitchenette + dining table", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
     heroImage: "/rooms/studio-plus.jpg",
   },
   "one-bed-1-bath": {
@@ -47,7 +47,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     name: "1 Bedroom, 1 Bath",
     blurb:
       "Separate bedroom and living area for more privacy — a comfy setup for couples, friends, or work trips.",
-    defaultAmenities: ["Sleeps 3-4", "King/Queen + sofa bed", "Full kitchen", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    defaultAmenities: ["Sleeps 3", "King/Queen + sofa bed", "Full kitchen", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
     heroImage: "/rooms/one-bed.jpg",
   },
   "two-bed-1-bath": {
@@ -56,7 +56,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badge: "Great for Groups",
     blurb:
       "Two bedrooms, one bath — the most space for friends or families who want a walkable Eau Gallie base near the river.",
-    defaultAmenities: ["Sleeps 4-5", "Two bedrooms", "Full kitchen", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
+    defaultAmenities: ["Sleeps 6", "Two bedrooms", "Full kitchen", "High-speed Wi-Fi", "Smart TV", "On-site laundry", "Parking"],
     heroImage: "/rooms/two-bed.jpg",
   },
 }

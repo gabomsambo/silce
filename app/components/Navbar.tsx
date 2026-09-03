@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react"
 import { Menu, X, Languages } from "lucide-react"
 import { useLocale, useTranslations } from 'next-intl'
-import { usePathname, useRouter } from 'next/navigation'
-import Link from "next/link"
+import { Link, usePathname as useLocalizedPathname, useRouter } from '@/i18n/navigation'
 import Logo from "./Logo"
-import Button from "./Button"
+import Button, { bookingActionForPath } from "./Button"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -14,7 +13,8 @@ export default function Navbar() {
   const t = useTranslations('navbar')
   const locale = useLocale()
   const router = useRouter()
-  const pathname = usePathname()
+  const localizedPath = useLocalizedPathname()
+  const bookingAction = bookingActionForPath(localizedPath)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,17 +25,15 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: t('home'), href: `/${locale}` },
-    { name: t('rooms'), href: `/${locale}/rooms` },
-    { name: t('about'), href: `/${locale}/about` },
-    { name: t('reviews'), href: `/${locale}/reviews` },
+    { name: t('home'), href: '/' },
+    { name: t('rooms'), href: '/rooms' },
+    { name: t('about'), href: '/about' },
+    { name: t('reviews'), href: '/reviews' },
   ]
 
   const switchLanguage = () => {
     const newLocale = locale === 'en' ? 'es' : 'en'
-    // Remove current locale from pathname and add new locale
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '')
-    router.push(`/${newLocale}${pathWithoutLocale}`)
+    router.push(localizedPath, { locale: newLocale })
   }
 
   return (
@@ -50,7 +48,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href={`/${locale}`}>
+            <Link href="/">
               <Logo />
             </Link>
           </div>
@@ -66,7 +64,7 @@ export default function Navbar() {
                 {link.name.toUpperCase()}
               </Link>
             ))}
-            <Button text={t('bookNow')} variant="primary" isBookingButton={true} />
+            <Button text={t('bookNow')} variant="primary" isBookingButton={true} bookingAction={bookingAction} />
             <button
               className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan"
               onClick={switchLanguage}
@@ -99,7 +97,13 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button text={t('bookNow')} variant="primary" isBookingButton={true} />
+                <Button
+                  text={t('bookNow')}
+                  variant="primary"
+                  isBookingButton={true}
+                  bookingAction={bookingAction}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
               </div>
               <div className="px-3 py-2">
                 <button

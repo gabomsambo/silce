@@ -1,8 +1,16 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter, usePathname } from "@/i18n/navigation"
 import { ShimmerButton } from "@/components/ui/shimmer-button"
+
+export type BookingAction = "scroll-to-widget" | "go-to-rooms" | "already-there"
+
+export function bookingActionForPath(pathname: string): BookingAction {
+  if (pathname.startsWith('/rooms/')) return "scroll-to-widget"
+  if (pathname === '/rooms') return "already-there"
+  return "go-to-rooms"
+}
 
 interface ButtonProps {
   text: string
@@ -10,9 +18,10 @@ interface ButtonProps {
   onClick?: () => void
   className?: string
   isBookingButton?: boolean
+  bookingAction?: BookingAction
 }
 
-export default function Button({ text, variant = "primary", onClick, className = "", isBookingButton = false }: ButtonProps) {
+export default function Button({ text, variant = "primary", onClick, className = "", isBookingButton = false, bookingAction }: ButtonProps) {
   const router = useRouter()
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
@@ -24,39 +33,34 @@ export default function Button({ text, variant = "primary", onClick, className =
   const handleSmartBooking = () => {
     if (!mounted) return
 
-    // Smart context-aware booking logic
-    if (pathname === '/') {
-      // Homepage: Scroll to Hero search widget
-      const heroWidget = document.getElementById('hero-search-widget')
-      if (heroWidget) {
-        heroWidget.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      } else {
-        // Fallback: scroll to the hero section
-        const heroSection = document.querySelector('section')
-        heroSection?.scrollIntoView({ behavior: 'smooth' })
-      }
-    } else if (pathname.startsWith('/rooms/') && pathname !== '/rooms') {
+    const action = bookingAction ?? bookingActionForPath(pathname)
+
+    // Already on the inventory: neither navigating nor scrolling helps the guest
+    if (action === "already-there") return
+
+    if (action === "scroll-to-widget") {
       // Individual property page: Scroll to booking widget
       const bookingWidget = document.getElementById('booking-iframe')
       if (bookingWidget) {
         bookingWidget.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
       }
-    } else {
-      // Other pages: Redirect to search
-      router.push('/search')
     }
+
+    // Any page without a booking widget: send the guest to the inventory
+    router.push('/rooms')
   }
 
   const handleClick = () => {
-    if (isBookingButton && text.toLowerCase().includes('book')) {
+    onClick?.()
+
+    if (isBookingButton) {
       handleSmartBooking()
-    } else if (onClick) {
-      onClick()
     }
   }
 
   // Use ShimmerButton for booking buttons, regular button for others
-  if (isBookingButton && text.toLowerCase().includes('book')) {
+  if (isBookingButton) {
     return (
       <ShimmerButton
         onClick={handleClick}
