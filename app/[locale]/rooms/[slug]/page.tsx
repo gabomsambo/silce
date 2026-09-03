@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'vacation rental',
       'Melbourne FL',
       'Eau Gallie',
-      `${unit.bedrooms} bedroom`,
+      ...(unit.bedrooms > 0 ? [`${unit.bedrooms} bedroom`] : []),
       'short-term rental',
       'Florida vacation',
     ],

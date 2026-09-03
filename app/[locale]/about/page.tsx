@@ -19,7 +19,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'metadata.about' });
 
   return {
-    title: t('title'),
+    title: { absolute: t('title') },
     description: t('description'),
     alternates: {
       canonical: `/${locale}/about`,
