@@ -126,6 +126,20 @@ html {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessJsonLd) }}
         />
+        {/*
+          The Hospitable search widget reads `window.currentLocale` once, at boot
+          (`this.set(window.currentLocale || "en")`), so this has to be set *before*
+          the bundle below runs — otherwise the widget renders English and only
+          switches later, producing a visible flash. `PropertySearchWidget` also
+          calls the widget's `window.setMPSLanguage()` on mount, which covers
+          client-side locale switches where this script does not re-run.
+          Supported languages are en / fr / es / de; anything else falls back to en.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.currentLocale=${JSON.stringify(locale)}`
+          }}
+        />
         <script src="https://hospitable.b-cdn.net/direct-property-search-widget/hospitable-search-widget.prod.js"></script>
       </head>
       <body>

@@ -430,7 +430,11 @@
   },
   "search": {
     "heading": "Resultados de Búsqueda",
-    "subheading": "Descubra su alojamiento boutique ideal dentro de nuestra selección"
+    "subheading": "Descubra su alojamiento boutique ideal dentro de nuestra selección",
+    "unavailableHeading": "La búsqueda de disponibilidad aún no está conectada",
+    "unavailableBody": "Nuestra búsqueda de disponibilidad todavía se está conectando con nuestro sistema de reservas, por lo que ahora mismo no mostrará resultados. Aun así puede ver todos los apartamentos y consultar fechas y reservar directamente en la página de cada uno.",
+    "browseAll": "Ver todos los apartamentos",
+    "contactUs": "Escríbanos"
   },
   "metadata": {
     "home": {
@@ -474,6 +478,14 @@
       "ogDescription": "Alquileres boutique a corto plazo en Eau Gallie.",
       "twitterTitle": "Silver Pineapple | Alquileres Boutique",
       "twitterDescription": "Alquileres boutique en Melbourne FL."
+    },
+    "search": {
+      "title": "Buscar Disponibilidad",
+      "description": "Consulte la disponibilidad de nuestros alquileres boutique a corto plazo en Eau Gallie, Melbourne FL.",
+      "ogTitle": "Buscar Disponibilidad | Silver Pineapple",
+      "ogDescription": "Encuentre un apartamento para sus fechas en el distrito de las artes de Melbourne.",
+      "twitterTitle": "Buscar Disponibilidad | Silver Pineapple",
+      "twitterDescription": "Alquileres boutique a corto plazo en Eau Gallie."
     }
   },
   "propertyDetail": {
