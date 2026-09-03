@@ -47,7 +47,9 @@ Hospitable is authoritative for IDs. All 13 map 1:1 to a photo folder.
 | 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 |
 
 Non-unit folders: `Fotos amenidades` (15), `Fotos de exterior` (23).
-Library total: **129 files, all byte-distinct** (checksummed — no duplicates).
+Library total: **129 files, all byte-distinct** (checksummed). Byte-distinct is
+not the same as visually distinct — see the merged-export note under *Photo
+library defects*.
 
 ## Site ID migration — applied
 
@@ -111,7 +113,13 @@ the site UUID, which is expected.
   is **1500x2250** (portrait). The other 128 are 1500x1000. Will break a
   uniform grid.
 - The `2536 Pineapple Ave` shoot was delivered as two merged exports: sequence
-  numbers 001–027 each occur twice, the second copy suffixed `-1`. All are
-  distinct images — the `-1` is a filename collision artifact, not a duplicate.
+  numbers 001–027 each occur twice, the second copy suffixed `-1`. The two
+  copies are byte-distinct (different JPEG renders) but **visually identical**,
+  so a checksum comparison does not catch them. Match on the *trailing* room
+  number, not the leading sequence number: in `Fotos unidad 105 PA`,
+  `015 - 09 Bedroom-1` and `033 - 09 Bedroom` are one frame, and
+  `017 - 16 Bathroom-1` and `040 - 16 Bathroom` are another. Only one copy of
+  each pair is published in `units.ts`; publishing both showed the same room
+  twice in the gallery.
 - Frames missing from the library: shoot `2456` is missing 003, 005, 006, 018;
   shoot `2536` is missing 029, 039.

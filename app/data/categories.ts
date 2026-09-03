@@ -1,15 +1,17 @@
 // app/data/categories.ts
 export type CategoryKey =
-  | "studio-compact"     // 2 units (best value)
-  | "studio-comfort"     // 4 units (larger studios)
-  | "studio-plus"        // 1 unit (huge studio w/ dining table)
-  | "one-bed-1-bath"     // 1 unit
-  | "two-bed-1-bath"     // 1 unit
+  | "studio-compact"     // best value
+  | "studio-comfort"     // larger studios
+  | "studio-plus"        // huge studio w/ dining table
+  | "one-bed-1-bath"
+  | "two-bed-1-bath"
 
 /**
  * An amenity chip shown at category level. `key` names a message under
- * `rooms.categoryAmenities`; `values` carries the facts (e.g. capacity) that
- * belong to the data rather than to the copy.
+ * `rooms.categoryAmenities`; `values` carries any facts the message
+ * interpolates. Capacity is not listed here — it is derived from the units in
+ * the category by `buildCategorySleepsCount` so it cannot drift from
+ * `units.ts`.
  */
 export interface CategoryAmenity {
   key: string
@@ -44,7 +46,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.studio-compact.badge",
     blurbKey: "rooms.categories.studio-compact.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "2" } },
       { key: "queenBed" },
       { key: "kitchenette" },
       ...SHARED_AMENITIES,
@@ -56,7 +57,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     nameKey: "rooms.categories.studio-comfort.name",
     blurbKey: "rooms.categories.studio-comfort.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "2-3" } },
       { key: "queenBed" },
       { key: "kitchenette" },
       ...SHARED_AMENITIES,
@@ -69,7 +69,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.studio-plus.badge",
     blurbKey: "rooms.categories.studio-plus.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "4" } },
       { key: "queenBed" },
       { key: "kitchenetteDiningTable" },
       ...SHARED_AMENITIES,
@@ -81,7 +80,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     nameKey: "rooms.categories.one-bed-1-bath.name",
     blurbKey: "rooms.categories.one-bed-1-bath.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "3" } },
       { key: "kingQueenSofaBed" },
       { key: "fullKitchen" },
       ...SHARED_AMENITIES,
@@ -94,7 +92,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.two-bed-1-bath.badge",
     blurbKey: "rooms.categories.two-bed-1-bath.blurb",
     defaultAmenities: [
-      { key: "sleeps", values: { count: "6" } },
       { key: "twoBedrooms" },
       { key: "fullKitchen" },
       ...SHARED_AMENITIES,

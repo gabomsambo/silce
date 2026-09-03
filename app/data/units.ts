@@ -91,7 +91,7 @@ export const UNITS: Unit[] = [
     floor: "Ground",
     extras: ["Dining table in kitchen"],
     hospitable_id: "2282920",
-    images: ["/photos_seagrape_102/1.jpg","/photos_seagrape_102/2.jpg","/photos_seagrape_102/3.jpg","/photos_seagrape_102/4.jpg","/photos_seagrape_102/5.jpg","/photos_seagrape_102/6.jpg","/photos_seagrape_102/9.jpg","/photos_seagrape_102/10.jpg","/photos_seagrape_102/9.jpg","/photos_seagrape_102/10.jpg","/photos_seagrape_102/11.jpg","/photos_seagrape_102/12.jpg","/photos_seagrape_102/13.jpg","/photos_seagrape_102/14.jpg","/photos_seagrape_102/15.jpg","/photos_seagrape_102/16.jpg"]
+    images: ["/photos_seagrape_102/1.jpg","/photos_seagrape_102/2.jpg","/photos_seagrape_102/3.jpg","/photos_seagrape_102/4.jpg","/photos_seagrape_102/5.jpg","/photos_seagrape_102/6.jpg","/photos_seagrape_102/9.jpg","/photos_seagrape_102/10.jpg","/photos_seagrape_102/11.jpg","/photos_seagrape_102/12.jpg","/photos_seagrape_102/13.jpg","/photos_seagrape_102/14.jpg","/photos_seagrape_102/15.jpg","/photos_seagrape_102/16.jpg"]
   },
   {
     slug: "unit-2526",
@@ -145,7 +145,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen + Sofa Bed",
     hospitable_id: "2282917",
-    images: ["/photos_105/1.jpg","/photos_105/2.jpg","/photos_105/3.jpg","/photos_105/4.jpg","/photos_105/5.jpg","/photos_105/6.jpg","/photos_105/7.jpg","/photos_105/8.jpg","/photos_105/9.jpg","/photos_105/10.jpg","/photos_105/11.jpg"],
+    images: ["/photos_105/1.jpg","/photos_105/2.jpg","/photos_105/3.jpg","/photos_105/4.jpg","/photos_105/5.jpg","/photos_105/6.jpg","/photos_105/7.jpg","/photos_105/8.jpg","/photos_105/9.jpg"],
   },
   {
     slug: "pineapple-101",

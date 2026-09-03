@@ -51,6 +51,19 @@ export function translateExtra(extra: string, t: Translate) {
   return translateFrom(KNOWN_EXTRAS, "unit.extras", extra, t)
 }
 
+/**
+ * Capacity shown on a category chip. Derived from the units actually filed
+ * under that category so it tracks `maxGuests` instead of being restated by
+ * hand: a single figure when they agree, a range otherwise.
+ */
+export function buildCategorySleepsCount(units: Unit[]) {
+  if (!units.length) return null
+  const guests = units.map((u) => u.maxGuests)
+  const min = Math.min(...guests)
+  const max = Math.max(...guests)
+  return min === max ? `${min}` : `${min}-${max}`
+}
+
 export function buildUnitShortDescription(unit: Unit, t: Translate) {
   const bits = [
     translateBedType(unit.bedType, t),
