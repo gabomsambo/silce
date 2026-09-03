@@ -10,6 +10,60 @@
   body {
     font-family: "Inter", system-ui, sans-serif;
   }
+
+  /*
+   * Keyboard focus ring.
+   *
+   * The site has both near-white and near-black (#1a1a1a footer/hero) surfaces,
+   * so a single-colour ring is invisible on one of them. This draws two
+   * concentric bands: an inner near-black band (0-3px from the element) that
+   * reads on light surfaces, and an outer tan band (3-6px) that reads on dark
+   * surfaces. Against #1a1a1a the tan band measures 8.82:1; against white the
+   * near-black band measures 17.40:1. Both bands are always painted, so every
+   * interactive element gets a visible ring wherever it sits.
+   */
+  :focus-visible {
+    /*
+     * !important is load-bearing, not laziness. Both bands live in properties
+     * that Tailwind utilities also write, and utilities outrank @layer base:
+     * `shadow-lg` (on the primary buttons) would erase the near-black band and
+     * `focus-visible:outline-none` (baked into components/ui/input.tsx) would
+     * erase the tan one, leaving those controls with no ring at all. This was
+     * measured on a real tab traversal before the !important was added.
+     */
+    outline: 3px solid theme("colors.tan") !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 3px #1a1a1a !important;
+  }
+
+  /*
+   * Form controls use :focus-within, not :focus-visible. Chrome matches
+   * neither :focus-visible nor :focus on the host of an <input type="date"> —
+   * keyboard focus lands on a shadow-DOM field part, and only :focus-within
+   * reaches the host — so the review form's date picker tabbed in with no ring
+   * at all. Text-entry controls should show focus under any modality anyway.
+   */
+  input:focus-within,
+  select:focus-within,
+  textarea:focus-within {
+    outline: 3px solid theme("colors.tan") !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 3px #1a1a1a !important;
+  }
+
+  /*
+   * The Hospitable search widget on /search is a custom element with a closed
+   * shadow tree, so its two inner controls cannot be styled from here and a
+   * keyboard user tabbing into them saw nothing. Ringing the host on
+   * :focus-within is the most this stylesheet can reach: it does not mark
+   * which of the two inner fields is focused, but it does show that focus has
+   * entered the widget. Remove it if the vendor ever ships its own ring.
+   */
+  hospitable-direct-mps:focus-within {
+    outline: 3px solid theme("colors.tan") !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 3px #1a1a1a !important;
+  }
 }
 
 @layer utilities {

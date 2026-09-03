@@ -59,7 +59,7 @@ export default function FeaturedRoomCard({ room }: FeaturedRoomCardProps) {
           {room.slug ? (
             <Link href={`/rooms/${room.slug}`}>
               <ShimmerButton
-                className="bg-tan hover:bg-tan/90 text-white font-semibold px-6 py-3 rounded-xl shadow-lg backdrop-blur-sm border-tan/20"
+                className="bg-tan hover:bg-tan/90 text-primary font-semibold px-6 py-3 rounded-xl shadow-lg backdrop-blur-sm border-tan/20"
                 background="rgba(212, 175, 55, 1)"
                 shimmerColor="#ffffff"
                 shimmerDuration="2s"
@@ -70,7 +70,7 @@ export default function FeaturedRoomCard({ room }: FeaturedRoomCardProps) {
             </Link>
           ) : (
             <ShimmerButton
-              className="bg-tan hover:bg-tan/90 text-white font-semibold px-6 py-3 rounded-xl shadow-lg backdrop-blur-sm border-tan/20"
+              className="bg-tan hover:bg-tan/90 text-primary font-semibold px-6 py-3 rounded-xl shadow-lg backdrop-blur-sm border-tan/20"
               background="rgba(212, 175, 55, 1)"
               shimmerColor="#ffffff"
               shimmerDuration="2s"
@@ -85,12 +85,12 @@ export default function FeaturedRoomCard({ room }: FeaturedRoomCardProps) {
       {/* Content */}
       <div className="p-6">
         <div className="flex justify-between items-start mb-3">
-          <h3 className="text-2xl font-bold text-primary group-hover:text-tan transition-colors duration-300">
+          <h3 className="text-2xl font-bold text-primary group-hover:text-tan-ink transition-colors duration-300">
             {room.name}
           </h3>
           {room.price && (
             <div className="text-right">
-              <p className="text-lg font-semibold text-tan">{room.price}</p>
+              <p className="text-lg font-semibold text-tan-ink">{room.price}</p>
             </div>
           )}
         </div>
@@ -103,7 +103,7 @@ export default function FeaturedRoomCard({ room }: FeaturedRoomCardProps) {
           <div className="mt-4 pt-4 border-t border-gray-100">
             <Link 
               href={`/rooms/${room.slug}`}
-              className="inline-flex items-center text-tan hover:text-tan/80 font-medium transition-colors duration-200"
+              className="inline-flex items-center text-tan-ink hover:text-tan-ink/80 font-medium transition-colors duration-200"
             >
               View Details & Book →
             </Link>

@@ -34,7 +34,7 @@ export default async function Hero() {
       <div className="relative z-10 pb-12 flex justify-center">
         <Link 
           href="/rooms"
-          className="px-8 py-4 bg-white text-[#1a1a1a] font-semibold text-lg rounded-lg hover:bg-tan hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+          className="px-8 py-4 bg-white text-[#1a1a1a] font-semibold text-lg rounded-lg hover:bg-tan hover:text-[#1a1a1a] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
         >
           {t('bookNow', { default: 'Book Now' })}
         </Link>

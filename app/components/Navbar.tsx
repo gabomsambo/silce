@@ -59,25 +59,30 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium tracking-wide transition-colors duration-200 text-gray-900 hover:text-tan"
+                className="text-sm font-medium tracking-wide transition-colors duration-200 text-gray-900 hover:text-tan-ink"
               >
                 {link.name.toUpperCase()}
               </Link>
             ))}
             <Button text={t('bookNow')} variant="primary" isBookingButton={true} bookingAction={bookingAction} />
             <button
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan"
+              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-ink transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan-ink"
               onClick={switchLanguage}
             >
-              <Languages size={18} />
+              <Languages aria-hidden="true" size={18} />
               <span>{t('languageToggle')}</span>
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 rounded-md text-gray-900">
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? t('closeMenu') : t('openMenu')}
+              aria-expanded={isMobileMenuOpen}
+              className="p-2 rounded-md text-gray-900"
+            >
+              {isMobileMenuOpen ? <X aria-hidden="true" size={24} /> : <Menu aria-hidden="true" size={24} />}
             </button>
           </div>
         </div>
@@ -90,7 +95,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="block px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan"
+                  className="block px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-ink"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name.toUpperCase()}
@@ -107,13 +112,13 @@ export default function Navbar() {
               </div>
               <div className="px-3 py-2">
                 <button
-                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan"
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-ink transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan-ink"
                   onClick={() => {
                     switchLanguage()
                     setIsMobileMenuOpen(false)
                   }}
                 >
-                  <Languages size={18} />
+                  <Languages aria-hidden="true" size={18} />
                   <span>{t('translateTo')}</span>
                 </button>
               </div>

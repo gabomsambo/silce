@@ -45,6 +45,12 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         tan: "#D2B48C",
+        // Accessible companion to `tan` for TEXT and meaningful icons on light
+        // surfaces. `tan` itself is 1.97:1 on white and fails WCAG AA; this is
+        // the same hue/saturation darkened to 38% lightness -> 5.13:1 on white
+        // and >=4.5:1 on every light surface in use. Backgrounds, decorative
+        // tints and dark-surface text keep plain `tan`.
+        "tan-ink": "#8B6737",
         // Coastal Palette - Beach vacation aesthetic
         "coastal-blue": "#0EA5E9",      // Ocean blue (Tailwind sky-500)
         "coastal-teal": "#14B8A6",      // Coastal teal (Tailwind teal-500)

@@ -50,25 +50,30 @@ interface StarRatingProps {
 }
 
 function StarRating({ rating, onChange, label }: StarRatingProps) {
+  const t = useTranslations("reviews.form")
   const [hoverRating, setHoverRating] = useState(0)
 
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      <div className="flex gap-1">
+      <span className="text-sm font-medium text-gray-700">{label}</span>
+      <div className="flex gap-1" role="radiogroup" aria-label={label}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
             type="button"
+            role="radio"
+            aria-checked={rating === star}
+            aria-label={t("starLabel", { count: star, category: label })}
             onClick={() => onChange(star)}
             onMouseEnter={() => setHoverRating(star)}
             onMouseLeave={() => setHoverRating(0)}
-            className="focus:outline-none transition-transform hover:scale-110"
+            className="rounded transition-transform hover:scale-110"
           >
             <Star
+              aria-hidden="true"
               className={`w-8 h-8 ${
                 star <= (hoverRating || rating)
-                  ? "text-tan fill-tan"
+                  ? "text-tan-ink fill-tan-ink"
                   : "text-gray-300"
               }`}
             />
@@ -196,7 +201,7 @@ export default function ReviewSubmissionForm() {
                   <input
                     type="text"
                     {...register("guestName")}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
                     placeholder={t("placeholderName")}
                   />
                   {errors.guestName && (
@@ -211,7 +216,7 @@ export default function ReviewSubmissionForm() {
                   <input
                     type="email"
                     {...register("email")}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
                     placeholder={t("placeholderEmail")}
                   />
                   {errors.email && (
@@ -228,7 +233,7 @@ export default function ReviewSubmissionForm() {
                   </label>
                   <select
                     {...register("propertySlug")}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
                   >
                     <option value="">{t("placeholderProperty")}</option>
                     {UNITS.map(unit => (
@@ -249,7 +254,7 @@ export default function ReviewSubmissionForm() {
                   <input
                     type="date"
                     {...register("stayDate")}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
                   />
                 </div>
               </div>
@@ -302,7 +307,7 @@ export default function ReviewSubmissionForm() {
               <textarea
                 {...register("reviewText")}
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent resize-none"
                 placeholder={t("placeholderReview")}
               />
               {errors.reviewText && (
@@ -316,7 +321,7 @@ export default function ReviewSubmissionForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-tan text-white font-semibold rounded-lg
+                className="inline-flex items-center gap-2 px-8 py-4 bg-tan text-primary font-semibold rounded-lg
                   hover:bg-tan/90 transition-all duration-300 hover:shadow-lg hover:scale-105
                   disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
