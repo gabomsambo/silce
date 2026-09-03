@@ -84,6 +84,31 @@
       }
     }
   },
+  "map": {
+    "loading": "Cargando el mapa interactivo...",
+    "markers": {
+      "staylokal-main": {
+        "title": "Propiedades Silver Pineapple",
+        "description": "Alquileres vacacionales de lujo en el corazón del Distrito de las Artes de Eau Gallie"
+      },
+      "paradise-beach": {
+        "title": "Melbourne Beach",
+        "description": "A 10-15 minutos en auto de playas vírgenes del Atlántico"
+      },
+      "kennedy-space": {
+        "title": "Kennedy Space Center",
+        "description": "A 50 minutos en auto del centro de lanzamientos de la NASA"
+      },
+      "eau-gallie-arts": {
+        "title": "Distrito de las Artes de Eau Gallie",
+        "description": "Más de 30 murales, más de 50 galerías y cervecerías artesanales"
+      },
+      "intracoastal-brewing": {
+        "title": "Intracoastal Brewing Co.",
+        "description": "Cervecería artesanal local y restaurante"
+      }
+    }
+  },
   "newsletter": {
     "headingJoin": "Únase a Nuestra Familia",
     "headingSpecial": "Qué Nos Hace Especiales",
@@ -133,6 +158,44 @@
       "subheading": "Encuentre Su Hogar Perfecto Lejos del Hogar"
     },
     "introduction": "Cada uno de nuestros alojamientos cuidadosamente diseñados combina la comodidad del hogar con el lujo de un hotel boutique. Ya sea que se hospede por negocios o placer, nuestros espacios están diseñados para brindar una experiencia excepcional que supera sus expectativas.",
+    "categories": {
+      "studio-compact": {
+        "name": "Estudio — Compacto",
+        "badge": "Mejor Precio",
+        "blurb": "Estudios prácticos y bien aprovechados, ideales para quienes viajan solos o en pareja y buscan una base económica y caminable junto a la Biblioteca Pública de Eau Gallie."
+      },
+      "studio-comfort": {
+        "name": "Estudio — Confort",
+        "blurb": "Estudios más amplios, con algo más de espacio para respirar: una opción cómoda para estadías cortas un poco más largas, cerca de los murales, las cafeterías y los parques junto al río."
+      },
+      "studio-plus": {
+        "name": "Estudio — Plus (Grande)",
+        "badge": "Más Espacio",
+        "blurb": "Un estudio grande con su propio rincón de comedor en la cocina: perfecto para días de trabajo remoto o estadías más largas."
+      },
+      "one-bed-1-bath": {
+        "name": "1 Habitación, 1 Baño",
+        "blurb": "Habitación y sala independientes para mayor privacidad: una distribución cómoda para parejas, amigos o viajes de trabajo."
+      },
+      "two-bed-1-bath": {
+        "name": "2 Habitaciones, 1 Baño",
+        "badge": "Ideal para Grupos",
+        "blurb": "Dos habitaciones y un baño: el mayor espacio para amigos o familias que quieren una base caminable en Eau Gallie, cerca del río."
+      }
+    },
+    "categoryAmenities": {
+      "sleeps": "Capacidad {count} huéspedes",
+      "queenBed": "Cama Queen",
+      "kingQueenSofaBed": "Cama King/Queen + sofá cama",
+      "twoBedrooms": "Dos habitaciones",
+      "kitchenette": "Cocineta",
+      "kitchenetteDiningTable": "Cocineta + mesa de comedor",
+      "fullKitchen": "Cocina completa",
+      "wifi": "Wi-Fi de alta velocidad",
+      "smartTv": "Smart TV",
+      "onSiteLaundry": "Lavandería en el edificio",
+      "parking": "Estacionamiento"
+    },
     "amenities": {
       "heading": "Comodidades Incluidas",
       "subheading": "Comodidades prácticas en todas las estadías de Silver Pineapple",
@@ -178,6 +241,59 @@
     "card": {
       "buttonPrimary": "Ver Detalles y Reservar",
       "buttonFallback": "Consultar Disponibilidad"
+    }
+  },
+  "unit": {
+    "specs": {
+      "sqFt": "{sqFt} pies²",
+      "sqFtApprox": "~{sqFt} pies²"
+    },
+    "bedTypes": {
+      "queen": "Cama Queen",
+      "king": "Cama King",
+      "queen-queen-sofa-bed": "Queen + Queen + sofá cama"
+    },
+    "floors": {
+      "ground": "Planta baja",
+      "upper": "Planta alta"
+    },
+    "extras": {
+      "dining-table-in-kitchen": "Mesa de comedor en la cocina",
+      "espresso-station": "Estación de café espresso",
+      "high-ceilings": "Techos altos",
+      "workspace": "Espacio de trabajo"
+    },
+    "description": {
+      "full": "{blurb} Lo más destacado: {specifics}. A pasos de la Biblioteca Pública de Eau Gallie, los murales del EGAD, cafeterías y parques junto al río; las playas quedan a unos 10–15 minutos."
+    }
+  },
+  "units": {
+    "unit-2528": {
+      "title": "Estudio - Compacto · Unidad 2528"
+    },
+    "unit-2536": {
+      "title": "Estudio — Compacto · Unidad 2536"
+    },
+    "unit-2538": {
+      "title": "Estudio — Confort · Unidad 2538"
+    },
+    "pineapple-102": {
+      "title": "1 Habitación, 1 Baño · Pineapple 102"
+    },
+    "sea-grape-102": {
+      "title": "2 Habitaciones, 1 Baño · Sea Grape 102"
+    },
+    "unit-2526": {
+      "title": "Estudio - Compacto · Unidad 2526"
+    },
+    "pineapple-103": {
+      "title": "Estudio - Confort · Pineapple 103"
+    },
+    "pineapple-104": {
+      "title": "Estudio - Confort · Pineapple 104"
+    },
+    "pineapple-101": {
+      "title": "Estudio — Plus (Grande) · Pineapple 101"
     }
   },
   "about": {
@@ -248,14 +364,73 @@
       "heading": "OPINIONES DE HUÉSPEDES",
       "subheading": "Lea lo que dicen nuestros huéspedes y comparta su propia experiencia en Silver Pineapple"
     },
+    "form": {
+      "heading": "COMPARTA SU EXPERIENCIA",
+      "subheading": "Ayude a futuros huéspedes compartiendo su experiencia en Silver Pineapple",
+      "sectionInfo": "Sus Datos",
+      "labelName": "Su Nombre *",
+      "placeholderName": "Juan Pérez",
+      "labelEmail": "Correo Electrónico *",
+      "placeholderEmail": "su@email.com",
+      "emailPrivacy": "Su correo electrónico no se mostrará públicamente",
+      "labelProperty": "Propiedad Donde Se Hospedó *",
+      "placeholderProperty": "Seleccione una propiedad...",
+      "labelStayDate": "Fecha de la Estadía (Opcional)",
+      "sectionRating": "Su Calificación",
+      "labelOverall": "Experiencia General *",
+      "labelCleanliness": "Limpieza",
+      "labelCommunication": "Comunicación",
+      "labelLocation": "Ubicación",
+      "labelValue": "Relación calidad-precio",
+      "labelReview": "Su Opinión *",
+      "placeholderReview": "Cuéntenos sobre su estadía... ¿Qué le encantó? ¿Qué la hizo memorable?",
+      "reviewHint": "Mínimo 50 caracteres, máximo 500 caracteres",
+      "submit": "Enviar Opinión",
+      "submitting": "Enviando...",
+      "successHeading": "¡Gracias!",
+      "successBody": "Su opinión se envió correctamente. ¡Le agradecemos que se haya tomado el tiempo de compartir su experiencia con nosotros!",
+      "errorAlert": "Hubo un error al enviar su opinión. Inténtelo de nuevo.",
+      "validation": {
+        "nameMin": "El nombre debe tener al menos 2 caracteres",
+        "nameMax": "El nombre debe tener menos de 50 caracteres",
+        "email": "Ingrese un correo electrónico válido",
+        "property": "Seleccione la propiedad donde se hospedó",
+        "rating": "Califique su estadía",
+        "reviewMin": "La opinión debe tener al menos 50 caracteres",
+        "reviewMax": "La opinión debe tener menos de 500 caracteres"
+      }
+    },
     "stats": {
       "heading": "CONFIABLE EN TODAS LAS PLATAFORMAS",
-      "body": "Nuestro compromiso con la excelencia se refleja en nuestras calificaciones consistentes en todas las principales plataformas de reserva. Cada opinión representa una experiencia real de huésped y nuestra dedicación a la hospitalidad."
+      "body": "Nuestro compromiso con la excelencia se refleja en nuestras calificaciones consistentes en todas las principales plataformas de reserva. Cada opinión representa una experiencia real de huésped y nuestra dedicación a la hospitalidad.",
+      "averageRating": "Calificación Promedio",
+      "totalReviews": "Opiniones Totales",
+      "platformReviews": "{count} opiniones"
     },
     "display": {
       "heading": "OPINIONES RECIENTES DE HUÉSPEDES",
-      "subheading": "Experiencias auténticas de nuestros valiosos huéspedes"
+      "subheading": "Experiencias auténticas de nuestros valiosos huéspedes",
+      "filtersHeading": "Filtrar Opiniones",
+      "resetFilters": "Restablecer Filtros",
+      "propertyLabel": "Propiedad",
+      "allProperties": "Todas las Propiedades",
+      "ratingLabel": "Calificación Mínima",
+      "ratingAll": "Todas",
+      "ratingFourPlus": "4★+",
+      "ratingFive": "5★",
+      "platformLabel": "Plataforma",
+      "allPlatforms": "Todas las Plataformas",
+      "showingCount": "Mostrando {shown} de {total} opiniones",
+      "noResults": "Ninguna opinión coincide con sus filtros",
+      "loadMore": "Ver Más Opiniones",
+      "stayed": "Estancia de {duration}",
+      "stayedNights": "Estancia de {count, plural, one {# noche} other {# noches}}",
+      "verifiedGuest": "Huésped Verificado"
     }
+  },
+  "search": {
+    "heading": "Resultados de Búsqueda",
+    "subheading": "Descubra su alojamiento boutique ideal dentro de nuestra selección"
   },
   "metadata": {
     "home": {
@@ -311,7 +486,8 @@
       "specsBathrooms": "{bathrooms} baño",
       "specsBathroomsPlural": "{bathrooms} baños",
       "pricing": "Desde {price}/noche"
-    }
+    },
+    "bookingIframeTitle": "Reservar {title}"
   },
   "cookieConsent": {
     "title": "Preferencias de cookies",

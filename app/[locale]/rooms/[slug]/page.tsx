@@ -44,27 +44,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
+  const tRoot = await getTranslations({ locale });
+  const title = tRoot(unit.titleKey);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://silverpineapple.net';
   const pageUrl = `${baseUrl}/${locale}/rooms/${slug}`;
 
   // Build translated description using template
   const metaDescription = t('metaDescription', {
-    title: unit.title,
+    title,
     maxGuests: unit.maxGuests,
     bedrooms: unit.bedrooms,
     bathrooms: unit.bathrooms,
-    price: formatPrice(unit.priceFrom)
+    price: formatPrice(unit.priceFrom, locale)
   });
 
   const ogDescription = t('ogDescription', {
     maxGuests: unit.maxGuests,
     bedrooms: unit.bedrooms,
     bathrooms: unit.bathrooms,
-    price: formatPrice(unit.priceFrom)
+    price: formatPrice(unit.priceFrom, locale)
   });
 
   return {
-    title: unit.title,
+    title,
     description: metaDescription,
     keywords: [
       unit.category,
@@ -85,7 +87,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: pageUrl,
-      title: `${unit.title} | Silver Pineapple`,
+      title: `${title} | Silver Pineapple`,
       description: ogDescription,
       siteName: 'Silver Pineapple',
       locale: locale === 'es' ? 'es_ES' : 'en_US',
@@ -94,7 +96,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: unit.images[0],
           width: 1200,
           height: 630,
-          alt: unit.title,
+          alt: title,
         }
       ] : [
         {
@@ -107,7 +109,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${unit.title} | Silver Pineapple`,
+      title: `${title} | Silver Pineapple`,
       description: ogDescription,
       images: unit.images.length > 0 ? [unit.images[0]] : ['/og-rooms.jpg'],
     },
@@ -121,6 +123,8 @@ export default async function PropertyPage({ params }: Props) {
   if (!property) notFound();
 
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
+  const tRoot = await getTranslations({ locale });
+  const title = tRoot(property.titleKey);
 
   return (
     <main className="min-h-screen bg-sand-fade">
@@ -131,7 +135,7 @@ export default async function PropertyPage({ params }: Props) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 h-[60vh]">
           {property.images.map((image, i) => (
             <div key={i} className={`relative overflow-hidden ${i === 0 ? "md:col-span-2 lg:col-span-2" : ""}`}>
-              <img src={image} alt={`${property.title} - Image ${i+1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+              <img src={image} alt={`${title} - Image ${i+1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
           ))}
         </div>
@@ -144,7 +148,7 @@ export default async function PropertyPage({ params }: Props) {
             {/* Info */}
             <div className="lg:col-span-2">
               <div className="mb-8">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">{property.title}</h1>
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
                 <div className="flex items-center gap-6 text-gray-600 mb-6">
                   <span>{t('specsGuests', { maxGuests: property.maxGuests })}</span>
                   <span>•</span>
@@ -163,7 +167,7 @@ export default async function PropertyPage({ params }: Props) {
                   </span>
                 </div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  {buildUnitLongDescription(property)}
+                  {buildUnitLongDescription(property, tRoot)}
                 </p>
               </div>
             </div>
@@ -175,13 +179,14 @@ export default async function PropertyPage({ params }: Props) {
                   <BorderBeam size={200} duration={8} colorFrom="#9c40ff" colorTo="#ffaa40" />
                   <div className="mb-6">
                     <div className="text-2xl font-bold text-gray-900">
-                      {t('pricing', { price: formatPrice(property.priceFrom) })}
+                      {t('pricing', { price: formatPrice(property.priceFrom, locale) })}
                     </div>
                   </div>
                   <div className="booking-widget-container">
                     <BookingIframe
                       hospitableId={property.hospitable_id}
-                      propertyTitle={property.title}
+                      propertyTitle={title}
+                      locale={locale}
                     />
                   </div>
                 </div>

@@ -53,6 +53,13 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   `priceFrom`). That API exposes **no bedroom count** — the only bedroom signal is the
   listing `name` ("Studio" / "1BR" / "2BR"). Never call
   `/sites/widgets/<uuid>/ping`: it writes into the owner's Hospitable account.
+- The per-unit booking widget in `app/components/BookingIframe.tsx` takes its language
+  from a **postMessage handshake, not a URL parameter**: on boot the iframe posts
+  `{type:"GET_HOSPITABLE_LANGUAGE"}` to its parent and switches when the parent answers
+  `{type:"SET_HOSPITABLE_LANGUAGE", language}`. It supports `en`, `fr`, `es`, `de` and
+  falls back to English silently. The widget renders **blank** against a `localhost`
+  referrer, so an empty booking box in local verification is expected and is not
+  evidence of a regression — assert on the iframe's attributes instead.
 
 ## i18n
 
@@ -62,6 +69,19 @@ Import `Link`, `useRouter` and `usePathname` from `@/i18n/navigation` (not
 it from `usePathname`, so path comparisons are written against `/rooms/...`.
 Plain `next/navigation` `usePathname` returns `/en/rooms/...` and silently breaks
 route matching.
+
+`messages/en.json` and `messages/es.json` are the single source of every visible
+string and must stay at exact key parity. The modules under `app/data/` hold
+**message keys and facts, never display copy** — `categories.ts` has `nameKey`/
+`blurbKey`/`badgeKey`, `units.ts` has `titleKey`, `mapMarkers.ts` has `titleKey`/
+`descriptionKey`. The copy builders in `app/data/copy.ts` take a root-scoped
+next-intl translator (`useTranslations()` / `getTranslations({locale})`) and compose
+from the catalog. Adding a unit or category means adding its keys to **both** catalogs.
+
+`units.ts` still stores `bedType`, `floor` and `extras` as English literals because
+that file doubles as the operational record; `copy.ts` maps the known values onto
+catalog keys and falls back to the raw literal, so an unrecognised value degrades
+rather than throwing.
 
 ## Maintaining this file
 

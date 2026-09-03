@@ -84,6 +84,31 @@
       }
     }
   },
+  "map": {
+    "loading": "Loading interactive map...",
+    "markers": {
+      "staylokal-main": {
+        "title": "Silver Pineapple Properties",
+        "description": "Luxury vacation rentals in the heart of Eau Gallie Arts District"
+      },
+      "paradise-beach": {
+        "title": "Melbourne Beach",
+        "description": "10-15 minute drive to pristine Atlantic beaches"
+      },
+      "kennedy-space": {
+        "title": "Kennedy Space Center",
+        "description": "50-minute drive to NASA's launch headquarters"
+      },
+      "eau-gallie-arts": {
+        "title": "Eau Gallie Arts District",
+        "description": "30+ murals, 50+ galleries, craft breweries"
+      },
+      "intracoastal-brewing": {
+        "title": "Intracoastal Brewing Co.",
+        "description": "Local craft brewery and dining"
+      }
+    }
+  },
   "newsletter": {
     "headingJoin": "Join Our Family",
     "headingSpecial": "What Makes Us Special",
@@ -133,6 +158,44 @@
       "subheading": "Find Your Perfect Home Away From Home"
     },
     "introduction": "Each of our thoughtfully designed accommodations combines the comfort of home with the luxury of a boutique hotel. Whether you're staying for business or pleasure, our spaces are crafted to provide an exceptional experience that exceeds your expectations.",
+    "categories": {
+      "studio-compact": {
+        "name": "Studio — Compact",
+        "badge": "Best Value",
+        "blurb": "Smart, efficient studios ideal for solo travelers or couples who want a budget-friendly, walkable base beside the Eau Gallie Public Library."
+      },
+      "studio-comfort": {
+        "name": "Studio — Comfort",
+        "blurb": "Roomier studios with a bit more breathing space — an easy pick for longer short stays near murals, cafés, and riverfront parks."
+      },
+      "studio-plus": {
+        "name": "Studio — Plus (Large)",
+        "badge": "Extra Space",
+        "blurb": "A large studio with a dedicated dining nook in the kitchen — great for work-from-home days or longer stays."
+      },
+      "one-bed-1-bath": {
+        "name": "1 Bedroom, 1 Bath",
+        "blurb": "Separate bedroom and living area for more privacy — a comfy setup for couples, friends, or work trips."
+      },
+      "two-bed-1-bath": {
+        "name": "2 Bedroom, 1 Bath",
+        "badge": "Great for Groups",
+        "blurb": "Two bedrooms, one bath — the most space for friends or families who want a walkable Eau Gallie base near the river."
+      }
+    },
+    "categoryAmenities": {
+      "sleeps": "Sleeps {count}",
+      "queenBed": "Queen bed",
+      "kingQueenSofaBed": "King/Queen + sofa bed",
+      "twoBedrooms": "Two bedrooms",
+      "kitchenette": "Kitchenette",
+      "kitchenetteDiningTable": "Kitchenette + dining table",
+      "fullKitchen": "Full kitchen",
+      "wifi": "High-speed Wi-Fi",
+      "smartTv": "Smart TV",
+      "onSiteLaundry": "On-site laundry",
+      "parking": "Parking"
+    },
     "amenities": {
       "heading": "Included Amenities",
       "subheading": "Practical comforts across all Silver Pineapple stays",
@@ -178,6 +241,59 @@
     "card": {
       "buttonPrimary": "View Details & Book",
       "buttonFallback": "Check Availability"
+    }
+  },
+  "unit": {
+    "specs": {
+      "sqFt": "{sqFt} sq ft",
+      "sqFtApprox": "~{sqFt} sq ft"
+    },
+    "bedTypes": {
+      "queen": "Queen",
+      "king": "King",
+      "queen-queen-sofa-bed": "Queen + Queen + Sofa Bed"
+    },
+    "floors": {
+      "ground": "Ground level",
+      "upper": "Upper level"
+    },
+    "extras": {
+      "dining-table-in-kitchen": "Dining table in kitchen",
+      "espresso-station": "Espresso station",
+      "high-ceilings": "High ceilings",
+      "workspace": "Workspace"
+    },
+    "description": {
+      "full": "{blurb} Highlights: {specifics}. Walk to the Eau Gallie Public Library, EGAD murals, cafés, and riverfront parks; beaches in ~10–15 minutes."
+    }
+  },
+  "units": {
+    "unit-2528": {
+      "title": "Studio - Compact · Unit 2528"
+    },
+    "unit-2536": {
+      "title": "Studio — Compact · Unit 2536"
+    },
+    "unit-2538": {
+      "title": "Studio — Comfort · Unit 2538"
+    },
+    "pineapple-102": {
+      "title": "1 Bedroom, 1 Bath · Pineapple 102"
+    },
+    "sea-grape-102": {
+      "title": "2 Bedroom, 1 Bath · Sea Grape 102"
+    },
+    "unit-2526": {
+      "title": "Studio - Compact · Unit 2526"
+    },
+    "pineapple-103": {
+      "title": "Studio - Comfort · Pineapple 103"
+    },
+    "pineapple-104": {
+      "title": "Studio - Comfort · Pineapple 104"
+    },
+    "pineapple-101": {
+      "title": "Studio — Plus (Large) · Pineapple 101"
     }
   },
   "about": {
@@ -248,14 +364,73 @@
       "heading": "GUEST REVIEWS",
       "subheading": "Read what our guests say and share your own Silver Pineapple experience"
     },
+    "form": {
+      "heading": "SHARE YOUR EXPERIENCE",
+      "subheading": "Help future guests by sharing your Silver Pineapple experience",
+      "sectionInfo": "Your Information",
+      "labelName": "Your Name *",
+      "placeholderName": "John Doe",
+      "labelEmail": "Email Address *",
+      "placeholderEmail": "your@email.com",
+      "emailPrivacy": "Your email will not be displayed publicly",
+      "labelProperty": "Property You Stayed At *",
+      "placeholderProperty": "Select a property...",
+      "labelStayDate": "Stay Date (Optional)",
+      "sectionRating": "Your Rating",
+      "labelOverall": "Overall Experience *",
+      "labelCleanliness": "Cleanliness",
+      "labelCommunication": "Communication",
+      "labelLocation": "Location",
+      "labelValue": "Value",
+      "labelReview": "Your Review *",
+      "placeholderReview": "Tell us about your stay... What did you love? What made it memorable?",
+      "reviewHint": "Minimum 50 characters, maximum 500 characters",
+      "submit": "Submit Review",
+      "submitting": "Submitting...",
+      "successHeading": "Thank You!",
+      "successBody": "Your review has been submitted successfully. We appreciate you taking the time to share your experience with us!",
+      "errorAlert": "There was an error submitting your review. Please try again.",
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "nameMax": "Name must be less than 50 characters",
+        "email": "Please enter a valid email address",
+        "property": "Please select the property you stayed at",
+        "rating": "Please rate your stay",
+        "reviewMin": "Review must be at least 50 characters",
+        "reviewMax": "Review must be less than 500 characters"
+      }
+    },
     "stats": {
       "heading": "TRUSTED ACROSS ALL PLATFORMS",
-      "body": "Our commitment to excellence is reflected in our consistent ratings across all major booking platforms. Every review represents a real guest experience and our dedication to hospitality."
+      "body": "Our commitment to excellence is reflected in our consistent ratings across all major booking platforms. Every review represents a real guest experience and our dedication to hospitality.",
+      "averageRating": "Average Rating",
+      "totalReviews": "Total Reviews",
+      "platformReviews": "{count} reviews"
     },
     "display": {
       "heading": "RECENT GUEST REVIEWS",
-      "subheading": "Authentic experiences from our valued guests"
+      "subheading": "Authentic experiences from our valued guests",
+      "filtersHeading": "Filter Reviews",
+      "resetFilters": "Reset Filters",
+      "propertyLabel": "Property",
+      "allProperties": "All Properties",
+      "ratingLabel": "Minimum Rating",
+      "ratingAll": "All",
+      "ratingFourPlus": "4★+",
+      "ratingFive": "5★",
+      "platformLabel": "Platform",
+      "allPlatforms": "All Platforms",
+      "showingCount": "Showing {shown} of {total} reviews",
+      "noResults": "No reviews match your filters",
+      "loadMore": "Load More Reviews",
+      "stayed": "Stayed {duration}",
+      "stayedNights": "Stayed {count, plural, one {# night} other {# nights}}",
+      "verifiedGuest": "Verified Guest"
     }
+  },
+  "search": {
+    "heading": "Search Results",
+    "subheading": "Discover your perfect boutique accommodation from our curated selection"
   },
   "metadata": {
     "home": {
@@ -311,7 +486,8 @@
       "specsBathrooms": "{bathrooms} bathroom",
       "specsBathroomsPlural": "{bathrooms} bathrooms",
       "pricing": "From {price}/night"
-    }
+    },
+    "bookingIframeTitle": "Book {title}"
   },
   "cookieConsent": {
     "title": "Cookie preferences",

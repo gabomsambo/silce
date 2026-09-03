@@ -22,14 +22,14 @@ export default function ReviewStatsSection() {
               <div className="text-5xl md:text-6xl font-bold text-tan mb-2">
                 {getAverageRating()}
               </div>
-              <p className="text-gray-600 font-medium">Average Rating</p>
+              <p className="text-gray-600 font-medium">{t("averageRating")}</p>
             </div>
             <div className="hidden md:block w-px h-16 bg-gray-300"></div>
             <div>
               <div className="text-5xl md:text-6xl font-bold text-tan mb-2">
                 {getTotalReviewCount()}+
               </div>
-              <p className="text-gray-600 font-medium">Total Reviews</p>
+              <p className="text-gray-600 font-medium">{t("totalReviews")}</p>
             </div>
           </div>
 
@@ -57,7 +57,7 @@ export default function ReviewStatsSection() {
                 <Star className="w-5 h-5 text-tan fill-tan" />
                 <span className="font-bold text-tan text-xl">{platform.rating}</span>
               </div>
-              <div className="text-sm text-gray-600">{platform.reviews} reviews</div>
+              <div className="text-sm text-gray-600">{t("platformReviews", { count: platform.reviews })}</div>
             </MagicCard>
           ))}
         </div>

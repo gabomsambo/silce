@@ -3,7 +3,7 @@ import type { CategoryKey } from "./categories"
 
 export interface Unit {
   slug: string                // matches /rooms/[slug]
-  title: string               // visible H1 on unit page
+  titleKey: string            // message key for the visible H1 on the unit page
   category: CategoryKey
   priceFrom: number           // numeric for sorting; format later
   maxGuests: number
@@ -21,7 +21,7 @@ export const UNITS: Unit[] = [
   // ——— Studios (example mapping to your current slugs) ———
   {
     slug: "unit-2528",             // Unit 2528 in your current data
-    title: "Studio - Compact · Unit 2528",
+    titleKey: "units.unit-2528.title",
     category: "studio-compact",
     priceFrom: 70,
     maxGuests: 2,
@@ -35,7 +35,7 @@ export const UNITS: Unit[] = [
   },
   {
     slug: "unit-2536",               // Unit 2536 in your current data
-    title: "Studio — Compact · Unit 2536",
+    titleKey: "units.unit-2536.title",
     category: "studio-comfort",
     priceFrom: 65,
     maxGuests: 3,
@@ -52,7 +52,7 @@ export const UNITS: Unit[] = [
   // 4 larger studios (map 2–3 of your placeholders here)
   {
     slug: "unit-2538",               // use as Studio — Comfort
-    title: "Studio — Comfort · Unit 2538",
+    titleKey: "units.unit-2538.title",
     category: "studio-comfort",
     priceFrom: 75,
     maxGuests: 3,
@@ -67,7 +67,7 @@ export const UNITS: Unit[] = [
   },
   {
     slug: "pineapple-102",         // use as Studio — Comfort
-    title: "1 Bedroom, 1 Bath · Pineapple 102",
+    titleKey: "units.pineapple-102.title",
     category: "one-bed-1-bath",
     priceFrom: 80,
     maxGuests: 3,
@@ -85,7 +85,7 @@ export const UNITS: Unit[] = [
   // 1 huge studio with dining table
   {
     slug: "sea-grape-102",                // repurpose to Studio — Plus (Large)
-    title: "2 Bedroom, 1 Bath · Sea Grape 102",
+    titleKey: "units.sea-grape-102.title",
     category: "two-bed-1-bath",
     priceFrom: 110,
     maxGuests: 6,
@@ -102,7 +102,7 @@ export const UNITS: Unit[] = [
   // 1 bed / 1 bath
   {
     slug: "unit-2526",
-    title: "Studio - Compact · Unit 2526",
+    titleKey: "units.unit-2526.title",
     category: "studio-compact",
     priceFrom: 70,
     maxGuests: 2,
@@ -118,7 +118,7 @@ export const UNITS: Unit[] = [
   // 2 bed / 1 bath (add when you publish the page/slug)
   {
     slug: "pineapple-103",
-    title: "Studio - Comfort · Pineapple 103",
+    titleKey: "units.pineapple-103.title",
     category: "studio-comfort",
     priceFrom: 75,
     maxGuests: 3,
@@ -133,7 +133,7 @@ export const UNITS: Unit[] = [
     // 2 bed / 1 bath (add when you publish the page/slug)
     {
       slug: "pineapple-104",
-      title: "Studio - Comfort · Pineapple 104",
+      titleKey: "units.pineapple-104.title",
       category: "studio-comfort",
       priceFrom: 75,
       maxGuests: 2,
@@ -147,7 +147,7 @@ export const UNITS: Unit[] = [
     },
     {
       slug: "pineapple-101",
-      title: "Studio — Plus (Large) · Pineapple 101",
+      titleKey: "units.pineapple-101.title",
       category: "studio-plus",
       priceFrom: 80,
       maxGuests: 4,

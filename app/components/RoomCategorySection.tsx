@@ -2,13 +2,14 @@
 
 import { Link } from "@/i18n/navigation"
 import Image from "next/image"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { formatPrice, buildUnitShortDescription } from "../data/copy"
 import type { CategoryMeta } from "../data/categories"
 import type { Unit } from "../data/units"
 
 export default function RoomCategorySection({ category, units }: { category: CategoryMeta, units: Unit[] }) {
-  const t = useTranslations("rooms.category")
+  const t = useTranslations()
+  const locale = useLocale()
   if (!units.length) return null
   const featured = units[0]
 
@@ -20,18 +21,20 @@ export default function RoomCategorySection({ category, units }: { category: Cat
           <div>
             <div className="flex items-center gap-3">
               <h2 className="text-3xl md:text-4xl font-bold text-primary tracking-tight">
-                {category.name}
+                {t(category.nameKey)}
               </h2>
-              {category.badge && (
+              {category.badgeKey && (
                 <span className="text-xs font-semibold bg-tan/15 text-tan px-2.5 py-1 rounded-full">
-                  {category.badge}
+                  {t(category.badgeKey)}
                 </span>
               )}
             </div>
-            <p className="text-gray-700 mt-3 max-w-2xl">{category.blurb}</p>
+            <p className="text-gray-700 mt-3 max-w-2xl">{t(category.blurbKey)}</p>
             <div className="flex flex-wrap gap-2 mt-4">
               {category.defaultAmenities.map((a, i) => (
-                <span key={i} className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">{a}</span>
+                <span key={i} className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">
+                  {t(`rooms.categoryAmenities.${a.key}`, a.values)}
+                </span>
               ))}
             </div>
           </div>
@@ -42,16 +45,16 @@ export default function RoomCategorySection({ category, units }: { category: Cat
           {/* Featured large card */}
           <Link href={`/rooms/${featured.slug}`} className="group relative rounded-2xl overflow-hidden border border-gray-200">
             <div className="relative h-72">
-              <Image src={featured.images[0] || "/placeholder.svg"} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+              <Image src={featured.images[0] || "/placeholder.svg"} alt={t(featured.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-5">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="text-xl font-semibold text-gray-900">{featured.title}</h3>
-                <div className="text-tan font-semibold">{formatPrice(featured.priceFrom)}{t("pricingSuffix")}</div>
+                <h3 className="text-xl font-semibold text-gray-900">{t(featured.titleKey)}</h3>
+                <div className="text-tan font-semibold">{formatPrice(featured.priceFrom, locale)}{t("rooms.category.pricingSuffix")}</div>
               </div>
-              <p className="text-sm text-gray-600">{buildUnitShortDescription(featured)}</p>
+              <p className="text-sm text-gray-600">{buildUnitShortDescription(featured, t)}</p>
               <div className="mt-4 inline-flex items-center text-sm font-medium text-tan group-hover:underline">
-                {t("ctaLink")} →
+                {t("rooms.category.ctaLink")} →
               </div>
             </div>
           </Link>
@@ -61,14 +64,14 @@ export default function RoomCategorySection({ category, units }: { category: Cat
             {units.slice(1).map((u) => (
               <Link key={u.slug} href={`/rooms/${u.slug}`} className="group relative rounded-2xl overflow-hidden border border-gray-200">
                 <div className="relative h-56">
-                  <Image src={u.images[0] || "/placeholder.svg"} alt={u.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <Image src={u.images[0] || "/placeholder.svg"} alt={t(u.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="font-semibold text-gray-900">{u.title}</h4>
-                    <div className="text-tan font-semibold text-sm">{formatPrice(u.priceFrom)}{t("pricingSuffix")}</div>
+                    <h4 className="font-semibold text-gray-900">{t(u.titleKey)}</h4>
+                    <div className="text-tan font-semibold text-sm">{formatPrice(u.priceFrom, locale)}{t("rooms.category.pricingSuffix")}</div>
                   </div>
-                  <p className="text-xs text-gray-600">{buildUnitShortDescription(u)}</p>
+                  <p className="text-xs text-gray-600">{buildUnitShortDescription(u, t)}</p>
                 </div>
               </Link>
             ))}

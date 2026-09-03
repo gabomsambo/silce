@@ -2,13 +2,15 @@
 
 import { useState, useMemo } from "react"
 import { Star, Filter } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { MagicCard } from "@/components/ui/magic-card"
 import { REVIEWS, getReviewsSortedByDate, type ReviewPlatform } from "@/app/data/reviews"
 import { UNITS } from "@/app/data/units"
 
 export default function ReviewsDisplay() {
   const t = useTranslations("reviews.display")
+  const tRoot = useTranslations()
+  const locale = useLocale()
   const [selectedProperty, setSelectedProperty] = useState<string>("all")
   const [minRating, setMinRating] = useState<number>(1)
   const [selectedPlatform, setSelectedPlatform] = useState<string>("all")
@@ -46,6 +48,14 @@ export default function ReviewsDisplay() {
     }
   }
 
+  const formatStayDuration = (duration: string) => {
+    // Review data stores this as an English literal ("1 night" / "3 nights").
+    const nights = /^(\d+)\s+nights?$/i.exec(duration.trim())
+    return nights
+      ? t("stayedNights", { count: Number(nights[1]) })
+      : t("stayed", { duration })
+  }
+
   const resetFilters = () => {
     setSelectedProperty("all")
     setMinRating(1)
@@ -69,12 +79,12 @@ export default function ReviewsDisplay() {
         <div className="mb-8 space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Filter className="w-5 h-5 text-gray-600" />
-            <h3 className="text-lg font-semibold text-primary">Filter Reviews</h3>
+            <h3 className="text-lg font-semibold text-primary">{t("filtersHeading")}</h3>
             <button
               onClick={resetFilters}
               className="ml-auto text-sm text-tan hover:text-tan/80 font-medium transition-colors"
             >
-              Reset Filters
+              {t("resetFilters")}
             </button>
           </div>
 
@@ -82,17 +92,17 @@ export default function ReviewsDisplay() {
             {/* Property Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Property
+                {t("propertyLabel")}
               </label>
               <select
                 value={selectedProperty}
                 onChange={(e) => setSelectedProperty(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
               >
-                <option value="all">All Properties</option>
+                <option value="all">{t("allProperties")}</option>
                 {UNITS.map(unit => (
                   <option key={unit.slug} value={unit.slug}>
-                    {unit.title}
+                    {tRoot(unit.titleKey)}
                   </option>
                 ))}
               </select>
@@ -101,7 +111,7 @@ export default function ReviewsDisplay() {
             {/* Rating Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Minimum Rating
+                {t("ratingLabel")}
               </label>
               <div className="flex gap-2">
                 <button
@@ -112,7 +122,7 @@ export default function ReviewsDisplay() {
                       : "bg-white text-gray-700 border-gray-300 hover:border-tan"
                   }`}
                 >
-                  All
+                  {t("ratingAll")}
                 </button>
                 <button
                   onClick={() => setMinRating(4)}
@@ -122,7 +132,7 @@ export default function ReviewsDisplay() {
                       : "bg-white text-gray-700 border-gray-300 hover:border-tan"
                   }`}
                 >
-                  4★+
+                  {t("ratingFourPlus")}
                 </button>
                 <button
                   onClick={() => setMinRating(5)}
@@ -132,7 +142,7 @@ export default function ReviewsDisplay() {
                       : "bg-white text-gray-700 border-gray-300 hover:border-tan"
                   }`}
                 >
-                  5★
+                  {t("ratingFive")}
                 </button>
               </div>
             </div>
@@ -140,14 +150,14 @@ export default function ReviewsDisplay() {
             {/* Platform Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Platform
+                {t("platformLabel")}
               </label>
               <select
                 value={selectedPlatform}
                 onChange={(e) => setSelectedPlatform(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
               >
-                <option value="all">All Platforms</option>
+                <option value="all">{t("allPlatforms")}</option>
                 <option value="Airbnb">Airbnb</option>
                 <option value="Booking.com">Booking.com</option>
                 <option value="VRBO">VRBO</option>
@@ -158,19 +168,19 @@ export default function ReviewsDisplay() {
 
           {/* Results count */}
           <div className="text-sm text-gray-600 text-center">
-            Showing {displayedReviews.length} of {filteredReviews.length} reviews
+            {t("showingCount", { shown: displayedReviews.length, total: filteredReviews.length })}
           </div>
         </div>
 
         {/* Review Grid */}
         {displayedReviews.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-xl text-gray-500 mb-4">No reviews match your filters</p>
+            <p className="text-xl text-gray-500 mb-4">{t("noResults")}</p>
             <button
               onClick={resetFilters}
               className="inline-flex items-center gap-2 px-6 py-3 bg-tan text-white font-semibold rounded-lg hover:bg-tan/90 transition-all"
             >
-              Reset Filters
+              {t("resetFilters")}
             </button>
           </div>
         ) : (
@@ -184,7 +194,7 @@ export default function ReviewsDisplay() {
                       {review.platform}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {new Date(review.date).toLocaleDateString('en-US', {
+                      {new Date(review.date).toLocaleDateString(locale, {
                         month: 'short',
                         year: 'numeric'
                       })}
@@ -217,7 +227,7 @@ export default function ReviewsDisplay() {
                       <p className="text-xs text-gray-500 mt-1">{review.propertyName}</p>
                     )}
                     {review.stayDuration && (
-                      <p className="text-xs text-gray-500 mt-1">Stayed {review.stayDuration}</p>
+                      <p className="text-xs text-gray-500 mt-1">{formatStayDuration(review.stayDuration)}</p>
                     )}
                     {review.highlight && (
                       <p className="text-xs text-tan font-medium mt-1 italic">"{review.highlight}"</p>
@@ -230,7 +240,7 @@ export default function ReviewsDisplay() {
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
-                      <span>Verified Guest</span>
+                      <span>{t("verifiedGuest")}</span>
                     </div>
                   )}
                 </div>
@@ -247,7 +257,7 @@ export default function ReviewsDisplay() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg border-2 border-tan
                 hover:bg-tan hover:text-white transition-all duration-300 hover:shadow-lg"
             >
-              Load More Reviews
+              {t("loadMore")}
             </button>
           </div>
         )}
