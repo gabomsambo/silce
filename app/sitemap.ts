@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   })
 
-  // Dynamic property pages (9 units × 2 locales = 18 pages)
+  // Dynamic property pages (one per unit per locale)
   UNITS.forEach((unit) => {
     locales.forEach(locale => {
       allPages.push({

@@ -200,7 +200,6 @@
     "categoryAmenities": {
       "sleeps": "Capacidad {count} huéspedes",
       "queenBed": "Cama Queen",
-      "kingQueenSofaBed": "Cama King/Queen + sofá cama",
       "twoBedrooms": "Dos habitaciones",
       "kitchenette": "Cocineta",
       "kitchenetteDiningTable": "Cocineta + mesa de comedor",

@@ -65,6 +65,24 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   notably `@next/next/no-html-link-for-pages`, is a hard error.
 - CI installs with `npm ci --ignore-scripts` for the reason above.
 
+## Review evidence
+
+Screenshots under `artifacts/screenshots/` are **committed**, not attached to a PR
+comment — evidence has to travel with the change in the tree, where it cannot be
+lost. Nothing there is imported by the build or served by Pages.
+
+Because it is permanent history, downscale and compress before committing: palette
+PNG (`Image.quantize(colors=256)` + `optimize=True`) shrinks these flat-UI captures
+by ~65% on its own, and full-page captures resize to 1200px wide. Keep the
+evidence-critical shots at native resolution and only quantize them.
+
+**Legibility is the constraint, not file size.** Whatever the shot is proving — a
+unit title, a price breakdown, an enabled Reserve / Reservar button — must stay
+clearly readable afterwards. Open every compressed file and look at it; do not
+infer from the byte count. If one shot cannot shrink without losing its point,
+keep that one larger and shrink the rest. Recapture after any change that alters
+what the shot evidences — these have gone stale twice.
+
 ## Shape
 
 No database, no API routes, no server actions, no `use server`. All content is

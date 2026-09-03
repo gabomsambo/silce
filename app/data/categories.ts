@@ -80,8 +80,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     nameKey: "rooms.categories.one-bed-1-bath.name",
     blurbKey: "rooms.categories.one-bed-1-bath.blurb",
     defaultAmenities: [
-      { key: "kingQueenSofaBed" },
-      { key: "fullKitchen" },
+      { key: "queenBed" },
       ...SHARED_AMENITIES,
     ],
     heroImage: "/rooms/one-bed.jpg",
