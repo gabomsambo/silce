@@ -20,6 +20,13 @@ The Silver Pineapple website is currently deployed on Cloudflare at silverpineap
 6. **Broken Footer Links**: 12 placeholder "#" links in footer navigation
 7. **Console.log Pollution**: 8 files with production console.log statements
 
+> **Favicon findings and guidance below are superseded.** The site now ships
+> icons, and the `app/` file-convention icon routes recommended here (sections
+> 3.1, 11.2, 13.2) 404 on Cloudflare Pages. The shipped icons are static
+> `public/` assets declared explicitly in `app/[locale]/layout.tsx` and
+> `app/manifest.ts`. The owner of that contract is the "Icons must be static
+> `public/` assets" entry in `AGENTS.md`; `npm run check:icons` enforces it.
+
 ---
 
 ## 1. Metadata Patterns Analysis
