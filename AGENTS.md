@@ -74,10 +74,12 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   mechanism. `app/components/PropertySearchWidget.tsx` documents the live state.
   Its two endpoints, both credential-free and safe to `curl`:
   `GET /bookings/api/mps/widget/custom/<identifier>` (preflight: `enabled`, `locations`)
-  and `GET /bookings/api/properties/search?site_id=<identifier>&start_date=&end_date=&adults=…`
-  (`site_id` is the **identifier itself**, not the uuid the preflight returns; omitting
-  `adults` 422s, so a well-formed query is easy to confirm). To test whether an identifier
-  is real, call the preflight — an unknown one returns `404 Site not found`.
+  and `GET /bookings/api/properties/search?site_id=<identifier>&start_date=<YYYY-MM-DD>&end_date=<YYYY-MM-DD>&adults=…`
+  (`site_id` is the **identifier itself**, not the uuid the preflight returns; the dates
+  must either carry real values from today onward or be dropped from the query entirely —
+  sending them blank 422s, as does omitting `adults` — so a well-formed query is easy to
+  confirm). To test whether an identifier is real, call the preflight — an unknown one
+  returns `404 Site not found`.
   **As of 2026-09-03 that search returns `[]` for every query, including one with no date
   constraint**, while the same properties are available and priced through the per-unit
   widget: the properties are not attached to the MPS site on Hospitable's side, which is a
