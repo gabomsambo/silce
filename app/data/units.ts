@@ -145,7 +145,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen + Sofa Bed",
     hospitable_id: "2282917",
-    images: ["/photos_105/1.jpg","/photos_105/2.jpg","/photos_105/3.jpg","/photos_105/4.jpg","/photos_105/5.jpg","/photos_105/6.jpg","/photos_105/7.jpg","/photos_105/8.jpg","/photos_105/9.jpg"],
+    images: ["/photos_105/1.jpg","/photos_105/2.jpg","/photos_105/3.jpg","/photos_105/4.jpg","/photos_105/5.jpg","/photos_105/6.jpg","/photos_105/7.jpg","/photos_105/9.jpg"],
   },
   {
     slug: "pineapple-101",
@@ -195,6 +195,6 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen + Sofa Bed",
     hospitable_id: "2282929",
-    images: ["/photos_seagrape_1052_101/1.jpg","/photos_seagrape_1052_101/2.jpg","/photos_seagrape_1052_101/3.jpg","/photos_seagrape_1052_101/4.jpg","/photos_seagrape_1052_101/5.jpg","/photos_seagrape_1052_101/6.jpg","/photos_seagrape_1052_101/7.jpg","/photos_seagrape_1052_101/8.jpg","/photos_seagrape_1052_101/9.jpg","/photos_seagrape_1052_101/10.jpg"],
+    images: ["/photos_seagrape_1052_101/2.jpg","/photos_seagrape_1052_101/3.jpg","/photos_seagrape_1052_101/4.jpg","/photos_seagrape_1052_101/5.jpg","/photos_seagrape_1052_101/6.jpg","/photos_seagrape_1052_101/7.jpg","/photos_seagrape_1052_101/8.jpg","/photos_seagrape_1052_101/9.jpg","/photos_seagrape_1052_101/10.jpg"],
   },
 ]

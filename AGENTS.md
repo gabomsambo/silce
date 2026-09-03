@@ -134,9 +134,18 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   from a **postMessage handshake, not a URL parameter**: on boot the iframe posts
   `{type:"GET_HOSPITABLE_LANGUAGE"}` to its parent and switches when the parent answers
   `{type:"SET_HOSPITABLE_LANGUAGE", language}`. It supports `en`, `fr`, `es`, `de` and
-  falls back to English silently. The widget renders **blank** against a `localhost`
-  referrer, so an empty booking box in local verification is expected and is not
-  evidence of a regression — assert on the iframe's attributes instead.
+  falls back to English silently.
+- **The booking widget is fully verifiable locally** — it renders real availability
+  and live pricing against a `localhost` referrer (confirmed 2026-09-04 against
+  `npx next start`; an earlier note here claimed otherwise). `BookingIframe` forwards
+  `checkin` / `checkout` / `adults` from the page URL into the iframe `src`, so
+  `/{locale}/rooms/{slug}?checkin=YYYY-MM-DD&checkout=YYYY-MM-DD&adults=2` on an
+  available stay drives the widget to an **enabled** Reserve / Reservar link carrying
+  a real quote id. Pick the dates from `.../properties/<id>/calendar` (honour
+  `min_stay`, `checkin` and `checkout`) rather than guessing. The widget's content is
+  taller than its fixed 600px iframe, so the CTA needs a real wheel scroll inside the
+  cross-origin frame (CDP `Input.dispatchMouseEvent` type `mouseWheel`) — the a11y
+  tree reaches it, but `hover` fails because the widget re-renders and stales the ref.
 
 ## i18n
 
