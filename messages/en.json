@@ -430,7 +430,11 @@
   },
   "search": {
     "heading": "Search Results",
-    "subheading": "Discover your perfect boutique accommodation from our curated selection"
+    "subheading": "Discover your perfect boutique accommodation from our curated selection",
+    "unavailableHeading": "Live availability search is not connected yet",
+    "unavailableBody": "Our availability search is still being connected to our booking system, so it will not return results right now. You can still browse every apartment and check dates and book directly on its page.",
+    "browseAll": "View all apartments",
+    "contactUs": "Email us"
   },
   "metadata": {
     "home": {
@@ -474,6 +478,14 @@
       "ogDescription": "Boutique short-term rentals in Eau Gallie.",
       "twitterTitle": "Silver Pineapple | Boutique Short-Term Rentals",
       "twitterDescription": "Boutique rentals in Melbourne FL."
+    },
+    "search": {
+      "title": "Search Availability",
+      "description": "Search availability across our boutique short-term rentals in Eau Gallie, Melbourne FL.",
+      "ogTitle": "Search Availability | Silver Pineapple",
+      "ogDescription": "Find an apartment for your dates in Melbourne’s arts district.",
+      "twitterTitle": "Search Availability | Silver Pineapple",
+      "twitterDescription": "Boutique short-term rentals in Eau Gallie."
     }
   },
   "propertyDetail": {

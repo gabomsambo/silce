@@ -26,6 +26,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
   build and the link crawl on every PR. There are still **no unit tests** — verify
   UI changes in a real browser against `npm run build && npx next start`.
+- **Next 15.5 streams metadata *outside* `<head>`.** `<title>`, `canonical`, `robots`
+  and `hreflang` are emitted after `</head>` in the served HTML, so checking a page's
+  SEO tags by splitting on `</head>` gives a false "MISSING" on tags that are in fact
+  present. Grep the whole document. (Next also spells the attribute `hrefLang`.)
 - **`styles/globals.css` is orphaned.** Nothing imports it; the only stylesheet in
   play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). The shadcn CSS
   variables live only in the orphan, so `bg-background`, `text-muted-foreground`,
@@ -65,6 +69,31 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   `priceFrom`). That API exposes **no bedroom count** — the only bedroom signal is the
   listing `name` ("Studio" / "1BR" / "2BR"). Never call
   `/sites/widgets/<uuid>/ping`: it writes into the owner's Hospitable account.
+- **The multi-property search widget (`/search`) is a different animal from the
+  per-unit booking widget** — different bundle, different API, different language
+  mechanism. `app/components/PropertySearchWidget.tsx` documents the live state.
+  Its two endpoints, both credential-free and safe to `curl`:
+  `GET /bookings/api/mps/widget/custom/<identifier>` (preflight: `enabled`, `locations`)
+  and `GET /bookings/api/properties/search?site_id=<identifier>&start_date=&end_date=&adults=…`
+  (`site_id` is the **identifier itself**, not the uuid the preflight returns; omitting
+  `adults` 422s, so a well-formed query is easy to confirm). To test whether an identifier
+  is real, call the preflight — an unknown one returns `404 Site not found`.
+  **As of 2026-09-03 that search returns `[]` for every query, including one with no date
+  constraint**, while the same properties are available and priced through the per-unit
+  widget: the properties are not attached to the MPS site on Hospitable's side, which is a
+  dashboard fix. `/search` is `noindex` until that changes — see the paired REMOVE comments
+  in `PropertySearchWidget.tsx` and `app/[locale]/search/page.tsx`.
+  Unlike the booking iframe below, this widget **does** render against a `localhost`
+  referrer (its API sends `access-control-allow-origin: *`), so `/search` is verifiable
+  end-to-end from `npm run build && npx next start`.
+- The search widget's language comes from **`window.currentLocale`, read once at boot**, or
+  `window.setMPSLanguage(lang)` afterwards — *not* the booking iframe's postMessage
+  handshake. The layout sets the global before the widget script so the widget never paints
+  English first. Same four languages (`en`/`fr`/`es`/`de`). Its calendar month and weekday
+  names stay English regardless: those come from Angular's baked-in `LOCALE_ID`.
+  Angular Elements dash-cases the widget's inputs, so `fullScreenMode` is the
+  `full-screen-mode="false"` attribute — without it the widget reserves a viewport-tall
+  block and an empty result set reads as a large silent void.
 - The per-unit booking widget in `app/components/BookingIframe.tsx` takes its language
   from a **postMessage handshake, not a URL parameter**: on boot the iframe posts
   `{type:"GET_HOSPITABLE_LANGUAGE"}` to its parent and switches when the parent answers
