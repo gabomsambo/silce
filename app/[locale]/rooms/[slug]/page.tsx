@@ -7,6 +7,8 @@ import BookingIframe from "../../../components/BookingIframe";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { UNITS } from "../../../data/units";
 import { buildUnitLongDescription, formatPrice } from "../../../data/copy";
+import { createRoomsBreadcrumbJsonLd, createUnitJsonLd } from "@/lib/structuredData";
+import { SITE_URL } from "@/lib/site";
 
 // Generate static params for all rooms in both locales
 export function generateStaticParams() {
@@ -46,8 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
   const tRoot = await getTranslations({ locale });
   const title = tRoot(unit.titleKey);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://silverpineapple.net';
-  const pageUrl = `${baseUrl}/${locale}/rooms/${slug}`;
+  const pageUrl = `${SITE_URL}/${locale}/rooms/${slug}`;
 
   // Build translated description using template
   const metaDescription = t('metaDescription', {
@@ -73,7 +74,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'vacation rental',
       'Melbourne FL',
       'Eau Gallie',
-      `${unit.bedrooms} bedroom`,
+      // Same rule as the JSON-LD: never publish a zero-bedroom claim.
+      // See `getCorroboratedBedroomCount` in lib/structuredData.ts.
+      ...(unit.bedrooms > 0 ? [`${unit.bedrooms} bedroom`] : []),
       'short-term rental',
       'Florida vacation',
     ],
@@ -81,7 +84,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: pageUrl,
       languages: {
         'en': `/en/rooms/${slug}`,
-        'es': `/es/rooms/${slug}`
+        'es': `/es/rooms/${slug}`,
+        'x-default': `/en/rooms/${slug}`
       }
     },
     openGraph: {
@@ -125,9 +129,19 @@ export default async function PropertyPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: 'propertyDetail.templates' });
   const tRoot = await getTranslations({ locale });
   const title = tRoot(property.titleKey);
+  const unitJsonLd = createUnitJsonLd(locale, property, tRoot);
+  const breadcrumbJsonLd = createRoomsBreadcrumbJsonLd(locale, tRoot, property);
 
   return (
     <main className="min-h-screen bg-sand-fade">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(unitJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Navbar />
 
       {/* Gallery */}

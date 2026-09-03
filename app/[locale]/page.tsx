@@ -17,13 +17,14 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'metadata.home' });
 
   return {
-    title: t('title'),
+    title: { absolute: t('title') },
     description: t('description'),
     alternates: {
       canonical: `/${locale}`,
       languages: {
         'en': '/en',
-        'es': '/es'
+        'es': '/es',
+        'x-default': '/en'
       }
     },
     openGraph: {

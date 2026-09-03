@@ -5,6 +5,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { createLodgingBusinessJsonLd } from '@/lib/structuredData';
+import { SITE_URL } from '@/lib/site';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import CookieConsentBanner from '../components/CookieConsentBanner';
 import '../globals.css';
@@ -23,10 +25,19 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'metadata.global' });
 
   return {
-    metadataBase: new URL('https://silverpineapple.net'),
+    metadataBase: new URL(SITE_URL),
     authors: [{ name: 'Silver Pineapple LLC' }],
     creator: 'Silver Pineapple',
     publisher: 'Silver Pineapple',
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
+        { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+        { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+      ],
+      shortcut: '/favicon.ico',
+      apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    },
     verification: {
       google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     },
@@ -50,7 +61,7 @@ export async function generateMetadata({
     openGraph: {
       type: 'website',
       locale: locale === 'es' ? 'es_ES' : 'en_US',
-      url: 'https://silverpineapple.net',
+      url: SITE_URL,
       siteName: 'Silver Pineapple',
       title: t('ogTitle'),
       description: t('ogDescription'),
@@ -95,6 +106,9 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const tRoot = await getTranslations({ locale });
+  const lodgingBusinessJsonLd = createLodgingBusinessJsonLd(locale, tRoot);
+
   // Providing all messages to the client side is the easiest way to get started
   const messages = await getMessages();
 
@@ -108,6 +122,10 @@ html {
   --font-mono: ${GeistMono.variable};
 }
         `}</style>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessJsonLd) }}
+        />
         <script src="https://hospitable.b-cdn.net/direct-property-search-widget/hospitable-search-widget.prod.js"></script>
       </head>
       <body>

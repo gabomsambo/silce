@@ -1,11 +1,12 @@
 import type { MetadataRoute } from 'next'
 import { UNITS } from './data/units'
+import { SITE_URL } from '@/lib/site'
 
 // CRITICAL: Force static generation in Next.js 15
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://silverpineapple.net'
+  const baseUrl = SITE_URL
   const locales = ['en', 'es']
 
   const allPages: MetadataRoute.Sitemap = []

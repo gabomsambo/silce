@@ -80,7 +80,7 @@ Site UUID `9f9d3a07-f287-40dc-bb60-1966173ea154` is unchanged and still correct.
 - **Site today:** `<iframe src="https://booking.hospitable.com/widget/<site-uuid>/<property-id>?locale=<locale>">` (`app/components/BookingIframe.tsx`)
 - **Export prescribes:** `<script src="https://cdn.hsptb.com/direct-booking-widget/widget-loader.prod.js" data-site-uuid data-property-id data-theme="multi">`
 
-The multi-property search widget (`app/[locale]/layout.tsx:110`) still loads
+The multi-property search widget (loaded from `app/[locale]/layout.tsx`) still loads
 from `hospitable.b-cdn.net`; the export's CDN is `cdn.hsptb.com`. MPS
 identifier is `fa52067f-9428-4c2a-8830-b54fd59398ad` — a different UUID from
 the site UUID, which is expected.
@@ -97,7 +97,10 @@ the site UUID, which is expected.
    only `titleKey` — a title correction has to be made in both catalogs.
 3. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
-   `0`, which renders as "0 bedrooms" in the specs line — cosmetic, not a data bug.
+   `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
+   omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
+   `bedrooms` is `0` or the unit's category disagrees. Only the visible specs line still
+   renders "0 bedrooms" — cosmetic, not a data bug.
 4. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?

@@ -9,6 +9,7 @@ import Footer from "../../components/Footer";
 import { CATEGORIES } from "../../data/categories";
 import { UNITS } from "../../data/units";
 import RoomCategorySection from "../../components/RoomCategorySection";
+import { createRoomsBreadcrumbJsonLd } from "@/lib/structuredData";
 
 export async function generateMetadata({
   params
@@ -25,7 +26,8 @@ export async function generateMetadata({
       canonical: `/${locale}/rooms`,
       languages: {
         'en': '/en/rooms',
-        'es': '/es/rooms'
+        'es': '/es/rooms',
+        'x-default': '/en/rooms'
       }
     },
     openGraph: {
@@ -46,7 +48,15 @@ export async function generateMetadata({
   };
 }
 
-export default function RoomsPage() {
+interface RoomsPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function RoomsPage({ params }: RoomsPageProps) {
+  const { locale } = await params;
+  const tRoot = await getTranslations({ locale });
+  const breadcrumbJsonLd = createRoomsBreadcrumbJsonLd(locale, tRoot);
+
   // group units by category
   const grouped = Object.values(CATEGORIES).map(cat => ({
     cat,
@@ -68,6 +78,10 @@ export default function RoomsPage() {
 
       {/* Content wrapper with gradient overlay */}
       <div className="relative z-10 bg-gradient-to-b from-tropical-waters/95 via-tropical-waters/90 to-tropical-waters/95">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
         <Navbar />
         <RoomsHeroSection />
         <RoomsIntroduction />
