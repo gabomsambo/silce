@@ -39,8 +39,14 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   `app/components/` and most of the 56 files in `components/ui/` are unreferenced,
   and near-duplicate names differ in which one is live. Grep for the importer
   before editing anything.
-- **Never run `npm run deploy` / `wrangler pages deploy`** — deployment is the
-  repo owner's call. `npm run preview` is broken by construction here.
+- **A merge to `main` is a production release.** Cloudflare's git integration
+  builds and deploys `main` on its own — there is no separate release step and no
+  staging environment. Files that existed nowhere before a PR merged were serving
+  200 from the live site minutes later. So browser verification *before* merge is
+  the only gate that exists; a green build is not safety. It also means nobody
+  should run `npm run deploy` / `wrangler pages deploy` by hand: **never run
+  them** — merging already deploys, and doing it manually bypasses the pipeline.
+  `npm run preview` is broken by construction here.
 - **Icons must be static `public/` assets.** `.claude/routes.json` excludes image
   extensions from the Worker, so Next metadata file-convention icon routes can
   work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
@@ -112,6 +118,21 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
 
 ## Booking / units data
 
+- **Where unit facts come from.** Amenities, bed configuration, bedroom and
+  bathroom counts, capacity, pricing, and which photograph belongs to which unit
+  all come from Hospitable's data for that listing id. Never infer them from
+  filenames, from the photographs themselves, or from what the site already says.
+  Three wrong calls here came from exactly that, with the authority one API call
+  away: source-folder names and address prefixes in filenames were used to claim
+  photos belonged to another building (disproved by matching each file against
+  that listing's own `data.photos[].xx_large` set), and photographs were used to
+  infer a "full kitchen" on a unit whose own listing title says
+  "w/ Kitchenette" plus a sofa bed on two units that have none — which nearly
+  told guests a one-bedroom sleeps four.
+  **A positive claim needs a positive source; absence of contradiction is not
+  corroboration.** Where the public booking API exposes no signal (it exposes no
+  bedroom count and no amenity list), say so and fall back to
+  `docs/UNITS-SOURCE-OF-TRUTH.md` rather than guessing.
 - `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
   listings, the photo library and `app/data/units.ts`. `PLANNING.md`, `TASK.md`,
   `Apartments_matching.md` and `PRPs/` are historical and contradict the code.
