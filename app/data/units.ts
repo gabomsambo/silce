@@ -18,9 +18,8 @@ export interface Unit {
 }
 
 export const UNITS: Unit[] = [
-  // ——— Studios (example mapping to your current slugs) ———
   {
-    slug: "unit-2528",             // Unit 2528 in your current data
+    slug: "unit-2528",
     titleKey: "units.unit-2528.title",
     category: "studio-compact",
     priceFrom: 70,
@@ -34,7 +33,7 @@ export const UNITS: Unit[] = [
     images: ["/photos_2528/1.jpg","/photos_2528/2.jpg","/photos_2528/3.jpg","/photos_2528/4.jpg","/photos_2528/5.jpg","/photos_2528/6.jpg","/photos_2528/7.jpg","/photos_2528/8.jpg","/photos_2528/9.jpg","/photos_2528/10.jpg"],
   },
   {
-    slug: "unit-2536",               // Unit 2536 in your current data
+    slug: "unit-2536",
     titleKey: "units.unit-2536.title",
     category: "studio-comfort",
     priceFrom: 65,
@@ -49,9 +48,8 @@ export const UNITS: Unit[] = [
     images: ["/photos_2536/1.jpg","/photos_2536/2.jpg","/photos_2536/3.jpg","/photos_2536/4.jpg","/photos_2536/5.jpg","/photos_2536/6.jpg","/photos_2536/7.jpg","/photos_2536/8.jpg"],
   },
 
-  // 4 larger studios (map 2–3 of your placeholders here)
   {
-    slug: "unit-2538",               // use as Studio — Comfort
+    slug: "unit-2538",
     titleKey: "units.unit-2538.title",
     category: "studio-comfort",
     priceFrom: 75,
@@ -66,7 +64,7 @@ export const UNITS: Unit[] = [
     images: ["/photos_2538/1.jpg","/photos_2538/2.jpg","/photos_2538/3.jpg","/photos_2538/4.jpg","/photos_2538/5.jpg","/photos_2538/6.jpg","/photos_2538/7.jpg","/photos_2538/8.jpg","/photos_2538/9.jpg","/photos_2538/10.jpg","/photos_2538/11.jpg","/photos_2538/12.jpg"],
   },
   {
-    slug: "pineapple-102",         // use as Studio — Comfort
+    slug: "pineapple-102",
     titleKey: "units.pineapple-102.title",
     category: "one-bed-1-bath",
     priceFrom: 80,
@@ -80,11 +78,8 @@ export const UNITS: Unit[] = [
     hospitable_id: "2282915",
     images: ["/photos_102/1.jpg","/photos_102/2.jpg","/photos_102/3.jpg","/photos_102/4.jpg","/photos_102/5.jpg","/photos_102/6.jpg","/photos_102/7.jpg","/photos_102/8.jpg","/photos_102/9.jpg"],
   },
-  // add two more to reach 4 total comfort studios as you finalize slugs
-
-  // 1 huge studio with dining table
   {
-    slug: "sea-grape-102",                // repurpose to Studio — Plus (Large)
+    slug: "sea-grape-102",
     titleKey: "units.sea-grape-102.title",
     category: "two-bed-1-bath",
     priceFrom: 110,
@@ -98,8 +93,6 @@ export const UNITS: Unit[] = [
     hospitable_id: "2282920",
     images: ["/photos_seagrape_102/1.jpg","/photos_seagrape_102/2.jpg","/photos_seagrape_102/3.jpg","/photos_seagrape_102/4.jpg","/photos_seagrape_102/5.jpg","/photos_seagrape_102/6.jpg","/photos_seagrape_102/9.jpg","/photos_seagrape_102/10.jpg","/photos_seagrape_102/9.jpg","/photos_seagrape_102/10.jpg","/photos_seagrape_102/11.jpg","/photos_seagrape_102/12.jpg","/photos_seagrape_102/13.jpg","/photos_seagrape_102/14.jpg","/photos_seagrape_102/15.jpg","/photos_seagrape_102/16.jpg"]
   },
-
-  // 1 bed / 1 bath
   {
     slug: "unit-2526",
     titleKey: "units.unit-2526.title",
@@ -114,8 +107,6 @@ export const UNITS: Unit[] = [
     hospitable_id: "2282928",
     images: ["/photos_2526/1.jpg","/photos_2526/2.jpg","/photos_2526/3.jpg","/photos_2526/4.jpg","/photos_2526/5.jpg","/photos_2526/6.jpg","/photos_2526/7.jpg","/photos_2526/8.jpg"],
   },
-
-  // 2 bed / 1 bath (add when you publish the page/slug)
   {
     slug: "pineapple-103",
     titleKey: "units.pineapple-103.title",
@@ -130,34 +121,80 @@ export const UNITS: Unit[] = [
     hospitable_id: "2282916",
     images: ["/photos_103/1.jpg","/photos_103/2.jpg","/photos_103/3.jpg","/photos_103/4.jpg","/photos_103/5.jpg","/photos_103/6.jpg","/photos_103/7.jpg","/photos_103/8.jpg"],
   },
-    // 2 bed / 1 bath (add when you publish the page/slug)
-    {
-      slug: "pineapple-104",
-      titleKey: "units.pineapple-104.title",
-      category: "studio-comfort",
-      priceFrom: 75,
-      maxGuests: 2,
-      bedrooms: 0,
-      bathrooms: 1,
-      bedType: "Queen",
-      sqFt: 720,
-      floor: "Upper",
-      hospitable_id: "2282923",
-      images: ["/photos_104/1.jpg","/photos_104/2.jpg","/photos_104/3.jpg","/photos_104/4.jpg","/photos_104/5.jpg"],
-    },
-    {
-      slug: "pineapple-101",
-      titleKey: "units.pineapple-101.title",
-      category: "studio-plus",
-      priceFrom: 80,
-      maxGuests: 4,
-      bedrooms: 0,
-      bathrooms: 1,
-      bedType: "Queen ",
-      sqFt: 720,
-      floor: "Upper",
-      hospitable_id: "2282914",
-      images: ["/photos_101/1.jpg","/photos_101/2.jpg","/photos_101/3.jpg","/photos_101/4.jpg","/photos_101/5.jpg","/photos_101/6.jpg","/photos_101/7.jpg","/photos_101/8.jpg","/photos_101/9.jpg","/photos_101/10.jpg"],
-    },
-    
+  {
+    slug: "pineapple-104",
+    titleKey: "units.pineapple-104.title",
+    category: "studio-comfort",
+    priceFrom: 75,
+    maxGuests: 2,
+    bedrooms: 0,
+    bathrooms: 1,
+    bedType: "Queen",
+    sqFt: 720,
+    floor: "Upper",
+    hospitable_id: "2282923",
+    images: ["/photos_104/1.jpg","/photos_104/2.jpg","/photos_104/3.jpg","/photos_104/4.jpg","/photos_104/5.jpg"],
+  },
+  {
+    slug: "pineapple-105",
+    titleKey: "units.pineapple-105.title",
+    category: "studio-comfort",
+    priceFrom: 75,
+    maxGuests: 3,
+    bedrooms: 0,
+    bathrooms: 1,
+    bedType: "Queen + Sofa Bed",
+    hospitable_id: "2282917",
+    images: ["/photos_105/1.jpg","/photos_105/2.jpg","/photos_105/3.jpg","/photos_105/4.jpg","/photos_105/5.jpg","/photos_105/6.jpg","/photos_105/7.jpg","/photos_105/8.jpg","/photos_105/9.jpg","/photos_105/10.jpg","/photos_105/11.jpg"],
+  },
+  {
+    slug: "pineapple-101",
+    titleKey: "units.pineapple-101.title",
+    category: "studio-plus",
+    priceFrom: 80,
+    maxGuests: 4,
+    bedrooms: 0,
+    bathrooms: 1,
+    bedType: "Queen ",
+    sqFt: 720,
+    floor: "Upper",
+    hospitable_id: "2282914",
+    images: ["/photos_101/1.jpg","/photos_101/2.jpg","/photos_101/3.jpg","/photos_101/4.jpg","/photos_101/5.jpg","/photos_101/6.jpg","/photos_101/7.jpg","/photos_101/8.jpg","/photos_101/9.jpg","/photos_101/10.jpg"],
+  },
+  {
+    slug: "sea-grape-101",
+    titleKey: "units.sea-grape-101.title",
+    category: "two-bed-1-bath",
+    priceFrom: 110,
+    maxGuests: 6,
+    bedrooms: 2,
+    bathrooms: 1,
+    bedType: "Queen + Queen",
+    hospitable_id: "2282921",
+    images: ["/photos_seagrape_101/1.jpg","/photos_seagrape_101/2.jpg","/photos_seagrape_101/3.jpg","/photos_seagrape_101/4.jpg","/photos_seagrape_101/5.jpg"],
+  },
+  {
+    slug: "sea-grape-201",
+    titleKey: "units.sea-grape-201.title",
+    category: "one-bed-1-bath",
+    priceFrom: 95,
+    maxGuests: 4,
+    bedrooms: 1,
+    bathrooms: 1,
+    bedType: "Queen",
+    hospitable_id: "2282922",
+    images: ["/photos_seagrape_201/1.jpg","/photos_seagrape_201/2.jpg","/photos_seagrape_201/3.jpg","/photos_seagrape_201/4.jpg","/photos_seagrape_201/5.jpg"],
+  },
+  {
+    slug: "sea-grape-1052-101",
+    titleKey: "units.sea-grape-1052-101.title",
+    category: "one-bed-1-bath",
+    priceFrom: 90,
+    maxGuests: 4,
+    bedrooms: 1,
+    bathrooms: 1,
+    bedType: "Queen + Sofa Bed",
+    hospitable_id: "2282929",
+    images: ["/photos_seagrape_1052_101/1.jpg","/photos_seagrape_1052_101/2.jpg","/photos_seagrape_1052_101/3.jpg","/photos_seagrape_1052_101/4.jpg","/photos_seagrape_1052_101/5.jpg","/photos_seagrape_1052_101/6.jpg","/photos_seagrape_1052_101/7.jpg","/photos_seagrape_1052_101/8.jpg","/photos_seagrape_1052_101/9.jpg","/photos_seagrape_1052_101/10.jpg"],
+  },
 ]

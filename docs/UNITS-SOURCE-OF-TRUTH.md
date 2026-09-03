@@ -4,7 +4,7 @@ Reconciles three systems: **Hospitable** (`booking-widget-codes.md` export),
 the **photo library** (`Fotos de todas las unidades/`), and the **site**
 (`app/data/units.ts`).
 
-Last reconciled: 2026-09-02.
+Last reconciled: 2026-09-03.
 
 ## Naming key
 
@@ -36,15 +36,15 @@ Hospitable is authoritative for IDs. All 13 map 1:1 to a photo folder.
 | 2 | Unit PA102 Ed 2546 | `2282915` | Fotos unidad 102 PA | `pineapple-102` | 5 |
 | 3 | Unit PA103 Ed 2546 | `2282916` | Fotos unidad 103 PA | `pineapple-103` | 5 |
 | 4 | Unit PA104 Ed 2546 | `2282923` | Fotos unidad 104 PA | `pineapple-104` | 11 |
-| 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | — **no page** | 11 |
+| 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | `pineapple-105` | 11 |
 | 6 | Unit PA2526 | `2282928` | Fotos unidad 2526 PA | `unit-2526` | 8 |
 | 7 | Unit PA2528 | `2282925` | Fotos unidad 2528 PA | `unit-2528` | 8 |
 | 8 | Unit PA2536 | `2282918` | Fotos unidad 2536 PA | `unit-2536` | 5 |
 | 9 | Unit PA2538 | `2282919` | Fotos unidad 2538 PA | `unit-2538` | 5 |
-| 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | — **no page** | 5 |
+| 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | `sea-grape-101` | 5 |
 | 11 | Unit SG102 Ed 1042 | `2282920` | Fotos unidad 102 SG | `sea-grape-102` | 7 |
-| 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | — **no page** | 5 |
-| 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | — **no page** | 10 |
+| 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | `sea-grape-201` | 5 |
+| 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 |
 
 Non-unit folders: `Fotos amenidades` (15), `Fotos de exterior` (23).
 Library total: **129 files, all byte-distinct** (checksummed — no duplicates).
@@ -87,21 +87,19 @@ the site UUID, which is expected.
 
 ## Open questions
 
-1. **Four unlisted units.** PA105, SG101, SG201, and 101 Ed 1052 SG are live in
-   Hospitable and have photos, but no page. Publish them?
-2. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
+1. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
-3. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
+2. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
    `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
    omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
-   `bedrooms` is `0` or the unit's category disagrees. Only the visible specs line still
-   renders "0 bedrooms" — cosmetic, not a data bug.
-4. **Embed migration.** Move to the script loader, or keep the iframe (which
+   `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
+   render "Studio" / "Estudio" while preserving the authoritative numeric value.
+3. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
 

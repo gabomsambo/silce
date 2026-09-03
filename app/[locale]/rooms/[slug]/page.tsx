@@ -149,7 +149,7 @@ export default async function PropertyPage({ params }: Props) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 h-[60vh]">
           {property.images.map((image, i) => (
             <div key={i} className={`relative overflow-hidden ${i === 0 ? "md:col-span-2 lg:col-span-2" : ""}`}>
-              <img src={image} alt={`${title} - Image ${i+1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+              <img src={image} alt={t('imageAlt', { title, number: i + 1 })} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
           ))}
         </div>
@@ -167,9 +167,11 @@ export default async function PropertyPage({ params }: Props) {
                   <span>{t('specsGuests', { maxGuests: property.maxGuests })}</span>
                   <span>•</span>
                   <span>
-                    {property.bedrooms === 1
-                      ? t('specsBedrooms', { bedrooms: property.bedrooms })
-                      : t('specsBedroomsPlural', { bedrooms: property.bedrooms })
+                    {property.bedrooms === 0
+                      ? t('specsStudio')
+                      : property.bedrooms === 1
+                        ? t('specsBedrooms', { bedrooms: property.bedrooms })
+                        : t('specsBedroomsPlural', { bedrooms: property.bedrooms })
                     }
                   </span>
                   <span>•</span>

@@ -30,7 +30,7 @@ export function formatPrice(n: number, locale = "en") {
 const slugify = (value: string) =>
   value.trim().toLowerCase().replace(/\+/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
 
-const KNOWN_BED_TYPES = ["queen", "king", "queen-queen-sofa-bed"]
+const KNOWN_BED_TYPES = ["queen", "king", "queen-queen", "queen-sofa-bed", "queen-queen-sofa-bed"]
 const KNOWN_FLOORS = ["ground", "upper"]
 const KNOWN_EXTRAS = ["dining-table-in-kitchen", "espresso-station", "high-ceilings", "workspace"]
 
@@ -65,9 +65,11 @@ export function buildUnitLongDescription(unit: Unit, t: Translate) {
   const cat = CATEGORIES[unit.category]
   const specifics = [
     unit.sqFt ? t("unit.specs.sqFtApprox", { sqFt: unit.sqFt }) : null,
-    unit.bedrooms === 1
-      ? t("propertyDetail.templates.specsBedrooms", { bedrooms: unit.bedrooms })
-      : t("propertyDetail.templates.specsBedroomsPlural", { bedrooms: unit.bedrooms }),
+    unit.bedrooms === 0
+      ? t("propertyDetail.templates.specsStudio")
+      : unit.bedrooms === 1
+        ? t("propertyDetail.templates.specsBedrooms", { bedrooms: unit.bedrooms })
+        : t("propertyDetail.templates.specsBedroomsPlural", { bedrooms: unit.bedrooms }),
     unit.bathrooms === 1
       ? t("propertyDetail.templates.specsBathrooms", { bathrooms: unit.bathrooms })
       : t("propertyDetail.templates.specsBathroomsPlural", { bathrooms: unit.bathrooms }),

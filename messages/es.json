@@ -265,6 +265,8 @@
     "bedTypes": {
       "queen": "Cama Queen",
       "king": "Cama King",
+      "queen-queen": "2 camas Queen",
+      "queen-sofa-bed": "Cama Queen + sofá cama",
       "queen-queen-sofa-bed": "Queen + Queen + sofá cama"
     },
     "floors": {
@@ -308,6 +310,18 @@
     },
     "pineapple-101": {
       "title": "Estudio — Plus (Grande) · Pineapple 101"
+    },
+    "pineapple-105": {
+      "title": "Estudio — Confort · Pineapple 105"
+    },
+    "sea-grape-101": {
+      "title": "2 Habitaciones, 1 Baño · Sea Grape 101 (Edificio 1042)"
+    },
+    "sea-grape-201": {
+      "title": "1 Habitación, 1 Baño · Sea Grape 201"
+    },
+    "sea-grape-1052-101": {
+      "title": "1 Habitación, 1 Baño · Sea Grape 101 (Edificio 1052)"
     }
   },
   "about": {
@@ -506,6 +520,8 @@
     "templates": {
       "metaDescription": "{title} en Melbourne, FL. Capacidad {maxGuests} personas.",
       "ogDescription": "Capacidad {maxGuests} personas",
+      "imageAlt": "{title} - Imagen {number}",
+      "specsStudio": "Estudio",
       "specsGuests": "{maxGuests} personas",
       "specsBedrooms": "{bedrooms} habitación",
       "specsBedroomsPlural": "{bedrooms} habitaciones",
