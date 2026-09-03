@@ -82,7 +82,6 @@ export default function Footer() {
                 <Phone aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                 <a
                   href="tel:+1234567890"
-                  aria-label={t('phoneLabel')}
                   className="text-gray-300 hover:text-tan transition-colors duration-300"
                 >
                   {/* (123) 456-7890 */}
@@ -92,7 +91,6 @@ export default function Footer() {
                 <Mail aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                 <a
                   href="mailto:silverpineapplehosto@gmail.com"
-                  aria-label={t('emailLabel')}
                   className="text-gray-300 hover:text-tan transition-colors duration-300"
                 >
                   silverpineapplehosto@gmail.com
