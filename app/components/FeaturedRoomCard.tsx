@@ -103,7 +103,7 @@ export default function FeaturedRoomCard({ room }: FeaturedRoomCardProps) {
           <div className="mt-4 pt-4 border-t border-gray-100">
             <Link 
               href={`/rooms/${room.slug}`}
-              className="inline-flex items-center text-tan-ink hover:text-tan-ink/80 font-medium transition-colors duration-200"
+              className="inline-flex items-center text-tan-ink hover:text-tan-hover font-medium transition-colors duration-200"
             >
               View Details & Book →
             </Link>

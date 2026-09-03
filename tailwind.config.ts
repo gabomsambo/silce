@@ -51,6 +51,12 @@ const config: Config = {
         // and >=4.5:1 on every light surface in use. Backgrounds, decorative
         // tints and dark-surface text keep plain `tan`.
         "tan-ink": "#8B6737",
+        // Hover partner for `tan-ink` on light surfaces. On a light background
+        // hover must get DARKER, never fainter: an opacity modifier fades the
+        // ink toward the page and drops contrast exactly when the user signals
+        // interest. Same hue/saturation at 30% lightness -> 7.30:1 on white and
+        // >=6.5:1 on every light surface in use.
+        "tan-hover": "#6E512B",
         // Coastal Palette - Beach vacation aesthetic
         "coastal-blue": "#0EA5E9",      // Ocean blue (Tailwind sky-500)
         "coastal-teal": "#14B8A6",      // Coastal teal (Tailwind teal-500)
