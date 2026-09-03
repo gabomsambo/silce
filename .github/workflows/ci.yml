@@ -23,9 +23,11 @@ jobs:
           node-version: 22
           cache: npm
 
-      # `npm ci` (without --ignore-scripts) fails on this repo: the rclone.js
-      # postinstall downloads a binary from a host that times out. The Next
-      # build needs no postinstall step.
+      # Keep --ignore-scripts. The Next build needs no postinstall step, and the
+      # remaining install scripts (workerd, esbuild) download binaries. The
+      # original blocker — an rclone.js postinstall whose host timed out — is gone
+      # as of next 15.5.25 / @opennextjs/cloudflare 1.19.11, but dropping the flag
+      # is still a behaviour change that needs its own verification.
       - name: Install dependencies
         run: npm ci --ignore-scripts
 

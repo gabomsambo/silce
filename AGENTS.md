@@ -6,9 +6,15 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 
 ## Sharp edges
 
-- **`npm ci` fails on this repo.** The `rclone.js` postinstall downloads a binary
-  from a host that times out. Use `npm ci --ignore-scripts`; the Next build does
-  not need any postinstall step.
+- **Install with `npm ci --ignore-scripts`.** That is what CI runs and what to use
+  here; the Next build needs no postinstall step. The original reason — an
+  `rclone.js` postinstall that downloaded a binary from a host that timed out — is
+  gone as of the `next` 15.5.25 / `@opennextjs/cloudflare` 1.19.11 upgrade
+  (`rclone.js` came in via `@opennextjs/cloudflare` 1.11.0 and is no longer in the
+  lockfile). The packages that still have install scripts are `esbuild`,
+  `fsevents`, `unrs-resolver` and `workerd`; the latter two download binaries, so
+  dropping `--ignore-scripts` is a real behaviour change that needs its own
+  verification.
 - **A green build no longer lies, but it still isn't a test suite.** The build now
   fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
   escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
@@ -101,6 +107,10 @@ Both are pinned to exact versions on purpose — do not reintroduce a caret on e
   and `_routes.json` and that `assets/` is gone.
 - Its `peerDependencies.next` range is the binding constraint on how low `next` may go
   (and versions `<1.17.1` carry a worker-runtime SSRF, GHSA-c7mq-gh6q-6q7c).
+- 1.19.11 requires `wrangler ^4.86.0`, and wrangler `>=4.86` declares
+  `engines.node >=22`, so this pin sets the repo's build-time Node floor — hence
+  `.nvmrc` (`22`) and `engines.node` in `package.json`. Cloudflare Pages must build
+  on Node 22 or newer or `pages:build` dies in the adapter CLI.
 
 ## Maintaining this file
 

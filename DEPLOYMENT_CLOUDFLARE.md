@@ -122,7 +122,13 @@ Error: INVALID_MESSAGE
    - `NEXT_PUBLIC_ANALYTICS_ID`: (Google Analytics ID)
 
 4. **Advanced Settings:**
-   - Node.js version: 18 or 20
+   - Node.js version: 22 or newer (the repo's `.nvmrc` pins `22`, which Pages reads
+     to select its build image). `@opennextjs/cloudflare` 1.19.11 requires
+     `wrangler ^4.86.0`, wrangler `>=4.86` declares `engines.node >=22`, and
+     `opennextjs-cloudflare build` imports wrangler at runtime — including an
+     `import("wrangler/package.json", { with: { type: "json" } })` that Node 18
+     cannot parse — so a Pages build on Node 18 dies in the adapter CLI before it
+     ever produces `.open-next`.
    - Compatibility date: 2024-09-23
    - Compatibility flags: nodejs_compat
    - (These should be inherited from wrangler.toml)
