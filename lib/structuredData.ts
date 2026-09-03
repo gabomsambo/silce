@@ -17,10 +17,10 @@ const BREADCRUMB_LABELS: Record<SupportedLocale, { home: string; rooms: string }
   es: { home: "Inicio", rooms: "Alojamientos" },
 };
 
-const BUILDING_ADDRESSES = [
-  "2546 Pineapple Ave",
-  "1042 Sea Grape",
-  "1052 Sea Grape",
+const BUILDING_NAMES = [
+  "Pineapple Ave Building",
+  "Sea Grape Building 1042",
+  "Sea Grape Building 1052",
 ];
 
 const UNIT_TYPES = ["Product", "Accommodation"];
@@ -61,6 +61,10 @@ function getUnitImageUrls(unit: Unit): string[] {
 }
 
 function getCorroboratedBedroomCount(unit: Unit): number | undefined {
+  if (unit.bedrooms <= 0) {
+    return undefined;
+  }
+
   return BEDROOMS_BY_CATEGORY[unit.category] === unit.bedrooms ? unit.bedrooms : undefined;
 }
 
@@ -68,10 +72,9 @@ function normalizeLocale(locale: string): SupportedLocale {
   return locale === "es" ? "es" : "en";
 }
 
-function toPostalAddress(streetAddress: string, postalCode?: string) {
+function toPostalAddress(postalCode?: string) {
   return {
     "@type": "PostalAddress",
-    streetAddress,
     addressLocality: "Melbourne",
     addressRegion: "FL",
     ...(postalCode === undefined ? {} : { postalCode }),
@@ -116,10 +119,11 @@ export function createLodgingBusinessJsonLd(locale: string, t: Translate) {
         "@id": businessId,
         name: BUSINESS_NAME,
         url: toAbsoluteUrl("/"),
-        address: toPostalAddress(BUILDING_ADDRESSES[0], BUSINESS_POSTAL_CODE),
-        location: BUILDING_ADDRESSES.map((streetAddress) => ({
+        address: toPostalAddress(BUSINESS_POSTAL_CODE),
+        location: BUILDING_NAMES.map((name) => ({
           "@type": "Place",
-          address: toPostalAddress(streetAddress),
+          name,
+          address: toPostalAddress(),
         })),
         image: [
           toAbsoluteUrl("/Silver_pineapple_logo.png"),
