@@ -105,13 +105,13 @@ export default function PropertySearchWidget() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/rooms"
-            className="bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300"
+            className="bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-8 rounded-xl transition-all duration-300"
           >
             {t("browseAll")}
           </Link>
           <a
             href={`mailto:${BUSINESS_CONTACT.email}`}
-            className="bg-white border-2 border-tan text-tan hover:bg-tan hover:text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300"
+            className="bg-white border-2 border-tan-ink text-tan-ink hover:bg-tan hover:text-primary font-semibold py-4 px-8 rounded-xl transition-all duration-300"
           >
             {t("contactUs")}
           </a>

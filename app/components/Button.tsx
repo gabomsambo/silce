@@ -64,7 +64,7 @@ export default function Button({ text, variant = "primary", onClick, className =
     return (
       <ShimmerButton
         onClick={handleClick}
-        className={`px-6 py-3 text-sm font-bold tracking-wide uppercase ${className}`}
+        className={`px-6 py-3 text-sm font-bold tracking-wide uppercase text-primary ${className}`}
         background="rgba(212, 175, 55, 1)"
         shimmerColor="#ffffff"
         shimmerDuration="3s"
@@ -79,8 +79,8 @@ export default function Button({ text, variant = "primary", onClick, className =
     "px-6 py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300 transform hover:scale-105"
 
   const variants = {
-    primary: "bg-tan text-white hover:bg-tan/90 shadow-lg hover:shadow-xl",
-    secondary: "bg-transparent border-2 border-tan text-tan hover:bg-tan hover:text-white",
+    primary: "bg-tan text-primary hover:bg-tan/90 shadow-lg hover:shadow-xl",
+    secondary: "bg-transparent border-2 border-tan-ink text-tan-ink hover:bg-tan hover:text-primary",
   }
 
   return (

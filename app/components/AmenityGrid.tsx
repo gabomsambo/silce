@@ -31,7 +31,7 @@ export default function AmenityGrid() {
           {amenities.map((A, i) => (
             <div key={i} className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="w-16 h-16 bg-tan/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <A.icon className="w-8 h-8 text-tan" />
+                <A.icon className="w-8 h-8 text-tan-ink" />
               </div>
               <h3 className="text-lg font-semibold text-primary mb-2">{A.title}</h3>
               <p className="text-gray-600 text-sm leading-relaxed">{A.description}</p>

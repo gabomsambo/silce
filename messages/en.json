@@ -6,7 +6,9 @@
     "reviews": "Reviews",
     "bookNow": "BOOK NOW",
     "languageToggle": "ES",
-    "translateTo": "TRANSLATE TO SPANISH"
+    "translateTo": "TRANSLATE TO SPANISH",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
   },
   "footer": {
     "tagline": "Redefining hospitality through carefully curated boutique experiences that connect travelers with the authentic spirit of each destination.",
@@ -33,7 +35,11 @@
       "error": "We couldn't send that message. Please email us at"
     },
     "copyright": "© {year} Silver Pineapple. All rights reserved.",
-    "cookiePreferences": "Cookie preferences"
+    "cookiePreferences": "Cookie preferences",
+    "addressLabel": "Address",
+    "phoneLabel": "Call Silver Pineapple",
+    "emailLabel": "Email Silver Pineapple",
+    "groupBookingsLabel": "Email Silver Pineapple about group bookings"
   },
   "hero": {
     "heading": "UPGRADE YOUR NEXT STAY",
@@ -412,7 +418,8 @@
         "rating": "Please rate your stay",
         "reviewMin": "Review must be at least 50 characters",
         "reviewMax": "Review must be less than 500 characters"
-      }
+      },
+      "starLabel": "{count, plural, one {# star} other {# stars}} for {category}"
     },
     "stats": {
       "heading": "TRUSTED ACROSS ALL PLATFORMS",
@@ -487,7 +494,11 @@
       "defaultTitle": "Silver Pineapple | Boutique Short-Term Rentals in Melbourne, FL",
       "titleTemplate": "%s | Silver Pineapple",
       "description": "Discover boutique short-term rentals in Eau Gallie, Melbourne FL.",
-      "keywords": ["short-term rental", "Melbourne FL", "Eau Gallie"],
+      "keywords": [
+        "short-term rental",
+        "Melbourne FL",
+        "Eau Gallie"
+      ],
       "ogTitle": "Silver Pineapple | Boutique Short-Term Rentals",
       "ogDescription": "Boutique short-term rentals in Eau Gallie.",
       "twitterTitle": "Silver Pineapple | Boutique Short-Term Rentals",

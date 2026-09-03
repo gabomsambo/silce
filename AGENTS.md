@@ -34,6 +34,17 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). The shadcn CSS
   variables live only in the orphan, so `bg-background`, `text-muted-foreground`,
   `rounded-lg` and friends silently render as nothing. Don't reach for them.
+- **Two tans, and they are not interchangeable.** `tan` (`#D2B48C`) is the brand
+  colour and owns backgrounds, tints, borders and text on the near-black
+  `bg-primary` surfaces (8.82:1 there). It is 1.97:1 on white, so it must never
+  be text on a light surface — use `tan-ink` (`#8B6737`, 5.13:1 on white) for
+  that. Text on a tan or gold button is `text-primary`, never `text-white`.
+- **The focus ring in `app/globals.css` uses `!important` deliberately.** It
+  paints two bands (near-black inner, tan outer) so it reads on both the white
+  pages and the near-black footer; without `!important`, Tailwind's `shadow-*`
+  and `focus-visible:outline-none` utilities silently erase one band or both.
+  Form controls are styled on `:focus-within` because Chrome matches neither
+  `:focus` nor `:focus-visible` on an `<input type="date">` host.
 - **Names lie in `app/components/` and `components/ui/`.** Roughly a quarter of
   `app/components/` and most of the 56 files in `components/ui/` are unreferenced,
   and near-duplicate names differ in which one is live. Grep for the importer

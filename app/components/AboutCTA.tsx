@@ -20,13 +20,13 @@ export default function AboutCTA() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/rooms"
-              className="bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              className="bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
             >
               {t("buttonRooms")}
             </Link>
             <Link
               href="/rooms"
-              className="bg-white border-2 border-tan text-tan hover:bg-tan hover:text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-white border-2 border-tan-ink text-tan-ink hover:bg-tan hover:text-primary font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
             >
               {t("buttonBook")}
             </Link>

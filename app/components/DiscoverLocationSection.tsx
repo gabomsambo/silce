@@ -84,19 +84,19 @@ export default function DiscoverLocationSection() {
             {/* Quick Stats Bar */}
             <div className="grid grid-cols-2 gap-4 pt-4">
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">{t("stats.beaches.value")}</div>
+                <div className="text-3xl font-bold text-tan-ink mb-1">{t("stats.beaches.value")}</div>
                 <div className="text-sm text-gray-600">{t("stats.beaches.label")}</div>
               </div>
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">{t("stats.galleries.value")}</div>
+                <div className="text-3xl font-bold text-tan-ink mb-1">{t("stats.galleries.value")}</div>
                 <div className="text-sm text-gray-600">{t("stats.galleries.label")}</div>
               </div>
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">{t("stats.spaceCenter.value")}</div>
+                <div className="text-3xl font-bold text-tan-ink mb-1">{t("stats.spaceCenter.value")}</div>
                 <div className="text-sm text-gray-600">{t("stats.spaceCenter.label")}</div>
               </div>
               <div className="text-center p-4 bg-tan/10 rounded-lg">
-                <div className="text-3xl font-bold text-tan mb-1">{t("stats.dolphins.value")}</div>
+                <div className="text-3xl font-bold text-tan-ink mb-1">{t("stats.dolphins.value")}</div>
                 <div className="text-sm text-gray-600">{t("stats.dolphins.label")}</div>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function DiscoverLocationSection() {
           </p>
           <Link
             href="/rooms"
-            className="inline-block px-8 py-4 bg-tan text-white font-semibold rounded-lg
+            className="inline-block px-8 py-4 bg-tan text-primary font-semibold rounded-lg
             hover:bg-tan/90 transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
             {t("ctaButton")}

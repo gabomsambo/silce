@@ -82,7 +82,7 @@ export default function ReviewsDisplay() {
             <h3 className="text-lg font-semibold text-primary">{t("filtersHeading")}</h3>
             <button
               onClick={resetFilters}
-              className="ml-auto text-sm text-tan hover:text-tan/80 font-medium transition-colors"
+              className="ml-auto text-sm text-tan-ink hover:text-tan-ink/80 font-medium transition-colors"
             >
               {t("resetFilters")}
             </button>
@@ -97,7 +97,7 @@ export default function ReviewsDisplay() {
               <select
                 value={selectedProperty}
                 onChange={(e) => setSelectedProperty(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
               >
                 <option value="all">{t("allProperties")}</option>
                 {UNITS.map(unit => (
@@ -118,8 +118,8 @@ export default function ReviewsDisplay() {
                   onClick={() => setMinRating(1)}
                   className={`flex-1 px-4 py-3 border rounded-lg font-medium transition-all ${
                     minRating === 1
-                      ? "bg-tan text-white border-tan"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-tan"
+                      ? "bg-tan text-primary border-tan-ink"
+                      : "bg-white text-gray-700 border-gray-300 hover:border-tan-ink"
                   }`}
                 >
                   {t("ratingAll")}
@@ -128,8 +128,8 @@ export default function ReviewsDisplay() {
                   onClick={() => setMinRating(4)}
                   className={`flex-1 px-4 py-3 border rounded-lg font-medium transition-all ${
                     minRating === 4
-                      ? "bg-tan text-white border-tan"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-tan"
+                      ? "bg-tan text-primary border-tan-ink"
+                      : "bg-white text-gray-700 border-gray-300 hover:border-tan-ink"
                   }`}
                 >
                   {t("ratingFourPlus")}
@@ -138,8 +138,8 @@ export default function ReviewsDisplay() {
                   onClick={() => setMinRating(5)}
                   className={`flex-1 px-4 py-3 border rounded-lg font-medium transition-all ${
                     minRating === 5
-                      ? "bg-tan text-white border-tan"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-tan"
+                      ? "bg-tan text-primary border-tan-ink"
+                      : "bg-white text-gray-700 border-gray-300 hover:border-tan-ink"
                   }`}
                 >
                   {t("ratingFive")}
@@ -155,7 +155,7 @@ export default function ReviewsDisplay() {
               <select
                 value={selectedPlatform}
                 onChange={(e) => setSelectedPlatform(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
               >
                 <option value="all">{t("allPlatforms")}</option>
                 <option value="Airbnb">Airbnb</option>
@@ -178,7 +178,7 @@ export default function ReviewsDisplay() {
             <p className="text-xl text-gray-500 mb-4">{t("noResults")}</p>
             <button
               onClick={resetFilters}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-tan text-white font-semibold rounded-lg hover:bg-tan/90 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-tan text-primary font-semibold rounded-lg hover:bg-tan/90 transition-all"
             >
               {t("resetFilters")}
             </button>
@@ -208,7 +208,7 @@ export default function ReviewsDisplay() {
                         key={i}
                         className={`w-4 h-4 ${
                           i < review.overallRating
-                            ? "text-tan fill-tan"
+                            ? "text-tan-ink fill-tan-ink"
                             : "text-gray-300"
                         }`}
                       />
@@ -230,7 +230,7 @@ export default function ReviewsDisplay() {
                       <p className="text-xs text-gray-500 mt-1">{formatStayDuration(review.stayDuration)}</p>
                     )}
                     {review.highlight && (
-                      <p className="text-xs text-tan font-medium mt-1 italic">"{review.highlight}"</p>
+                      <p className="text-xs text-tan-ink font-medium mt-1 italic">"{review.highlight}"</p>
                     )}
                   </div>
 
@@ -254,8 +254,8 @@ export default function ReviewsDisplay() {
           <div className="text-center mt-12">
             <button
               onClick={() => setDisplayCount(prev => prev + 9)}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg border-2 border-tan
-                hover:bg-tan hover:text-white transition-all duration-300 hover:shadow-lg"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg border-2 border-tan-ink
+                hover:bg-tan hover:text-primary transition-all duration-300 hover:shadow-lg"
             >
               {t("loadMore")}
             </button>

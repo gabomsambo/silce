@@ -134,7 +134,7 @@ export default function BoutiqueNewsletterSignup() {
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/50 transition-colors">
-                    <div className="flex-shrink-0 w-12 h-12 bg-tan/10 rounded-lg flex items-center justify-center text-tan">
+                    <div className="flex-shrink-0 w-12 h-12 bg-tan/10 rounded-lg flex items-center justify-center text-tan-ink">
                       {benefit.icon}
                     </div>
                     <div>
@@ -151,7 +151,7 @@ export default function BoutiqueNewsletterSignup() {
               <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl border border-gray-200 p-8">
                   <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-tan/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Mail className="w-8 h-8 text-tan" />
+                      <Mail className="w-8 h-8 text-tan-ink" />
                     </div>
                     <h3 className="text-2xl font-bold text-primary mb-2">{t("headingStayConnected")}</h3>
                     <p className="text-gray-600">{t("bodyCta")}</p>
@@ -172,8 +172,8 @@ export default function BoutiqueNewsletterSignup() {
                         onBlur={() => setFocusedField(null)}
                         className={`w-full px-4 py-3 border rounded-lg transition-all duration-300 bg-white text-gray-900 ${
                           focusedField === "firstName"
-                            ? "border-tan ring-2 ring-tan/20 shadow-lg"
-                            : "border-gray-300 hover:border-tan/50"
+                            ? "border-tan-ink ring-2 ring-tan-ink/20 shadow-lg"
+                            : "border-gray-300 hover:border-tan-ink/50"
                         }`}
                         placeholder={t("form.placeholderFirstName")}
                         required
@@ -194,8 +194,8 @@ export default function BoutiqueNewsletterSignup() {
                         onBlur={() => setFocusedField(null)}
                         className={`w-full px-4 py-3 border rounded-lg transition-all duration-300 bg-white text-gray-900 ${
                           focusedField === "email"
-                            ? "border-tan ring-2 ring-tan/20 shadow-lg"
-                            : "border-gray-300 hover:border-tan/50"
+                            ? "border-tan-ink ring-2 ring-tan-ink/20 shadow-lg"
+                            : "border-gray-300 hover:border-tan-ink/50"
                         }`}
                         placeholder={t("form.placeholderEmail")}
                         required
@@ -213,7 +213,7 @@ export default function BoutiqueNewsletterSignup() {
                               type="checkbox"
                               checked={formData.interests.includes(interest.id)}
                               onChange={() => handleCheckboxChange(interest.id)}
-                              className="w-4 h-4 text-tan border-gray-300 rounded focus:ring-tan/20"
+                              className="w-4 h-4 text-tan-ink border-gray-300 rounded focus:ring-tan-ink/20"
                             />
                             <span className="text-sm text-gray-700 group-hover:text-primary transition-colors">
                               {interest.label}
@@ -225,7 +225,7 @@ export default function BoutiqueNewsletterSignup() {
 
                     <button
                       type="submit"
-                      className="w-full bg-tan hover:bg-tan/90 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                      className="w-full bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
                     >
                       {t("form.buttonSubmit")}
                     </button>

@@ -6,7 +6,9 @@
     "reviews": "Opiniones",
     "bookNow": "RESERVAR AHORA",
     "languageToggle": "EN",
-    "translateTo": "TRADUCIR AL INGLÉS"
+    "translateTo": "TRADUCIR AL INGLÉS",
+    "openMenu": "Abrir el menú de navegación",
+    "closeMenu": "Cerrar el menú de navegación"
   },
   "footer": {
     "tagline": "Redefiniendo la hospitalidad a través de experiencias boutique cuidadosamente seleccionadas que conectan a los viajeros con el espíritu auténtico de cada destino.",
@@ -33,7 +35,11 @@
       "error": "No pudimos enviar el mensaje. Escríbanos a"
     },
     "copyright": "© {year} Silver Pineapple. Todos los derechos reservados.",
-    "cookiePreferences": "Preferencias de cookies"
+    "cookiePreferences": "Preferencias de cookies",
+    "addressLabel": "Dirección",
+    "phoneLabel": "Llamar a Silver Pineapple",
+    "emailLabel": "Enviar un correo a Silver Pineapple",
+    "groupBookingsLabel": "Enviar un correo a Silver Pineapple sobre reservas grupales"
   },
   "hero": {
     "heading": "MEJORE SU PRÓXIMA ESTADÍA",
@@ -412,7 +418,8 @@
         "rating": "Califique su estadía",
         "reviewMin": "La opinión debe tener al menos 50 caracteres",
         "reviewMax": "La opinión debe tener menos de 500 caracteres"
-      }
+      },
+      "starLabel": "{count, plural, one {# estrella} other {# estrellas}} para {category}"
     },
     "stats": {
       "heading": "CONFIABLE EN TODAS LAS PLATAFORMAS",
@@ -487,7 +494,11 @@
       "defaultTitle": "Silver Pineapple | Alquileres Boutique a Corto Plazo en Melbourne, FL",
       "titleTemplate": "%s | Silver Pineapple",
       "description": "Descubra alquileres boutique a corto plazo en Eau Gallie, Melbourne FL.",
-      "keywords": ["alquiler a corto plazo", "Melbourne FL", "Eau Gallie"],
+      "keywords": [
+        "alquiler a corto plazo",
+        "Melbourne FL",
+        "Eau Gallie"
+      ],
       "ogTitle": "Silver Pineapple | Alquileres Boutique",
       "ogDescription": "Alquileres boutique a corto plazo en Eau Gallie.",
       "twitterTitle": "Silver Pineapple | Alquileres Boutique",

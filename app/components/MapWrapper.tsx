@@ -18,7 +18,7 @@ function MapLoading() {
   return (
     <div className="h-full w-full min-h-[500px] bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-tan mx-auto mb-4"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-tan-ink mx-auto mb-4"></div>
         <p className="text-gray-600">{t("loading")}</p>
       </div>
     </div>

@@ -29,7 +29,7 @@ export default function Footer() {
           {/* About Us */}
           <div className="lg:col-span-3">
             <div className="mb-6">
-              <Logo />
+              <Logo tone="light" />
             </div>
             <p className="text-gray-300 leading-relaxed mb-6">
               {t('tagline')}
@@ -68,7 +68,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href={`mailto:${BUSINESS_CONTACT.email}?subject=Group Booking Inquiry`} className="text-gray-300 hover:text-tan transition-colors duration-300">
+                <a
+                  href={`mailto:${BUSINESS_CONTACT.email}?subject=Group Booking Inquiry`}
+                  aria-label={t('groupBookingsLabel')}
+                  className="text-gray-300 hover:text-tan transition-colors duration-300"
+                >
                   {t('groupBookings')}
                 </a>
               </li>
@@ -81,13 +85,17 @@ export default function Footer() {
             <p className="mb-5 text-gray-300">{t('contactIntro')}</p>
             <div className="space-y-4">
               <div className="flex items-start">
-                <MapPin className="w-5 h-5 text-tan mr-3 mt-1 flex-shrink-0" />
-                <p className="text-gray-300">{BUSINESS_CONTACT.location}</p>
+                <MapPin aria-hidden="true" className="w-5 h-5 text-tan mr-3 mt-1 flex-shrink-0" />
+                <p className="text-gray-300">
+                  <span className="sr-only">{t('addressLabel')}</span>
+                  {BUSINESS_CONTACT.location}
+                </p>
               </div>
               <div className="flex items-center">
-                <Mail className="w-5 h-5 text-tan mr-3" />
+                <Mail aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                 <a
                   href={`mailto:${BUSINESS_CONTACT.email}`}
+                  aria-label={t('emailLabel')}
                   className="break-all text-base font-semibold text-white underline decoration-tan decoration-2 underline-offset-4 transition-colors duration-300 hover:text-tan"
                 >
                   {BUSINESS_CONTACT.email}
@@ -96,7 +104,7 @@ export default function Footer() {
               {BUSINESS_CONTACT.phoneAndWhatsApp && (
                 <>
                   <div className="flex items-center">
-                    <Phone className="w-5 h-5 text-tan mr-3" />
+                    <Phone aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                     <a
                       href={`tel:${BUSINESS_CONTACT.phoneAndWhatsApp}`}
                       className="text-gray-300 hover:text-tan transition-colors duration-300"
@@ -105,7 +113,7 @@ export default function Footer() {
                     </a>
                   </div>
                   <div className="flex items-center">
-                    <MessageCircle className="w-5 h-5 text-tan mr-3" />
+                    <MessageCircle aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                     <a
                       href={`https://wa.me/${BUSINESS_CONTACT.phoneAndWhatsApp.replace(/\D/g, "")}`}
                       className="text-gray-300 hover:text-tan transition-colors duration-300"
