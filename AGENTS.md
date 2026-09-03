@@ -58,6 +58,13 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 No database, no API routes, no server actions, no `use server`. All content is
 hand-written TypeScript in `app/data/`, and every route prerenders at build time.
 
+## Form delivery
+
+- Static forms use FormSubmit; the shared recipient and endpoint live in
+  `app/data/contact.ts`. Use the activated hashed endpoint in browser code rather
+  than embedding the raw inbox address, and only show success after FormSubmit
+  accepts the request. The visible business email remains an intentional fallback.
+
 ## Booking / units data
 
 - `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable

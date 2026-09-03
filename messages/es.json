@@ -18,8 +18,20 @@
     "reviews": "Opiniones",
     "browseProperties": "Explorar Propiedades",
     "groupBookings": "Reservas Grupales",
-    "contactIntro": "¿Tiene preguntas antes de reservar o necesita ayuda con una estancia? Escriba directamente a nuestro equipo.",
+    "contactIntro": "¿Tiene preguntas antes de reservar o necesita ayuda con una estancia? Envíenos un mensaje y una persona le responderá por correo electrónico.",
     "whatsApp": "Escríbanos por WhatsApp",
+    "contactForm": {
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Su nombre",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "usted@ejemplo.com",
+      "messageLabel": "¿Cómo podemos ayudarle?",
+      "messagePlaceholder": "Cuéntenos en qué necesita ayuda",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando…",
+      "success": "Mensaje enviado. Le responderemos por correo electrónico.",
+      "error": "No pudimos enviar el mensaje. Escríbanos a"
+    },
     "copyright": "© {year} Silver Pineapple. Todos los derechos reservados.",
     "cookiePreferences": "Preferencias de cookies"
   },
