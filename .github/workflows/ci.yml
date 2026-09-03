@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: typecheck, lint, build, link integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `npm ci` (without --ignore-scripts) fails on this repo: the rclone.js
+      # postinstall downloads a binary from a host that times out. The Next
+      # build needs no postinstall step.
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Build
+        run: npm run build
+
+      # The check that pays for itself here: crawls the built output in a real
+      # `next start` server and fails on internal 404s or dropped locale prefixes.
+      - name: Link integrity
+        run: npm run check:links

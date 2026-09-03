@@ -7,6 +7,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
+    "check:links": "node scripts/check-links.mjs",
     "start": "next start",
     "pages:build": "opennextjs-cloudflare build && mv .open-next/worker.js .open-next/_worker.js && mv .open-next/assets/_next .open-next/_next && cp -r .open-next/assets/* .open-next/ && rm -rf .open-next/assets && cp .claude/routes.json .open-next/_routes.json",
     "pages:dev": "npm run pages:build && wrangler pages dev .open-next --compatibility-date=2024-09-23 --compatibility-flag=nodejs_compat",
@@ -75,10 +76,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.2.4",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5",
