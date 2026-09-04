@@ -204,13 +204,35 @@ each one where it is sourced.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
-7. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
+7. **`unit-2536`'s title contradicts its category.** It is filed
+   `category: "studio-comfort"` in `units.ts`, while `units.unit-2536.title`
+   reads "Studio — Compact · Unit 2536" ("Estudio — Compacto · Unidad 2536" in
+   `es.json`). This is guest-visible in both locales: the rooms index sorts by
+   `priceFrom`, and its $65 is the lowest in that group, so it renders as the
+   large featured card directly beneath the "Studio — Comfort" heading.
+   Every source was checked and none settles which field is wrong:
+   - The public booking API cannot arbitrate — `/bookings/api/properties/2282918`
+     returns no `property_type` and no `room_type` field at all. The
+     reconciliation report's note about those fields being the real
+     classification refers to the authenticated export, not this endpoint.
+   - The unit's own listing name, "Eau Gallie Studio w/ Kitchenette | Beach &
+     River", carries no compact/comfort signal.
+   - Export row `Unit PA2536` gives capacity and bedding only, no tier.
+   - This document assigns it no category either.
+   - `sqFt` cannot arbitrate: it is unsourced and inconsistent with the
+     tiering — `unit-2526` sits in `studio-compact` at a commented-out 600
+     while `unit-2536` sits in `studio-comfort` at a commented-out 360, and
+     question 6 already records `pineapple-104`'s 720 as copy-paste.
+
+   Resolving it — retitle or refile — is the owner's call, because either
+   choice changes how a guest browses and which apartments they compare.
+8. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
    `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
    omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
    `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
    render "Studio" / "Estudio" while preserving the authoritative numeric value.
-8. **Embed migration.** Move to the script loader, or keep the iframe (which
+9. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
 
