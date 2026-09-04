@@ -67,6 +67,27 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   demoted to warnings so the config passes on the current tree; everything else,
   notably `@next/next/no-html-link-for-pages`, is a hard error.
 - CI installs with `npm ci --ignore-scripts` for the reason above.
+- **A contrast audit that walks the CSSOM must read `rule.style.cssText`, not
+  `rule.style.color`.** Chrome returns `""` from the typed getter whenever the
+  declared value contains `var()` — which is every Tailwind colour utility
+  (`color: rgb(139 103 55/var(--tw-text-opacity,1))`). An audit filtering rules
+  on `.color` silently matches **zero** hover/focus rules and reports a
+  resting-only pass as full coverage; that is how `hover:text-tan-ink/80`
+  (3.47:1) shipped past one. Resolve a declared value by applying it inline to
+  the element and reading `getComputedStyle`, so `var()` resolves in context.
+  Sample text nodes and take their nearest interactive ancestor rather than
+  requiring a direct text-node child, or every `<span>`-wrapped link label is
+  skipped. Always run the audit once against a deliberately re-injected known
+  defect: a "0 failures" from a detector that matches nothing is indistinguishable
+  from a pass.
+- **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
+  `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
+  `:focus-visible` nor `:focus-within` in the parent document even while it is
+  `document.activeElement`, so the parent CSS cannot ring it; focus has passed
+  into the vendor's document. A zero-area element (`width`/`height` 0) reports a
+  fully populated computed `outline`/`box-shadow`, so a ring probe that reads
+  computed styles calls it a pass while the user sees nothing — assert on
+  `getBoundingClientRect()` before trusting the ring.
 
 ## Shape
 
