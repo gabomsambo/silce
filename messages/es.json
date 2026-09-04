@@ -20,7 +20,9 @@
     "reviews": "Opiniones",
     "browseProperties": "Explorar Propiedades",
     "groupBookings": "Reservas Grupales",
-    "copyright": "© 2024 Silver Pineapple. Todos los derechos reservados.",
+    "contactIntro": "¿Tiene preguntas antes de reservar o necesita ayuda con una estancia? Escriba directamente a nuestro equipo.",
+    "whatsApp": "Escríbanos por WhatsApp",
+    "copyright": "© {year} Silver Pineapple. Todos los derechos reservados.",
     "cookiePreferences": "Preferencias de cookies",
     "addressLabel": "Dirección",
     "groupBookingsLabel": "Enviar un correo a Silver Pineapple sobre reservas grupales"
