@@ -58,7 +58,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     blurbKey: "rooms.categories.studio-comfort.blurb",
     defaultAmenities: [
       { key: "queenBed" },
-      { key: "kitchenette" },
       ...SHARED_AMENITIES,
     ],
     heroImage: "/rooms/studio-comfort.jpg",

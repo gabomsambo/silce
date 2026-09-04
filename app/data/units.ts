@@ -56,7 +56,7 @@ export const UNITS: Unit[] = [
     maxGuests: 3,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "King",
+    bedType: "Queen + Sofa Bed",
     sqFt: 430,
     floor: "Upper",
     extras: ["High ceilings"],

@@ -135,16 +135,29 @@ The only authority is Hospitable's own per-listing sleeping arrangement in the
 reconciliation export. Never derive a bed from `max_guests`, from a photograph,
 or from what the site already says.
 
-Applying that rule corrected `sea-grape-102` (`2282920`): it advertised
-`Queen + Queen + Sofa Bed`, while the export gives it 2 beds — "1 queen in
-bedroom; 1 queen in bedroom" — and no sofa bed. It now reads `Queen + Queen`,
-matching `sea-grape-101` (`2282921`), the other 6-guest two-bedroom it renders
-beside on the rooms index. `max_guests` is unchanged at 6; it comes from
-Hospitable and is authoritative regardless of how the beds are counted.
+Two units were corrected under that rule, both direct contradictions of the
+export rather than mere gaps:
 
-That leaves the two sources disagreeing in public, which is open question 1
-below. Do not close that gap by inventing a bed — the two authorities are what
-they are, and the site states each one where it is sourced.
+- `sea-grape-102` (`2282920`, export row `Unit SG102 Ed 1042`) advertised
+  `Queen + Queen + Sofa Bed`, while the export gives it 2 beds — "1 queen in
+  bedroom; 1 queen in bedroom" — and no sofa bed. It now reads `Queen + Queen`,
+  matching `sea-grape-101` (`2282921`), the other 6-guest two-bedroom it
+  renders beside on the rooms index. `max_guests` is unchanged at 6; it comes
+  from Hospitable and is authoritative regardless of how the beds are counted.
+  That leaves the two sources disagreeing in public — open question 1 below.
+- `unit-2538` (`2282919`, live name "Minimalist Studio | Wifi + Arts Scene &
+  Near River" = export row `Unit PA2538`) advertised `King`, while the export
+  gives it "1 queen in living room; 1 sofa bed in living room". Worse than the
+  sea-grape-102 case: it both invented a bed and downgraded on arrival anyone
+  who booked expecting a king. It now reads `Queen + Sofa Bed`, the wording
+  `pineapple-105` and `sea-grape-1052-101` already use for that same
+  arrangement.
+
+**The rule is not yet fully applied.** Six more pre-existing units fail it and
+are listed under open questions 3–5; they are deferred to the systematic
+bed-and-content pass, which inherits that list. Do not close any of these gaps
+by inventing a bed — the authorities are what they are, and the site states
+each one where it is sourced.
 
 ## Open questions
 
@@ -162,28 +175,42 @@ they are, and the site states each one where it is sourced.
    repo document or API response asserts either. The extras string is a kitchen
    claim, and it renders on the featured card one line below the
    `two-bed-1-bath` header the "Full kitchen" chip was removed from as
-   unsourced. Left in place rather than deleted mid-validation on a unit
-   outside this change's scope — reconcile both against Hospitable next pass.
+   unsourced. Both stay in `units.ts`: silence is not contradiction, and
+   removing a possibly-true fact a guest values has a real cost of its own.
+   Sourcing them is deferred to the systematic bed-and-content pass.
    `sea-grape-101` carries neither field, so the inconsistency is visible on
    the same section.
 3. **`pineapple-101` bed configuration.** `units.ts` says `Queen`; the
    reconciliation export says "1 double in living room; 1 sofa bed in living
    room". Both cannot be right, and neither is confirmable against the public
-   API. Left as-is rather than swapped for a second unverified claim — resolve
-   it against Hospitable's listing data before touching it.
-4. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
+   API. Left as-is rather than swapped for a second unverified claim; deferred
+   to the systematic bed-and-content pass, which resolves it against
+   Hospitable's listing data.
+4. **Two units understate their beds.** `unit-2536` (`2282918` = `PA2536`) and
+   `pineapple-103` (`2282916` = `PA103`) both say `Queen`, where the export
+   gives each 2 beds — "1 queen …; 1 sofa bed …". Safe understatements rather
+   than false claims, so nothing here misleads a guest on arrival. Deferred to
+   the systematic bed-and-content pass.
+5. **Three units assert a bed type the export calls unknown.** `pineapple-104`
+   (`2282923`), `unit-2528` (`2282925`) and `unit-2526` (`2282928`) all display
+   `Queen`, where the export holds the bed *count* authoritative but records
+   the *type* as genuinely unknown and instructs "Do not invent one". The site
+   is inventing a bed type on three units — a real defect against the rule
+   above, not a gap. Correcting three more displayed bed types belongs to the
+   systematic bed-and-content pass, which inherits this list.
+6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
-5. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
+7. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
    `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
    omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
    `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
    render "Studio" / "Estudio" while preserving the authoritative numeric value.
-6. **Embed migration.** Move to the script loader, or keep the iframe (which
+8. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
 
