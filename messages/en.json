@@ -18,7 +18,9 @@
     "reviews": "Reviews",
     "browseProperties": "Browse Properties",
     "groupBookings": "Group Bookings",
-    "copyright": "© 2024 Silver Pineapple. All rights reserved.",
+    "contactIntro": "Questions before you book or need help with a stay? Email our team directly.",
+    "whatsApp": "Message us on WhatsApp",
+    "copyright": "© {year} Silver Pineapple. All rights reserved.",
     "cookiePreferences": "Cookie preferences"
   },
   "hero": {

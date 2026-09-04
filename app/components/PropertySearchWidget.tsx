@@ -3,6 +3,7 @@
 import { useEffect } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
+import { BUSINESS_CONTACT } from "@/app/data/contact"
 
 // The multi-property search widget Hospitable gives us. `type="custom"` is the
 // self-hosted-site flavour; the identifier is the Direct site's MPS widget.
@@ -109,7 +110,7 @@ export default function PropertySearchWidget() {
             {t("browseAll")}
           </Link>
           <a
-            href="mailto:silverpineapplehosto@gmail.com"
+            href={`mailto:${BUSINESS_CONTACT.email}`}
             className="bg-white border-2 border-tan text-tan hover:bg-tan hover:text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300"
           >
             {t("contactUs")}
