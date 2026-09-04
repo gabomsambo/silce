@@ -80,6 +80,16 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   skipped. Always run the audit once against a deliberately re-injected known
   defect: a "0 failures" from a detector that matches nothing is indistinguishable
   from a pass.
+- **Freeze transitions before sampling colours; never sleep past them.** Most
+  interactive elements carry `transition-colors duration-300`, so a probe that
+  reads computed style immediately after `Tab` or `:hover` samples a colour
+  mid-transition (a focus ring that settles at 8.28:1 reads as 4.11:1). Inject
+  `*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}`
+  (plus the matching `-delay`s) and sample immediately. Sleeping instead is both
+  slower and less reliable: at 420ms per stop a full tab walk overruns the
+  30-minute pipeline agent timeout and kills the run. Freezing cut the contrast
+  audit to ~47s. Confirm the freeze did not change what you measure by re-running
+  the known-defect probe: it must still report the same ratio.
 - **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
   `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
   `:focus-visible` nor `:focus-within` in the parent document even while it is
