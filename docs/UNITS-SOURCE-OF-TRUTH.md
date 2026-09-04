@@ -161,15 +161,22 @@ each one where it is sourced.
 
 ## Open questions
 
-1. **Both two-bedroom units advertise 6 guests and name beds for 4.**
-   `sea-grape-101` (`2282921`) and `sea-grape-102` (`2282920`) each carry
-   `maxGuests: 6` from Hospitable and `bedType: "Queen + Queen"` from the
-   reconciliation export, which lists 2 beds for each. A party of six sees no
-   sleeping arrangement for the last two on the rooms index ("Sleeps 6" over
-   "2 Queen beds") or on the detail page. Both figures are sourced, so neither
-   can be edited here: only the owner can say what those two guests sleep on —
-   a third bed the export omits, or a `max_guests` that overstates the unit.
-   Resolve it there, then correct whichever field is wrong.
+1. **Capacity exceeds the beds on at least three units.** This is a pattern,
+   not a set of one-off curiosities: the guest count Hospitable accepts is
+   higher than the sleeping surfaces the reconciliation export lists.
+   - `sea-grape-101` (`2282921`) and `sea-grape-102` (`2282920`):
+     `maxGuests: 6` over 2 queens. The rooms index shows "Sleeps 6" above
+     "2 Queen beds".
+   - `sea-grape-201` (`2282922`): `maxGuests: 4` over 1 queen. The detail page
+     renders "4 personas · 1 habitación · 1 baño" above a description ending
+     "4 personas · Cama Queen".
+
+   On every one of them both numbers are the owner's own — `max_guests` from
+   Hospitable, the bedding from the export — so neither side can be edited
+   here. Only the owner can say what the extra guests sleep on; the question is
+   already filed with him and has been broadened to name `sea-grape-201`. The
+   position this repo takes: publish his numbers, refuse to invent beds to make
+   them add up, and put the discrepancy in front of him.
 2. **`sea-grape-102` `sqFt` and `extras`.** `sqFt: 520` and
    `extras: ["Dining table in kitchen"]` are pre-existing and unsourced; no
    repo document or API response asserts either. The extras string is a kitchen

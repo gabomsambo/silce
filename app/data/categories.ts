@@ -46,7 +46,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.studio-compact.badge",
     blurbKey: "rooms.categories.studio-compact.blurb",
     defaultAmenities: [
-      { key: "queenBed" },
       ...SHARED_AMENITIES,
     ],
     heroImage: "/rooms/studio-compact.jpg",
@@ -56,7 +55,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     nameKey: "rooms.categories.studio-comfort.name",
     blurbKey: "rooms.categories.studio-comfort.blurb",
     defaultAmenities: [
-      { key: "queenBed" },
       ...SHARED_AMENITIES,
     ],
     heroImage: "/rooms/studio-comfort.jpg",
@@ -67,7 +65,6 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.studio-plus.badge",
     blurbKey: "rooms.categories.studio-plus.blurb",
     defaultAmenities: [
-      { key: "queenBed" },
       { key: "kitchenetteDiningTable" },
       ...SHARED_AMENITIES,
     ],
