@@ -124,21 +124,44 @@ from `hospitable.b-cdn.net`; the export's CDN is `cdn.hsptb.com`. MPS
 identifier is `fa52067f-9428-4c2a-8830-b54fd59398ad` — a different UUID from
 the site UUID, which is expected.
 
+## Bed configuration
+
+`bedType` in `units.ts` is a guest-facing sleeping-surface claim and needs a
+positive source, the same test applied to amenity chips and to photo
+provenance. The public booking API is **not** that source: `.../properties/<id>`
+returns `name`, `max_guests`, check-in times and house rules and no bed or
+amenity data at all (re-checked 2026-09-04 against `2282920` and `2282921`).
+The only authority is Hospitable's own per-listing sleeping arrangement in the
+reconciliation export. Never derive a bed from `max_guests`, from a photograph,
+or from what the site already says.
+
+Applying that rule corrected `sea-grape-102` (`2282920`): it advertised
+`Queen + Queen + Sofa Bed`, while the export gives it 2 beds — "1 queen in
+bedroom; 1 queen in bedroom" — and no sofa bed. It now reads `Queen + Queen`,
+matching `sea-grape-101` (`2282921`), the other 6-guest two-bedroom it renders
+beside on the rooms index. `max_guests` is unchanged at 6; it comes from
+Hospitable and is authoritative regardless of how the beds are counted.
+
 ## Open questions
 
-1. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
+1. **`pineapple-101` bed configuration.** `units.ts` says `Queen`; the
+   reconciliation export says "1 double in living room; 1 sofa bed in living
+   room". Both cannot be right, and neither is confirmable against the public
+   API. Left as-is rather than swapped for a second unverified claim — resolve
+   it against Hospitable's listing data before touching it.
+2. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
-2. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
+3. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
    `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
    omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
    `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
    render "Studio" / "Estudio" while preserving the authoritative numeric value.
-3. **Embed migration.** Move to the script loader, or keep the iframe (which
+4. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
 
