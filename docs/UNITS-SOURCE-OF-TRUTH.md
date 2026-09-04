@@ -142,26 +142,48 @@ matching `sea-grape-101` (`2282921`), the other 6-guest two-bedroom it renders
 beside on the rooms index. `max_guests` is unchanged at 6; it comes from
 Hospitable and is authoritative regardless of how the beds are counted.
 
+That leaves the two sources disagreeing in public, which is open question 1
+below. Do not close that gap by inventing a bed — the two authorities are what
+they are, and the site states each one where it is sourced.
+
 ## Open questions
 
-1. **`pineapple-101` bed configuration.** `units.ts` says `Queen`; the
+1. **Both two-bedroom units advertise 6 guests and name beds for 4.**
+   `sea-grape-101` (`2282921`) and `sea-grape-102` (`2282920`) each carry
+   `maxGuests: 6` from Hospitable and `bedType: "Queen + Queen"` from the
+   reconciliation export, which lists 2 beds for each. A party of six sees no
+   sleeping arrangement for the last two on the rooms index ("Sleeps 6" over
+   "2 Queen beds") or on the detail page. Both figures are sourced, so neither
+   can be edited here: only the owner can say what those two guests sleep on —
+   a third bed the export omits, or a `max_guests` that overstates the unit.
+   Resolve it there, then correct whichever field is wrong.
+2. **`sea-grape-102` `sqFt` and `extras`.** `sqFt: 520` and
+   `extras: ["Dining table in kitchen"]` are pre-existing and unsourced; no
+   repo document or API response asserts either. The extras string is a kitchen
+   claim, and it renders on the featured card one line below the
+   `two-bed-1-bath` header the "Full kitchen" chip was removed from as
+   unsourced. Left in place rather than deleted mid-validation on a unit
+   outside this change's scope — reconcile both against Hospitable next pass.
+   `sea-grape-101` carries neither field, so the inconsistency is visible on
+   the same section.
+3. **`pineapple-101` bed configuration.** `units.ts` says `Queen`; the
    reconciliation export says "1 double in living room; 1 sofa bed in living
    room". Both cannot be right, and neither is confirmable against the public
    API. Left as-is rather than swapped for a second unverified claim — resolve
    it against Hospitable's listing data before touching it.
-2. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
+4. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
-3. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
+5. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
    count, so `bedrooms` is derived from the listing name. The seven studios read
    `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
    omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
    `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
    render "Studio" / "Estudio" while preserving the authoritative numeric value.
-4. **Embed migration.** Move to the script loader, or keep the iframe (which
+6. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
 

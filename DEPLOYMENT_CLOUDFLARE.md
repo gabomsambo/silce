@@ -29,7 +29,7 @@ dependency-pinning section of `AGENTS.md` before changing either.
 - `app/manifest.ts` - Removed edge runtime declaration (OpenNext requires Node.js runtime)
 
 #### 3. Build Verification ✅
-- Standard Next.js build: ✅ Successful (34 pages generated)
+- Standard Next.js build: ✅ Successful (40 pages generated)
 - OpenNext Cloudflare build: ✅ Successful
 - Build output directory: `.open-next/` (contains worker.js, assets/, middleware/)
 
@@ -57,17 +57,22 @@ why the adapter version is pinned.
 
 ### Build Statistics
 
-**Pages Generated:** 34 total
+**Pages Generated:** 40 total
 - 2 locales (English and Spanish)
 - Home pages: `/en` and `/es`
 - About pages: `/en/about` and `/es/about`
 - Rooms pages: `/en/rooms` and `/es/rooms`
-- 18 room detail pages (9 units × 2 locales)
+- 26 room detail pages (13 units × 2 locales)
 - Reviews pages: `/en/reviews` and `/es/reviews`
 - Search pages: `/en/search` and `/es/search`
+- Not-found page: `/_not-found`
 - Static routes: `manifest.webmanifest`, `robots.txt`, `sitemap.xml`
 
-**Middleware:** 43.6 kB (next-intl i18n routing)
+The room detail count is `UNITS.length × locales`, so it moves whenever
+`app/data/units.ts` gains or loses a unit — re-read it off the build's route
+table rather than trusting this number.
+
+**Middleware:** 45.5 kB (next-intl i18n routing)
 
 ### Known Issues & Notes
 
@@ -80,7 +85,7 @@ Error: INVALID_MESSAGE
     at c (.next/server/chunks/464.js:1:100913)
 ```
 
-**Impact:** None - all 34 pages generate successfully
+**Impact:** None - all 40 pages generate successfully
 **Status:** Can be safely ignored or fixed by ensuring all metadata translation keys exist in messages/en.json and messages/es.json
 
 ### Next Steps
@@ -154,7 +159,8 @@ Error: INVALID_MESSAGE
    - Test sample room pages
 
 2. **SEO Validation:**
-   - Visit `/sitemap.xml` - Should show ~26 URLs with locale prefixes
+   - Visit `/sitemap.xml` - Should show 34 URLs with locale prefixes
+     (4 static routes + `UNITS.length` room pages, each × 2 locales)
    - Visit `/robots.txt` - Should allow crawling
    - Check meta tags in page source
 
