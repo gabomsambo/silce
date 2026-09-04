@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { useTranslations } from 'next-intl';
 import { Link } from "@/i18n/navigation"
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react"
@@ -7,8 +8,18 @@ import { BUSINESS_CONTACT } from "@/app/data/contact"
 import Logo from "./Logo"
 import { clearCookieConsent } from "./cookieConsent"
 
+// Every route here is prerendered, so the year baked into the HTML is the build
+// year. Rendering that on the hydrating pass keeps server and client identical;
+// the effect below then advances it for anyone viewing after a New Year.
+const BUILD_YEAR = Number(process.env.NEXT_PUBLIC_BUILD_YEAR) || new Date().getFullYear()
+
 export default function Footer() {
   const t = useTranslations('footer');
+  const [year, setYear] = useState(BUILD_YEAR)
+
+  useEffect(() => {
+    setYear(new Date().getFullYear())
+  }, [])
 
   return (
     <footer className="bg-primary text-white py-16 px-4">
@@ -110,7 +121,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
-            <p className="text-gray-400 text-sm">{t('copyright', { year: new Date().getFullYear() })}</p>
+            <p className="text-gray-400 text-sm">{t('copyright', { year })}</p>
             <button
               type="button"
               onClick={() => clearCookieConsent()}
