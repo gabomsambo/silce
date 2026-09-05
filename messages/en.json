@@ -18,8 +18,20 @@
     "reviews": "Reviews",
     "browseProperties": "Browse Properties",
     "groupBookings": "Group Bookings",
-    "contactIntro": "Questions before you book or need help with a stay? Email our team directly.",
+    "contactIntro": "Questions before you book or need help with a stay? Send us a message and a real person will reply by email.",
     "whatsApp": "Message us on WhatsApp",
+    "contactForm": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "How can we help?",
+      "messagePlaceholder": "Tell us what you need help with",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Message sent. We'll reply by email.",
+      "error": "We couldn't send that message. Please email us at"
+    },
     "copyright": "© {year} Silver Pineapple. All rights reserved.",
     "cookiePreferences": "Cookie preferences"
   },

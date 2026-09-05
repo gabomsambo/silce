@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation"
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react"
 import { BUSINESS_CONTACT } from "@/app/data/contact"
 import Logo from "./Logo"
+import ContactForm from "./ContactForm"
 import { clearCookieConsent } from "./cookieConsent"
 
 // Every route here is prerendered, so the year baked into the HTML is the build
@@ -115,6 +116,7 @@ export default function Footer() {
                 </>
               )}
             </div>
+            <ContactForm />
           </div>
         </div>
 
