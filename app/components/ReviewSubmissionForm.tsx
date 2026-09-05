@@ -132,8 +132,10 @@ export default function ReviewSubmissionForm() {
   const overallRatingGroupRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (errors.overallRating) overallRatingGroupRef.current?.focus()
-  }, [errors.overallRating])
+    if (errors.overallRating && Object.keys(errors).length === 1) {
+      overallRatingGroupRef.current?.focus()
+    }
+  }, [errors])
 
   const onSubmit = async (data: ReviewFormData) => {
     setIsSubmitting(true)

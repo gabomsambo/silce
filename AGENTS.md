@@ -143,26 +143,17 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   the `via` stop stays at 5% — that is the whole point of the deferral, not a
   detail to gloss. Sampling the bar needs a settle wait: read immediately after
   an instant scroll and you catch a mid-fade value that is not what renders.
-- **The cross-origin booking `<iframe>` is the one interactive surface no rule
-  in this stylesheet can ring.** Tab to it on `/rooms/<slug>` and it becomes
-  `document.activeElement`, but focus has passed into the vendor's document, so
-  in the parent it matches `:focus`, `:focus-visible` **and `:focus-within` all
-  false**, and its computed `outline`/`box-shadow` stay `none` at 334x600. An
-  `iframe:focus-within` rule is therefore dead on every real path — measured
-  false after a real Tab and after a real click, on a fresh load in both
-  locales. Do not add it: it is the exact shape of machinery that does nothing.
-  The custom-element search widget is genuinely different and IS ringed —
-  `hospitable-direct-mps` matches `:focus-within` on the real Tab path.
-- **`el.focus()` on an iframe is NOT the keyboard path, and conflating them will
-  cost you a wrong conclusion.** Script `.focus()` focuses the iframe *element*
-  in the parent, so `:focus-within` matches and any rule keyed on it paints —
-  Tab instead moves focus *into* the child document, where it does not. A probe
-  that focuses by script measures a state no user can reach. Worse, once a probe
-  has script-focused the iframe, a later `document.body.focus()` does not
-  reliably pull focus back out, so a subsequent "Tab" leg of the same run starts
-  already parked on the iframe and inherits the earlier `true`. Navigate fresh
-  between paths and assert the starting state, or the second measurement is the
-  first one wearing a different label.
+- **The cross-origin booking `<iframe>` is the one interactive surface with no
+  ring.** While it is `document.activeElement` it matches neither `:focus` nor
+  `:focus-visible` — focus has passed into the vendor's document — so none of the
+  rules in `app/globals.css` apply and its computed `outline`/`box-shadow` are
+  both `none` at 334x600. It **does** match `:focus-within`, measured, so an
+  `iframe:focus-within` selector reaches it, and that is what `app/globals.css`
+  uses: the ring is painted on the parent document's own element, so it does not
+  depend on the vendor's content rendering — which matters because the widget
+  renders blank against a `localhost` referrer. The custom-element search widget
+  is the same case and IS ringed — `hospitable-direct-mps` matches
+  `:focus-within` and takes the full two-band ring.
 - **Two traps when probing focus rings.** A zero-area element (`width`/`height`
   0) reports a fully populated computed `outline`/`box-shadow`, so a probe calls
   it a pass while the user sees nothing — assert on `getBoundingClientRect()`.
