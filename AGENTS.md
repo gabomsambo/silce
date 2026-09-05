@@ -104,13 +104,19 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   text sits on a tinted or gradient surface, use `tan-hover` `#6E512B` (6.24:1 on
   that teal, 7.30:1 on white) and let hover go to `text-primary`, which keeps hover
   strictly darker than rest.
-- **The navbar is transparent over page content once scrolled.** Past ~300px its
-  background settles to `rgba(0,0,0,0)`, so `text-gray-900` nav links sit directly
-  on whatever is beneath — over the `/about` hero photo they measure 4.09-4.24:1.
-  Sampling this needs a settle wait: read immediately after an instant scroll and
-  you catch a mid-fade value (`rgba(255,255,255,0.047)`) that is not what renders.
-  Fixing it needs a scrim or background plate, which is a visual design change;
-  tracked separately, not a colour-token swap.
+- **The scrolled navbar's plate is a gradient, so `background-color` lies about
+  it.** `Navbar.tsx` swaps to `bg-gradient-to-r from-white via-coastal-mist
+  to-white shadow-lg` past 50px. `background-color` reads `rgba(0,0,0,0)` there —
+  the plate is a `background-image`, which is exactly the gradient blind spot the
+  bullet above describes; sample the rendered pixel instead. The `via` stop used
+  to be `via-coastal-mist/5` (5% alpha), so the centre of the bar, where the
+  desktop links sit, was ~95% see-through onto the page behind it and
+  `text-gray-900` links over the `/about` hero photo measured 4.09-4.24:1. The fix
+  was one token — drop the `/5` — not a scrim or any new design element. Because
+  the plate is now tinted (`#F0F9FF`) rather than white, nav hover uses
+  `tan-hover` (6.85:1 there) and not `tan-ink` (4.81:1). Sampling the bar needs a
+  settle wait: read immediately after an instant scroll and you catch a mid-fade
+  value that is not what renders.
 - **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
   `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
   `:focus-visible` nor `:focus-within` in the parent document even while it is
