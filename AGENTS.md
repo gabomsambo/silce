@@ -143,14 +143,26 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   the `via` stop stays at 5% — that is the whole point of the deferral, not a
   detail to gloss. Sampling the bar needs a settle wait: read immediately after
   an instant scroll and you catch a mid-fade value that is not what renders.
-- **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
-  `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
-  `:focus-visible` nor `:focus-within` in the parent document even while it is
-  `document.activeElement`, so the parent CSS cannot ring it; focus has passed
-  into the vendor's document. A zero-area element (`width`/`height` 0) reports a
-  fully populated computed `outline`/`box-shadow`, so a ring probe that reads
-  computed styles calls it a pass while the user sees nothing — assert on
-  `getBoundingClientRect()` before trusting the ring.
+- **The cross-origin booking `<iframe>` is the one interactive surface with no
+  ring.** While it is `document.activeElement` it matches neither `:focus` nor
+  `:focus-visible` — focus has passed into the vendor's document — so none of the
+  rules in `app/globals.css` apply and its computed `outline`/`box-shadow` are
+  both `none` at 334x600. It **does** match `:focus-within`, measured, so an
+  `iframe:focus-within` selector would in fact reach it; that is deliberately not
+  added, because the widget renders blank against a `localhost` referrer and
+  unverifiable machinery is this repo's signature failure. The custom-element
+  search widget is a different case and IS ringed — `hospitable-direct-mps`
+  matches `:focus-within` and takes the full two-band ring.
+- **Two traps when probing focus rings.** A zero-area element (`width`/`height`
+  0) reports a fully populated computed `outline`/`box-shadow`, so a probe calls
+  it a pass while the user sees nothing — assert on `getBoundingClientRect()`.
+  And do not `blur()` then re-`focus()` an element to tell an authored ring from
+  a resting `shadow-*`: `.focus()` does not restore `:focus-within` on a custom
+  element, so that dance reports the search widget as unringed when it is not.
+  Test for the authored ring's own values (tan outline plus the `#1a1a1a` band)
+  instead. Chrome's UA default focus ring also counts as "an indicator", so a
+  probe that only asks "did anything change on focus" scores the unstyled base
+  as passing on nearly every stop.
 
 ## Review evidence
 
