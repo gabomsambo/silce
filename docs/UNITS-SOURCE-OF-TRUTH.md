@@ -112,7 +112,24 @@ pages booked the wrong apartment. The new IDs resolve it.
 `.../properties/<id>/calendar`. Re-derive it there rather than editing by hand;
 every value below the true floor advertises a rate no guest can book. All
 thirteen match their live floor exactly, re-derived against that endpoint on
-2026-09-05.
+2026-09-05 and re-confirmed 2026-09-06.
+
+**Read `available`, not just `price`, and treat the floor as perishable.** The
+endpoint returns a `price` for nights that cannot be booked at all, and those
+nights can be cheaper than anything on sale. Ask for 24 months on `2282918` and
+128 nights come back under 75 — as low as **65** — every one of them from
+2028-05-01 onward and every one `available: false` with `has_reservation: false`:
+not booked by a guest, but outside the owner's open booking window entirely.
+Its bookable window on 2026-09-06 ran 2026-09-13 → 2027-09-04, and across the
+full 24 months the minimum among **bookable** nights was **75**, with none below.
+So a `priceFrom` derived from `price` alone would have published a rate nobody
+could book, in the opposite direction from the error it is meant to prevent.
+Those far-future figures look like an unseasoned base rate sitting behind a
+window that has not been opened yet, which gives every value here a shelf life:
+**if a later window opens without seasonal rates, the true floor drops and
+`priceFrom` has to follow.** Re-derive whenever the booking window extends, and
+note that the endpoint does not cap the range — it returns exactly the window
+asked for, so a short answer means a short question, not a page limit.
 
 ## Embed method
 
@@ -280,10 +297,20 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
     apartment led the "Studio — Comfort" section. Re-deriving all thirteen against
     the same endpoint found this the only mismatch. Corrected to **75** under the
     standing rule that the live API wins over the report — the same rule that made
-    `sea-grape-1052-101` 90 rather than the export's 80. It is a pre-existing unit
-    rather than one this change publishes, and it was fixed here anyway because an
-    advertised rate the owner cannot honour costs him money on every booking it
-    draws; that is a contradiction of his own calendar, not an unsourced gap.
+    `sea-grape-1052-101` 90 rather than the export's 80.
+    The owner asked how 75 could be the floor when rates move by season, which is
+    the right question and has a two-part answer. Month by month across those 366
+    nights, **no month falls below 75**: 2026-09 through 2026-12 and 2027-08
+    through 2027-09 bottom out at exactly 75, and 2027-01 through 2027-07 bottom
+    out higher, at 84–95. But **65 does reappear** past the 12-month horizon —
+    128 nights at 65/66/68/74 from 2028-05-01 on. None is bookable (see the
+    `available` note under "Site ID migration"), so 75 stands as the floor a guest
+    can actually reach; it is not permanent, and if 2028 opens without seasonal
+    rates the correct `priceFrom` becomes lower and this entry reopens.
+    It is a pre-existing unit rather than one this change publishes, and it was
+    fixed here anyway because an advertised rate the owner cannot honour costs him
+    money on every booking it draws; that is a contradiction of his own calendar,
+    not an unsourced gap.
 
 ## Photo library defects
 
