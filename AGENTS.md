@@ -134,10 +134,15 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   (`tan-ink` 1.19:1, `tan-hover` 1.70:1, measured on the rendered pixel). So the
   fix is one token — drop the `/5` — and not a scrim or any new design element,
   but it is a visible change to the bar on every route and is **deliberately not
-  applied**: it is tracked separately as `sp-nav-over-photos`. Nav hover still uses
-  `tan-hover` rather than `tan-ink` because it is darker on every surface, light
-  or dark. Sampling the bar needs a settle wait: read immediately after an instant
-  scroll and you catch a mid-fade value that is not what renders.
+  applied**: it is tracked separately as `sp-nav-over-photos`. Nav hover keeps
+  `tan-hover`, which is the right token on the bar's opaque white ends (7.30:1)
+  where the base `tan` was 1.97:1, but be honest about the cost on the
+  see-through centre: base `tan` measured ~2.20:1 over that photo and
+  `tan-hover` measures 1.70:1, so on that one surface the token swap moved the
+  number the wrong way. Neither value passes AA and no token can fix it while
+  the `via` stop stays at 5% — that is the whole point of the deferral, not a
+  detail to gloss. Sampling the bar needs a settle wait: read immediately after
+  an instant scroll and you catch a mid-fade value that is not what renders.
 - **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
   `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
   `:focus-visible` nor `:focus-within` in the parent document even while it is

@@ -428,7 +428,8 @@
         "reviewMin": "Review must be at least 50 characters",
         "reviewMax": "Review must be less than 500 characters"
       },
-      "starLabel": "{count, plural, one {# star} other {# stars}} for {category}"
+      "starLabel": "{count, plural, one {# star} other {# stars}} for {category}",
+      "requiredSuffix": "(required)"
     },
     "stats": {
       "heading": "TRUSTED ACROSS ALL PLATFORMS",

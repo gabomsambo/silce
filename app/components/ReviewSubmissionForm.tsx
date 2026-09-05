@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useId, useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -53,14 +53,20 @@ interface StarRatingProps {
 function StarRating({ rating, onChange, label, required = false }: StarRatingProps) {
   const t = useTranslations("reviews.form")
   const [hoverRating, setHoverRating] = useState(0)
+  const labelId = useId()
 
   return (
     <div className="space-y-2">
-      <span className="text-sm font-medium text-gray-700">
+      <span id={labelId} className="text-sm font-medium text-gray-700">
         {label}
-        {required && <span aria-hidden="true"> *</span>}
+        {required && (
+          <>
+            <span aria-hidden="true"> *</span>
+            <span className="sr-only"> {t("requiredSuffix")}</span>
+          </>
+        )}
       </span>
-      <div className="flex gap-1" role="group" aria-label={label}>
+      <div className="flex gap-1" role="group" aria-labelledby={labelId}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}

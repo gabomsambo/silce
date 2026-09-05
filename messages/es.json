@@ -428,7 +428,8 @@
         "reviewMin": "La opinión debe tener al menos 50 caracteres",
         "reviewMax": "La opinión debe tener menos de 500 caracteres"
       },
-      "starLabel": "{count, plural, one {# estrella} other {# estrellas}} para {category}"
+      "starLabel": "{count, plural, one {# estrella} other {# estrellas}} para {category}",
+      "requiredSuffix": "(obligatorio)"
     },
     "stats": {
       "heading": "CONFIABLE EN TODAS LAS PLATAFORMAS",
