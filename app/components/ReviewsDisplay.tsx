@@ -82,7 +82,7 @@ export default function ReviewsDisplay() {
             <h3 className="text-lg font-semibold text-primary">{t("filtersHeading")}</h3>
             <button
               onClick={resetFilters}
-              className="ml-auto text-sm text-tan-ink hover:text-tan-hover font-medium transition-colors"
+              className="ml-auto text-sm text-tan-hover hover:text-primary font-medium transition-colors"
             >
               {t("resetFilters")}
             </button>
