@@ -89,6 +89,23 @@ infer from the byte count. If one shot cannot shrink without losing its point,
 keep that one larger and shrink the rest. Recapture after any change that alters
 what the shot evidences — these have gone stale twice.
 
+Two things reliably ruin a capture here, both silently:
+
+- **The cookie-preferences panel paints over the lower-left of the first page
+  load** and has already occluded the exact chip row a change was meant to prove.
+  Click "Decline analytics cookies" / "Rechazar" before capturing; that writes
+  `silver-pineapple-cookie-consent` to `localStorage`, so the second locale on the
+  same origin stays clean.
+- **Images below the fold lazy-load**, so a single jump to the bottom followed by
+  a full-page capture yields half-drawn cards. Set every `img` to
+  `loading="eager"`, scroll the page in ~800px steps, then return to the top.
+
+A `before-` shot has to be captured against the base commit, not reconstructed:
+`git restore --source=<base> -- app messages`, rebuild, capture, then
+`git restore --source=HEAD -- app messages`. Both locales, both halves of the
+pair, same 1200px viewport — a `before-`/`after-` pair taken at different widths
+proves nothing about the delta.
+
 ## Shape
 
 No database, no API routes, no server actions, no `use server`. All content is

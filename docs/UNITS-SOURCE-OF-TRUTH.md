@@ -110,7 +110,9 @@ pages booked the wrong apartment. The new IDs resolve it.
 
 `priceFrom` is the minimum nightly `price` over the next 12 months, read from
 `.../properties/<id>/calendar`. Re-derive it there rather than editing by hand;
-every value below the true floor advertises a rate no guest can book.
+every value below the true floor advertises a rate no guest can book. Twelve of
+the thirteen match their live floor exactly; `unit-2536` does not — open
+question 10.
 
 ## Embed method
 
@@ -236,9 +238,13 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
 7. **`unit-2536`'s title contradicts its category.** It is filed
    `category: "studio-comfort"` in `units.ts`, while `units.unit-2536.title`
    reads "Studio — Compact · Unit 2536" ("Estudio — Compacto · Unidad 2536" in
-   `es.json`). This is guest-visible in both locales: the rooms index sorts by
-   `priceFrom`, and its $65 is the lowest in that group, so it renders as the
-   large featured card directly beneath the "Studio — Comfort" heading.
+   `es.json`). This is guest-visible in both locales: the rooms index sorts each
+   category by `priceFrom` and `unit-2536` sorts first in `studio-comfort`, so it
+   renders as the large featured card directly beneath the "Studio — Comfort"
+   heading. It sorts first either way — its stored $65 is the lowest in the
+   group, and at the $75 the live calendar reports (question 10) it ties with the
+   other four and still leads on `units.ts` source order — so settling question
+   10 does not settle this one.
    Every source was checked and none settles which field is wrong:
    - The public booking API cannot arbitrate — `/bookings/api/properties/2282918`
      returns no `property_type` and no `room_type` field at all. The
@@ -264,6 +270,21 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
 9. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
+10. **`unit-2536`'s `priceFrom` sits below its live nightly floor.** `units.ts`
+    carries `priceFrom: 65`; `/bookings/api/properties/2282918/calendar` over
+    the full 12-month window this document prescribes (2026-09-05 → 2027-09-05,
+    366 nights) returns a minimum nightly `price` of **75**. The rooms index
+    renders "$65/night" in both locales, so the advertised from-rate is one no
+    date in the next year can actually be booked at — the guest meets the real
+    number inside the widget. Re-deriving all thirteen against the same endpoint
+    on 2026-09-05 found this the only mismatch; the other twelve, including the
+    four published here, match their live floor exactly. The accepted rule — the
+    live API wins over the report, which is how `sea-grape-1052-101` became 90
+    rather than the export's 80 — points at **75**. `unit-2536` is pre-existing
+    and out of
+    this change's scope, so it is recorded rather than edited and handed to the
+    systematic content pass; question 7 covers the same unit's tier conflict and
+    resolves independently of this.
 
 ## Photo library defects
 
