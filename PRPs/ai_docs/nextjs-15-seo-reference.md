@@ -356,6 +356,12 @@ export default async function Image({ params }: { params: { slug: string } }) {
 
 ## Favicon and App Icons
 
+> **Not how this repo ships icons.** The `app/` file-convention icon routes
+> described in this section 404 on Cloudflare Pages here; the shipped icons are
+> static `public/` assets declared explicitly in `app/[locale]/layout.tsx` and
+> `app/manifest.ts`. See the "Icons must be static `public/` assets" entry in
+> `AGENTS.md`. The rest of this reference is unaffected.
+
 ### Official Documentation
 
 - **App Icons:** https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons

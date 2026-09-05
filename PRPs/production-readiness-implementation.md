@@ -6,6 +6,13 @@
 **Target State:** Professional, production-ready, SEO-optimized marketing site
 **Date Created:** 2025-10-18
 
+> **Favicon guidance below is superseded.** This snapshot prescribes the Next.js
+> `app/` file-convention icon routes (`app/favicon.ico`, `app/icon.png`,
+> `app/apple-icon.png`); those 404 on Cloudflare Pages here. The shipped icons are
+> static `public/` assets declared explicitly in `app/[locale]/layout.tsx` and
+> `app/manifest.ts`. The owner of that contract is the "Icons must be static
+> `public/` assets" entry in `AGENTS.md`; `npm run check:icons` enforces it.
+
 ---
 
 ## Goal

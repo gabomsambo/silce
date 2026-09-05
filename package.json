@@ -10,6 +10,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
+    "check:icons": "node scripts/check-icons.mjs",
     "check:links": "node scripts/check-links.mjs",
     "start": "next start",
     "pages:build": "opennextjs-cloudflare build && mv .open-next/worker.js .open-next/_worker.js && mv .open-next/assets/_next .open-next/_next && cp -r .open-next/assets/* .open-next/ && rm -rf .open-next/assets && cp .claude/routes.json .open-next/_routes.json",

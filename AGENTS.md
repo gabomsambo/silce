@@ -24,8 +24,9 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - **A green build no longer lies, but it still isn't a test suite.** The build now
   fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
   escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
-  build and the link crawl on every PR. There are still **no unit tests** — verify
-  UI changes in a real browser against `npm run build && npx next start`.
+  build, the link crawl and the icon check on every PR. There are still **no unit
+  tests** — verify UI changes in a real browser against
+  `npm run build && npx next start`.
 - **Next 15.5 streams metadata *outside* `<head>`.** `<title>`, `canonical`, `robots`
   and `hreflang` are emitted after `</head>` in the served HTML, so checking a page's
   SEO tags by splitting on `</head>` gives a false "MISSING" on tags that are in fact
@@ -40,6 +41,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   before editing anything.
 - **Never run `npm run deploy` / `wrangler pages deploy`** — deployment is the
   repo owner's call. `npm run preview` is broken by construction here.
+- **Icons must be static `public/` assets.** `.claude/routes.json` excludes image
+  extensions from the Worker, so Next metadata file-convention icon routes can
+  work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
+  to accommodate icons; verify them in `.open-next/` after `npm run pages:build`.
 
 ## Safety net
 
@@ -47,6 +52,13 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   fails on internal 404s and on hrefs that drop the `/en` / `/es` prefix — the two
   bug classes that have shipped past a green build here. It needs `npm run build`
   first; `scripts/check-links.mjs` documents the rest.
+- `npm run check:icons` is the same idea for assets the crawl skips: in both
+  locales it fetches every declared `icon` / `apple-touch-icon` / `manifest` href
+  and every manifest `icons[].src`, and fails on a non-200, a wrong content type,
+  or delivered pixels that do not match the declared `sizes` (for `favicon.ico`,
+  that the ICO really carries a frame at each declared size). Also needs
+  `npm run build`; `--base-url` points it at an already-running server, e.g. one
+  serving the Cloudflare output.
 - `eslint.config.mjs` extends `next/core-web-vitals`. Two rules with pre-existing
   violations (`react/no-unescaped-entities`, `@next/next/no-sync-scripts`) are
   demoted to warnings so the config passes on the current tree; everything else,
