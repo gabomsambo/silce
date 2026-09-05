@@ -30,21 +30,27 @@
    * erase the tan one, leaving those controls with no ring at all. This was
    * measured on a real tab traversal before the !important was added.
    *
-   * All three selectors below paint the same ring, so they share one rule:
-   * tuning a band here cannot leave one surface behind.
+   * The two rules below paint an identical ring and are deliberately NOT
+   * merged into one selector list. A browser that cannot parse `:focus-visible`
+   * (Safari 15.0-15.3) discards the whole rule it appears in, selector list and
+   * all — merging would take the `:focus-within` surfaces down with it and
+   * leave the date picker and the search widget with no ring on exactly the
+   * browsers that need the fallback. Keep them separate; if you tune a band,
+   * tune it in both.
    */
-  :focus-visible,
+  :focus-visible {
+    outline: 3px solid theme("colors.tan") !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 3px #1a1a1a !important;
+  }
+
   /*
    * Form controls use :focus-within, not :focus-visible. Chrome matches
    * neither :focus-visible nor :focus on the host of an <input type="date"> —
    * keyboard focus lands on a shadow-DOM field part, and only :focus-within
    * reaches the host — so the review form's date picker tabbed in with no ring
    * at all. Text-entry controls should show focus under any modality anyway.
-   */
-  input:focus-within,
-  select:focus-within,
-  textarea:focus-within,
-  /*
+   *
    * The Hospitable search widget on /search is a custom element with a closed
    * shadow tree, so its two inner controls cannot be styled from here and a
    * keyboard user tabbing into them saw nothing. Ringing the host on
@@ -52,6 +58,9 @@
    * which of the two inner fields is focused, but it does show that focus has
    * entered the widget. Remove it if the vendor ever ships its own ring.
    */
+  input:focus-within,
+  select:focus-within,
+  textarea:focus-within,
   hospitable-direct-mps:focus-within {
     outline: 3px solid theme("colors.tan") !important;
     outline-offset: 3px !important;
