@@ -47,15 +47,19 @@ interface StarRatingProps {
   rating: number
   onChange: (rating: number) => void
   label: string
+  required?: boolean
 }
 
-function StarRating({ rating, onChange, label }: StarRatingProps) {
+function StarRating({ rating, onChange, label, required = false }: StarRatingProps) {
   const t = useTranslations("reviews.form")
   const [hoverRating, setHoverRating] = useState(0)
 
   return (
     <div className="space-y-2">
-      <span className="text-sm font-medium text-gray-700">{label}</span>
+      <span className="text-sm font-medium text-gray-700">
+        {label}
+        {required && <span aria-hidden="true"> *</span>}
+      </span>
       <div className="flex gap-1" role="group" aria-label={label}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
@@ -266,6 +270,7 @@ export default function ReviewSubmissionForm() {
               <div className="bg-tan/5 p-6 rounded-lg">
                 <StarRating
                   label={t("labelOverall")}
+                  required
                   rating={overallRating}
                   onChange={handleOverallRatingChange}
                 />

@@ -105,18 +105,21 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   that teal, 7.30:1 on white) and let hover go to `text-primary`, which keeps hover
   strictly darker than rest.
 - **The scrolled navbar's plate is a gradient, so `background-color` lies about
-  it.** `Navbar.tsx` swaps to `bg-gradient-to-r from-white via-coastal-mist
-  to-white shadow-lg` past 50px. `background-color` reads `rgba(0,0,0,0)` there —
-  the plate is a `background-image`, which is exactly the gradient blind spot the
-  bullet above describes; sample the rendered pixel instead. The `via` stop used
-  to be `via-coastal-mist/5` (5% alpha), so the centre of the bar, where the
-  desktop links sit, was ~95% see-through onto the page behind it and
-  `text-gray-900` links over the `/about` hero photo measured 4.09-4.24:1. The fix
-  was one token — drop the `/5` — not a scrim or any new design element. Because
-  the plate is now tinted (`#F0F9FF`) rather than white, nav hover uses
-  `tan-hover` (6.85:1 there) and not `tan-ink` (4.81:1). Sampling the bar needs a
-  settle wait: read immediately after an instant scroll and you catch a mid-fade
-  value that is not what renders.
+  it.** `Navbar.tsx` swaps to `bg-gradient-to-r from-white via-coastal-mist/5
+  to-white shadow-lg` past 50px. `background-color` reads `rgba(0,0,0,0)` there,
+  but that is not because the bar has no plate — the plate is a
+  `background-image`, which is exactly the gradient blind spot the bullet above
+  describes. Sample the rendered pixel instead. The real cause is the `via` stop's
+  5% alpha: the centre of the bar, where the desktop links sit, is ~95%
+  see-through onto the page behind it, so `text-gray-900` links over the `/about`
+  hero photo measure 4.09-4.24:1 and any tan hover there is far worse
+  (`tan-ink` 1.19:1, `tan-hover` 1.70:1, measured on the rendered pixel). So the
+  fix is one token — drop the `/5` — and not a scrim or any new design element,
+  but it is a visible change to the bar on every route and is **deliberately not
+  applied**: it is tracked separately as `sp-nav-over-photos`. Nav hover still uses
+  `tan-hover` rather than `tan-ink` because it is darker on every surface, light
+  or dark. Sampling the bar needs a settle wait: read immediately after an instant
+  scroll and you catch a mid-fade value that is not what renders.
 - **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
   `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
   `:focus-visible` nor `:focus-within` in the parent document even while it is

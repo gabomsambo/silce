@@ -40,7 +40,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-gradient-to-r from-white via-coastal-mist to-white shadow-lg"
+          ? "bg-gradient-to-r from-white via-coastal-mist/5 to-white shadow-lg"
           : "bg-white/90 backdrop-blur-md"
       }`}
     >
