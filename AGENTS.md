@@ -58,6 +58,15 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 No database, no API routes, no server actions, no `use server`. All content is
 hand-written TypeScript in `app/data/`, and every route prerenders at build time.
 
+## Business facts
+
+- Never treat existing site copy, filenames or photographs as proof of contact details,
+  addresses, amenities, bed configurations or prices. Positive claims must come from
+  the owner's explicit statement, the listing's Hospitable data or
+  `docs/UNITS-SOURCE-OF-TRUTH.md`; if none covers the claim, ask instead of preserving it.
+- `BUSINESS_CONTACT.location` in `app/data/contact.ts` was inherited from the old footer
+  and has not been owner-verified. Do not present its presence in the code as validation.
+
 ## Form delivery
 
 - Static forms use FormSubmit; the shared recipient, endpoint and the one-line slot
