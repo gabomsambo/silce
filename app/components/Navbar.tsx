@@ -40,7 +40,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-gradient-to-r from-white via-coastal-mist/5 to-white shadow-lg"
+          ? "bg-gradient-to-r from-white via-coastal-mist to-white shadow-lg"
           : "bg-white/90 backdrop-blur-md"
       }`}
     >
@@ -59,14 +59,14 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium tracking-wide transition-colors duration-200 text-gray-900 hover:text-tan-ink"
+                className="text-sm font-medium tracking-wide transition-colors duration-200 text-gray-900 hover:text-tan-hover"
               >
                 {link.name.toUpperCase()}
               </Link>
             ))}
             <Button text={t('bookNow')} variant="primary" isBookingButton={true} bookingAction={bookingAction} />
             <button
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-ink transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan-ink"
+              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-hover transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan-hover"
               onClick={switchLanguage}
             >
               <Languages aria-hidden="true" size={18} />
@@ -95,7 +95,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="block px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-ink"
+                  className="block px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-hover"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name.toUpperCase()}
@@ -112,7 +112,7 @@ export default function Navbar() {
               </div>
               <div className="px-3 py-2">
                 <button
-                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-ink transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan-ink"
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 hover:text-tan-hover transition-colors duration-200 border border-gray-300 rounded-md hover:border-tan-hover"
                   onClick={() => {
                     switchLanguage()
                     setIsMobileMenuOpen(false)

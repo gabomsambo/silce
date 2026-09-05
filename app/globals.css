@@ -22,20 +22,18 @@
    * near-black band measures 17.40:1. Both bands are always painted, so every
    * interactive element gets a visible ring wherever it sits.
    */
-  :focus-visible {
-    /*
-     * !important is load-bearing, not laziness. Both bands live in properties
-     * that Tailwind utilities also write, and utilities outrank @layer base:
-     * `shadow-lg` (on the primary buttons) would erase the near-black band and
-     * `focus-visible:outline-none` (baked into components/ui/input.tsx) would
-     * erase the tan one, leaving those controls with no ring at all. This was
-     * measured on a real tab traversal before the !important was added.
-     */
-    outline: 3px solid theme("colors.tan") !important;
-    outline-offset: 3px !important;
-    box-shadow: 0 0 0 3px #1a1a1a !important;
-  }
-
+  /*
+   * !important is load-bearing, not laziness. Both bands live in properties
+   * that Tailwind utilities also write, and utilities outrank @layer base:
+   * `shadow-lg` (on the primary buttons) would erase the near-black band and
+   * `focus-visible:outline-none` (baked into components/ui/input.tsx) would
+   * erase the tan one, leaving those controls with no ring at all. This was
+   * measured on a real tab traversal before the !important was added.
+   *
+   * All three selectors below paint the same ring, so they share one rule:
+   * tuning a band here cannot leave one surface behind.
+   */
+  :focus-visible,
   /*
    * Form controls use :focus-within, not :focus-visible. Chrome matches
    * neither :focus-visible nor :focus on the host of an <input type="date"> —
@@ -45,12 +43,7 @@
    */
   input:focus-within,
   select:focus-within,
-  textarea:focus-within {
-    outline: 3px solid theme("colors.tan") !important;
-    outline-offset: 3px !important;
-    box-shadow: 0 0 0 3px #1a1a1a !important;
-  }
-
+  textarea:focus-within,
   /*
    * The Hospitable search widget on /search is a custom element with a closed
    * shadow tree, so its two inner controls cannot be styled from here and a
