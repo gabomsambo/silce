@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useMemo, useState } from "react"
+import { useEffect, useId, useMemo, useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -48,9 +48,12 @@ interface StarRatingProps {
   onChange: (rating: number) => void
   label: string
   required?: boolean
+  errorId?: string
+  invalid?: boolean
+  groupRef?: React.Ref<HTMLDivElement>
 }
 
-function StarRating({ rating, onChange, label, required = false }: StarRatingProps) {
+function StarRating({ rating, onChange, label, required = false, errorId, invalid = false, groupRef }: StarRatingProps) {
   const t = useTranslations("reviews.form")
   const [hoverRating, setHoverRating] = useState(0)
   const labelId = useId()
@@ -66,7 +69,15 @@ function StarRating({ rating, onChange, label, required = false }: StarRatingPro
           </>
         )}
       </span>
-      <div className="flex gap-1" role="group" aria-labelledby={labelId}>
+      <div
+        ref={groupRef}
+        tabIndex={-1}
+        className="flex gap-1 focus:outline-none"
+        role="group"
+        aria-labelledby={labelId}
+        aria-invalid={invalid || undefined}
+        aria-describedby={invalid && errorId ? errorId : undefined}
+      >
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
@@ -116,6 +127,13 @@ export default function ReviewSubmissionForm() {
   } = useForm<ReviewFormData>({
     resolver: zodResolver(reviewSchema)
   })
+
+  const overallErrorId = useId()
+  const overallRatingGroupRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (errors.overallRating) overallRatingGroupRef.current?.focus()
+  }, [errors.overallRating])
 
   const onSubmit = async (data: ReviewFormData) => {
     setIsSubmitting(true)
@@ -279,9 +297,14 @@ export default function ReviewSubmissionForm() {
                   required
                   rating={overallRating}
                   onChange={handleOverallRatingChange}
+                  errorId={overallErrorId}
+                  invalid={!!errors.overallRating}
+                  groupRef={overallRatingGroupRef}
                 />
                 {errors.overallRating && (
-                  <p className="mt-2 text-sm text-red-600">{errors.overallRating.message}</p>
+                  <p id={overallErrorId} role="alert" className="mt-2 text-sm text-red-600">
+                    {errors.overallRating.message}
+                  </p>
                 )}
               </div>
 
