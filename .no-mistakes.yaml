@@ -1,0 +1,15 @@
+# no-mistakes pipeline agent preference order.
+#
+# opencode is first because it is local and cheap. Two acknowledged weaknesses:
+#   1. It goes through the prompt-only structured-output fallback rather than
+#      native structured-output parsing, which can produce less reliable
+#      machine-readable responses.
+#   2. It has no session reuse, so each review run starts cold with no context
+#      from prior passes.
+#
+# It is still first because codex and claude sit behind it in the fallback
+# chain. The gate never fails for want of a runnable agent — when opencode
+# cannot be reached or declines, the runner falls through to codex, then
+# claude. That makes the weaker primary safe to keep at the top.
+
+agent: [opencode, codex, claude]
