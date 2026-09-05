@@ -62,12 +62,7 @@ function StarRating({ rating, onChange, label, required = false, errorId, invali
     <div className="space-y-2">
       <span id={labelId} className="text-sm font-medium text-gray-700">
         {label}
-        {required && (
-          <>
-            <span aria-hidden="true"> *</span>
-            <span className="sr-only"> {t("requiredSuffix")}</span>
-          </>
-        )}
+        {required && <span aria-hidden="true"> *</span>}
       </span>
       <div
         ref={groupRef}

@@ -68,7 +68,6 @@
   input:focus-within,
   select:focus-within,
   textarea:focus-within,
-  iframe:focus-within,
   hospitable-direct-mps:focus-within {
     outline: 3px solid theme("colors.tan") !important;
     outline-offset: 3px !important;
