@@ -39,8 +39,14 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   `app/components/` and most of the 56 files in `components/ui/` are unreferenced,
   and near-duplicate names differ in which one is live. Grep for the importer
   before editing anything.
-- **Never run `npm run deploy` / `wrangler pages deploy`** — deployment is the
-  repo owner's call. `npm run preview` is broken by construction here.
+- **A merge to `main` is a production release.** Cloudflare's git integration
+  builds and deploys `main` on its own — there is no separate release step and no
+  staging environment. Files that existed nowhere before a PR merged were serving
+  200 from the live site minutes later. So browser verification *before* merge is
+  the only gate that exists; a green build is not safety. It also means nobody
+  should run `npm run deploy` / `wrangler pages deploy` by hand: **never run
+  them** — merging already deploys, and doing it manually bypasses the pipeline.
+  `npm run preview` is broken by construction here.
 - **Icons must be static `public/` assets.** `.claude/routes.json` excludes image
   extensions from the Worker, so Next metadata file-convention icon routes can
   work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
@@ -64,6 +70,41 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   demoted to warnings so the config passes on the current tree; everything else,
   notably `@next/next/no-html-link-for-pages`, is a hard error.
 - CI installs with `npm ci --ignore-scripts` for the reason above.
+
+## Review evidence
+
+Screenshots under `artifacts/screenshots/` are **committed**, not attached to a PR
+comment — evidence has to travel with the change in the tree, where it cannot be
+lost. Nothing there is imported by the build or served by Pages.
+
+Because it is permanent history, downscale and compress before committing: palette
+PNG (`Image.quantize(colors=256)` + `optimize=True`) shrinks these flat-UI captures
+by ~65% on its own, and full-page captures resize to 1200px wide. Keep the
+evidence-critical shots at native resolution and only quantize them.
+
+**Legibility is the constraint, not file size.** Whatever the shot is proving — a
+unit title, a price breakdown, an enabled Reserve / Reservar button — must stay
+clearly readable afterwards. Open every compressed file and look at it; do not
+infer from the byte count. If one shot cannot shrink without losing its point,
+keep that one larger and shrink the rest. Recapture after any change that alters
+what the shot evidences — these have gone stale twice.
+
+Two things reliably ruin a capture here, both silently:
+
+- **The cookie-preferences panel paints over the lower-left of the first page
+  load** and has already occluded the exact chip row a change was meant to prove.
+  Click "Decline analytics cookies" / "Rechazar" before capturing; that writes
+  `silver-pineapple-cookie-consent` to `localStorage`, so the second locale on the
+  same origin stays clean.
+- **Images below the fold lazy-load**, so a single jump to the bottom followed by
+  a full-page capture yields half-drawn cards. Set every `img` to
+  `loading="eager"`, scroll the page in ~800px steps, then return to the top.
+
+A `before-` shot has to be captured against the base commit, not reconstructed:
+`git restore --source=<base> -- app messages`, rebuild, capture, then
+`git restore --source=HEAD -- app messages`. Both locales, both halves of the
+pair, same 1200px viewport — a `before-`/`after-` pair taken at different widths
+proves nothing about the delta.
 
 ## Shape
 
@@ -94,6 +135,18 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
 
 ## Booking / units data
 
+- **Where unit facts come from.** Amenities, bed configuration, bedroom and
+  bathroom counts, capacity, pricing, and which photograph belongs to which unit
+  all come from Hospitable's data for that listing id. Never infer them from
+  filenames, from the photographs themselves, or from what the site already
+  says: source-folder names and address prefixes have each argued a photo into
+  the wrong building here, and photographs have been read as a full kitchen on a
+  "w/ Kitchenette" listing and as sofa beds on two units that have none.
+  **A positive claim needs a positive source; absence of contradiction is not
+  corroboration.** Where the public booking API exposes no signal (it exposes no
+  bedroom count and no amenity list), say so and fall back to
+  `docs/UNITS-SOURCE-OF-TRUTH.md` rather than guessing — it owns the per-listing
+  photo-provenance check and the open bed-type questions.
 - `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
   listings, the photo library and `app/data/units.ts`. `PLANNING.md`, `TASK.md`,
   `Apartments_matching.md` and `PRPs/` are historical and contradict the code.
@@ -134,9 +187,18 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   from a **postMessage handshake, not a URL parameter**: on boot the iframe posts
   `{type:"GET_HOSPITABLE_LANGUAGE"}` to its parent and switches when the parent answers
   `{type:"SET_HOSPITABLE_LANGUAGE", language}`. It supports `en`, `fr`, `es`, `de` and
-  falls back to English silently. The widget renders **blank** against a `localhost`
-  referrer, so an empty booking box in local verification is expected and is not
-  evidence of a regression — assert on the iframe's attributes instead.
+  falls back to English silently.
+- **The booking widget is fully verifiable locally** — it renders real availability
+  and live pricing against a `localhost` referrer (confirmed 2026-09-04 against
+  `npx next start`; an earlier note here claimed otherwise). `BookingIframe` forwards
+  `checkin` / `checkout` / `adults` from the page URL into the iframe `src`, so
+  `/{locale}/rooms/{slug}?checkin=YYYY-MM-DD&checkout=YYYY-MM-DD&adults=2` on an
+  available stay drives the widget to an **enabled** Reserve / Reservar link carrying
+  a real quote id. Pick the dates from `.../properties/<id>/calendar` (honour
+  `min_stay`, `checkin` and `checkout`) rather than guessing. The widget's content is
+  taller than its fixed 600px iframe, so the CTA needs a real wheel scroll inside the
+  cross-origin frame (CDP `Input.dispatchMouseEvent` type `mouseWheel`) — the a11y
+  tree reaches it, but `hover` fails because the widget re-renders and stales the ref.
 
 ## i18n
 

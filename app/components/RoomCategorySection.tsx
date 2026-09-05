@@ -3,7 +3,7 @@
 import { Link } from "@/i18n/navigation"
 import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
-import { formatPrice, buildUnitShortDescription } from "../data/copy"
+import { formatPrice, buildUnitShortDescription, buildCategorySleepsCount } from "../data/copy"
 import type { CategoryMeta } from "../data/categories"
 import type { Unit } from "../data/units"
 
@@ -12,6 +12,7 @@ export default function RoomCategorySection({ category, units }: { category: Cat
   const locale = useLocale()
   if (!units.length) return null
   const featured = units[0]
+  const sleeps = buildCategorySleepsCount(units)
 
   return (
     <section className="py-20 px-4">
@@ -31,6 +32,11 @@ export default function RoomCategorySection({ category, units }: { category: Cat
             </div>
             <p className="text-gray-700 mt-3 max-w-2xl">{t(category.blurbKey)}</p>
             <div className="flex flex-wrap gap-2 mt-4">
+              {sleeps && (
+                <span className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">
+                  {t("rooms.categoryAmenities.sleeps", { count: sleeps })}
+                </span>
+              )}
               {category.defaultAmenities.map((a, i) => (
                 <span key={i} className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">
                   {t(`rooms.categoryAmenities.${a.key}`, a.values)}

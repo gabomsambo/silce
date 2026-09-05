@@ -311,7 +311,7 @@ You'll know it's working when you see:
 - ✅ **Visual check:** Navbar is styled, hero has background image, buttons have hover effects
 
 ### Production Deployment
-- ✅ Build succeeds in Cloudflare Pages dashboard (34 pages generated)
+- ✅ Build succeeds in Cloudflare Pages dashboard (page count in `DEPLOYMENT_CLOUDFLARE.md`)
 - ✅ Preview URL shows site with full styling
 - ✅ Custom domain shows site with full styling
 - ✅ No browser console errors (especially no CSS 404s)

@@ -185,7 +185,7 @@
       "studio-plus": {
         "name": "Studio — Plus (Large)",
         "badge": "Extra Space",
-        "blurb": "A large studio with a dedicated dining nook in the kitchen — great for work-from-home days or longer stays."
+        "blurb": "A large studio with a kitchenette — great for work-from-home days or longer stays."
       },
       "one-bed-1-bath": {
         "name": "1 Bedroom, 1 Bath",
@@ -200,11 +200,8 @@
     "categoryAmenities": {
       "sleeps": "Sleeps {count}",
       "queenBed": "Queen bed",
-      "kingQueenSofaBed": "King/Queen + sofa bed",
       "twoBedrooms": "Two bedrooms",
       "kitchenette": "Kitchenette",
-      "kitchenetteDiningTable": "Kitchenette + dining table",
-      "fullKitchen": "Full kitchen",
       "wifi": "High-speed Wi-Fi",
       "smartTv": "Smart TV",
       "onSiteLaundry": "On-site laundry",
@@ -265,6 +262,8 @@
     "bedTypes": {
       "queen": "Queen",
       "king": "King",
+      "queen-queen": "2 Queen beds",
+      "queen-sofa-bed": "Queen + Sofa Bed",
       "queen-queen-sofa-bed": "Queen + Queen + Sofa Bed"
     },
     "floors": {
@@ -308,6 +307,18 @@
     },
     "pineapple-101": {
       "title": "Studio — Plus (Large) · Pineapple 101"
+    },
+    "pineapple-105": {
+      "title": "Studio — Comfort · Pineapple 105"
+    },
+    "sea-grape-101": {
+      "title": "2 Bedroom, 1 Bath · Sea Grape 101 (Building 1042)"
+    },
+    "sea-grape-201": {
+      "title": "1 Bedroom, 1 Bath · Sea Grape 201"
+    },
+    "sea-grape-1052-101": {
+      "title": "1 Bedroom, 1 Bath · Sea Grape 101 (Building 1052)"
     }
   },
   "about": {
@@ -506,6 +517,8 @@
     "templates": {
       "metaDescription": "{title} in Melbourne, FL. Sleeps {maxGuests}.",
       "ogDescription": "Sleeps {maxGuests}",
+      "imageAlt": "{title} - Image {number}",
+      "specsStudio": "Studio",
       "specsGuests": "{maxGuests} guests",
       "specsBedrooms": "{bedrooms} bedroom",
       "specsBedroomsPlural": "{bedrooms} bedrooms",

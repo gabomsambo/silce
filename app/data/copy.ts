@@ -30,7 +30,7 @@ export function formatPrice(n: number, locale = "en") {
 const slugify = (value: string) =>
   value.trim().toLowerCase().replace(/\+/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
 
-const KNOWN_BED_TYPES = ["queen", "king", "queen-queen-sofa-bed"]
+const KNOWN_BED_TYPES = ["queen", "king", "queen-queen", "queen-sofa-bed", "queen-queen-sofa-bed"]
 const KNOWN_FLOORS = ["ground", "upper"]
 const KNOWN_EXTRAS = ["dining-table-in-kitchen", "espresso-station", "high-ceilings", "workspace"]
 
@@ -51,6 +51,38 @@ export function translateExtra(extra: string, t: Translate) {
   return translateFrom(KNOWN_EXTRAS, "unit.extras", extra, t)
 }
 
+/**
+ * Capacity shown on a category chip. Derived from the units actually filed
+ * under that category so it tracks `maxGuests` instead of being restated by
+ * hand: a single figure when they agree, a range otherwise.
+ */
+export function buildCategorySleepsCount(units: Unit[]) {
+  if (!units.length) return null
+  const guests = units.map((u) => u.maxGuests)
+  const min = Math.min(...guests)
+  const max = Math.max(...guests)
+  return min === max ? `${min}` : `${min}-${max}`
+}
+
+/**
+ * Bedroom and bathroom labels. Both the specs line and the description
+ * paragraph on the unit page state these facts, so they resolve the same
+ * messages here rather than each branching on the count themselves — the two
+ * cannot disagree about the same unit. Callers pass a root-scoped translator.
+ */
+const SPECS = "propertyDetail.templates"
+
+export function buildBedroomsSpec(bedrooms: number, t: Translate) {
+  if (bedrooms === 0) return t(`${SPECS}.specsStudio`)
+  const key = bedrooms === 1 ? "specsBedrooms" : "specsBedroomsPlural"
+  return t(`${SPECS}.${key}`, { bedrooms })
+}
+
+export function buildBathroomsSpec(bathrooms: number, t: Translate) {
+  const key = bathrooms === 1 ? "specsBathrooms" : "specsBathroomsPlural"
+  return t(`${SPECS}.${key}`, { bathrooms })
+}
+
 export function buildUnitShortDescription(unit: Unit, t: Translate) {
   const bits = [
     translateBedType(unit.bedType, t),
@@ -65,12 +97,8 @@ export function buildUnitLongDescription(unit: Unit, t: Translate) {
   const cat = CATEGORIES[unit.category]
   const specifics = [
     unit.sqFt ? t("unit.specs.sqFtApprox", { sqFt: unit.sqFt }) : null,
-    unit.bedrooms === 1
-      ? t("propertyDetail.templates.specsBedrooms", { bedrooms: unit.bedrooms })
-      : t("propertyDetail.templates.specsBedroomsPlural", { bedrooms: unit.bedrooms }),
-    unit.bathrooms === 1
-      ? t("propertyDetail.templates.specsBathrooms", { bathrooms: unit.bathrooms })
-      : t("propertyDetail.templates.specsBathroomsPlural", { bathrooms: unit.bathrooms }),
+    buildBedroomsSpec(unit.bedrooms, t),
+    buildBathroomsSpec(unit.bathrooms, t),
     t("propertyDetail.templates.specsGuests", { maxGuests: unit.maxGuests }),
     translateBedType(unit.bedType, t),
     unit.extras?.length ? unit.extras.map((e) => translateExtra(e, t)).join(", ") : null,

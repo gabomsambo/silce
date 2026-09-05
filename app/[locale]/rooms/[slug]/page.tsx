@@ -6,7 +6,7 @@ import Footer from "../../../components/Footer";
 import BookingIframe from "../../../components/BookingIframe";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { UNITS } from "../../../data/units";
-import { buildUnitLongDescription, formatPrice } from "../../../data/copy";
+import { buildBathroomsSpec, buildBedroomsSpec, buildUnitLongDescription, formatPrice } from "../../../data/copy";
 import { createRoomsBreadcrumbJsonLd, createUnitJsonLd } from "@/lib/structuredData";
 import { SITE_URL } from "@/lib/site";
 
@@ -149,7 +149,7 @@ export default async function PropertyPage({ params }: Props) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 h-[60vh]">
           {property.images.map((image, i) => (
             <div key={i} className={`relative overflow-hidden ${i === 0 ? "md:col-span-2 lg:col-span-2" : ""}`}>
-              <img src={image} alt={`${title} - Image ${i+1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+              <img src={image} alt={t('imageAlt', { title, number: i + 1 })} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
           ))}
         </div>
@@ -166,19 +166,9 @@ export default async function PropertyPage({ params }: Props) {
                 <div className="flex items-center gap-6 text-gray-600 mb-6">
                   <span>{t('specsGuests', { maxGuests: property.maxGuests })}</span>
                   <span>•</span>
-                  <span>
-                    {property.bedrooms === 1
-                      ? t('specsBedrooms', { bedrooms: property.bedrooms })
-                      : t('specsBedroomsPlural', { bedrooms: property.bedrooms })
-                    }
-                  </span>
+                  <span>{buildBedroomsSpec(property.bedrooms, tRoot)}</span>
                   <span>•</span>
-                  <span>
-                    {property.bathrooms === 1
-                      ? t('specsBathrooms', { bathrooms: property.bathrooms })
-                      : t('specsBathroomsPlural', { bathrooms: property.bathrooms })
-                    }
-                  </span>
+                  <span>{buildBathroomsSpec(property.bathrooms, tRoot)}</span>
                 </div>
                 <p className="text-lg text-gray-700 leading-relaxed">
                   {buildUnitLongDescription(property, tRoot)}
