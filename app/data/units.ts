@@ -9,7 +9,7 @@ export interface Unit {
   maxGuests: number
   bedrooms: number
   bathrooms: number
-  bedType: string             // e.g., "Queen", "King + Sofa Bed"
+  bedType: string             // e.g., "Queen", "Queen + Sofa Bed" — sourced, never inferred
   sqFt?: number
   floor?: string              // e.g., "Ground", "Upper"
   extras?: string[]           // e.g., ["Dining table", "Workspace"]

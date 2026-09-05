@@ -4,7 +4,7 @@ Reconciles three systems: **Hospitable** (`booking-widget-codes.md` export),
 the **photo library** (`Fotos de todas las unidades/`), and the **site**
 (`app/data/units.ts`).
 
-Last reconciled: 2026-09-04.
+Last reconciled: 2026-09-05.
 
 ## Naming key
 

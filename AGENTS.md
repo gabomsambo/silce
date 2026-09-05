@@ -138,18 +138,15 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
 - **Where unit facts come from.** Amenities, bed configuration, bedroom and
   bathroom counts, capacity, pricing, and which photograph belongs to which unit
   all come from Hospitable's data for that listing id. Never infer them from
-  filenames, from the photographs themselves, or from what the site already says.
-  Three wrong calls here came from exactly that, with the authority one API call
-  away: source-folder names and address prefixes in filenames were used to claim
-  photos belonged to another building (disproved by matching each file against
-  that listing's own `data.photos[].xx_large` set), and photographs were used to
-  infer a "full kitchen" on a unit whose own listing title says
-  "w/ Kitchenette" plus a sofa bed on two units that have none — which nearly
-  told guests a one-bedroom sleeps four.
+  filenames, from the photographs themselves, or from what the site already
+  says: source-folder names and address prefixes have each argued a photo into
+  the wrong building here, and photographs have been read as a full kitchen on a
+  "w/ Kitchenette" listing and as sofa beds on two units that have none.
   **A positive claim needs a positive source; absence of contradiction is not
   corroboration.** Where the public booking API exposes no signal (it exposes no
   bedroom count and no amenity list), say so and fall back to
-  `docs/UNITS-SOURCE-OF-TRUTH.md` rather than guessing.
+  `docs/UNITS-SOURCE-OF-TRUTH.md` rather than guessing — it owns the per-listing
+  photo-provenance check and the open bed-type questions.
 - `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
   listings, the photo library and `app/data/units.ts`. `PLANNING.md`, `TASK.md`,
   `Apartments_matching.md` and `PRPs/` are historical and contradict the code.
