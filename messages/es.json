@@ -185,7 +185,7 @@
       "studio-plus": {
         "name": "Estudio — Plus (Grande)",
         "badge": "Más Espacio",
-        "blurb": "Un estudio grande con su propio rincón de comedor en la cocina: perfecto para días de trabajo remoto o estadías más largas."
+        "blurb": "Un estudio grande con cocineta: perfecto para días de trabajo remoto o estadías más largas."
       },
       "one-bed-1-bath": {
         "name": "1 Habitación, 1 Baño",
@@ -202,7 +202,6 @@
       "queenBed": "Cama Queen",
       "twoBedrooms": "Dos habitaciones",
       "kitchenette": "Cocineta",
-      "kitchenetteDiningTable": "Cocineta + mesa de comedor",
       "wifi": "Wi-Fi de alta velocidad",
       "smartTv": "Smart TV",
       "onSiteLaundry": "Lavandería en el edificio",

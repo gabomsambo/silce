@@ -185,7 +185,7 @@
       "studio-plus": {
         "name": "Studio — Plus (Large)",
         "badge": "Extra Space",
-        "blurb": "A large studio with a dedicated dining nook in the kitchen — great for work-from-home days or longer stays."
+        "blurb": "A large studio with a kitchenette — great for work-from-home days or longer stays."
       },
       "one-bed-1-bath": {
         "name": "1 Bedroom, 1 Bath",
@@ -202,7 +202,6 @@
       "queenBed": "Queen bed",
       "twoBedrooms": "Two bedrooms",
       "kitchenette": "Kitchenette",
-      "kitchenetteDiningTable": "Kitchenette + dining table",
       "wifi": "High-speed Wi-Fi",
       "smartTv": "Smart TV",
       "onSiteLaundry": "On-site laundry",

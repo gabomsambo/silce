@@ -2,7 +2,7 @@
 export type CategoryKey =
   | "studio-compact"     // best value
   | "studio-comfort"     // larger studios
-  | "studio-plus"        // huge studio w/ dining table
+  | "studio-plus"        // large studio w/ kitchenette
   | "one-bed-1-bath"
   | "two-bed-1-bath"
 
@@ -65,7 +65,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     badgeKey: "rooms.categories.studio-plus.badge",
     blurbKey: "rooms.categories.studio-plus.blurb",
     defaultAmenities: [
-      { key: "kitchenetteDiningTable" },
+      { key: "kitchenette" },
       ...SHARED_AMENITIES,
     ],
     heroImage: "/rooms/studio-plus.jpg",

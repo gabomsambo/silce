@@ -159,6 +159,28 @@ bed-and-content pass, which inherits that list. Do not close any of these gaps
 by inventing a bed — the authorities are what they are, and the site states
 each one where it is sourced.
 
+## Category amenity chips
+
+Chips on the rooms-index category headers are guest-facing claims and take the
+same positive-source test as bed types. Removed as unsourced: the "Full
+kitchen" chip on `two-bed-1-bath`, the "Kitchenette" chips on `studio-compact`
+and `studio-comfort`, and the "Queen bed" chips on `studio-compact`,
+`studio-comfort` and `studio-plus`. Kept, because a source asserts them:
+`queenBed` on `one-bed-1-bath`, `twoBedrooms` on `two-bed-1-bath`, and the
+category `sleeps` counts, which are derived from `max_guests` on the units in
+each category.
+
+`studio-plus` is the one partial case. Its chip read "Kitchenette + dining
+table" and its blurb claimed "a dedicated dining nook in the kitchen". The
+kitchenette half **is** sourced — `pineapple-101`'s live listing name is
+"Stylish Studio Apt w/ Kitchenette + River Views" — while nothing sources the
+dining table: `pineapple-101` carries no `extras`, and the only "Dining table
+in kitchen" string in the repo belongs to `sea-grape-102` (open question 2).
+The chip was therefore narrowed to the plain `kitchenette` label rather than
+dropped, and the dining-nook clause removed from the blurb in both catalogs;
+the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
+`es.json`.
+
 ## Open questions
 
 1. **Capacity exceeds the beds on at least three units.** This is a pattern,
