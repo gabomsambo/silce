@@ -36,7 +36,7 @@ export const UNITS: Unit[] = [
     slug: "unit-2536",
     titleKey: "units.unit-2536.title",
     category: "studio-comfort",
-    priceFrom: 65,
+    priceFrom: 75,
     maxGuests: 3,
     bedrooms: 0,
     bathrooms: 1,
