@@ -90,6 +90,27 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   30-minute pipeline agent timeout and kills the run. Freezing cut the contrast
   audit to ~47s. Confirm the freeze did not change what you measure by re-running
   the known-defect probe: it must still report the same ratio.
+- **A CSS-side contrast audit cannot measure a gradient. Sample rendered pixels.**
+  Compositing `background-color` up the ancestor chain ignores `background-image`,
+  so all 18 `bg-gradient-*` sections get measured against a backdrop that is never
+  on screen. That is how `text-tan-ink` on the teal `/reviews` gradient read as a
+  pass while actually measuring 4.38:1. The backdrop-independent method: freeze
+  transitions, force every glyph transparent
+  (`*{color:transparent!important;-webkit-text-fill-color:transparent!important}`),
+  screenshot the viewport — that image *is* the backdrop — and sample the rendered
+  pixel under each text node. It is the only technique a stylesheet cannot fool.
+- **`tan-ink` is 5.13:1 on white, and white is an assumption, not a fact.** On the
+  light teal section gradient it drops to 4.38:1 and fails AA. Where tan-coloured
+  text sits on a tinted or gradient surface, use `tan-hover` `#6E512B` (6.24:1 on
+  that teal, 7.30:1 on white) and let hover go to `text-primary`, which keeps hover
+  strictly darker than rest.
+- **The navbar is transparent over page content once scrolled.** Past ~300px its
+  background settles to `rgba(0,0,0,0)`, so `text-gray-900` nav links sit directly
+  on whatever is beneath — over the `/about` hero photo they measure 4.09-4.24:1.
+  Sampling this needs a settle wait: read immediately after an instant scroll and
+  you catch a mid-fade value (`rgba(255,255,255,0.047)`) that is not what renders.
+  Fixing it needs a scrim or background plate, which is a visual design change;
+  tracked separately, not a colour-token swap.
 - **Focus rings cannot reach two surfaces from this stylesheet.** A cross-origin
   `<iframe>` (the Hospitable booking widget) matches neither `:focus`,
   `:focus-visible` nor `:focus-within` in the parent document even while it is
