@@ -365,15 +365,9 @@
       "bathroom": "Baño",
       "sleeps": "Capacidad",
       "floor": "Piso",
-      "extras": "Extras",
       "privateBath": "{count, plural, one {# baño} other {# baños}}",
       "guests": "{count, plural, one {# huésped} other {# huéspedes}}",
-      "descriptionSource": "De la descripción de la categoría",
       "categoryDescription": "{blurb}"
-    },
-    "amenities": {
-      "heading": "Qué está incluido",
-      "subheading": "Comodidades prácticas en todas las estadías de Silver Pineapple."
     },
     "reviews": {
       "heading": "Reseñas de huéspedes",
@@ -399,10 +393,6 @@
       "areaPhotoAlt": "{title} — foto del vecindario {number}",
       "showMap": "Mostrar mapa",
       "mapNote": "Explora Silver Pineapple y los lugares destacados cercanos de Eau Gallie."
-    },
-    "goodToKnow": {
-      "heading": "Información útil",
-      "body": "Normas de la casa, horario de check-in, cancelación, mascotas y fumar — toda página de referencia tiene este bloque. Aún no existen en nuestros registros, así que se publican ausentes en lugar de inventados."
     }
   },
   "about": {

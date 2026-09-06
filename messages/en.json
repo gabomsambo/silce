@@ -365,15 +365,9 @@
       "bathroom": "Bathroom",
       "sleeps": "Sleeps",
       "floor": "Floor",
-      "extras": "Extras",
       "privateBath": "{count, plural, one {# bathroom} other {# bathrooms}}",
       "guests": "{count, plural, one {# guest} other {# guests}}",
-      "descriptionSource": "From the category blurb",
       "categoryDescription": "{blurb}"
-    },
-    "amenities": {
-      "heading": "What's included",
-      "subheading": "Practical comforts across all Silver Pineapple stays."
     },
     "reviews": {
       "heading": "Guest reviews",
@@ -399,10 +393,6 @@
       "areaPhotoAlt": "{title} — neighbourhood photo {number}",
       "showMap": "Show map",
       "mapNote": "Explore Silver Pineapple and nearby Eau Gallie highlights."
-    },
-    "goodToKnow": {
-      "heading": "Good to know",
-      "body": "House rules, check-in window, cancellation, pets and smoking — every reference booking page has this band. None of it exists in our records yet, so it ships absent rather than guessed."
     }
   },
   "about": {
