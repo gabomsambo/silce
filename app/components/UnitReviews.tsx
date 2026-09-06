@@ -199,7 +199,7 @@ export default function UnitReviews({ slug }: { slug: string }) {
       </div>
 
       <div className="mt-5">
-        {enough ? (
+        {count > 0 ? (
           <Link
             href={{ pathname: "/reviews", query: { property: slug } }}
             className="inline-flex items-center gap-2 rounded-lg border border-primary/20 px-4 py-2.5 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"

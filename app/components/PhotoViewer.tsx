@@ -1,10 +1,10 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { photoSrcSet } from "@/lib/photos"
-import type { PhotoRoomKey, UnitPhoto } from "@/app/data/units"
+import type { UnitPhoto } from "@/app/data/units"
 
 /**
  * Fullscreen photo viewer for the unit page.
@@ -12,13 +12,8 @@ import type { PhotoRoomKey, UnitPhoto } from "@/app/data/units"
  * - A flat filmstrip across the bottom shows every photo in order; clicking
  *   a thumbnail jumps to it. The thumbnail of the currently-shown photo is
  *   highlighted.
- * - A vertical room rail on the left groups photos by `room` and lists each
- *   room in the order `studio → kitchen → bath → grounds → area`, plus a
- *   final "Photos" group for any photo whose room label is `unit` (the
- *   honest "we don't know which room this is" fallback). Clicking a room
- *   jumps to its first photo.
- * - Keyboard: Esc closes; ArrowLeft / ArrowRight step. PageUp / PageDown
- *   jump to the first / last photo of the current room.
+ * - Keyboard: Esc closes; ArrowLeft / ArrowRight step. Home / PageUp and
+ *   End / PageDown jump to the first and last photo.
  * - Focus is trapped while the viewer is open: Tab cycles the controls
  *   inside the panel, and the dialog itself is rendered with `role="dialog"`
  *   and `aria-modal="true"`.
@@ -37,13 +32,6 @@ interface PhotoViewerProps {
   onClose: () => void
 }
 
-// The canonical room order. "area" deliberately comes after "grounds" so
-// the river sunset and the Eau Gallie arch are read as "the neighbourhood"
-// rather than another room of the unit. "unit" is the catch-all bucket
-// for photos whose room has not been labelled yet — the viewer collapses
-// it into one group labelled "Photos" so a half-labelled unit still works.
-const ROOM_ORDER: PhotoRoomKey[] = ["studio", "kitchen", "bath", "grounds", "area", "unit"]
-
 export default function PhotoViewer({
   photos,
   unitTitle,
@@ -52,7 +40,6 @@ export default function PhotoViewer({
   onClose,
 }: PhotoViewerProps) {
   const t = useTranslations("unitPage.photoViewer")
-  const tRooms = useTranslations("unitPage.photoRooms")
   const [index, setIndex] = useState(initialIndex)
   const dialogRef = useRef<HTMLDivElement | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
@@ -95,27 +82,7 @@ export default function PhotoViewer({
     }
   }, [open, initialIndex, photos.length])
 
-  // Group photos by room in the canonical order. We do this once per
-  // photos array (useMemo), not per render, because `photos` is stable
-  // across re-renders of the same unit page.
-  const groups = useMemo(() => {
-    const map = new Map<PhotoRoomKey, number[]>()
-    ROOM_ORDER.forEach((room) => {
-      const indices = photos.flatMap((photo, photoIndex) =>
-        photo.room === room ? [photoIndex] : [],
-      )
-      if (indices.length > 0) {
-        map.set(room, indices)
-      }
-    })
-    return ROOM_ORDER.filter((r) => map.has(r)).map((room) => ({
-      room,
-      indices: map.get(room) as number[],
-    }))
-  }, [photos])
-
   const current = photos[index]
-  const currentRoom = current?.room
 
   const go = useCallback(
     (next: number) => {
@@ -123,14 +90,6 @@ export default function PhotoViewer({
       setIndex(wrapped)
     },
     [photos.length],
-  )
-
-  const goToRoom = useCallback(
-    (room: PhotoRoomKey) => {
-      const g = groups.find((x) => x.room === room)
-      if (g) setIndex(g.indices[0])
-    },
-    [groups],
   )
 
   // Keyboard handling. Bound at the dialog level so it stays active even
@@ -155,14 +114,12 @@ export default function PhotoViewer({
       }
       if (event.key === "PageUp" || event.key === "Home") {
         event.preventDefault()
-        const g = groups.find((x) => x.room === currentRoom)
-        if (g) setIndex(g.indices[0])
+        setIndex(0)
         return
       }
       if (event.key === "PageDown" || event.key === "End") {
         event.preventDefault()
-        const g = groups.find((x) => x.room === currentRoom)
-        if (g) setIndex(g.indices[g.indices.length - 1])
+        setIndex(photos.length - 1)
         return
       }
       if (event.key === "Tab") {
@@ -186,7 +143,7 @@ export default function PhotoViewer({
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [open, index, currentRoom, groups, go, onClose])
+  }, [open, index, photos.length, go, onClose])
 
   // Auto-scroll the active thumbnail into view so the filmstrip follows
   // the user as they arrow through photos.
@@ -205,7 +162,7 @@ export default function PhotoViewer({
       ref={dialogRef}
       role="dialog"
       aria-modal="true"
-      aria-label={`${unitTitle} — ${tRooms(current.room)}`}
+      aria-label={unitTitle}
       className="fixed inset-0 z-[2147483647] flex flex-col bg-black/95"
     >
       {/* Top bar — close + counter */}
@@ -225,37 +182,6 @@ export default function PhotoViewer({
       </div>
 
       <div className="flex flex-1 min-h-0">
-        {/* Room rail (desktop only) */}
-        <aside className="hidden md:flex w-56 lg:w-64 shrink-0 flex-col gap-1 overflow-y-auto border-r border-white/10 px-3 py-4 text-white">
-          <div className="px-2 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-tan">
-            {t("roomsHeading")}
-          </div>
-          {groups.map((g) => {
-            const active = g.room === currentRoom
-            return (
-              <button
-                key={g.room}
-                type="button"
-                onClick={() => goToRoom(g.room)}
-                aria-current={active ? "true" : undefined}
-                className={`flex w-full items-center justify-between gap-2 rounded-md px-2 py-2 text-left text-sm transition ${
-                  active
-                    ? "bg-white/15 font-semibold"
-                    : "hover:bg-white/10 focus-visible:bg-white/10"
-                }`}
-              >
-                <span className="truncate">{tRooms(g.room)}</span>
-                <span className="shrink-0 text-xs text-white/55 tabular-nums">{g.indices.length}</span>
-              </button>
-            )
-          })}
-          {currentRoom === "area" ? (
-            <p className="mt-3 border-t border-white/10 px-2 pt-3 text-[11px] leading-relaxed text-white/55">
-              {t("areaNote", { room: tRooms("area") })}
-            </p>
-          ) : null}
-        </aside>
-
         {/* Photo + arrows */}
         <div className="relative flex flex-1 items-center justify-center px-4 pb-32 sm:px-12">
           <button
@@ -271,7 +197,7 @@ export default function PhotoViewer({
             src={current.src}
             srcSet={photoSrcSet(current.src)}
             sizes="(min-width: 1024px) 70vw, 100vw"
-            alt={`${unitTitle} — ${tRooms(current.room)}`}
+            alt={unitTitle}
             className="max-h-full max-w-full rounded object-contain"
           />
           <button
@@ -294,7 +220,7 @@ export default function PhotoViewer({
               type="button"
               onClick={() => setIndex(i)}
               data-current={i === index}
-              aria-label={tRooms(p.room)}
+              aria-label={t("counter", { current: i + 1, total: photos.length })}
               className={`relative h-16 w-24 shrink-0 overflow-hidden rounded transition sm:h-20 sm:w-28 ${
                 i === index
                   ? "outline outline-2 outline-tan outline-offset-1"

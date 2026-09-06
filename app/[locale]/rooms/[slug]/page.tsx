@@ -290,8 +290,6 @@ export default async function PropertyPage({ params }: Props) {
               {/* Location */}
               <UnitLocation
                 address={BUSINESS_CONTACT.location}
-                photos={property.images}
-                unitTitle={title}
               />
             </div>
 

@@ -344,17 +344,7 @@
       "closeLabel": "Close photo viewer",
       "previousLabel": "Previous photo",
       "nextLabel": "Next photo",
-      "counter": "{current} / {total}",
-      "roomsHeading": "Photo tour",
-      "areaNote": "{room} shows the neighbourhood, not the unit."
-    },
-    "photoRooms": {
-      "studio": "The studio",
-      "kitchen": "Kitchen",
-      "bath": "Bathroom",
-      "grounds": "Grounds & entrance",
-      "area": "Around Eau Gallie",
-      "unit": "Photos"
+      "counter": "{current} / {total}"
     },
     "facts": {
       "heading": "The space",
