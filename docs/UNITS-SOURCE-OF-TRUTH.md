@@ -230,16 +230,16 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    already filed with him and has been broadened to name `sea-grape-201`. The
    position this repo takes: publish his numbers, refuse to invent beds to make
    them add up, and put the discrepancy in front of him.
-2. **`sea-grape-102` `sqFt` and `extras`.** `sqFt: 520` and
-   `extras: ["Dining table in kitchen"]` are pre-existing and unsourced; no
-   repo document or API response asserts either. The extras string is a kitchen
+2. **`sea-grape-102` `extras`.** `extras: ["Dining table in kitchen"]` is
+   pre-existing and unsourced; no repo document or API response asserts it. The
+   extras string is a kitchen
    claim, and it renders on the featured card one line below the
    `two-bed-1-bath` header the "Full kitchen" chip was removed from as
-   unsourced. Both stay in `units.ts`: silence is not contradiction, and
-   removing a possibly-true fact a guest values has a real cost of its own.
-   Sourcing them is deferred to the systematic bed-and-content pass.
-   `sea-grape-101` carries neither field, so the inconsistency is visible on
-   the same section.
+   unsourced. It stays in `units.ts`: silence is not contradiction, and removing
+   a possibly-true fact a guest values has a real cost of its own. Sourcing it
+   is deferred to the systematic bed-and-content pass. The unsourced `sqFt: 520`
+   was removed on the owner's direction on 2026-09-06, together with every other
+   square-footage value and the associated display copy.
 3. *(resolved 2026-09-06 as an understatement)* **`pineapple-101` bed
    configuration.** The previous site carried `Queen ` (trailing space). The
    live listing caption names a full bed; the public listing name is silent on
@@ -254,8 +254,9 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    `unit-2526`.** Live captions name a queen on the first two and a full bed on
    2526. The export's "unknown type" is superseded by those captions.
 6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
-   `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
-   still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
+   `pineapple-101` is 4), but the title "Studio - Comfort" is still copy-paste
+   from when the two shared an ID. Its equally unverified `sqFt: 720` was removed
+   with all square-footage data at the owner's direction on 2026-09-06.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
@@ -277,10 +278,9 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
      River", carries no compact/comfort signal.
    - Export row `Unit PA2536` gives capacity and bedding only, no tier.
    - This document assigns it no category either.
-   - `sqFt` cannot arbitrate: it is unsourced and inconsistent with the
-     tiering — `unit-2526` sits in `studio-compact` at a commented-out 600
-     while `unit-2536` sits in `studio-comfort` at a commented-out 360, and
-     question 6 already records `pineapple-104`'s 720 as copy-paste.
+   - Square footage cannot arbitrate: every value was unsourced and inconsistent
+     with the tiering, so all values and their display copy were removed at the
+     owner's direction on 2026-09-06.
 
    Resolving it — retitle or refile — is the owner's call, because either
    choice changes how a guest browses and which apartments they compare.
