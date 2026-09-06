@@ -1221,15 +1221,15 @@ function shippedRatingMean(): number {
   return sum / REVIEWS.length;
 }
 
-// Derived from REVIEWS, not from a Hospitable aggregate field.
-// `reviews` is REVIEWS.length (118). `rating` is the mean of those 118
-// overallRating integers (574/118 ≈ 4.864406…), shown to two decimal places
-// as 4.86 — the source ratings are integers; this average is computed here.
+// Derived from REVIEWS at module load, not asserted literals.
+// `reviews` is REVIEWS.length. `rating` is the unrounded mean of those
+// overallRating integers (574/118 ≈ 4.864406…). Display formats to two
+// decimal places (4.86); one-decimal toFixed(1) would advertise 4.9.
 // Hospitable returned no Booking.com, VRBO, or Google reviews.
 export const PLATFORM_STATS = [
   {
     platform: "Airbnb",
-    rating: Number(shippedRatingMean().toFixed(2)),
+    rating: shippedRatingMean(),
     reviews: REVIEWS.length,
     logo: "🏠",
   },

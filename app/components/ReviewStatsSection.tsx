@@ -55,7 +55,7 @@ export default function ReviewStatsSection() {
               <div className="font-bold text-primary mb-2 text-lg">{platform.platform}</div>
               <div className="flex items-center justify-center gap-1 mb-2">
                 <Star className="w-5 h-5 text-tan fill-tan" />
-                <span className="font-bold text-tan text-xl">{platform.rating}</span>
+                <span className="font-bold text-tan text-xl">{platform.rating.toFixed(2)}</span>
               </div>
               <div className="text-sm text-gray-600">{t("platformReviews", { count: platform.reviews })}</div>
             </MagicCard>
