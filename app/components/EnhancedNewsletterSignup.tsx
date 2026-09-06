@@ -124,7 +124,7 @@ export default function EnhancedNewsletterSignup() {
             <p className="text-xl text-gray-600 mb-6">
               Thank you, {formData.firstName}! You're now part of our exclusive community of discerning travelers.
             </p>
-            <div className="bg-tan/10 border border-tan/20 rounded-xl p-6 max-w-md mx-auto">
+            <div className="bg-tan/10 border border-tan-ink/20 rounded-xl p-6 max-w-md mx-auto">
               <h3 className="font-semibold text-primary mb-2">Your Welcome Gift</h3>
               <p className="text-gray-700">Check your email for a <strong>15% discount code</strong> valid for your next booking!</p>
             </div>
@@ -156,20 +156,20 @@ export default function EnhancedNewsletterSignup() {
           {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-tan mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-tan-ink mb-2">
                 <NumberTicker value={12500} />+
               </div>
               <p className="text-gray-600 font-medium">Happy Travelers</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-tan mb-2 flex items-center justify-center">
+              <div className="text-4xl md:text-5xl font-bold text-tan-ink mb-2 flex items-center justify-center">
                 <NumberTicker value={4.9} decimalPlaces={1} />
-                <Star className="w-8 h-8 ml-2 fill-tan text-tan" />
+                <Star className="w-8 h-8 ml-2 fill-tan-ink text-tan-ink" />
               </div>
               <p className="text-gray-600 font-medium">Average Rating</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-tan mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-tan-ink mb-2">
                 <NumberTicker value={150} />+
               </div>
               <p className="text-gray-600 font-medium">Premium Properties</p>
@@ -186,7 +186,7 @@ export default function EnhancedNewsletterSignup() {
               gradientColor="#D4AF37"
               gradientOpacity={0.1}
             >
-              <div className="text-tan mb-4 flex justify-center">{benefit.icon}</div>
+              <div className="text-tan-ink mb-4 flex justify-center">{benefit.icon}</div>
               <h3 className="font-bold text-primary mb-2">{benefit.title}</h3>
               <p className="text-sm text-gray-600">{benefit.description}</p>
             </MagicCard>
@@ -212,7 +212,7 @@ export default function EnhancedNewsletterSignup() {
                 {/* Personal Information */}
                 <div>
                   <h3 className="text-2xl font-bold text-primary mb-6 flex items-center">
-                    <Users className="w-6 h-6 mr-3 text-tan" />
+                    <Users aria-hidden="true" className="w-6 h-6 mr-3 text-tan-ink" />
                     Personal Information
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -225,7 +225,7 @@ export default function EnhancedNewsletterSignup() {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("firstName")}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan focus:border-tan outline-none transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan-ink focus:border-tan-ink transition-all duration-300 bg-white/80 backdrop-blur-sm"
                         required
                       />
                       {focusedField === "firstName" && (
@@ -246,7 +246,7 @@ export default function EnhancedNewsletterSignup() {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("lastName")}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan focus:border-tan outline-none transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan-ink focus:border-tan-ink transition-all duration-300 bg-white/80 backdrop-blur-sm"
                         required
                       />
                       {focusedField === "lastName" && (
@@ -264,7 +264,7 @@ export default function EnhancedNewsletterSignup() {
                 {/* Contact & Location */}
                 <div>
                   <h3 className="text-2xl font-bold text-primary mb-6 flex items-center">
-                    <Mail className="w-6 h-6 mr-3 text-tan" />
+                    <Mail aria-hidden="true" className="w-6 h-6 mr-3 text-tan-ink" />
                     Contact & Location
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -277,7 +277,7 @@ export default function EnhancedNewsletterSignup() {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan focus:border-tan outline-none transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan-ink focus:border-tan-ink transition-all duration-300 bg-white/80 backdrop-blur-sm"
                         required
                       />
                       {focusedField === "email" && (
@@ -298,7 +298,7 @@ export default function EnhancedNewsletterSignup() {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("location")}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan focus:border-tan outline-none transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan-ink focus:border-tan-ink transition-all duration-300 bg-white/80 backdrop-blur-sm"
                       />
                       {focusedField === "location" && (
                         <ShineBorder
@@ -315,7 +315,7 @@ export default function EnhancedNewsletterSignup() {
                 {/* Travel Preferences */}
                 <div>
                   <h3 className="text-2xl font-bold text-primary mb-6 flex items-center">
-                    <TrendingUp className="w-6 h-6 mr-3 text-tan" />
+                    <TrendingUp aria-hidden="true" className="w-6 h-6 mr-3 text-tan-ink" />
                     Travel Preferences
                   </h3>
                   
@@ -327,8 +327,8 @@ export default function EnhancedNewsletterSignup() {
                           key={style.id}
                           className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
                             formData.travelStyle.includes(style.id)
-                              ? "border-tan bg-tan/10 text-tan"
-                              : "border-gray-200 hover:border-tan/50"
+                              ? "border-tan-ink bg-tan/10 text-tan-ink"
+                              : "border-gray-200 hover:border-tan-ink/50"
                           }`}
                         >
                           <input
@@ -354,8 +354,8 @@ export default function EnhancedNewsletterSignup() {
                           key={type.id}
                           className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
                             formData.propertyTypes.includes(type.id)
-                              ? "border-tan bg-tan/10 text-tan"
-                              : "border-gray-200 hover:border-tan/50"
+                              ? "border-tan-ink bg-tan/10 text-tan-ink"
+                              : "border-gray-200 hover:border-tan-ink/50"
                           }`}
                         >
                           <input
@@ -379,7 +379,7 @@ export default function EnhancedNewsletterSignup() {
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField("budget")}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan focus:border-tan outline-none transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-tan-ink focus:border-tan-ink transition-all duration-300 bg-white/80 backdrop-blur-sm"
                       >
                         <option value="">Select your budget range</option>
                         <option value="under-200">Under $200</option>

@@ -35,6 +35,21 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). The shadcn CSS
   variables live only in the orphan, so `bg-background`, `text-muted-foreground`,
   `rounded-lg` and friends silently render as nothing. Don't reach for them.
+- **Two tans, and they are not interchangeable.** `tan` (`#D2B48C`) is the brand
+  colour and owns backgrounds, tints, borders and text on the near-black
+  `bg-primary` surfaces (8.82:1 there). It is 1.97:1 on white, so it must never
+  be text on a light surface — use `tan-ink` (`#8B6737`, 5.13:1 on white) for
+  that. Text on a tan or gold button is `text-primary`, never `text-white`.
+  Its hover partner is `tan-hover` (`#6E512B`, 7.30:1 on white): on a light
+  surface hover darkens, it never fades. Never express a hover text colour as an
+  opacity modifier (`hover:text-tan-ink/80` was 3.47:1) — fading toward the page
+  drops contrast at the moment the user signals interest.
+- **The focus ring in `app/globals.css` uses `!important` deliberately.** It
+  paints two bands (near-black inner, tan outer) so it reads on both the white
+  pages and the near-black footer; without `!important`, Tailwind's `shadow-*`
+  and `focus-visible:outline-none` utilities silently erase one band or both.
+  Form controls are styled on `:focus-within` because Chrome matches neither
+  `:focus` nor `:focus-visible` on an `<input type="date">` host.
 - **Names lie in `app/components/` and `components/ui/`.** Roughly a quarter of
   `app/components/` and most of the 56 files in `components/ui/` are unreferenced,
   and near-duplicate names differ in which one is live. Grep for the importer
@@ -70,12 +85,93 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   demoted to warnings so the config passes on the current tree; everything else,
   notably `@next/next/no-html-link-for-pages`, is a hard error.
 - CI installs with `npm ci --ignore-scripts` for the reason above.
+- **A contrast audit that walks the CSSOM must read `rule.style.cssText`, not
+  `rule.style.color`.** Chrome returns `""` from the typed getter whenever the
+  declared value contains `var()` — which is every Tailwind colour utility
+  (`color: rgb(139 103 55/var(--tw-text-opacity,1))`). An audit filtering rules
+  on `.color` silently matches **zero** hover/focus rules and reports a
+  resting-only pass as full coverage; that is how `hover:text-tan-ink/80`
+  (3.47:1) shipped past one. Resolve a declared value by applying it inline to
+  the element and reading `getComputedStyle`, so `var()` resolves in context.
+  Sample text nodes and take their nearest interactive ancestor rather than
+  requiring a direct text-node child, or every `<span>`-wrapped link label is
+  skipped. Always run the audit once against a deliberately re-injected known
+  defect: a "0 failures" from a detector that matches nothing is indistinguishable
+  from a pass.
+- **Freeze transitions before sampling colours; never sleep past them.** Most
+  interactive elements carry `transition-colors duration-300`, so a probe that
+  reads computed style immediately after `Tab` or `:hover` samples a colour
+  mid-transition (a focus ring that settles at 8.28:1 reads as 4.11:1). Inject
+  `*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}`
+  (plus the matching `-delay`s) and sample immediately. Sleeping instead is both
+  slower and less reliable: at 420ms per stop a full tab walk overruns the
+  30-minute pipeline agent timeout and kills the run. Freezing cut the contrast
+  audit to ~47s. Confirm the freeze did not change what you measure by re-running
+  the known-defect probe: it must still report the same ratio.
+- **A CSS-side contrast audit cannot measure a gradient. Sample rendered pixels.**
+  Compositing `background-color` up the ancestor chain ignores `background-image`,
+  so all 18 `bg-gradient-*` sections get measured against a backdrop that is never
+  on screen. That is how `text-tan-ink` on the teal `/reviews` gradient read as a
+  pass while actually measuring 4.38:1. The backdrop-independent method: freeze
+  transitions, force every glyph transparent
+  (`*{color:transparent!important;-webkit-text-fill-color:transparent!important}`),
+  screenshot the viewport — that image *is* the backdrop — and sample the rendered
+  pixel under each text node. It is the only technique a stylesheet cannot fool.
+- **`tan-ink` is 5.13:1 on white, and white is an assumption, not a fact.** On the
+  light teal section gradient it drops to 4.38:1 and fails AA. Where tan-coloured
+  text sits on a tinted or gradient surface, use `tan-hover` `#6E512B` (6.24:1 on
+  that teal, 7.30:1 on white) and let hover go to `text-primary`, which keeps hover
+  strictly darker than rest.
+- **The scrolled navbar's plate is a gradient, so `background-color` lies about
+  it.** `Navbar.tsx` swaps to `bg-gradient-to-r from-white via-coastal-mist/5
+  to-white shadow-lg` past 50px. `background-color` reads `rgba(0,0,0,0)` there,
+  but that is not because the bar has no plate — the plate is a
+  `background-image`, which is exactly the gradient blind spot the bullet above
+  describes. Sample the rendered pixel instead. The real cause is the `via` stop's
+  5% alpha: the centre of the bar, where the desktop links sit, is ~95%
+  see-through onto the page behind it, so `text-gray-900` links over the `/about`
+  hero photo measure 4.09-4.24:1 and any tan hover there is far worse
+  (`tan-ink` 1.19:1, `tan-hover` 1.70:1, measured on the rendered pixel). So the
+  fix is one token — drop the `/5` — and not a scrim or any new design element,
+  but it is a visible change to the bar on every route and is **deliberately not
+  applied**: it is tracked separately as `sp-nav-over-photos`. Nav hover keeps
+  `tan-hover`, which is the right token on the bar's opaque white ends (7.30:1)
+  where the base `tan` was 1.97:1, but be honest about the cost on the
+  see-through centre: base `tan` measured ~2.20:1 over that photo and
+  `tan-hover` measures 1.70:1, so on that one surface the token swap moved the
+  number the wrong way. Neither value passes AA and no token can fix it while
+  the `via` stop stays at 5% — that is the whole point of the deferral, not a
+  detail to gloss. Sampling the bar needs a settle wait: read immediately after
+  an instant scroll and you catch a mid-fade value that is not what renders.
+- **The cross-origin booking `<iframe>` is ringed on `:focus-within`, never on
+  `:focus`/`:focus-visible`.** While it is `document.activeElement` it matches
+  neither `:focus` nor `:focus-visible` — focus has passed into the vendor's
+  document — so a rule keyed on either of those never applies and the iframe
+  tabbed in with no ring at all, `outline`/`box-shadow` both `none` at 334x600.
+  It **does** match `:focus-within`, so `app/globals.css` rings it with
+  `iframe:focus-within`: the ring is painted on the parent document's own
+  element, so it does not depend on the vendor's content rendering. That
+  selector has been added, removed and re-added on this branch; it is live and
+  deliberate, so do not prune it as stray. The custom-element search widget is
+  the same case and IS ringed — `hospitable-direct-mps` matches `:focus-within`
+  and takes the full two-band ring.
+- **Two traps when probing focus rings.** A zero-area element (`width`/`height`
+  0) reports a fully populated computed `outline`/`box-shadow`, so a probe calls
+  it a pass while the user sees nothing — assert on `getBoundingClientRect()`.
+  And do not `blur()` then re-`focus()` an element to tell an authored ring from
+  a resting `shadow-*`: `.focus()` does not restore `:focus-within` on a custom
+  element, so that dance reports the search widget as unringed when it is not.
+  Test for the authored ring's own values (tan outline plus the `#1a1a1a` band)
+  instead. Chrome's UA default focus ring also counts as "an indicator", so a
+  probe that only asks "did anything change on focus" scores the unstyled base
+  as passing on nearly every stop.
 
 ## Review evidence
 
-Screenshots under `artifacts/screenshots/` are **committed**, not attached to a PR
-comment — evidence has to travel with the change in the tree, where it cannot be
-lost. Nothing there is imported by the build or served by Pages.
+Review screenshots are **committed**, not attached to a PR comment — evidence has
+to travel with the change in the tree, where it cannot be lost. They live under
+`artifacts/screenshots/` or the task-specific evidence directories in `docs/`;
+nothing there is imported by the build or served by Pages.
 
 Because it is permanent history, downscale and compress before committing: palette
 PNG (`Image.quantize(colors=256)` + `optimize=True`) shrinks these flat-UI captures
