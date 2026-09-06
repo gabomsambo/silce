@@ -1,15 +1,21 @@
 # no-mistakes pipeline agent preference order.
 #
-# opencode is first because it is local and cheap. Two acknowledged weaknesses:
-#   1. It goes through the prompt-only structured-output fallback rather than
-#      native structured-output parsing, which can produce less reliable
-#      machine-readable responses.
-#   2. It has no session reuse, so each review run starts cold with no context
-#      from prior passes.
+# On 2026-09-06 the owner made codex first as a standing preference, even after
+# being told fallback might make that unnecessary: "yes put codex ahead of
+# opencode for review." This list is not per-step: its first available entry is
+# primary for the whole run, so codex is primary for implementation and fixes too,
+# not only review. Codex has native structured output, so review never depends on
+# a text-parsing fallback, and its subscription window is already paid for while
+# every Opencode Zen token is a fresh marginal charge; one validation-class task
+# measured on 2026-09-06 cost over $15 on Zen.
 #
-# It is still first because codex and claude sit behind it in the fallback
-# chain. The gate never fails for want of a runnable agent — when opencode
-# cannot be reached or declines, the runner falls through to codex, then
-# claude. That makes the weaker primary safe to keep at the top.
+# Opencode has no session reuse, so each review run starts cold with no context
+# from prior passes. Its structured-output weakness is observed, not hypothetical:
+# on 2026-09-06 an opencode review returned malformed finding JSON —
+# findings[0].id was not a string — and failed the run outright. A weaker primary
+# had been considered safe because the runner falls through to the next agent both
+# when an agent is unavailable or declines and when it fails at runtime; these are
+# separate fallback paths. That safety reasoning remains, but codex is first by
+# owner preference and opencode then claude remain fallbacks.
 
-agent: [opencode, codex, claude]
+agent: [codex, opencode, claude]
