@@ -14,6 +14,8 @@ function UnitPhoto({
   className?: string
 }) {
   return (
+    // Pre-generated 640/1024/1500 srcset; Next's optimizer is off on Pages.
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       srcSet={photoSrcSet(src)}
