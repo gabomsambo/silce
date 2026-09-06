@@ -24,11 +24,9 @@ import type { PhotoRoomKey, UnitPhoto } from "@/app/data/units"
  *   and `aria-modal="true"`.
  * - `body { overflow: hidden }` is toggled while open so the page underneath
  *   does not scroll; the original overflow value is restored on close.
- * - The viewer is `position: fixed; inset: 0; z-index: 100`. The site's
- *   fixed navbar is z-50, the Hospitable iframe is z-2147483647 with
- *   `!important`, so the iframe will still sit above this viewer if both
- *   are open; in practice they cannot be open at the same time because the
- *   iframe does not receive events while the viewer traps focus.
+ * - The viewer is `position: fixed; inset: 0; z-index: 2147483647`. The
+ *   booking iframe uses the same defensive z-index, so it is temporarily
+ *   hidden while the viewer is open to keep the modal visually complete.
  */
 
 interface PhotoViewerProps {
@@ -60,6 +58,7 @@ export default function PhotoViewer({
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const previouslyFocused = useRef<HTMLElement | null>(null)
   const originalBodyOverflow = useRef<string>("")
+  const bookingIframeVisibility = useRef<string | null>(null)
 
   // When the viewer opens, snap to the requested photo and remember what
   // had focus so we can restore it on close.
@@ -69,17 +68,30 @@ export default function PhotoViewer({
       previouslyFocused.current = document.activeElement as HTMLElement | null
       originalBodyOverflow.current = document.body.style.overflow
       document.body.style.overflow = "hidden"
+      const bookingIframe = document.getElementById("booking-iframe")
+      if (bookingIframe) {
+        bookingIframeVisibility.current = bookingIframe.style.visibility
+        bookingIframe.style.visibility = "hidden"
+      }
       // Move focus to the close button on the next tick so the screen
       // reader announces the dialog after it has been rendered.
       requestAnimationFrame(() => closeButtonRef.current?.focus())
     } else {
       document.body.style.overflow = originalBodyOverflow.current
+      const bookingIframe = document.getElementById("booking-iframe")
+      if (bookingIframe && bookingIframeVisibility.current !== null) {
+        bookingIframe.style.visibility = bookingIframeVisibility.current
+      }
       previouslyFocused.current?.focus?.()
     }
     return () => {
       // Restore on unmount even if the viewer was force-closed by a parent
       // re-render without first toggling `open` to false.
       document.body.style.overflow = originalBodyOverflow.current
+      const bookingIframe = document.getElementById("booking-iframe")
+      if (bookingIframe && bookingIframeVisibility.current !== null) {
+        bookingIframe.style.visibility = bookingIframeVisibility.current
+      }
     }
   }, [open, initialIndex, photos.length])
 
@@ -193,7 +205,7 @@ export default function PhotoViewer({
       role="dialog"
       aria-modal="true"
       aria-label={`${unitTitle} — ${tRooms(current.room)}`}
-      className="fixed inset-0 z-[100] flex flex-col bg-black/95"
+      className="fixed inset-0 z-[2147483647] flex flex-col bg-black/95"
     >
       {/* Top bar — close + counter */}
       <div className="flex items-center justify-between px-4 py-3 text-white sm:px-6">

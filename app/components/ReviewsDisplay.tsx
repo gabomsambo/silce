@@ -13,10 +13,9 @@ export default function ReviewsDisplay() {
   const tRoot = useTranslations()
   const locale = useLocale()
   const searchParams = useSearchParams()
-  // Read `?property=<slug>` once on mount so the unit page's "See all
-  // N reviews" deep link lands pre-filtered. The page itself stays
-  // statically generated — only this client component is dynamic, and
-  // the param is only consulted at first paint, not on every render.
+  // Read `?property=<slug>` so the unit page's "See all N reviews" deep
+  // link lands pre-filtered. URL changes (including back/forward) update
+  // the filter, while ordinary filter control changes remain local.
   const [selectedProperty, setSelectedProperty] = useState<string>("all")
   const [minRating, setMinRating] = useState<number>(1)
   const [selectedPlatform, setSelectedPlatform] = useState<string>("all")
@@ -26,12 +25,9 @@ export default function ReviewsDisplay() {
     const propertyParam = searchParams.get("property")
     if (propertyParam && UNITS.some((u) => u.slug === propertyParam)) {
       setSelectedProperty(propertyParam)
+      setDisplayCount(9)
     }
-    // Deliberately empty: we read the URL once on mount so the controls
-    // remain free to drive local state without overwriting the user's
-    // own filter choices.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [searchParams])
 
   // Filter reviews based on selected criteria
   const filteredReviews = useMemo(() => {

@@ -13,7 +13,6 @@ import { UNITS } from "../../../data/units";
 import {
   buildBathroomsSpec,
   buildBedroomsSpec,
-  buildUnitLongDescription,
   formatPrice,
   translateBedType,
   type Translate,
@@ -25,6 +24,7 @@ import {
 } from "@/lib/structuredData";
 import { SITE_URL } from "@/lib/site";
 import { BUSINESS_CONTACT } from "@/app/data/contact";
+import { Link } from "@/i18n/navigation";
 
 // Generate static params for all rooms in both locales
 export function generateStaticParams() {
@@ -168,12 +168,12 @@ function UnitTitleBlock({
         >
           <ol className="flex flex-wrap items-center gap-1.5">
             <li>
-              <a
-                href={`/${locale}/rooms`}
+              <Link
+                href="/rooms"
                 className="hover:text-tan-hover"
               >
                 {t("unitPage.breadcrumb.rooms")}
-              </a>
+              </Link>
             </li>
             <li aria-hidden="true">›</li>
             <li>{categoryName}</li>

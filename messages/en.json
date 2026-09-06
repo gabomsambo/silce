@@ -347,7 +347,7 @@
       "nextLabel": "Next photo",
       "counter": "{current} / {total}",
       "roomsHeading": "Photo tour",
-      "areaNote": "\"{room}\" is the neighbourhood, not the unit. Grouping is the only thing that says so."
+      "areaNote": "{room} shows the neighbourhood, not the unit."
     },
     "photoRooms": {
       "studio": "The studio",
@@ -359,7 +359,7 @@
     },
     "facts": {
       "heading": "The space",
-      "subheading": "Every fact here is already in our records and none of it used to reach the page.",
+      "subheading": "The essentials for a comfortable stay.",
       "bed": "Bed",
       "layout": "Layout",
       "bathroom": "Bathroom",
@@ -381,6 +381,8 @@
       "verifiedNote": "Verified Airbnb guests",
       "snapshotNote": "Snapshot {date}",
       "snapshotDate": "6 Sep 2026",
+      "reviewCount": "{count, plural, one {# review} other {# reviews}}",
+      "ratingLabel": "{rating} out of 5 stars",
       "lowVolumeHeading": "Too few to publish an average",
       "lowVolumeSubheading": "Every one of them is below.",
       "seeAll": "See all {count} reviews for this unit",
@@ -389,16 +391,16 @@
       "noneHeading": "No reviews for this unit yet.",
       "noneBody": "Across all Silver Pineapple stays, {total} Airbnb guests rate us {rating}.",
       "readAllLink": "Read them all",
-      "platformSource": "PLATFORM_STATS, app/data/reviews.ts — the only number that is true when this unit has none of its own."
+      "platformSource": "Based on verified Airbnb guest reviews across all Silver Pineapple stays."
     },
     "location": {
       "heading": "Where you'll be",
-      "subheading": "{address} — the owner-confirmed address.",
+      "subheading": "{address}",
       "artsTitle": "Eau Gallie Arts District",
       "artsBody": "Murals, cafés and the public library — walkable.",
       "riverTitle": "The riverfront",
       "riverBody": "Indian River parks across the way; beaches in ~10–15 minutes.",
-      "mapNote": "Reuses the site-wide map."
+      "mapNote": "Explore Silver Pineapple and nearby Eau Gallie highlights."
     },
     "goodToKnow": {
       "heading": "Good to know",

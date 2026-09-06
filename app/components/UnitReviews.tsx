@@ -5,7 +5,6 @@ import { Star } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import {
-  getReviewsByProperty,
   getReviewsSortedByDate,
   PLATFORM_STATS,
 } from "@/app/data/reviews"
@@ -37,9 +36,17 @@ import {
 const AVG_THRESHOLD = 4
 const PAGE_SHOW_COUNT = 4
 
-function StarRow({ rating, size = 14 }: { rating: number; size?: number }) {
+function StarRow({
+  rating,
+  label,
+  size = 14,
+}: {
+  rating: number
+  label: string
+  size?: number
+}) {
   return (
-    <span className="inline-flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
+    <span className="inline-flex items-center gap-0.5" aria-label={label}>
       {[0, 1, 2, 3, 4].map((i) => (
         <Star
           key={i}
@@ -133,9 +140,8 @@ export default function UnitReviews({ slug }: { slug: string }) {
                 {avg.toFixed(1)}
               </span>
               <div>
-                <StarRow rating={5} size={15} />
                 <div className="mt-1 text-sm text-primary/75 tabular-nums">
-                  {count} {count === 1 ? "review" : "reviews"} · {distLine}
+                  {t("reviewCount", { count })} · {distLine}
                 </div>
               </div>
             </div>
@@ -144,7 +150,7 @@ export default function UnitReviews({ slug }: { slug: string }) {
         ) : (
           <div>
             <div className="text-lg font-extrabold tracking-tight text-primary">
-              {count} {count === 1 ? "review" : "reviews"} · {distLine}
+              {t("reviewCount", { count })} · {distLine}
             </div>
             <div className="mt-1 text-sm text-primary/70">
               {t("lowVolumeHeading")} — {t("lowVolumeSubheading")}
@@ -181,18 +187,13 @@ export default function UnitReviews({ slug }: { slug: string }) {
                 </div>
               </div>
               <div className="ml-auto shrink-0">
-                <StarRow rating={r.overallRating} />
+                <StarRow
+                  rating={r.overallRating}
+                  label={t("ratingLabel", { rating: r.overallRating })}
+                />
               </div>
             </header>
-            <p
-              className="text-sm leading-relaxed text-primary/85"
-              style={{
-                display: "-webkit-box",
-                WebkitLineClamp: 6,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
+            <p className="text-sm leading-relaxed text-primary/85">
               {r.text}
             </p>
           </article>

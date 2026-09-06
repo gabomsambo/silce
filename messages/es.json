@@ -347,7 +347,7 @@
       "nextLabel": "Siguiente foto",
       "counter": "{current} / {total}",
       "roomsHeading": "Recorrido por habitaciones",
-      "areaNote": "\"{room}\" es el vecindario, no la unidad. Agruparlas es lo único que lo dice."
+      "areaNote": "{room} muestra el vecindario, no la unidad."
     },
     "photoRooms": {
       "studio": "El estudio",
@@ -359,7 +359,7 @@
     },
     "facts": {
       "heading": "El espacio",
-      "subheading": "Cada dato aquí ya está en nuestros registros y antes no llegaba a la página.",
+      "subheading": "Lo esencial para una estadía cómoda.",
       "bed": "Cama",
       "layout": "Distribución",
       "bathroom": "Baño",
@@ -381,6 +381,8 @@
       "verifiedNote": "Huéspedes verificados de Airbnb",
       "snapshotNote": "Instantánea del {date}",
       "snapshotDate": "6 de sep. de 2026",
+      "reviewCount": "{count, plural, one {# reseña} other {# reseñas}}",
+      "ratingLabel": "{rating} de 5 estrellas",
       "lowVolumeHeading": "Muy pocas para publicar un promedio",
       "lowVolumeSubheading": "Cada una de ellas está abajo.",
       "seeAll": "Ver las {count} reseñas de esta unidad",
@@ -389,16 +391,16 @@
       "noneHeading": "Esta unidad aún no tiene reseñas.",
       "noneBody": "En todas las estadías de Silver Pineapple, {total} huéspedes de Airbnb nos califican con {rating}.",
       "readAllLink": "Leer todas",
-      "platformSource": "PLATFORM_STATS, app/data/reviews.ts — el único número cierto cuando esta unidad no tiene el suyo."
+      "platformSource": "Basado en reseñas de huéspedes verificados de Airbnb en todas las estadías de Silver Pineapple."
     },
     "location": {
       "heading": "Dónde estarás",
-      "subheading": "{address} — la dirección confirmada por el propietario.",
+      "subheading": "{address}",
       "artsTitle": "Distrito de las Artes de Eau Gallie",
       "artsBody": "Murales, cafeterías y la biblioteca pública — todo a pie.",
       "riverTitle": "La rivera",
       "riverBody": "Parques del río Indio cruzando la calle; playas a unos 10–15 minutos.",
-      "mapNote": "Reutiliza el mapa del sitio."
+      "mapNote": "Explora Silver Pineapple y los lugares destacados cercanos de Eau Gallie."
     },
     "goodToKnow": {
       "heading": "Información útil",
