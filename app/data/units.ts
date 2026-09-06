@@ -7,7 +7,7 @@ export interface Unit {
   category: CategoryKey
   priceFrom: number           // numeric for sorting; format later
   maxGuests: number
-  bedrooms: number
+  bedrooms: number            // 0 = studio from listing name; public API has no bedroom field
   bathrooms: number
   bedType: string             // e.g., "Queen", "Queen + Sofa Bed" — sourced, never inferred
   sqFt?: number
@@ -56,7 +56,7 @@ export const UNITS: Unit[] = [
     maxGuests: 3,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "Queen + Sofa Bed",
+    bedType: "Queen",
     sqFt: 430,
     floor: "Upper",
     extras: ["High ceilings"],
@@ -71,7 +71,7 @@ export const UNITS: Unit[] = [
     maxGuests: 3,
     bedrooms: 1,
     bathrooms: 1,
-    bedType: "Queen + Sofa Bed",
+    bedType: "Queen",
     sqFt: 440,
     floor: "Ground",
     extras: ["Workspace"],
@@ -143,7 +143,7 @@ export const UNITS: Unit[] = [
     maxGuests: 3,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "Queen + Sofa Bed",
+    bedType: "Queen",
     hospitable_id: "2282917",
     images: ["/photos_105/01.webp","/photos_105/02.webp","/photos_105/03.webp","/photos_105/04.webp","/photos_105/05.webp","/photos_105/06.webp","/photos_105/07.webp","/photos_105/08.webp"],
   },
@@ -155,7 +155,7 @@ export const UNITS: Unit[] = [
     maxGuests: 4,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "Full + Sofa Bed",
+    bedType: "Full",
     sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282914",
@@ -193,7 +193,7 @@ export const UNITS: Unit[] = [
     maxGuests: 4,
     bedrooms: 1,
     bathrooms: 1,
-    bedType: "Queen + Sofa Bed",
+    bedType: "Queen",
     hospitable_id: "2282929",
     images: ["/photos_seagrape_1052_101/01.webp","/photos_seagrape_1052_101/02.webp","/photos_seagrape_1052_101/03.webp","/photos_seagrape_1052_101/04.webp","/photos_seagrape_1052_101/05.webp","/photos_seagrape_1052_101/06.webp","/photos_seagrape_1052_101/07.webp","/photos_seagrape_1052_101/08.webp","/photos_seagrape_1052_101/09.webp"],
   },

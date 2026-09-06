@@ -55,14 +55,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const metaDescription = t('metaDescription', {
     title,
     maxGuests: unit.maxGuests,
-    bedrooms: unit.bedrooms,
     bathrooms: unit.bathrooms,
     price: formatPrice(unit.priceFrom, locale)
   });
 
   const ogDescription = t('ogDescription', {
     maxGuests: unit.maxGuests,
-    bedrooms: unit.bedrooms,
     bathrooms: unit.bathrooms,
     price: formatPrice(unit.priceFrom, locale)
   });

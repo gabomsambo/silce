@@ -158,31 +158,31 @@ The only authority is Hospitable's own per-listing sleeping arrangement in the
 reconciliation export. Never derive a bed from `max_guests`, from a photograph,
 or from what the site already says.
 
-Two units were corrected under that rule, both direct contradictions of the
-export rather than mere gaps:
+Sofa-bed claims are restricted to what the owner stated on 2026-09-05 (twice)
+and to those two listings only:
 
-- `sea-grape-102` (`2282920`) and `sea-grape-101` (`2282921`): the owner stated
-  on 2026-09-05 that sofa beds exist in these two units **only** among the
-  Sea Grape 1042 stack. They read `Queen + Queen + Sofa Bed`. `sea-grape-201`
-  has no sofa bed. Listing captions on 2026-09-06 name the sofa bed on
-  `sea-grape-102` ("Two queen bedrooms plus a sofa bed…") and a sleeper sofa
-  on `pineapple-102`; `pineapple-101`'s caption names a full bed plus sofa bed.
-  A sofa is not a sofa bed — armchair / sofa copy is not enough.
+- `sea-grape-102` (`2282920`) and `sea-grape-101` (`2282921`): owner-stated
+  sofa beds. They read `Queen + Queen + Sofa Bed`. `sea-grape-201` has none.
+  Listing captions on 2026-09-06 also name a sofa bed on `sea-grape-102`
+  ("Two queen bedrooms plus a sofa bed…"). That agrees with the owner; it is
+  not an independent grant to publish sofa beds elsewhere.
+- A sofa is not a sofa bed — armchair / sofa / "sleeper sofa" caption copy is
+  not enough. Captions that named a sofa bed on `pineapple-101` / `pineapple-102`
+  conflict with the owner's standing decision, so those sofa beds stay off
+  the site. Understatement is the rule where sources conflict.
 - `unit-2538` (`2282919`, live name "Minimalist Studio | Wifi + Arts Scene &
-  Near River" = export row `Unit PA2538`) advertised `King`, while the export
-  gives it "1 queen in living room; 1 sofa bed in living room". Worse than the
-  sea-grape-102 case: it both invented a bed and downgraded on arrival anyone
-  who booked expecting a king. It now reads `Queen + Sofa Bed`, the wording
-  `pineapple-105` and `sea-grape-1052-101` already use for that same
-  arrangement.
+  Near River" = export row `Unit PA2538`) once advertised `King`. The export
+  gives it a queen in the living room. It now reads `Queen` only: the king was
+  invented, and the export's sofa bed is not owner-stated.
 
-**Applied 2026-09-06 against live listing names and photo captions** (the public
-API still has no bed-type field). Owner-stated sofa beds on Sea Grape 101 and
-102 override the export; Sea Grape 201 has none. Listing captions named a full
-bed + sofa bed on `pineapple-101`, a sleeper sofa on `pineapple-102`, a queen
-on `pineapple-104` and `unit-2528`, and a full bed on `unit-2526`. `pineapple-103`
-keeps Queen from its listing name ("Queen Bed"). `unit-2536` stays Queen — the
-export's sofa bed is not in the live captions, and an armchair is not a sofa bed.
+**Applied 2026-09-06 against the owner override and live listing names** (the
+public API still has no bed-type field). Sofa beds on Sea Grape 101 and 102
+are owner-stated. Sea Grape 201 has none. Listing names/captions source a
+queen on `pineapple-104` and `unit-2528`, a full bed on `unit-2526` and
+`pineapple-101`, and a queen on `pineapple-103` ("Queen Bed"). `unit-2536`
+stays Queen — the export's sofa bed is not owner-stated, and an armchair is
+not a sofa bed. Pre-existing `Queen + Sofa Bed` strings on `unit-2538`,
+`pineapple-105` and `sea-grape-1052-101` were dropped for the same reason.
 
 ## Category amenity chips
 
@@ -234,10 +234,12 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    Sourcing them is deferred to the systematic bed-and-content pass.
    `sea-grape-101` carries neither field, so the inconsistency is visible on
    the same section.
-3. *(resolved 2026-09-06)* **`pineapple-101` bed configuration.** Live listing
-   caption: "Plush full bed with soft linens and a sofa bed". Now `Full + Sofa
-   Bed`. The export's "double + sofa bed" agrees on the sofa bed; the public
-   name does not say Queen.
+3. *(resolved 2026-09-06 as an understatement)* **`pineapple-101` bed
+   configuration.** The previous site carried `Queen ` (trailing space). The
+   live listing caption names a full bed; the public listing name is silent on
+   bed size. Full is the smaller claim, so `bedType` is `Full` with **no** sofa
+   bed — the caption's sofa bed conflicts with the owner's 2026-09-05 decision
+   that sofa beds exist in Sea Grape 101 and 102 only.
 4. *(resolved 2026-09-06 as understatements kept)* **`unit-2536` and
    `pineapple-103` sofa beds.** Export gave each a sofa bed. Live captions show
    an armchair on 103 and no sofa bed on 2536. Queen stands; do not invent the
@@ -276,12 +278,19 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
 
    Resolving it — retitle or refile — is the owner's call, because either
    choice changes how a guest browses and which apartments they compare.
-8. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
-   count, so `bedrooms` is derived from the listing name. The seven studios read
-   `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
-   omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
-   `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
-   render "Studio" / "Estudio" while preserving the authoritative numeric value.
+8. **`bedrooms` for studios.** Hospitable's public booking API reports no
+   bedroom count (`GET /bookings/api/properties/<id>` has no `bedrooms` field;
+   re-checked 2026-09-06). The only bedroom signal is the listing `name`. Eight
+   units are named Studio and therefore keep `bedrooms: 0` (not an unsourced
+   zero, and not a 1BR — inventing `1` would overstate). They are `unit-2528`,
+   `unit-2536`, `unit-2538`, `unit-2526`, `pineapple-103`, `pineapple-104`,
+   `pineapple-105`, `pineapple-101`. Guest-visible copy already renders
+   "Studio" / "Estudio" via `buildBedroomsSpec`; JSON-LD omits
+   `numberOfBedrooms` when the count is ≤ 0. The two-bed heading
+   ("2 Bedroom, 1 Bath") is the `two-bed-1-bath` category / Sea Grape 101–102
+   titles, whose `bedrooms` values are `2` from those listings' `2BR` names.
+   `sea-grape-1052-101`'s listing name is silent on Studio/1BR/2BR; it stays
+   `bedrooms: 1` as category agreement, flagged here as listing-name-silent.
 9. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
