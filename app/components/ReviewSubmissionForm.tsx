@@ -75,7 +75,6 @@ function StarRating({ rating, onChange, label, required = false, errorId, invali
         className="flex gap-1 focus:outline-none"
         role="group"
         aria-labelledby={labelId}
-        aria-invalid={invalid || undefined}
         aria-describedby={invalid && errorId ? errorId : undefined}
       >
         {[1, 2, 3, 4, 5].map((star) => (

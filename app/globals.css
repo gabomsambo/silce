@@ -62,8 +62,7 @@
    * the vendor's document the host matches neither :focus nor :focus-visible,
    * so only :focus-within reaches it. The ring is painted on the parent
    * document's own element, so it does not depend on the vendor's content
-   * rendering — which matters because that widget renders blank against a
-   * localhost referrer. Deliberate, not stray: do not prune the selector.
+   * rendering. Deliberate, not stray: do not prune the selector.
    */
   input:focus-within,
   select:focus-within,

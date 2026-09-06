@@ -150,8 +150,7 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   tabbed in with no ring at all, `outline`/`box-shadow` both `none` at 334x600.
   It **does** match `:focus-within`, so `app/globals.css` rings it with
   `iframe:focus-within`: the ring is painted on the parent document's own
-  element, so it does not depend on the vendor's content rendering — which
-  matters because the widget renders blank against a `localhost` referrer. That
+  element, so it does not depend on the vendor's content rendering. That
   selector has been added, removed and re-added on this branch; it is live and
   deliberate, so do not prune it as stray. The custom-element search widget is
   the same case and IS ringed — `hospitable-direct-mps` matches `:focus-within`
@@ -169,9 +168,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 
 ## Review evidence
 
-Screenshots under `artifacts/screenshots/` are **committed**, not attached to a PR
-comment — evidence has to travel with the change in the tree, where it cannot be
-lost. Nothing there is imported by the build or served by Pages.
+Review screenshots are **committed**, not attached to a PR comment — evidence has
+to travel with the change in the tree, where it cannot be lost. They live under
+`artifacts/screenshots/` or the task-specific evidence directories in `docs/`;
+nothing there is imported by the build or served by Pages.
 
 Because it is permanent history, downscale and compress before committing: palette
 PNG (`Image.quantize(colors=256)` + `optimize=True`) shrinks these flat-UI captures
