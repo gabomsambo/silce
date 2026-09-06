@@ -99,17 +99,18 @@ export default function PhotoViewer({
   // photos array (useMemo), not per render, because `photos` is stable
   // across re-renders of the same unit page.
   const groups = useMemo(() => {
-    const map = new Map<PhotoRoomKey, { startIndex: number; count: number }>()
+    const map = new Map<PhotoRoomKey, number[]>()
     ROOM_ORDER.forEach((room) => {
-      const startIndex = photos.findIndex((p) => p.room === room)
-      const count = photos.filter((p) => p.room === room).length
-      if (startIndex !== -1 && count > 0) {
-        map.set(room, { startIndex, count })
+      const indices = photos.flatMap((photo, photoIndex) =>
+        photo.room === room ? [photoIndex] : [],
+      )
+      if (indices.length > 0) {
+        map.set(room, indices)
       }
     })
     return ROOM_ORDER.filter((r) => map.has(r)).map((room) => ({
       room,
-      ...(map.get(room) as { startIndex: number; count: number }),
+      indices: map.get(room) as number[],
     }))
   }, [photos])
 
@@ -127,7 +128,7 @@ export default function PhotoViewer({
   const goToRoom = useCallback(
     (room: PhotoRoomKey) => {
       const g = groups.find((x) => x.room === room)
-      if (g) setIndex(g.startIndex)
+      if (g) setIndex(g.indices[0])
     },
     [groups],
   )
@@ -155,13 +156,13 @@ export default function PhotoViewer({
       if (event.key === "PageUp" || event.key === "Home") {
         event.preventDefault()
         const g = groups.find((x) => x.room === currentRoom)
-        if (g) setIndex(g.startIndex)
+        if (g) setIndex(g.indices[0])
         return
       }
       if (event.key === "PageDown" || event.key === "End") {
         event.preventDefault()
         const g = groups.find((x) => x.room === currentRoom)
-        if (g) setIndex(g.startIndex + g.count - 1)
+        if (g) setIndex(g.indices[g.indices.length - 1])
         return
       }
       if (event.key === "Tab") {
@@ -244,7 +245,7 @@ export default function PhotoViewer({
                 }`}
               >
                 <span className="truncate">{tRooms(g.room)}</span>
-                <span className="shrink-0 text-xs text-white/55 tabular-nums">{g.count}</span>
+                <span className="shrink-0 text-xs text-white/55 tabular-nums">{g.indices.length}</span>
               </button>
             )
           })}

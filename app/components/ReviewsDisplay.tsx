@@ -25,8 +25,10 @@ export default function ReviewsDisplay() {
     const propertyParam = searchParams.get("property")
     if (propertyParam && UNITS.some((u) => u.slug === propertyParam)) {
       setSelectedProperty(propertyParam)
-      setDisplayCount(9)
+    } else {
+      setSelectedProperty("all")
     }
+    setDisplayCount(9)
   }, [searchParams])
 
   // Filter reviews based on selected criteria

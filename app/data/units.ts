@@ -52,11 +52,9 @@ export const UNITS: Unit[] = [
     bedType: "Queen",
     floor: "Ground",
     hospitable_id: "2282925",
-    // Room labels verified by reading the actual photos: queen bed, bistro
-    // table, mini-split, wall TV and the entry door in 1-3; range/fridge/
-    // microwave and the barn-door kitchen in 4-5 and 8; shower/vanity/toilet
-    // in 6-7; oaks, picnic seating and the building exterior in 9-11; the
-    // sunset and the Eau Gallie arch in 12-13 are NEAR the unit, not of it.
+    // Photo-tour groupings describe each image's content, not unit amenities.
+    // The full-kitchen-versus-kitchenette classification remains owner-deferred
+    // and is deliberately absent from the unit's page copy.
     images: [
       { src: "/photos_2528/01.webp", room: "studio" },
       { src: "/photos_2528/02.webp", room: "studio" },
