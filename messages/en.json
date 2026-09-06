@@ -233,7 +233,7 @@
         },
         "laundry": {
           "title": "On-Site Laundry",
-          "description": "Easy, practical stays"
+          "description": "Coin-operated, pay per load"
         },
         "coffee": {
           "title": "Coffee & Tea",
@@ -284,7 +284,7 @@
   },
   "units": {
     "unit-2528": {
-      "title": "Studio - Compact · Unit 2528"
+      "title": "Studio — Compact · Unit 2528"
     },
     "unit-2536": {
       "title": "Studio — Compact · Unit 2536"
@@ -299,13 +299,13 @@
       "title": "2 Bedroom, 1 Bath · Sea Grape 102"
     },
     "unit-2526": {
-      "title": "Studio - Compact · Unit 2526"
+      "title": "Studio — Compact · Unit 2526"
     },
     "pineapple-103": {
-      "title": "Studio - Comfort · Pineapple 103"
+      "title": "Studio — Comfort · Pineapple 103"
     },
     "pineapple-104": {
-      "title": "Studio - Comfort · Pineapple 104"
+      "title": "Studio — Comfort · Pineapple 104"
     },
     "pineapple-101": {
       "title": "Studio — Plus (Large) · Pineapple 101"
@@ -321,6 +321,88 @@
     },
     "sea-grape-1052-101": {
       "title": "1 Bedroom, 1 Bath · Sea Grape 101 (Building 1052)"
+    }
+  },
+  "unitPage": {
+    "breadcrumb": {
+      "rooms": "Rooms",
+      "studios": "Studios",
+      "oneBed": "1 Bedroom",
+      "twoBed": "2 Bedrooms"
+    },
+    "titleBlock": {
+      "from": "From",
+      "perNight": "/night",
+      "lowestNote": "Lowest nightly rate on the calendar",
+      "locationLabel": "Eau Gallie, Melbourne FL"
+    },
+    "gallery": {
+      "showAll": "Show all {count} photos",
+      "openPhoto": "Open photo {n} of {count}",
+      "viewAllLabel": "View all photos for this unit"
+    },
+    "photoViewer": {
+      "closeLabel": "Close photo viewer",
+      "previousLabel": "Previous photo",
+      "nextLabel": "Next photo",
+      "counter": "{current} / {total}",
+      "roomsHeading": "Photo tour",
+      "areaNote": "\"{room}\" is the neighbourhood, not the unit. Grouping is the only thing that says so."
+    },
+    "photoRooms": {
+      "studio": "The studio",
+      "kitchen": "Kitchen",
+      "bath": "Bathroom",
+      "grounds": "Grounds & entrance",
+      "area": "Around Eau Gallie",
+      "unit": "Photos"
+    },
+    "facts": {
+      "heading": "The space",
+      "subheading": "Every fact here is already in our records and none of it used to reach the page.",
+      "bed": "Bed",
+      "layout": "Layout",
+      "bathroom": "Bathroom",
+      "sleeps": "Sleeps",
+      "floor": "Floor",
+      "extras": "Extras",
+      "privateBath": "{count, plural, one {# private bathroom} other {# private bathrooms}}",
+      "guests": "{count, plural, one {# guest} other {# guests}}",
+      "descriptionSource": "From the category blurb",
+      "categoryDescription": "{blurb} {walk}",
+      "walkTo": "Walk to the Eau Gallie Public Library, EGAD murals, cafés, and riverfront parks; beaches in ~10–15 minutes."
+    },
+    "amenities": {
+      "heading": "What's included",
+      "subheading": "Practical comforts across all Silver Pineapple stays."
+    },
+    "reviews": {
+      "heading": "Guest reviews",
+      "verifiedNote": "Verified Airbnb guests",
+      "snapshotNote": "Snapshot {date}",
+      "snapshotDate": "6 Sep 2026",
+      "lowVolumeHeading": "Too few to publish an average",
+      "lowVolumeSubheading": "Every one of them is below.",
+      "seeAll": "See all {count} reviews for this unit",
+      "seeAllSingular": "See this unit's 1 review",
+      "lowVolumeFooter": "No \"see all\" link: you are already looking at all of them.",
+      "noneHeading": "No reviews for this unit yet.",
+      "noneBody": "Across all Silver Pineapple stays, {total} Airbnb guests rate us {rating}.",
+      "readAllLink": "Read them all",
+      "platformSource": "PLATFORM_STATS, app/data/reviews.ts — the only number that is true when this unit has none of its own."
+    },
+    "location": {
+      "heading": "Where you'll be",
+      "subheading": "{address} — the owner-confirmed address.",
+      "artsTitle": "Eau Gallie Arts District",
+      "artsBody": "Murals, cafés and the public library — walkable.",
+      "riverTitle": "The riverfront",
+      "riverBody": "Indian River parks across the way; beaches in ~10–15 minutes.",
+      "mapNote": "Reuses the site-wide map."
+    },
+    "goodToKnow": {
+      "heading": "Good to know",
+      "body": "House rules, check-in window, cancellation, pets and smoking — every reference booking page has this band. None of it exists in our records yet, so it ships absent rather than guessed."
     }
   },
   "about": {
