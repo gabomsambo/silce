@@ -259,10 +259,6 @@
     }
   },
   "unit": {
-    "specs": {
-      "sqFt": "{sqFt} pies²",
-      "sqFtApprox": "~{sqFt} pies²"
-    },
     "bedTypes": {
       "queen": "Cama Queen",
       "king": "Cama King",

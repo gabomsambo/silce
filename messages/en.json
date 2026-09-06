@@ -259,10 +259,6 @@
     }
   },
   "unit": {
-    "specs": {
-      "sqFt": "{sqFt} sq ft",
-      "sqFtApprox": "~{sqFt} sq ft"
-    },
     "bedTypes": {
       "queen": "Queen",
       "king": "King",
