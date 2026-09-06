@@ -65,10 +65,11 @@ export function buildCategorySleepsCount(units: Unit[]) {
 }
 
 /**
- * Bedroom and bathroom labels. Both the specs line and the description
- * paragraph on the unit page state these facts, so they resolve the same
- * messages here rather than each branching on the count themselves — the two
- * cannot disagree about the same unit. Callers pass a root-scoped translator.
+ * Bedroom and bathroom labels. The title-block specs chips and the
+ * facts-section layout card on the unit page state these facts, so they
+ * resolve the same messages here rather than each branching on the count
+ * themselves — the two cannot disagree about the same unit. Callers pass
+ * a root-scoped translator.
  */
 const SPECS = "propertyDetail.templates"
 

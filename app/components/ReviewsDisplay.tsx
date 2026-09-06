@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Star, Filter } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { MagicCard } from "@/components/ui/magic-card"
 import { REVIEWS, getReviewsSortedByDate, type ReviewPlatform } from "@/app/data/reviews"
 import { UNITS } from "@/app/data/units"
@@ -11,10 +12,24 @@ export default function ReviewsDisplay() {
   const t = useTranslations("reviews.display")
   const tRoot = useTranslations()
   const locale = useLocale()
+  const searchParams = useSearchParams()
+  // Read `?property=<slug>` so the unit page's "See all N reviews" deep
+  // link lands pre-filtered. URL changes (including back/forward) update
+  // the filter, while ordinary filter control changes remain local.
   const [selectedProperty, setSelectedProperty] = useState<string>("all")
   const [minRating, setMinRating] = useState<number>(1)
   const [selectedPlatform, setSelectedPlatform] = useState<string>("all")
   const [displayCount, setDisplayCount] = useState(9)
+
+  useEffect(() => {
+    const propertyParam = searchParams.get("property")
+    if (propertyParam && UNITS.some((u) => u.slug === propertyParam)) {
+      setSelectedProperty(propertyParam)
+    } else {
+      setSelectedProperty("all")
+    }
+    setDisplayCount(9)
+  }, [searchParams])
 
   // Filter reviews based on selected criteria
   const filteredReviews = useMemo(() => {

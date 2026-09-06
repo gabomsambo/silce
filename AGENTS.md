@@ -68,8 +68,8 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   to accommodate icons; verify them in `.open-next/` after `npm run pages:build`.
 - **Unit galleries are pre-generated WebP.** `next.config.mjs` sets
   `images.unoptimized` because Cloudflare Pages does not run Next's optimizer.
-  `units.ts` stores the 1500w path (`/photos_<id>/01.webp`); `lib/photos.ts`
-  derives the 640 and 1024 siblings. The JPEGs under `Fotos de todas las
+  `units.ts` stores the 1500w path on each `images[].src` (`/photos_<id>/01.webp`);
+  `lib/photos.ts` derives the 640 and 1024 siblings. The JPEGs under `Fotos de todas las
   unidades/` are the source library, not what the site serves.
 
 ## Safety net

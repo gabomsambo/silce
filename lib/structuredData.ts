@@ -58,7 +58,7 @@ function createUnitOffer(unit: Unit, unitUrl: string) {
 }
 
 function getUnitImageUrls(unit: Unit): string[] {
-  return Array.from(new Set(unit.images)).map(toAbsoluteUrl);
+  return Array.from(new Set(unit.images.map((p) => p.src))).map(toAbsoluteUrl);
 }
 
 // Hospitable's public booking API exposes no bedroom count, so `unit.bedrooms` is only

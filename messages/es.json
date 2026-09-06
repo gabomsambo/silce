@@ -233,7 +233,7 @@
         },
         "laundry": {
           "title": "Lavandería en el Lugar",
-          "description": "Estadías fáciles y prácticas"
+          "description": "Con monedas, paga por carga"
         },
         "coffee": {
           "title": "Café y Té",
@@ -284,7 +284,7 @@
   },
   "units": {
     "unit-2528": {
-      "title": "Estudio - Compacto · Unidad 2528"
+      "title": "Estudio — Compacto · Unidad 2528"
     },
     "unit-2536": {
       "title": "Estudio — Compacto · Unidad 2536"
@@ -299,13 +299,13 @@
       "title": "2 Habitaciones, 1 Baño · Sea Grape 102"
     },
     "unit-2526": {
-      "title": "Estudio - Compacto · Unidad 2526"
+      "title": "Estudio — Compacto · Unidad 2526"
     },
     "pineapple-103": {
-      "title": "Estudio - Confort · Pineapple 103"
+      "title": "Estudio — Confort · Pineapple 103"
     },
     "pineapple-104": {
-      "title": "Estudio - Confort · Pineapple 104"
+      "title": "Estudio — Confort · Pineapple 104"
     },
     "pineapple-101": {
       "title": "Estudio — Plus (Grande) · Pineapple 101"
@@ -321,6 +321,67 @@
     },
     "sea-grape-1052-101": {
       "title": "1 Habitación, 1 Baño · Sea Grape 101 (Edificio 1052)"
+    }
+  },
+  "unitPage": {
+    "breadcrumb": {
+      "rooms": "Habitaciones",
+      "studios": "Estudios",
+      "oneBed": "1 Habitación",
+      "twoBed": "2 Habitaciones"
+    },
+    "titleBlock": {
+      "from": "Desde",
+      "perNight": "/noche",
+      "locationLabel": "Eau Gallie, Melbourne FL"
+    },
+    "gallery": {
+      "showAll": "Ver las {count} fotos",
+      "openPhoto": "Abrir foto {n} de {count}",
+      "viewAllLabel": "Ver todas las fotos de esta unidad"
+    },
+    "photoViewer": {
+      "closeLabel": "Cerrar visor de fotos",
+      "previousLabel": "Foto anterior",
+      "nextLabel": "Siguiente foto",
+      "counter": "{current} / {total}"
+    },
+    "facts": {
+      "heading": "El espacio",
+      "subheading": "Lo esencial para una estadía cómoda.",
+      "bed": "Cama",
+      "layout": "Distribución",
+      "bathroom": "Baño",
+      "sleeps": "Capacidad",
+      "floor": "Piso",
+      "privateBath": "{count, plural, one {# baño} other {# baños}}",
+      "guests": "{count, plural, one {# huésped} other {# huéspedes}}",
+      "categoryDescription": "{blurb}"
+    },
+    "reviews": {
+      "heading": "Reseñas de huéspedes",
+      "verifiedNote": "Huéspedes verificados de Airbnb",
+      "snapshotNote": "Instantánea del {date}",
+      "snapshotDate": "6 de sep. de 2026",
+      "reviewCount": "{count, plural, one {# reseña} other {# reseñas}}",
+      "ratingLabel": "{rating} de 5 estrellas",
+      "seeAll": "Ver las {count} reseñas de esta unidad",
+      "seeAllSingular": "Ver la única reseña de esta unidad",
+      "noneHeading": "Esta unidad aún no tiene reseñas.",
+      "noneBody": "En todas las estadías de Silver Pineapple, {total} huéspedes de Airbnb nos califican con {rating}.",
+      "readAllLink": "Leer todas",
+      "platformSource": "Basado en reseñas de huéspedes verificados de Airbnb en todas las estadías de Silver Pineapple."
+    },
+    "location": {
+      "heading": "Dónde estarás",
+      "subheading": "{address}",
+      "artsTitle": "Distrito de las Artes de Eau Gallie",
+      "artsBody": "Murales, cafeterías y la biblioteca pública — todo a pie.",
+      "riverTitle": "La rivera",
+      "riverBody": "Parques del río Indio cruzando la calle; playas a unos 10–15 minutos.",
+      "areaPhotoAlt": "{title} — foto del vecindario {number}",
+      "showMap": "Mostrar mapa",
+      "mapNote": "Explora Silver Pineapple y los lugares destacados cercanos de Eau Gallie."
     }
   },
   "about": {
