@@ -1223,8 +1223,9 @@ function shippedRatingMean(): number {
 
 // Derived from REVIEWS at module load, not asserted literals.
 // `reviews` is REVIEWS.length. `rating` is the unrounded mean of those
-// overallRating integers (574/118 ≈ 4.864406…). Display formats to two
-// decimal places (4.86); one-decimal toFixed(1) would advertise 4.9.
+// overallRating integers (574/118 ≈ 4.864407). Display uses two decimals
+// (4.86): nothing else on the site renders a decimal rating, and two
+// decimals is more precise than the equally honest one-decimal 4.9.
 // Hospitable returned no Booking.com, VRBO, or Google reviews.
 export const PLATFORM_STATS = [
   {
