@@ -157,6 +157,13 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   `priceFrom`). That API exposes **no bedroom count** — the only bedroom signal is the
   listing `name` ("Studio" / "1BR" / "2BR"). Never call
   `/sites/widgets/<uuid>/ping`: it writes into the owner's Hospitable account.
+  Guest reviews are a **one-time snapshot** in `app/data/reviews.ts`, not a
+  runtime call. Pull them with the PAT in `.env` (`HOSPITABLE_API_ACCESS_TOKEN`)
+  from `GET https://public.api.hospitable.com/v2/properties/<uuid>/reviews?include=guest`
+  (the credential-free booking API used for calendars does not serve reviews).
+  The 2026-09-06 pull returned 120 Airbnb records and no Booking.com, VRBO or
+  Google reviews; publish only public text plus rating, and count
+  private-feedback-only records in the Airbnb total without displaying them.
 - **The multi-property search widget (`/search`) is a different animal from the
   per-unit booking widget** — different bundle, different API, different language
   mechanism. `app/components/PropertySearchWidget.tsx` documents the live state.
