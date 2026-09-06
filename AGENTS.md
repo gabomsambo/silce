@@ -143,17 +143,19 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   the `via` stop stays at 5% — that is the whole point of the deferral, not a
   detail to gloss. Sampling the bar needs a settle wait: read immediately after
   an instant scroll and you catch a mid-fade value that is not what renders.
-- **The cross-origin booking `<iframe>` is the one interactive surface with no
-  ring.** While it is `document.activeElement` it matches neither `:focus` nor
-  `:focus-visible` — focus has passed into the vendor's document — so none of the
-  rules in `app/globals.css` apply and its computed `outline`/`box-shadow` are
-  both `none` at 334x600. It **does** match `:focus-within`, measured, so an
-  `iframe:focus-within` selector reaches it, and that is what `app/globals.css`
-  uses: the ring is painted on the parent document's own element, so it does not
-  depend on the vendor's content rendering — which matters because the widget
-  renders blank against a `localhost` referrer. The custom-element search widget
-  is the same case and IS ringed — `hospitable-direct-mps` matches
-  `:focus-within` and takes the full two-band ring.
+- **The cross-origin booking `<iframe>` is ringed on `:focus-within`, never on
+  `:focus`/`:focus-visible`.** While it is `document.activeElement` it matches
+  neither `:focus` nor `:focus-visible` — focus has passed into the vendor's
+  document — so a rule keyed on either of those never applies and the iframe
+  tabbed in with no ring at all, `outline`/`box-shadow` both `none` at 334x600.
+  It **does** match `:focus-within`, so `app/globals.css` rings it with
+  `iframe:focus-within`: the ring is painted on the parent document's own
+  element, so it does not depend on the vendor's content rendering — which
+  matters because the widget renders blank against a `localhost` referrer. That
+  selector has been added, removed and re-added on this branch; it is live and
+  deliberate, so do not prune it as stray. The custom-element search widget is
+  the same case and IS ringed — `hospitable-direct-mps` matches `:focus-within`
+  and takes the full two-band ring.
 - **Two traps when probing focus rings.** A zero-area element (`width`/`height`
   0) reports a fully populated computed `outline`/`box-shadow`, so a probe calls
   it a pass while the user sees nothing — assert on `getBoundingClientRect()`.
