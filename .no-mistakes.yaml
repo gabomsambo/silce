@@ -16,6 +16,9 @@
 # had been considered safe because the runner falls through to the next agent both
 # when an agent is unavailable or declines and when it fails at runtime; these are
 # separate fallback paths. That safety reasoning remains, but codex is first by
-# owner preference and opencode then claude remain fallbacks.
+# owner preference. Cursor sits second so a codex exhaustion does not fall
+# through to claude; it needs no entry-specific pin here because it is already
+# pinned to cursor-grok-4.6-high in the machine-wide agent_config. Opencode
+# then claude remain fallbacks after cursor.
 
-agent: [codex, opencode, claude]
+agent: [codex, cursor, opencode, claude]
