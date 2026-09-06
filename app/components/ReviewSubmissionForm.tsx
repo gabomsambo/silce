@@ -93,7 +93,7 @@ function StarRating({ rating, onChange, label, required = false, errorId, invali
               aria-hidden="true"
               className={`w-8 h-8 ${
                 star <= (hoverRating || rating)
-                  ? "text-tan-ink fill-tan-ink"
+                  ? "text-primary fill-primary"
                   : "text-gray-300"
               }`}
             />

@@ -208,7 +208,7 @@ export default function ReviewsDisplay() {
                         key={i}
                         className={`w-4 h-4 ${
                           i < review.overallRating
-                            ? "text-tan-ink fill-tan-ink"
+                            ? "text-primary fill-primary"
                             : "text-gray-300"
                         }`}
                       />
@@ -230,7 +230,7 @@ export default function ReviewsDisplay() {
                       <p className="text-xs text-gray-500 mt-1">{formatStayDuration(review.stayDuration)}</p>
                     )}
                     {review.highlight && (
-                      <p className="text-xs text-tan-ink font-medium mt-1 italic">"{review.highlight}"</p>
+                      <p className="text-xs text-primary font-medium mt-1 italic">"{review.highlight}"</p>
                     )}
                   </div>
 
