@@ -133,12 +133,15 @@ export default function UnitReviews({ slug }: { slug: string }) {
         {enough && avg !== null ? (
           <>
             <div className="flex items-baseline gap-3">
-              <span
-                className="text-4xl font-extrabold leading-none tracking-tight text-primary tabular-nums"
-                aria-hidden="true"
+              <div
+                className="flex items-center gap-1 text-primary"
+                aria-label={t("ratingLabel", { rating: avg.toFixed(1) })}
               >
-                {avg.toFixed(1)}
-              </span>
+                <Star aria-hidden="true" className="h-6 w-6 fill-tan-ink text-tan-ink" />
+                <span className="text-4xl font-extrabold leading-none tracking-tight tabular-nums">
+                  {avg.toFixed(1)}
+                </span>
+              </div>
               <div>
                 <div className="mt-1 text-sm text-primary/75 tabular-nums">
                   {t("reviewCount", { count })} · {distLine}

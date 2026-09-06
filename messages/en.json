@@ -366,11 +366,10 @@
       "sleeps": "Sleeps",
       "floor": "Floor",
       "extras": "Extras",
-      "privateBath": "{count, plural, one {# private bathroom} other {# private bathrooms}}",
+      "privateBath": "{count, plural, one {# bathroom} other {# bathrooms}}",
       "guests": "{count, plural, one {# guest} other {# guests}}",
       "descriptionSource": "From the category blurb",
-      "categoryDescription": "{blurb} {walk}",
-      "walkTo": "Walk to the Eau Gallie Public Library, EGAD murals, cafés, and riverfront parks; beaches in ~10–15 minutes."
+      "categoryDescription": "{blurb}"
     },
     "amenities": {
       "heading": "What's included",
@@ -400,6 +399,8 @@
       "artsBody": "Murals, cafés and the public library — walkable.",
       "riverTitle": "The riverfront",
       "riverBody": "Indian River parks across the way; beaches in ~10–15 minutes.",
+      "areaPhotoAlt": "{title} — neighbourhood photo {number}",
+      "showMap": "Show map",
       "mapNote": "Explore Silver Pineapple and nearby Eau Gallie highlights."
     },
     "goodToKnow": {

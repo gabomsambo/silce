@@ -87,7 +87,11 @@ export default function UnitGallery({
                 type="button"
                 onClick={() => openAt(n - 1)}
                 className={`group relative overflow-hidden focus-visible:outline-none ${radiusClass}`}
-                aria-label={t("openPhoto", { n, count: showAllCount })}
+                aria-label={
+                  isLast
+                    ? t("showAll", { count: showAllCount })
+                    : t("openPhoto", { n, count: showAllCount })
+                }
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

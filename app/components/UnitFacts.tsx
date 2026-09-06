@@ -3,7 +3,6 @@ import { Bed, Bath, Home, Users, ArrowUp, Maximize2 } from "lucide-react"
 import {
   buildBedroomsSpec,
   buildBathroomsSpec,
-  formatPrice,
   translateBedType,
   translateExtra,
   translateFloor,
@@ -26,16 +25,12 @@ import type { Unit } from "@/app/data/units"
  */
 export default function UnitFacts({
   unit,
-  locale,
   tRoot,
   blurb,
-  walkTo,
 }: {
   unit: Unit
-  locale: string
   tRoot: Translate
   blurb: string
-  walkTo: string
 }) {
   const t = useTranslations("unitPage.facts")
 
@@ -110,12 +105,8 @@ export default function UnitFacts({
       ) : null}
 
       <p className="mt-5 text-base leading-relaxed text-primary/85 md:text-lg">
-        {t("categoryDescription", { blurb, walk: walkTo })}
+        {t("categoryDescription", { blurb })}
       </p>
     </section>
   )
 }
-
-// Locale-only display formatter re-exported so callers can render the
-// price elsewhere on the page without re-importing the copy helper.
-export { formatPrice }

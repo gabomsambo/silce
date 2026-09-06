@@ -11,10 +11,9 @@ import { photoSrcSet } from "@/lib/photos"
  * "Where you'll be" — the location band on the unit page.
  *
  * Two fact cards (arts district, riverfront) and the existing site-wide
- * map. We try to use the unit's own photos for the cards if it has any
- * labelled `area`; otherwise we fall back to the first two photos of the
- * unit. Cards that render a unit photo carry an alt that says it is of
- * the area, not of the unit.
+ * map. Location cards only use photos explicitly labelled `area`; they do
+ * not fall back to interior photos, which would misrepresent what the card
+ * is describing when a unit has not yet received room labels.
  *
  * The map is shared across all units today (one marker for the property
  * at the Eau Gallie centre), so per-unit pins would be a separate change
@@ -43,11 +42,7 @@ export default function UnitLocation({
   const [mapOpen, setMapOpen] = useState(false)
 
   const areaPhotos = photos.filter((p) => p.room === "area").slice(0, 2)
-  const fallbackPhotos = photos.slice(0, 2)
-  const [card1, card2] = [
-    areaPhotos[0] ?? fallbackPhotos[0],
-    areaPhotos[1] ?? fallbackPhotos[1],
-  ]
+  const [card1, card2] = areaPhotos
 
   return (
     <section id="location" className="scroll-mt-20 border-t border-primary/10 py-8">
@@ -69,7 +64,7 @@ export default function UnitLocation({
                 src={card1.src}
                 srcSet={photoSrcSet(card1.src)}
                 sizes="(min-width: 768px) 33vw, 100vw"
-                alt={areaPhotos.length ? `${unitTitle} — area photo 1` : unitTitle}
+                alt={t("areaPhotoAlt", { title: unitTitle, number: 1 })}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -89,7 +84,7 @@ export default function UnitLocation({
                 src={card2.src}
                 srcSet={photoSrcSet(card2.src)}
                 sizes="(min-width: 768px) 33vw, 100vw"
-                alt={areaPhotos.length ? `${unitTitle} — area photo 2` : unitTitle}
+                alt={t("areaPhotoAlt", { title: unitTitle, number: 2 })}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -110,7 +105,7 @@ export default function UnitLocation({
                 type="button"
                 onClick={() => setMapOpen(true)}
                 className="flex h-full w-full flex-col items-center justify-center gap-2 text-tan-hover transition hover:bg-coastal-foam/40 focus-visible:bg-coastal-foam/40"
-                aria-label="Show map"
+                aria-label={t("showMap")}
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -123,7 +118,7 @@ export default function UnitLocation({
                   <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z" />
                   <circle cx="12" cy="9" r="2.5" />
                 </svg>
-                <span className="text-xs font-semibold">Show map</span>
+                <span className="text-xs font-semibold">{t("showMap")}</span>
               </button>
             )}
           </div>

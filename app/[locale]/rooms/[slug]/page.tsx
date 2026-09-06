@@ -276,10 +276,8 @@ export default async function PropertyPage({ params }: Props) {
             <div className="lg:col-span-2">
               <UnitFacts
                 unit={property}
-                locale={locale}
                 tRoot={tRoot}
                 blurb={tRoot(CATEGORIES[property.category].blurbKey)}
-                walkTo={tRoot("unitPage.facts.walkTo")}
               />
 
               {/* Amenities — section divider for visual rhythm */}

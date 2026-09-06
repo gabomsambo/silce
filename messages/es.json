@@ -366,11 +366,10 @@
       "sleeps": "Capacidad",
       "floor": "Piso",
       "extras": "Extras",
-      "privateBath": "{count, plural, one {# baño privado} other {# baños privados}}",
+      "privateBath": "{count, plural, one {# baño} other {# baños}}",
       "guests": "{count, plural, one {# huésped} other {# huéspedes}}",
       "descriptionSource": "De la descripción de la categoría",
-      "categoryDescription": "{blurb} {walk}",
-      "walkTo": "A pasos de la Biblioteca Pública de Eau Gallie, los murales del EGAD, cafeterías y parques junto al río; las playas quedan a unos 10–15 minutos."
+      "categoryDescription": "{blurb}"
     },
     "amenities": {
       "heading": "Qué está incluido",
@@ -400,6 +399,8 @@
       "artsBody": "Murales, cafeterías y la biblioteca pública — todo a pie.",
       "riverTitle": "La rivera",
       "riverBody": "Parques del río Indio cruzando la calle; playas a unos 10–15 minutos.",
+      "areaPhotoAlt": "{title} — foto del vecindario {number}",
+      "showMap": "Mostrar mapa",
       "mapNote": "Explora Silver Pineapple y los lugares destacados cercanos de Eau Gallie."
     },
     "goodToKnow": {
