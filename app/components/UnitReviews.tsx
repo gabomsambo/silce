@@ -109,7 +109,7 @@ export default function UnitReviews({ slug }: { slug: string }) {
           <p className="mt-2 text-sm leading-relaxed text-primary/75">
             {t("noneBody", { total: platform.reviews, rating: platform.rating.toFixed(2) })}{" "}
             <Link
-              href={{ pathname: "/reviews", query: { property: slug } }}
+              href="/reviews"
               className="font-semibold text-tan-hover underline-offset-2 hover:underline"
             >
               {t("readAllLink")} →
@@ -151,13 +151,8 @@ export default function UnitReviews({ slug }: { slug: string }) {
             <div className="hidden h-9 w-px bg-primary/10 sm:block" aria-hidden="true" />
           </>
         ) : (
-          <div>
-            <div className="text-lg font-extrabold tracking-tight text-primary">
-              {t("reviewCount", { count })} · {distLine}
-            </div>
-            <div className="mt-1 text-sm text-primary/70">
-              {t("lowVolumeHeading")} — {t("lowVolumeSubheading")}
-            </div>
+          <div className="text-lg font-extrabold tracking-tight text-primary">
+            {t("reviewCount", { count })} · {distLine}
           </div>
         )}
         <div className="ml-auto text-right text-xs leading-relaxed text-primary/65">
@@ -211,9 +206,7 @@ export default function UnitReviews({ slug }: { slug: string }) {
           >
             {count === 1 ? t("seeAllSingular") : t("seeAll", { count })} →
           </Link>
-        ) : (
-          <p className="text-xs text-primary/65">{t("lowVolumeFooter")}</p>
-        )}
+        ) : null}
       </div>
     </section>
   )
