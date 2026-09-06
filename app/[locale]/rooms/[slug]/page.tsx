@@ -213,9 +213,6 @@ function UnitTitleBlock({
                 {t("unitPage.titleBlock.perNight")}
               </span>
             </div>
-            <div className="mt-1 text-[11px] text-primary/65">
-              {t("unitPage.titleBlock.lowestNote")}
-            </div>
           </div>
         </div>
       </div>
