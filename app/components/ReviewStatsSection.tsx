@@ -27,7 +27,7 @@ export default function ReviewStatsSection() {
             <div className="hidden md:block w-px h-16 bg-gray-300"></div>
             <div>
               <div className="text-5xl md:text-6xl font-bold text-tan mb-2">
-                {getTotalReviewCount()}+
+                {getTotalReviewCount()}
               </div>
               <p className="text-gray-600 font-medium">{t("totalReviews")}</p>
             </div>

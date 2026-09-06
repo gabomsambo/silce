@@ -162,8 +162,9 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   from `GET https://public.api.hospitable.com/v2/properties/<uuid>/reviews?include=guest`
   (the credential-free booking API used for calendars does not serve reviews).
   The 2026-09-06 pull returned 120 Airbnb records and no Booking.com, VRBO or
-  Google reviews; publish only public text plus rating, and count
-  private-feedback-only records in the Airbnb total without displaying them.
+  Google reviews; two records had no public text and are omitted, so the file
+  publishes 118. `PLATFORM_STATS` is derived from that array, not from a
+  Hospitable aggregate.
 - **The multi-property search widget (`/search`) is a different animal from the
   per-unit booking widget** — different bundle, different API, different language
   mechanism. `app/components/PropertySearchWidget.tsx` documents the live state.

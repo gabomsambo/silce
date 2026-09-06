@@ -26,9 +26,13 @@ export interface Review {
   avatar?: string; // Path to avatar image
 }
 
-// One-time snapshot from Hospitable's Public API on 2026-09-06.
-// The API returned 120 Airbnb review records; 118 include public text and an overall rating.
-// The two private-feedback-only records are counted in the platform total but are not published.
+// One-time snapshot from Hospitable Public API GET
+// /v2/properties/<uuid>/reviews?include=guest on 2026-09-06.
+// The API returned 120 Airbnb records (every record's `platform` was "airbnb";
+// that 120 is the sum of each property's `meta.total`). Two records had no
+// public text and a public rating of 0
+// (71831b69-cf5e-45d0-bd51-09f567d46da6, 2c0417da-3827-4280-ae98-63648ad7873a)
+// and are not published. This array is those 118 public reviews.
 export const REVIEWS: Review[] = [
   {
     id: "40de3917-ea41-40b8-9d53-c32fc188fe7f",
@@ -1212,15 +1216,28 @@ export const REVIEWS: Review[] = [
   },
 ];
 
-// Hospitable returned no Booking.com, VRBO, or Google reviews for these properties.
+function shippedRatingMean(): number {
+  const sum = REVIEWS.reduce((acc, review) => acc + review.overallRating, 0);
+  return sum / REVIEWS.length;
+}
+
+// Derived from REVIEWS, not from a Hospitable aggregate field.
+// `reviews` is REVIEWS.length (118). `rating` is the mean of those 118
+// overallRating integers (574/118 ≈ 4.864406…), shown to two decimal places
+// as 4.86 — the source ratings are integers; this average is computed here.
+// Hospitable returned no Booking.com, VRBO, or Google reviews.
 export const PLATFORM_STATS = [
-  { platform: "Airbnb", rating: 4.9, reviews: 120, logo: "🏠" },
+  {
+    platform: "Airbnb",
+    rating: Number(shippedRatingMean().toFixed(2)),
+    reviews: REVIEWS.length,
+    logo: "🏠",
+  },
 ];
 
 // Helper functions
 export const getAverageRating = () => {
-  const sum = REVIEWS.reduce((acc, review) => acc + review.overallRating, 0);
-  return (sum / REVIEWS.length).toFixed(1);
+  return shippedRatingMean().toFixed(2);
 };
 
 export const getReviewsByProperty = (propertySlug: string) => {
@@ -1242,7 +1259,7 @@ export const getReviewsSortedByDate = () => {
   );
 };
 
-// Get total review count across all platforms
+// Published review count: the length of REVIEWS, not the raw API record count.
 export const getTotalReviewCount = (): number => {
-  return PLATFORM_STATS.reduce((acc, platform) => acc + platform.reviews, 0);
+  return REVIEWS.length;
 };
