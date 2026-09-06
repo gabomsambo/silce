@@ -86,7 +86,6 @@ export function buildBathroomsSpec(bathrooms: number, t: Translate) {
 export function buildUnitShortDescription(unit: Unit, t: Translate) {
   const bits = [
     translateBedType(unit.bedType, t),
-    unit.sqFt ? t("unit.specs.sqFt", { sqFt: unit.sqFt }) : null,
     unit.floor ? translateFloor(unit.floor, t) : null,
     unit.extras?.length ? unit.extras.map((e) => translateExtra(e, t)).join(" · ") : null,
   ].filter(Boolean)
@@ -96,7 +95,6 @@ export function buildUnitShortDescription(unit: Unit, t: Translate) {
 export function buildUnitLongDescription(unit: Unit, t: Translate) {
   const cat = CATEGORIES[unit.category]
   const specifics = [
-    unit.sqFt ? t("unit.specs.sqFtApprox", { sqFt: unit.sqFt }) : null,
     buildBedroomsSpec(unit.bedrooms, t),
     buildBathroomsSpec(unit.bathrooms, t),
     t("propertyDetail.templates.specsGuests", { maxGuests: unit.maxGuests }),

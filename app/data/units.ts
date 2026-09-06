@@ -10,7 +10,6 @@ export interface Unit {
   bedrooms: number            // 0 = studio from listing name; public API has no bedroom field
   bathrooms: number
   bedType: string             // e.g., "Queen", "Queen + Sofa Bed" — sourced, never inferred
-  sqFt?: number
   floor?: string              // e.g., "Ground", "Upper"
   extras?: string[]           // e.g., ["Dining table", "Workspace"]
   hospitable_id: string
@@ -27,7 +26,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    //sqFt: 350,
     floor: "Ground",
     hospitable_id: "2282925",
     images: ["/photos_2528/01.webp","/photos_2528/02.webp","/photos_2528/03.webp","/photos_2528/04.webp","/photos_2528/05.webp","/photos_2528/06.webp","/photos_2528/07.webp","/photos_2528/08.webp","/photos_2528/09.webp","/photos_2528/10.webp","/photos_2528/11.webp","/photos_2528/12.webp","/photos_2528/13.webp"],
@@ -41,7 +39,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    //sqFt: 360,
     floor: "Upper",
     extras: ["Espresso station"],
     hospitable_id: "2282918",
@@ -57,7 +54,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    sqFt: 430,
     floor: "Upper",
     extras: ["High ceilings"],
     hospitable_id: "2282919",
@@ -72,7 +68,6 @@ export const UNITS: Unit[] = [
     bedrooms: 1,
     bathrooms: 1,
     bedType: "Queen",
-    sqFt: 440,
     floor: "Ground",
     extras: ["Workspace"],
     hospitable_id: "2282915",
@@ -87,7 +82,6 @@ export const UNITS: Unit[] = [
     bedrooms: 2,
     bathrooms: 1,
     bedType: "Queen + Queen + Sofa Bed",
-    sqFt: 520,
     floor: "Ground",
     extras: ["Dining table in kitchen"],
     hospitable_id: "2282920",
@@ -102,7 +96,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Full",
-    //sqFt: 600,
     floor: "Upper",
     hospitable_id: "2282928",
     images: ["/photos_2526/01.webp","/photos_2526/02.webp","/photos_2526/03.webp","/photos_2526/04.webp","/photos_2526/05.webp","/photos_2526/06.webp","/photos_2526/07.webp","/photos_2526/08.webp","/photos_2526/09.webp","/photos_2526/10.webp","/photos_2526/11.webp","/photos_2526/12.webp"],
@@ -116,7 +109,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282916",
     images: ["/photos_103/01.webp","/photos_103/02.webp","/photos_103/03.webp","/photos_103/04.webp","/photos_103/05.webp","/photos_103/06.webp","/photos_103/07.webp","/photos_103/08.webp","/photos_103/09.webp","/photos_103/10.webp","/photos_103/11.webp"],
@@ -130,7 +122,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282923",
     images: ["/photos_104/01.webp","/photos_104/02.webp","/photos_104/03.webp","/photos_104/04.webp","/photos_104/05.webp","/photos_104/06.webp","/photos_104/07.webp","/photos_104/08.webp","/photos_104/09.webp","/photos_104/10.webp","/photos_104/11.webp","/photos_104/12.webp","/photos_104/13.webp"],
@@ -156,7 +147,6 @@ export const UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Full",
-    sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282914",
     images: ["/photos_101/01.webp","/photos_101/02.webp","/photos_101/03.webp","/photos_101/04.webp","/photos_101/05.webp","/photos_101/06.webp","/photos_101/07.webp","/photos_101/08.webp","/photos_101/09.webp","/photos_101/10.webp","/photos_101/11.webp"],
