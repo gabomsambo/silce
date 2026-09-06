@@ -30,7 +30,7 @@ export const UNITS: Unit[] = [
     //sqFt: 350,
     floor: "Ground",
     hospitable_id: "2282925",
-    images: ["/photos_2528/1.jpg","/photos_2528/2.jpg","/photos_2528/3.jpg","/photos_2528/4.jpg","/photos_2528/5.jpg","/photos_2528/6.jpg","/photos_2528/7.jpg","/photos_2528/8.jpg","/photos_2528/9.jpg","/photos_2528/10.jpg"],
+    images: ["/photos_2528/01.webp","/photos_2528/02.webp","/photos_2528/03.webp","/photos_2528/04.webp","/photos_2528/05.webp","/photos_2528/06.webp","/photos_2528/07.webp","/photos_2528/08.webp","/photos_2528/09.webp","/photos_2528/10.webp","/photos_2528/11.webp","/photos_2528/12.webp","/photos_2528/13.webp"],
   },
   {
     slug: "unit-2536",
@@ -45,7 +45,7 @@ export const UNITS: Unit[] = [
     floor: "Upper",
     extras: ["Espresso station"],
     hospitable_id: "2282918",
-    images: ["/photos_2536/1.jpg","/photos_2536/2.jpg","/photos_2536/3.jpg","/photos_2536/4.jpg","/photos_2536/5.jpg","/photos_2536/6.jpg","/photos_2536/7.jpg","/photos_2536/8.jpg"],
+    images: ["/photos_2536/01.webp","/photos_2536/02.webp","/photos_2536/03.webp","/photos_2536/04.webp","/photos_2536/05.webp","/photos_2536/06.webp","/photos_2536/07.webp","/photos_2536/08.webp","/photos_2536/09.webp","/photos_2536/10.webp","/photos_2536/11.webp"],
   },
 
   {
@@ -61,7 +61,7 @@ export const UNITS: Unit[] = [
     floor: "Upper",
     extras: ["High ceilings"],
     hospitable_id: "2282919",
-    images: ["/photos_2538/1.jpg","/photos_2538/2.jpg","/photos_2538/3.jpg","/photos_2538/4.jpg","/photos_2538/5.jpg","/photos_2538/6.jpg","/photos_2538/7.jpg","/photos_2538/8.jpg","/photos_2538/9.jpg","/photos_2538/10.jpg","/photos_2538/11.jpg","/photos_2538/12.jpg"],
+    images: ["/photos_2538/01.webp","/photos_2538/02.webp","/photos_2538/03.webp","/photos_2538/04.webp","/photos_2538/05.webp","/photos_2538/06.webp","/photos_2538/07.webp","/photos_2538/08.webp","/photos_2538/09.webp","/photos_2538/10.webp","/photos_2538/11.webp"],
   },
   {
     slug: "pineapple-102",
@@ -71,12 +71,12 @@ export const UNITS: Unit[] = [
     maxGuests: 3,
     bedrooms: 1,
     bathrooms: 1,
-    bedType: "Queen",
+    bedType: "Queen + Sofa Bed",
     sqFt: 440,
     floor: "Ground",
     extras: ["Workspace"],
     hospitable_id: "2282915",
-    images: ["/photos_102/1.jpg","/photos_102/2.jpg","/photos_102/3.jpg","/photos_102/4.jpg","/photos_102/5.jpg","/photos_102/6.jpg","/photos_102/7.jpg","/photos_102/8.jpg","/photos_102/9.jpg"],
+    images: ["/photos_102/01.webp","/photos_102/02.webp","/photos_102/03.webp","/photos_102/04.webp","/photos_102/05.webp","/photos_102/06.webp","/photos_102/07.webp","/photos_102/08.webp","/photos_102/09.webp","/photos_102/10.webp","/photos_102/11.webp"],
   },
   {
     slug: "sea-grape-102",
@@ -86,12 +86,12 @@ export const UNITS: Unit[] = [
     maxGuests: 6,
     bedrooms: 2,
     bathrooms: 1,
-    bedType: "Queen + Queen",
+    bedType: "Queen + Queen + Sofa Bed",
     sqFt: 520,
     floor: "Ground",
     extras: ["Dining table in kitchen"],
     hospitable_id: "2282920",
-    images: ["/photos_seagrape_102/1.jpg","/photos_seagrape_102/2.jpg","/photos_seagrape_102/3.jpg","/photos_seagrape_102/4.jpg","/photos_seagrape_102/5.jpg","/photos_seagrape_102/6.jpg","/photos_seagrape_102/9.jpg","/photos_seagrape_102/10.jpg","/photos_seagrape_102/11.jpg","/photos_seagrape_102/12.jpg","/photos_seagrape_102/13.jpg","/photos_seagrape_102/14.jpg","/photos_seagrape_102/15.jpg","/photos_seagrape_102/16.jpg"]
+    images: ["/photos_seagrape_102/01.webp","/photos_seagrape_102/02.webp","/photos_seagrape_102/03.webp","/photos_seagrape_102/04.webp","/photos_seagrape_102/05.webp","/photos_seagrape_102/06.webp","/photos_seagrape_102/07.webp","/photos_seagrape_102/08.webp","/photos_seagrape_102/09.webp","/photos_seagrape_102/10.webp","/photos_seagrape_102/11.webp","/photos_seagrape_102/12.webp","/photos_seagrape_102/13.webp"]
   },
   {
     slug: "unit-2526",
@@ -101,11 +101,11 @@ export const UNITS: Unit[] = [
     maxGuests: 2,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "Queen",
+    bedType: "Full",
     //sqFt: 600,
     floor: "Upper",
     hospitable_id: "2282928",
-    images: ["/photos_2526/1.jpg","/photos_2526/2.jpg","/photos_2526/3.jpg","/photos_2526/4.jpg","/photos_2526/5.jpg","/photos_2526/6.jpg","/photos_2526/7.jpg","/photos_2526/8.jpg"],
+    images: ["/photos_2526/01.webp","/photos_2526/02.webp","/photos_2526/03.webp","/photos_2526/04.webp","/photos_2526/05.webp","/photos_2526/06.webp","/photos_2526/07.webp","/photos_2526/08.webp","/photos_2526/09.webp","/photos_2526/10.webp","/photos_2526/11.webp","/photos_2526/12.webp"],
   },
   {
     slug: "pineapple-103",
@@ -119,7 +119,7 @@ export const UNITS: Unit[] = [
     sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282916",
-    images: ["/photos_103/1.jpg","/photos_103/2.jpg","/photos_103/3.jpg","/photos_103/4.jpg","/photos_103/5.jpg","/photos_103/6.jpg","/photos_103/7.jpg","/photos_103/8.jpg"],
+    images: ["/photos_103/01.webp","/photos_103/02.webp","/photos_103/03.webp","/photos_103/04.webp","/photos_103/05.webp","/photos_103/06.webp","/photos_103/07.webp","/photos_103/08.webp","/photos_103/09.webp","/photos_103/10.webp","/photos_103/11.webp"],
   },
   {
     slug: "pineapple-104",
@@ -133,7 +133,7 @@ export const UNITS: Unit[] = [
     sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282923",
-    images: ["/photos_104/1.jpg","/photos_104/2.jpg","/photos_104/3.jpg","/photos_104/4.jpg","/photos_104/5.jpg"],
+    images: ["/photos_104/01.webp","/photos_104/02.webp","/photos_104/03.webp","/photos_104/04.webp","/photos_104/05.webp","/photos_104/06.webp","/photos_104/07.webp","/photos_104/08.webp","/photos_104/09.webp","/photos_104/10.webp","/photos_104/11.webp","/photos_104/12.webp","/photos_104/13.webp"],
   },
   {
     slug: "pineapple-105",
@@ -145,7 +145,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen + Sofa Bed",
     hospitable_id: "2282917",
-    images: ["/photos_105/1.jpg","/photos_105/2.jpg","/photos_105/3.jpg","/photos_105/4.jpg","/photos_105/5.jpg","/photos_105/6.jpg","/photos_105/7.jpg","/photos_105/9.jpg"],
+    images: ["/photos_105/01.webp","/photos_105/02.webp","/photos_105/03.webp","/photos_105/04.webp","/photos_105/05.webp","/photos_105/06.webp","/photos_105/07.webp","/photos_105/08.webp"],
   },
   {
     slug: "pineapple-101",
@@ -155,11 +155,11 @@ export const UNITS: Unit[] = [
     maxGuests: 4,
     bedrooms: 0,
     bathrooms: 1,
-    bedType: "Queen ",
+    bedType: "Full + Sofa Bed",
     sqFt: 720,
     floor: "Upper",
     hospitable_id: "2282914",
-    images: ["/photos_101/1.jpg","/photos_101/2.jpg","/photos_101/3.jpg","/photos_101/4.jpg","/photos_101/5.jpg","/photos_101/6.jpg","/photos_101/7.jpg","/photos_101/8.jpg","/photos_101/9.jpg","/photos_101/10.jpg"],
+    images: ["/photos_101/01.webp","/photos_101/02.webp","/photos_101/03.webp","/photos_101/04.webp","/photos_101/05.webp","/photos_101/06.webp","/photos_101/07.webp","/photos_101/08.webp","/photos_101/09.webp","/photos_101/10.webp","/photos_101/11.webp"],
   },
   {
     slug: "sea-grape-101",
@@ -169,9 +169,9 @@ export const UNITS: Unit[] = [
     maxGuests: 6,
     bedrooms: 2,
     bathrooms: 1,
-    bedType: "Queen + Queen",
+    bedType: "Queen + Queen + Sofa Bed",
     hospitable_id: "2282921",
-    images: ["/photos_seagrape_101/1.jpg","/photos_seagrape_101/2.jpg","/photos_seagrape_101/3.jpg","/photos_seagrape_101/4.jpg","/photos_seagrape_101/5.jpg"],
+    images: ["/photos_seagrape_101/01.webp","/photos_seagrape_101/02.webp","/photos_seagrape_101/03.webp","/photos_seagrape_101/04.webp","/photos_seagrape_101/05.webp"],
   },
   {
     slug: "sea-grape-201",
@@ -183,7 +183,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen",
     hospitable_id: "2282922",
-    images: ["/photos_seagrape_201/1.jpg","/photos_seagrape_201/2.jpg","/photos_seagrape_201/3.jpg","/photos_seagrape_201/4.jpg","/photos_seagrape_201/5.jpg"],
+    images: ["/photos_seagrape_201/01.webp","/photos_seagrape_201/02.webp","/photos_seagrape_201/03.webp","/photos_seagrape_201/04.webp","/photos_seagrape_201/05.webp"],
   },
   {
     slug: "sea-grape-1052-101",
@@ -195,6 +195,6 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen + Sofa Bed",
     hospitable_id: "2282929",
-    images: ["/photos_seagrape_1052_101/2.jpg","/photos_seagrape_1052_101/3.jpg","/photos_seagrape_1052_101/4.jpg","/photos_seagrape_1052_101/5.jpg","/photos_seagrape_1052_101/6.jpg","/photos_seagrape_1052_101/7.jpg","/photos_seagrape_1052_101/8.jpg","/photos_seagrape_1052_101/9.jpg","/photos_seagrape_1052_101/10.jpg"],
+    images: ["/photos_seagrape_1052_101/01.webp","/photos_seagrape_1052_101/02.webp","/photos_seagrape_1052_101/03.webp","/photos_seagrape_1052_101/04.webp","/photos_seagrape_1052_101/05.webp","/photos_seagrape_1052_101/06.webp","/photos_seagrape_1052_101/07.webp","/photos_seagrape_1052_101/08.webp","/photos_seagrape_1052_101/09.webp"],
   },
 ]

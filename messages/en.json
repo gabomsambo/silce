@@ -262,8 +262,10 @@
     "bedTypes": {
       "queen": "Queen",
       "king": "King",
+      "full": "Full",
       "queen-queen": "2 Queen beds",
       "queen-sofa-bed": "Queen + Sofa Bed",
+      "full-sofa-bed": "Full + Sofa Bed",
       "queen-queen-sofa-bed": "Queen + Queen + Sofa Bed"
     },
     "floors": {

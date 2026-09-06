@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import BookingIframe from "../../../components/BookingIframe";
+import UnitGallery from "../../../components/UnitGallery";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { UNITS } from "../../../data/units";
 import { buildBathroomsSpec, buildBedroomsSpec, buildUnitLongDescription, formatPrice } from "../../../data/copy";
@@ -144,16 +145,11 @@ export default async function PropertyPage({ params }: Props) {
       />
       <Navbar />
 
-      {/* Gallery */}
-      <section className="relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 h-[60vh]">
-          {property.images.map((image, i) => (
-            <div key={i} className={`relative overflow-hidden ${i === 0 ? "md:col-span-2 lg:col-span-2" : ""}`}>
-              <img src={image} alt={t('imageAlt', { title, number: i + 1 })} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-            </div>
-          ))}
-        </div>
-      </section>
+      <UnitGallery
+        images={property.images}
+        title={title}
+        imageAlt={(unitTitle, number) => t("imageAlt", { title: unitTitle, number })}
+      />
 
       {/* Details */}
       <section className="py-16">

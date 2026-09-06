@@ -5,6 +5,8 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Cloudflare Pages does not run Next's optimizer. Unit galleries ship
+    // pre-generated WebP at 640/1024/1500; see lib/photos.ts.
     unoptimized: true,
   },
   // Inlined into both bundles at build time, so server and client render the

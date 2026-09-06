@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation"
 import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { formatPrice, buildUnitShortDescription, buildCategorySleepsCount } from "../data/copy"
+import { cardPhoto } from "@/lib/photos"
 import type { CategoryMeta } from "../data/categories"
 import type { Unit } from "../data/units"
 
@@ -51,7 +52,7 @@ export default function RoomCategorySection({ category, units }: { category: Cat
           {/* Featured large card */}
           <Link href={`/rooms/${featured.slug}`} className="group relative rounded-2xl overflow-hidden border border-gray-200">
             <div className="relative h-72">
-              <Image src={featured.images[0] || "/placeholder.svg"} alt={t(featured.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+              <Image src={cardPhoto(featured.images[0] || "/placeholder.svg")} alt={t(featured.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-5">
               <div className="flex items-center justify-between mb-1">
@@ -70,7 +71,7 @@ export default function RoomCategorySection({ category, units }: { category: Cat
             {units.slice(1).map((u) => (
               <Link key={u.slug} href={`/rooms/${u.slug}`} className="group relative rounded-2xl overflow-hidden border border-gray-200">
                 <div className="relative h-56">
-                  <Image src={u.images[0] || "/placeholder.svg"} alt={t(u.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <Image src={cardPhoto(u.images[0] || "/placeholder.svg")} alt={t(u.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-1">

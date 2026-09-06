@@ -30,7 +30,7 @@ export function formatPrice(n: number, locale = "en") {
 const slugify = (value: string) =>
   value.trim().toLowerCase().replace(/\+/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
 
-const KNOWN_BED_TYPES = ["queen", "king", "queen-queen", "queen-sofa-bed", "queen-queen-sofa-bed"]
+const KNOWN_BED_TYPES = ["queen", "king", "full", "queen-queen", "queen-sofa-bed", "full-sofa-bed", "queen-queen-sofa-bed"]
 const KNOWN_FLOORS = ["ground", "upper"]
 const KNOWN_EXTRAS = ["dining-table-in-kitchen", "espresso-station", "high-ceilings", "workspace"]
 

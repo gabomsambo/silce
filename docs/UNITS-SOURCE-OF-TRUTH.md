@@ -4,7 +4,7 @@ Reconciles three systems: **Hospitable** (`booking-widget-codes.md` export),
 the **photo library** (`Fotos de todas las unidades/`), and the **site**
 (`app/data/units.ts`).
 
-Last reconciled: 2026-09-05.
+Last reconciled: 2026-09-06.
 
 ## Naming key
 
@@ -59,23 +59,27 @@ same photograph twice).
 Hospitable is authoritative for IDs. All 13 map 1:1 to a photo folder.
 
 `Library` counts files in the source folder; `Live` counts entries in that
-unit's `images` array in `units.ts`. They are allowed to differ — only the four
-units published in 2026-09 draw on the professional library at all, and their
-galleries are filtered by the provenance rule above.
+unit's `images` array in `units.ts`. Live galleries for the nine units
+published on 2026-09-06 are the listing's own Hospitable photo set, upgraded
+to library files where a 16x16 dHash matches (distance ≤ 6), ordered interior
+walkthrough → amenities → exterior/location, and encoded as WebP at 640 / 1024
+/ 1500 because Cloudflare Pages does not run Next's optimizer. The four units
+already on professional sets (105, seagrape_101, seagrape_201,
+seagrape_1052_101) kept their photo selection; only the encode changed.
 
 | # | Hospitable property | ID | Photo folder | Site slug | Library | Live |
 |---|---|---|---|---|--:|--:|
-| 1 | Unit PA101 Ed 2546 | `2282914` | Fotos unidad 101 PA | `pineapple-101` | 6 | 10 |
-| 2 | Unit PA102 Ed 2546 | `2282915` | Fotos unidad 102 PA | `pineapple-102` | 5 | 9 |
-| 3 | Unit PA103 Ed 2546 | `2282916` | Fotos unidad 103 PA | `pineapple-103` | 5 | 8 |
-| 4 | Unit PA104 Ed 2546 | `2282923` | Fotos unidad 104 PA | `pineapple-104` | 11 | 5 |
+| 1 | Unit PA101 Ed 2546 | `2282914` | Fotos unidad 101 PA | `pineapple-101` | 6 | 11 |
+| 2 | Unit PA102 Ed 2546 | `2282915` | Fotos unidad 102 PA | `pineapple-102` | 5 | 11 |
+| 3 | Unit PA103 Ed 2546 | `2282916` | Fotos unidad 103 PA | `pineapple-103` | 5 | 11 |
+| 4 | Unit PA104 Ed 2546 | `2282923` | Fotos unidad 104 PA | `pineapple-104` | 11 | 13 |
 | 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | `pineapple-105` | 11 | 8 |
-| 6 | Unit PA2526 | `2282928` | Fotos unidad 2526 PA | `unit-2526` | 8 | 8 |
-| 7 | Unit PA2528 | `2282925` | Fotos unidad 2528 PA | `unit-2528` | 8 | 10 |
-| 8 | Unit PA2536 | `2282918` | Fotos unidad 2536 PA | `unit-2536` | 5 | 8 |
-| 9 | Unit PA2538 | `2282919` | Fotos unidad 2538 PA | `unit-2538` | 5 | 12 |
+| 6 | Unit PA2526 | `2282928` | Fotos unidad 2526 PA | `unit-2526` | 8 | 12 |
+| 7 | Unit PA2528 | `2282925` | Fotos unidad 2528 PA | `unit-2528` | 8 | 13 |
+| 8 | Unit PA2536 | `2282918` | Fotos unidad 2536 PA | `unit-2536` | 5 | 11 |
+| 9 | Unit PA2538 | `2282919` | Fotos unidad 2538 PA | `unit-2538` | 5 | 11 |
 | 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | `sea-grape-101` | 5 | 5 |
-| 11 | Unit SG102 Ed 1042 | `2282920` | Fotos unidad 102 SG | `sea-grape-102` | 7 | 14 |
+| 11 | Unit SG102 Ed 1042 | `2282920` | Fotos unidad 102 SG | `sea-grape-102` | 7 | 13 |
 | 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | `sea-grape-201` | 5 | 5 |
 | 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 | 9 |
 
@@ -157,13 +161,13 @@ or from what the site already says.
 Two units were corrected under that rule, both direct contradictions of the
 export rather than mere gaps:
 
-- `sea-grape-102` (`2282920`, export row `Unit SG102 Ed 1042`) advertised
-  `Queen + Queen + Sofa Bed`, while the export gives it 2 beds — "1 queen in
-  bedroom; 1 queen in bedroom" — and no sofa bed. It now reads `Queen + Queen`,
-  matching `sea-grape-101` (`2282921`), the other 6-guest two-bedroom it
-  renders beside on the rooms index. `max_guests` is unchanged at 6; it comes
-  from Hospitable and is authoritative regardless of how the beds are counted.
-  That leaves the two sources disagreeing in public — open question 1 below.
+- `sea-grape-102` (`2282920`) and `sea-grape-101` (`2282921`): the owner stated
+  on 2026-09-05 that sofa beds exist in these two units **only** among the
+  Sea Grape 1042 stack. They read `Queen + Queen + Sofa Bed`. `sea-grape-201`
+  has no sofa bed. Listing captions on 2026-09-06 name the sofa bed on
+  `sea-grape-102` ("Two queen bedrooms plus a sofa bed…") and a sleeper sofa
+  on `pineapple-102`; `pineapple-101`'s caption names a full bed plus sofa bed.
+  A sofa is not a sofa bed — armchair / sofa copy is not enough.
 - `unit-2538` (`2282919`, live name "Minimalist Studio | Wifi + Arts Scene &
   Near River" = export row `Unit PA2538`) advertised `King`, while the export
   gives it "1 queen in living room; 1 sofa bed in living room". Worse than the
@@ -172,11 +176,13 @@ export rather than mere gaps:
   `pineapple-105` and `sea-grape-1052-101` already use for that same
   arrangement.
 
-**The rule is not yet fully applied.** Six more pre-existing units fail it and
-are listed under open questions 3–5; they are deferred to the systematic
-bed-and-content pass, which inherits that list. Do not close any of these gaps
-by inventing a bed — the authorities are what they are, and the site states
-each one where it is sourced.
+**Applied 2026-09-06 against live listing names and photo captions** (the public
+API still has no bed-type field). Owner-stated sofa beds on Sea Grape 101 and
+102 override the export; Sea Grape 201 has none. Listing captions named a full
+bed + sofa bed on `pineapple-101`, a sleeper sofa on `pineapple-102`, a queen
+on `pineapple-104` and `unit-2528`, and a full bed on `unit-2526`. `pineapple-103`
+keeps Queen from its listing name ("Queen Bed"). `unit-2536` stays Queen — the
+export's sofa bed is not in the live captions, and an armchair is not a sofa bed.
 
 ## Category amenity chips
 
@@ -228,24 +234,17 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    Sourcing them is deferred to the systematic bed-and-content pass.
    `sea-grape-101` carries neither field, so the inconsistency is visible on
    the same section.
-3. **`pineapple-101` bed configuration.** `units.ts` says `Queen`; the
-   reconciliation export says "1 double in living room; 1 sofa bed in living
-   room". Both cannot be right, and neither is confirmable against the public
-   API. Left as-is rather than swapped for a second unverified claim; deferred
-   to the systematic bed-and-content pass, which resolves it against
-   Hospitable's listing data.
-4. **Two units understate their beds.** `unit-2536` (`2282918` = `PA2536`) and
-   `pineapple-103` (`2282916` = `PA103`) both say `Queen`, where the export
-   gives each 2 beds — "1 queen …; 1 sofa bed …". Safe understatements rather
-   than false claims, so nothing here misleads a guest on arrival. Deferred to
-   the systematic bed-and-content pass.
-5. **Three units assert a bed type the export calls unknown.** `pineapple-104`
-   (`2282923`), `unit-2528` (`2282925`) and `unit-2526` (`2282928`) all display
-   `Queen`, where the export holds the bed *count* authoritative but records
-   the *type* as genuinely unknown and instructs "Do not invent one". The site
-   is inventing a bed type on three units — a real defect against the rule
-   above, not a gap. Correcting three more displayed bed types belongs to the
-   systematic bed-and-content pass, which inherits this list.
+3. *(resolved 2026-09-06)* **`pineapple-101` bed configuration.** Live listing
+   caption: "Plush full bed with soft linens and a sofa bed". Now `Full + Sofa
+   Bed`. The export's "double + sofa bed" agrees on the sofa bed; the public
+   name does not say Queen.
+4. *(resolved 2026-09-06 as understatements kept)* **`unit-2536` and
+   `pineapple-103` sofa beds.** Export gave each a sofa bed. Live captions show
+   an armchair on 103 and no sofa bed on 2536. Queen stands; do not invent the
+   extra bed.
+5. *(resolved 2026-09-06)* **Bed type on `pineapple-104`, `unit-2528`,
+   `unit-2526`.** Live captions name a queen on the first two and a full bed on
+   2526. The export's "unknown type" is superseded by those captions.
 6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
