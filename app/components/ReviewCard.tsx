@@ -19,7 +19,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
       {/* Rating Stars */}
       <div className="flex mb-4">
         {[...Array(review.rating)].map((_, i) => (
-          <Star key={i} className="w-5 h-5 text-tan fill-current" />
+          <Star key={i} className="w-5 h-5 text-tan-ink fill-current" />
         ))}
       </div>
 

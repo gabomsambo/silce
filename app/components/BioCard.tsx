@@ -20,7 +20,7 @@ export default function BioCard({ name, title, image, bio, quote }: BioCardProps
 
         {/* Name and Title */}
         <h3 className="text-2xl md:text-3xl font-bold text-primary mb-2">{name}</h3>
-        <p className="text-lg text-tan font-medium mb-6">{title}</p>
+        <p className="text-lg text-tan-ink font-medium mb-6">{title}</p>
 
         {/* Bio */}
         <div className="max-w-3xl space-y-4 text-lg text-gray-700 leading-relaxed mb-8">
@@ -30,7 +30,7 @@ export default function BioCard({ name, title, image, bio, quote }: BioCardProps
         </div>
 
         {/* Quote */}
-        <blockquote className="text-xl md:text-2xl text-primary font-light italic text-center border-l-4 border-tan pl-6">
+        <blockquote className="text-xl md:text-2xl text-primary font-light italic text-center border-l-4 border-tan-ink pl-6">
           "{quote}"
         </blockquote>
       </div>
