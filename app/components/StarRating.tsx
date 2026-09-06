@@ -16,7 +16,7 @@ export default function StarRating({ rating, size = "md", className = "" }: Star
   return (
     <div className={`flex ${className}`}>
       {[...Array(5)].map((_, i) => (
-        <Star key={i} className={`${sizeClasses[size]} ${i < rating ? "text-tan fill-current" : "text-gray-300"}`} />
+        <Star key={i} className={`${sizeClasses[size]} ${i < rating ? "text-tan-ink fill-current" : "text-gray-300"}`} />
       ))}
     </div>
   )

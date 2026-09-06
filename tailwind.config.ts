@@ -45,6 +45,23 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         tan: "#D2B48C",
+        // Accessible companion to `tan` for TEXT and meaningful icons on light
+        // surfaces. `tan` itself is 1.97:1 on white and fails WCAG AA; this is
+        // the same hue/saturation darkened to 38% lightness -> 5.13:1 on white.
+        // "White" is an assumption, not a guarantee: on the `/reviews` teal
+        // section gradient this measures 4.38:1 and FAILS AA. On any tinted or
+        // gradient surface measure the rendered pixel and reach for `tan-hover`
+        // instead - see the `tan-ink` bullet in AGENTS.md. Backgrounds,
+        // decorative tints and dark-surface text keep plain `tan`.
+        "tan-ink": "#8B6737",
+        // Hover partner for `tan-ink` on light surfaces. On a light background
+        // hover must get DARKER, never fainter: an opacity modifier fades the
+        // ink toward the page and drops contrast exactly when the user signals
+        // interest. Same hue/saturation at 30% lightness -> 7.30:1 on white and
+        // 6.24:1 on the `/reviews` teal gradient that `tan-ink` fails. It is not
+        // universally safe either: over a photo showing through the scrolled
+        // navbar it measures 1.70:1 (see the navbar bullet in AGENTS.md).
+        "tan-hover": "#6E512B",
         // Coastal Palette - Beach vacation aesthetic
         "coastal-blue": "#0EA5E9",      // Ocean blue (Tailwind sky-500)
         "coastal-teal": "#14B8A6",      // Coastal teal (Tailwind teal-500)
