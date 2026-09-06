@@ -145,7 +145,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen",
     hospitable_id: "2282917",
-    images: ["/photos_105/01.webp","/photos_105/02.webp","/photos_105/03.webp","/photos_105/04.webp","/photos_105/05.webp","/photos_105/06.webp","/photos_105/07.webp","/photos_105/08.webp"],
+    images: ["/photos_105/01.webp","/photos_105/02.webp","/photos_105/03.webp","/photos_105/04.webp","/photos_105/05.webp","/photos_105/06.webp","/photos_105/07.webp","/photos_105/08.webp","/photos_105/09.webp","/photos_105/10.webp","/photos_105/11.webp","/photos_105/12.webp","/photos_105/13.webp"],
   },
   {
     slug: "pineapple-101",
@@ -171,7 +171,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen + Queen + Sofa Bed",
     hospitable_id: "2282921",
-    images: ["/photos_seagrape_101/01.webp","/photos_seagrape_101/02.webp","/photos_seagrape_101/03.webp","/photos_seagrape_101/04.webp","/photos_seagrape_101/05.webp"],
+    images: ["/photos_seagrape_101/01.webp","/photos_seagrape_101/02.webp","/photos_seagrape_101/03.webp","/photos_seagrape_101/04.webp","/photos_seagrape_101/05.webp","/photos_seagrape_101/06.webp","/photos_seagrape_101/07.webp","/photos_seagrape_101/08.webp","/photos_seagrape_101/09.webp","/photos_seagrape_101/10.webp","/photos_seagrape_101/11.webp"],
   },
   {
     slug: "sea-grape-201",
@@ -183,7 +183,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen",
     hospitable_id: "2282922",
-    images: ["/photos_seagrape_201/01.webp","/photos_seagrape_201/02.webp","/photos_seagrape_201/03.webp","/photos_seagrape_201/04.webp","/photos_seagrape_201/05.webp"],
+    images: ["/photos_seagrape_201/01.webp","/photos_seagrape_201/02.webp","/photos_seagrape_201/03.webp","/photos_seagrape_201/04.webp","/photos_seagrape_201/05.webp","/photos_seagrape_201/06.webp","/photos_seagrape_201/07.webp","/photos_seagrape_201/08.webp","/photos_seagrape_201/09.webp","/photos_seagrape_201/10.webp","/photos_seagrape_201/11.webp"],
   },
   {
     slug: "sea-grape-1052-101",
@@ -195,6 +195,6 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen",
     hospitable_id: "2282929",
-    images: ["/photos_seagrape_1052_101/01.webp","/photos_seagrape_1052_101/02.webp","/photos_seagrape_1052_101/03.webp","/photos_seagrape_1052_101/04.webp","/photos_seagrape_1052_101/05.webp","/photos_seagrape_1052_101/06.webp","/photos_seagrape_1052_101/07.webp","/photos_seagrape_1052_101/08.webp","/photos_seagrape_1052_101/09.webp"],
+    images: ["/photos_seagrape_1052_101/01.webp","/photos_seagrape_1052_101/02.webp","/photos_seagrape_1052_101/03.webp","/photos_seagrape_1052_101/04.webp","/photos_seagrape_1052_101/05.webp","/photos_seagrape_1052_101/06.webp","/photos_seagrape_1052_101/07.webp","/photos_seagrape_1052_101/08.webp","/photos_seagrape_1052_101/09.webp","/photos_seagrape_1052_101/10.webp","/photos_seagrape_1052_101/11.webp","/photos_seagrape_1052_101/12.webp","/photos_seagrape_1052_101/13.webp"],
   },
 ]

@@ -59,13 +59,17 @@ same photograph twice).
 Hospitable is authoritative for IDs. All 13 map 1:1 to a photo folder.
 
 `Library` counts files in the source folder; `Live` counts entries in that
-unit's `images` array in `units.ts`. Live galleries for the nine units
-published on 2026-09-06 are the listing's own Hospitable photo set, upgraded
-to library files where a 16x16 dHash matches (distance ≤ 6), ordered interior
-walkthrough → amenities → exterior/location, and encoded as WebP at 640 / 1024
-/ 1500 because Cloudflare Pages does not run Next's optimizer. The four units
-already on professional sets (105, seagrape_101, seagrape_201,
-seagrape_1052_101) kept their photo selection; only the encode changed.
+unit's `images` array in `units.ts`. Live galleries for all 13 units are the
+listing's own Hospitable photo set, upgraded to library files where a 16x16
+dHash matches (distance ≤ 6), ordered interior walkthrough → amenities →
+exterior/location, and encoded as WebP at 640 / 1024 / 1500 because Cloudflare
+Pages does not run Next's optimizer. A unit's own best interior always leads;
+Hospitable's lead is not inherited when it is a shared amenity or location
+frame (2282921 / 2282922 open on a beach shot; 2282917 opens on the
+stone-table patio). `sea-grape-1052-101` (`2282929`) has no sunset / downtown
+/ marina frames in its official set, so its tail is that listing's own
+laundry, stone-table, and building photos rather than the shared location
+set used on the other twelve.
 
 | # | Hospitable property | ID | Photo folder | Site slug | Library | Live |
 |---|---|---|---|---|--:|--:|
@@ -73,19 +77,21 @@ seagrape_1052_101) kept their photo selection; only the encode changed.
 | 2 | Unit PA102 Ed 2546 | `2282915` | Fotos unidad 102 PA | `pineapple-102` | 5 | 11 |
 | 3 | Unit PA103 Ed 2546 | `2282916` | Fotos unidad 103 PA | `pineapple-103` | 5 | 11 |
 | 4 | Unit PA104 Ed 2546 | `2282923` | Fotos unidad 104 PA | `pineapple-104` | 11 | 13 |
-| 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | `pineapple-105` | 11 | 8 |
+| 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | `pineapple-105` | 11 | 13 |
 | 6 | Unit PA2526 | `2282928` | Fotos unidad 2526 PA | `unit-2526` | 8 | 12 |
 | 7 | Unit PA2528 | `2282925` | Fotos unidad 2528 PA | `unit-2528` | 8 | 13 |
 | 8 | Unit PA2536 | `2282918` | Fotos unidad 2536 PA | `unit-2536` | 5 | 11 |
 | 9 | Unit PA2538 | `2282919` | Fotos unidad 2538 PA | `unit-2538` | 5 | 11 |
-| 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | `sea-grape-101` | 5 | 5 |
+| 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | `sea-grape-101` | 5 | 11 |
 | 11 | Unit SG102 Ed 1042 | `2282920` | Fotos unidad 102 SG | `sea-grape-102` | 7 | 13 |
-| 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | `sea-grape-201` | 5 | 5 |
-| 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 | 9 |
+| 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | `sea-grape-201` | 5 | 11 |
+| 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 | 13 |
 
-Only rows 5, 10, 12 and 13 have `public/photos*` folders sourced from the
-library; the other nine ship unrelated pre-existing photo sets that share no
-files with it.
+Rows 5, 10, 12 and 13 still source their unit interiors from the library;
+their amenity and exterior tails now come from that listing's Hospitable set
+(library files where they match). The other nine keep the pre-existing
+interior sets they shipped on 2026-09-06 and share the same amenity /
+exterior WebPs where those frames appear in the listing.
 
 Non-unit folders: `Fotos amenidades` (15), `Fotos de exterior` (23).
 Library total: **129 files, all byte-distinct** (checksummed). Byte-distinct is
