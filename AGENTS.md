@@ -117,8 +117,8 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   addresses, amenities, bed configurations or prices. Positive claims must come from
   the owner's explicit statement, the listing's Hospitable data or
   `docs/UNITS-SOURCE-OF-TRUTH.md`; if none covers the claim, ask instead of preserving it.
-- `BUSINESS_CONTACT.location` in `app/data/contact.ts` was inherited from the old footer
-  and has not been owner-verified. Do not present its presence in the code as validation.
+- `BUSINESS_CONTACT.location` in `app/data/contact.ts` is owner-confirmed: on
+  2026-09-05, the owner explicitly confirmed the published address, saying "the address is right."
 
 ## Form delivery
 
@@ -141,7 +141,8 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   filenames, from the photographs themselves, or from what the site already
   says: source-folder names and address prefixes have each argued a photo into
   the wrong building here, and photographs have been read as a full kitchen on a
-  "w/ Kitchenette" listing and as sofa beds on two units that have none.
+  "w/ Kitchenette" listing. On 2026-09-05, the owner confirmed that Sea Grape 101
+  and Sea Grape 102 do have sofa beds, overriding the listing export on that physical fact.
   **A positive claim needs a positive source; absence of contradiction is not
   corroboration.** Where the public booking API exposes no signal (it exposes no
   bedroom count and no amenity list), say so and fall back to
