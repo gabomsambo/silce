@@ -25,13 +25,12 @@ import type { UnitPhoto } from "@/app/data/units"
 export default function UnitGallery({
   images,
   title,
-  imageAlt,
 }: {
   images: UnitPhoto[]
   title: string
-  imageAlt: (title: string, number: number) => string
 }) {
   const t = useTranslations("unitPage.gallery")
+  const tDetail = useTranslations("propertyDetail.templates")
   const [viewerOpen, setViewerOpen] = useState(false)
   const [viewerStart, setViewerStart] = useState(0)
 
@@ -66,7 +65,7 @@ export default function UnitGallery({
               src={hero.src}
               srcSet={photoSrcSet(hero.src)}
               sizes="(min-width: 1024px) 50vw, 100vw"
-              alt={imageAlt(title, 1)}
+              alt={tDetail("imageAlt", { title, number: 1 })}
               loading="eager"
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             />
@@ -95,7 +94,7 @@ export default function UnitGallery({
                   src={p.src}
                   srcSet={photoSrcSet(p.src)}
                   sizes="(min-width: 1024px) 25vw, 50vw"
-                  alt={imageAlt(title, n)}
+                  alt={tDetail("imageAlt", { title, number: n })}
                   loading={i < 2 ? "eager" : "lazy"}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 />
@@ -150,7 +149,7 @@ export default function UnitGallery({
                   src={p.src}
                   srcSet={photoSrcSet(p.src)}
                   sizes="100vw"
-                  alt={imageAlt(title, i + 1)}
+                  alt={tDetail("imageAlt", { title, number: i + 1 })}
                   loading={i === 0 ? "eager" : "lazy"}
                   className="h-full w-full object-cover"
                 />

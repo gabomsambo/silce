@@ -264,9 +264,6 @@ export default async function PropertyPage({ params }: Props) {
           <UnitGallery
             images={property.images}
             title={title}
-            imageAlt={(unitTitle, number) =>
-              t("imageAlt", { title: unitTitle, number })
-            }
           />
         </div>
       </section>
