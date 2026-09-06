@@ -66,6 +66,11 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   extensions from the Worker, so Next metadata file-convention icon routes can
   work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
   to accommodate icons; verify them in `.open-next/` after `npm run pages:build`.
+- **Unit galleries are pre-generated WebP.** `next.config.mjs` sets
+  `images.unoptimized` because Cloudflare Pages does not run Next's optimizer.
+  `units.ts` stores the 1500w path (`/photos_<id>/01.webp`); `lib/photos.ts`
+  derives the 640 and 1024 siblings. The JPEGs under `Fotos de todas las
+  unidades/` are the source library, not what the site serves.
 
 ## Safety net
 
@@ -238,7 +243,14 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   says: source-folder names and address prefixes have each argued a photo into
   the wrong building here, and photographs have been read as a full kitchen on a
   "w/ Kitchenette" listing. On 2026-09-05, the owner confirmed that Sea Grape 101
-  and Sea Grape 102 do have sofa beds, overriding the listing export on that physical fact.
+  and Sea Grape 102 do have sofa beds, **those two only**; Sea Grape 201 has
+  none. A sofa is not a sofa bed. Listing captions that name a sofa bed
+  elsewhere lose to that owner decision — understate and flag, do not publish
+  the extra bed.
+  **When changing a number already in `units.ts`, check git history for that
+  field so a new source does not restore a value that was deliberately
+  corrected earlier** (`pineapple-102` was Queen with no sofa as of 2026-09-03;
+  a later caption-based sofa-bed add had to be reverted).
   **A positive claim needs a positive source; absence of contradiction is not
   corroboration.** Where the public booking API exposes no signal (it exposes no
   bedroom count and no amenity list), say so and fall back to

@@ -4,7 +4,7 @@ Reconciles three systems: **Hospitable** (`booking-widget-codes.md` export),
 the **photo library** (`Fotos de todas las unidades/`), and the **site**
 (`app/data/units.ts`).
 
-Last reconciled: 2026-09-05.
+Last reconciled: 2026-09-06.
 
 ## Naming key
 
@@ -59,29 +59,39 @@ same photograph twice).
 Hospitable is authoritative for IDs. All 13 map 1:1 to a photo folder.
 
 `Library` counts files in the source folder; `Live` counts entries in that
-unit's `images` array in `units.ts`. They are allowed to differ — only the four
-units published in 2026-09 draw on the professional library at all, and their
-galleries are filtered by the provenance rule above.
+unit's `images` array in `units.ts`. Live galleries for all 13 units are the
+listing's own Hospitable photo set, upgraded to library files where a 16x16
+dHash matches (distance ≤ 6), ordered interior walkthrough → amenities →
+exterior/location, and encoded as WebP at 640 / 1024 / 1500 because Cloudflare
+Pages does not run Next's optimizer. A unit's own best interior always leads;
+Hospitable's lead is not inherited when it is a shared amenity or location
+frame (2282921 / 2282922 open on a beach shot; 2282917 opens on the
+stone-table patio). `sea-grape-1052-101` (`2282929`) has no sunset / downtown
+/ marina frames in its official set, so its tail is that listing's own
+laundry, stone-table, and building photos rather than the shared location
+set used on the other twelve.
 
 | # | Hospitable property | ID | Photo folder | Site slug | Library | Live |
 |---|---|---|---|---|--:|--:|
-| 1 | Unit PA101 Ed 2546 | `2282914` | Fotos unidad 101 PA | `pineapple-101` | 6 | 10 |
-| 2 | Unit PA102 Ed 2546 | `2282915` | Fotos unidad 102 PA | `pineapple-102` | 5 | 9 |
-| 3 | Unit PA103 Ed 2546 | `2282916` | Fotos unidad 103 PA | `pineapple-103` | 5 | 8 |
-| 4 | Unit PA104 Ed 2546 | `2282923` | Fotos unidad 104 PA | `pineapple-104` | 11 | 5 |
-| 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | `pineapple-105` | 11 | 8 |
-| 6 | Unit PA2526 | `2282928` | Fotos unidad 2526 PA | `unit-2526` | 8 | 8 |
-| 7 | Unit PA2528 | `2282925` | Fotos unidad 2528 PA | `unit-2528` | 8 | 10 |
-| 8 | Unit PA2536 | `2282918` | Fotos unidad 2536 PA | `unit-2536` | 5 | 8 |
-| 9 | Unit PA2538 | `2282919` | Fotos unidad 2538 PA | `unit-2538` | 5 | 12 |
-| 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | `sea-grape-101` | 5 | 5 |
-| 11 | Unit SG102 Ed 1042 | `2282920` | Fotos unidad 102 SG | `sea-grape-102` | 7 | 14 |
-| 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | `sea-grape-201` | 5 | 5 |
-| 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 | 9 |
+| 1 | Unit PA101 Ed 2546 | `2282914` | Fotos unidad 101 PA | `pineapple-101` | 6 | 11 |
+| 2 | Unit PA102 Ed 2546 | `2282915` | Fotos unidad 102 PA | `pineapple-102` | 5 | 11 |
+| 3 | Unit PA103 Ed 2546 | `2282916` | Fotos unidad 103 PA | `pineapple-103` | 5 | 11 |
+| 4 | Unit PA104 Ed 2546 | `2282923` | Fotos unidad 104 PA | `pineapple-104` | 11 | 13 |
+| 5 | Unit PA105 Ed 2546 | `2282917` | Fotos unidad 105 PA | `pineapple-105` | 11 | 13 |
+| 6 | Unit PA2526 | `2282928` | Fotos unidad 2526 PA | `unit-2526` | 8 | 12 |
+| 7 | Unit PA2528 | `2282925` | Fotos unidad 2528 PA | `unit-2528` | 8 | 13 |
+| 8 | Unit PA2536 | `2282918` | Fotos unidad 2536 PA | `unit-2536` | 5 | 11 |
+| 9 | Unit PA2538 | `2282919` | Fotos unidad 2538 PA | `unit-2538` | 5 | 11 |
+| 10 | Unit SG101 Ed 1042 | `2282921` | Fotos unidad 101 SG | `sea-grape-101` | 5 | 11 |
+| 11 | Unit SG102 Ed 1042 | `2282920` | Fotos unidad 102 SG | `sea-grape-102` | 7 | 13 |
+| 12 | Unit SG201 ED 1042 | `2282922` | Fotos unidad 201 SG | `sea-grape-201` | 5 | 11 |
+| 13 | Unit 101 Ed 1052 SG | `2282929` | Fotos unidad 101 1052 SG | `sea-grape-1052-101` | 10 | 13 |
 
-Only rows 5, 10, 12 and 13 have `public/photos*` folders sourced from the
-library; the other nine ship unrelated pre-existing photo sets that share no
-files with it.
+Rows 5, 10, 12 and 13 still source their unit interiors from the library;
+their amenity and exterior tails now come from that listing's Hospitable set
+(library files where they match). The other nine keep the pre-existing
+interior sets they shipped on 2026-09-06 and share the same amenity /
+exterior WebPs where those frames appear in the listing.
 
 Non-unit folders: `Fotos amenidades` (15), `Fotos de exterior` (23).
 Library total: **129 files, all byte-distinct** (checksummed). Byte-distinct is
@@ -154,29 +164,31 @@ The only authority is Hospitable's own per-listing sleeping arrangement in the
 reconciliation export. Never derive a bed from `max_guests`, from a photograph,
 or from what the site already says.
 
-Two units were corrected under that rule, both direct contradictions of the
-export rather than mere gaps:
+Sofa-bed claims are restricted to what the owner stated on 2026-09-05 (twice)
+and to those two listings only:
 
-- `sea-grape-102` (`2282920`, export row `Unit SG102 Ed 1042`) advertised
-  `Queen + Queen + Sofa Bed`, while the export gives it 2 beds — "1 queen in
-  bedroom; 1 queen in bedroom" — and no sofa bed. It now reads `Queen + Queen`,
-  matching `sea-grape-101` (`2282921`), the other 6-guest two-bedroom it
-  renders beside on the rooms index. `max_guests` is unchanged at 6; it comes
-  from Hospitable and is authoritative regardless of how the beds are counted.
-  That leaves the two sources disagreeing in public — open question 1 below.
+- `sea-grape-102` (`2282920`) and `sea-grape-101` (`2282921`): owner-stated
+  sofa beds. They read `Queen + Queen + Sofa Bed`. `sea-grape-201` has none.
+  Listing captions on 2026-09-06 also name a sofa bed on `sea-grape-102`
+  ("Two queen bedrooms plus a sofa bed…"). That agrees with the owner; it is
+  not an independent grant to publish sofa beds elsewhere.
+- A sofa is not a sofa bed — armchair / sofa / "sleeper sofa" caption copy is
+  not enough. Captions that named a sofa bed on `pineapple-101` / `pineapple-102`
+  conflict with the owner's standing decision, so those sofa beds stay off
+  the site. Understatement is the rule where sources conflict.
 - `unit-2538` (`2282919`, live name "Minimalist Studio | Wifi + Arts Scene &
-  Near River" = export row `Unit PA2538`) advertised `King`, while the export
-  gives it "1 queen in living room; 1 sofa bed in living room". Worse than the
-  sea-grape-102 case: it both invented a bed and downgraded on arrival anyone
-  who booked expecting a king. It now reads `Queen + Sofa Bed`, the wording
-  `pineapple-105` and `sea-grape-1052-101` already use for that same
-  arrangement.
+  Near River" = export row `Unit PA2538`) once advertised `King`. The export
+  gives it a queen in the living room. It now reads `Queen` only: the king was
+  invented, and the export's sofa bed is not owner-stated.
 
-**The rule is not yet fully applied.** Six more pre-existing units fail it and
-are listed under open questions 3–5; they are deferred to the systematic
-bed-and-content pass, which inherits that list. Do not close any of these gaps
-by inventing a bed — the authorities are what they are, and the site states
-each one where it is sourced.
+**Applied 2026-09-06 against the owner override and live listing names** (the
+public API still has no bed-type field). Sofa beds on Sea Grape 101 and 102
+are owner-stated. Sea Grape 201 has none. Listing names/captions source a
+queen on `pineapple-104` and `unit-2528`, a full bed on `unit-2526` and
+`pineapple-101`, and a queen on `pineapple-103` ("Queen Bed"). `unit-2536`
+stays Queen — the export's sofa bed is not owner-stated, and an armchair is
+not a sofa bed. Pre-existing `Queen + Sofa Bed` strings on `unit-2538`,
+`pineapple-105` and `sea-grape-1052-101` were dropped for the same reason.
 
 ## Category amenity chips
 
@@ -228,24 +240,19 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    Sourcing them is deferred to the systematic bed-and-content pass.
    `sea-grape-101` carries neither field, so the inconsistency is visible on
    the same section.
-3. **`pineapple-101` bed configuration.** `units.ts` says `Queen`; the
-   reconciliation export says "1 double in living room; 1 sofa bed in living
-   room". Both cannot be right, and neither is confirmable against the public
-   API. Left as-is rather than swapped for a second unverified claim; deferred
-   to the systematic bed-and-content pass, which resolves it against
-   Hospitable's listing data.
-4. **Two units understate their beds.** `unit-2536` (`2282918` = `PA2536`) and
-   `pineapple-103` (`2282916` = `PA103`) both say `Queen`, where the export
-   gives each 2 beds — "1 queen …; 1 sofa bed …". Safe understatements rather
-   than false claims, so nothing here misleads a guest on arrival. Deferred to
-   the systematic bed-and-content pass.
-5. **Three units assert a bed type the export calls unknown.** `pineapple-104`
-   (`2282923`), `unit-2528` (`2282925`) and `unit-2526` (`2282928`) all display
-   `Queen`, where the export holds the bed *count* authoritative but records
-   the *type* as genuinely unknown and instructs "Do not invent one". The site
-   is inventing a bed type on three units — a real defect against the rule
-   above, not a gap. Correcting three more displayed bed types belongs to the
-   systematic bed-and-content pass, which inherits this list.
+3. *(resolved 2026-09-06 as an understatement)* **`pineapple-101` bed
+   configuration.** The previous site carried `Queen ` (trailing space). The
+   live listing caption names a full bed; the public listing name is silent on
+   bed size. Full is the smaller claim, so `bedType` is `Full` with **no** sofa
+   bed — the caption's sofa bed conflicts with the owner's 2026-09-05 decision
+   that sofa beds exist in Sea Grape 101 and 102 only.
+4. *(resolved 2026-09-06 as understatements kept)* **`unit-2536` and
+   `pineapple-103` sofa beds.** Export gave each a sofa bed. Live captions show
+   an armchair on 103 and no sofa bed on 2536. Queen stands; do not invent the
+   extra bed.
+5. *(resolved 2026-09-06)* **Bed type on `pineapple-104`, `unit-2528`,
+   `unit-2526`.** Live captions name a queen on the first two and a full bed on
+   2526. The export's "unknown type" is superseded by those captions.
 6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio - Comfort" and `sqFt: 720` are
    still copy-paste from when the two shared an ID. Titles and `sqFt` unverified.
@@ -277,12 +284,19 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
 
    Resolving it — retitle or refile — is the owner's call, because either
    choice changes how a guest browses and which apartments they compare.
-8. **`bedrooms` for studios.** Hospitable's public booking API reports no bedroom
-   count, so `bedrooms` is derived from the listing name. The seven studios read
-   `0`. Machine-readable markup no longer publishes that value: `lib/structuredData.ts`
-   omits `numberOfBedrooms`, and the unit page omits the bedroom keyword, whenever
-   `bedrooms` is `0` or the unit's category disagrees. Visible specs and descriptions
-   render "Studio" / "Estudio" while preserving the authoritative numeric value.
+8. **`bedrooms` for studios.** Hospitable's public booking API reports no
+   bedroom count (`GET /bookings/api/properties/<id>` has no `bedrooms` field;
+   re-checked 2026-09-06). The only bedroom signal is the listing `name`. Eight
+   units are named Studio and therefore keep `bedrooms: 0` (not an unsourced
+   zero, and not a 1BR — inventing `1` would overstate). They are `unit-2528`,
+   `unit-2536`, `unit-2538`, `unit-2526`, `pineapple-103`, `pineapple-104`,
+   `pineapple-105`, `pineapple-101`. Guest-visible copy already renders
+   "Studio" / "Estudio" via `buildBedroomsSpec`; JSON-LD omits
+   `numberOfBedrooms` when the count is ≤ 0. The two-bed heading
+   ("2 Bedroom, 1 Bath") is the `two-bed-1-bath` category / Sea Grape 101–102
+   titles, whose `bedrooms` values are `2` from those listings' `2BR` names.
+   `sea-grape-1052-101`'s listing name is silent on Studio/1BR/2BR; it stays
+   `bedrooms: 1` as category agreement, flagged here as listing-name-silent.
 9. **Embed migration.** Move to the script loader, or keep the iframe (which
    also carries the checkin/checkout/guest query-param forwarding and the
    widget-language handshake — see AGENTS.md)?
