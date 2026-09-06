@@ -220,9 +220,9 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    - `sea-grape-101` (`2282921`) and `sea-grape-102` (`2282920`):
      `maxGuests: 6` over 2 queens. The rooms index shows "Sleeps 6" above
      "2 Queen beds".
-   - `sea-grape-201` (`2282922`): `maxGuests: 4` over 1 queen. The detail page
-     renders "4 personas · 1 habitación · 1 baño" above a description ending
-     "4 personas · Cama Queen".
+   - `sea-grape-201` (`2282922`): `maxGuests: 4` over 1 queen. The unit page
+     title chips and facts cards still publish both numbers (Spanish:
+     "4 personas" / "4 huéspedes" next to "1 habitación" and "Cama Queen").
 
    On every one of them both numbers are the owner's own — `max_guests` from
    Hospitable, the bedding from the export — so neither side can be edited
@@ -232,10 +232,10 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    them add up, and put the discrepancy in front of him.
 2. **`sea-grape-102` `extras`.** `extras: ["Dining table in kitchen"]` is
    pre-existing and unsourced; no repo document or API response asserts it. The
-   extras string is a kitchen
-   claim, and it renders on the featured card one line below the
-   `two-bed-1-bath` header the "Full kitchen" chip was removed from as
-   unsourced. It stays in `units.ts`: silence is not contradiction, and removing
+   extras string is a kitchen claim. It still renders on the rooms-index
+   featured card one line below the `two-bed-1-bath` header the "Full kitchen"
+   chip was removed from as unsourced, and the unit page now also shows it as
+   a facts-section chip. It stays in `units.ts`: silence is not contradiction, and removing
    a possibly-true fact a guest values has a real cost of its own. Sourcing it
    is deferred to the systematic bed-and-content pass. The unsourced `sqFt: 520`
    was removed on the owner's direction on 2026-09-06, together with every other
@@ -254,7 +254,7 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    `unit-2526`.** Live captions name a queen on the first two and a full bed on
    2526. The export's "unknown type" is superseded by those captions.
 6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
-   `pineapple-101` is 4), but the title "Studio - Comfort" is still copy-paste
+   `pineapple-101` is 4), but the title "Studio — Comfort" is still copy-paste
    from when the two shared an ID. Its equally unverified `sqFt: 720` was removed
    with all square-footage data at the owner's direction on 2026-09-06.
    Titles now live in the message catalogs (`units.<slug>.title` in
