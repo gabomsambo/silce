@@ -36,6 +36,8 @@ const PROPERTY_ID_BY_NAME: Record<string, string> = {
 
 const rawUnits = (source.units ?? []) as RawUnit[]
 const rawUnitByName = new Map(rawUnits.map((unit) => [unit.name, unit]))
+const FULL_KITCHEN_PROPERTY_IDS = new Set(["2282915", "2282920", "2282929"])
+const SOFA_BED_PROPERTY_IDS = new Set(["2282920", "2282921"])
 
 function assertRawUnit(name: string) {
   const unit = rawUnitByName.get(name)
@@ -74,16 +76,45 @@ function normalizeAmenities(rawUnit: RawUnit) {
     : withKitchenGuard
 }
 
-function unitContentFromRaw(rawUnit: RawUnit): Partial<Unit> {
+function reconcileNarrative(text: string, hospitableId: string) {
+  const permitsFullKitchen = FULL_KITCHEN_PROPERTY_IDS.has(hospitableId)
+  const permitsSofaBed = SOFA_BED_PROPERTY_IDS.has(hospitableId)
+
+  return text
+    .split("\n")
+    .filter((line) => permitsSofaBed || !/\bsofa[- ]?bed\b/i.test(line))
+    .filter((line) => permitsFullKitchen || !(/\bkitchen\b/i.test(line) && !/\bkitchenette\b/i.test(line)))
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim()
+}
+
+function reconcileRoomDetails(rawUnit: RawUnit, hospitableId: string) {
+  const permitsSofaBed = SOFA_BED_PROPERTY_IDS.has(hospitableId)
+  const rooms = rawUnit.room_details.map((room) => ({
+    type: room.type,
+    beds: room.beds
+      .filter((bed) => bed.type !== "sofa_bed")
+      .map((bed) => ({ type: bed.type, quantity: bed.quantity })),
+  }))
+
+  if (permitsSofaBed) {
+    const livingRoom = rooms.find((room) => room.type === "living_room")
+    const sofaBed = { type: "sofa_bed", quantity: 1 }
+    if (livingRoom) livingRoom.beds.push(sofaBed)
+    else rooms.push({ type: "living_room", beds: [sofaBed] })
+  }
+
+  return rooms
+}
+
+function unitContentFromRaw(rawUnit: RawUnit, hospitableId: string): Partial<Unit> {
   return {
-    summary: rawUnit.summary,
-    description: rawUnit.description,
+    summary: reconcileNarrative(rawUnit.summary, hospitableId),
+    description: reconcileNarrative(rawUnit.description, hospitableId),
     squareFootage: parseSquareFootage(rawUnit.description, rawUnit.summary),
     amenities: normalizeAmenities(rawUnit),
-    roomDetails: rawUnit.room_details.map((room) => ({
-      type: room.type,
-      beds: room.beds.map((bed) => ({ type: bed.type, quantity: bed.quantity })),
-    })),
+    roomDetails: reconcileRoomDetails(rawUnit, hospitableId),
     coordinates: {
       lat: Number(rawUnit.address.coordinates.latitude),
       lng: Number(rawUnit.address.coordinates.longitude),
@@ -100,7 +131,7 @@ function unitContentFromRaw(rawUnit: RawUnit): Partial<Unit> {
 }
 
 const contentByPropertyId: Record<string, Partial<Unit>> = Object.fromEntries(
-  Object.entries(PROPERTY_ID_BY_NAME).map(([id, unitName]) => [id, unitContentFromRaw(assertRawUnit(unitName))])
+  Object.entries(PROPERTY_ID_BY_NAME).map(([id, unitName]) => [id, unitContentFromRaw(assertRawUnit(unitName), id)])
 )
 
 export function getHospitableUnitContent(hospitableId: string): Partial<Unit> {

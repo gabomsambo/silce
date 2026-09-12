@@ -122,7 +122,7 @@ export default function UnitFacts({
         ))}
       </div>
 
-      {unit.summary || unit.description ? (
+      {locale === "en" && (unit.summary || unit.description) ? (
         <div className="mt-6 rounded-2xl border border-primary/10 bg-white p-5">
           <h3 className="text-lg font-bold text-primary">{t("aboutHeading")}</h3>
           {unit.summary ? (
