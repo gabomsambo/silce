@@ -5,6 +5,35 @@ export interface UnitPhoto {
   src: string
 }
 
+export interface UnitSquareFootage {
+  value: number
+  approximate?: boolean
+}
+
+export interface UnitCoordinate {
+  lat: number
+  lng: number
+}
+
+export interface UnitBedDetail {
+  type: string
+  quantity: number
+}
+
+export interface UnitRoomDetail {
+  type: string
+  beds?: UnitBedDetail[]
+}
+
+export interface UnitHouseRules {
+  petsAllowed: boolean
+  smokingAllowed: boolean
+  eventsAllowed: boolean
+  quietHoursStart: string
+  checkinTime: string
+  checkoutTime: string
+}
+
 export interface Unit {
   slug: string                // matches /rooms/[slug]
   titleKey: string            // message key for the visible H1 on the unit page
@@ -17,6 +46,13 @@ export interface Unit {
   floor?: string              // e.g., "Ground", "Upper"
   extras?: string[]           // e.g., ["Dining table", "Workspace"]
   hospitable_id: string
+  summary?: string
+  description?: string
+  squareFootage?: UnitSquareFootage
+  amenities?: string[]
+  roomDetails?: UnitRoomDetail[]
+  coordinates?: UnitCoordinate
+  houseRules?: UnitHouseRules
   images: UnitPhoto[]
 }
 
