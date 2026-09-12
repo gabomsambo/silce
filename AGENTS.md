@@ -222,9 +222,10 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
 ## Business facts
 
 - Never treat existing site copy, filenames or photographs as proof of contact details,
-  addresses, amenities, bed configurations or prices. Positive claims must come from
-  the owner's explicit statement, the listing's Hospitable data or
-  `docs/UNITS-SOURCE-OF-TRUTH.md`; if none covers the claim, ask instead of preserving it.
+  addresses, amenities, bed configurations or prices. Positive unit claims must come
+  from the listing's Hospitable data or `docs/UNITS-SOURCE-OF-TRUTH.md`; if neither
+  covers the claim, ask instead of preserving it. Current Hospitable listing
+  information, written by the property owner, outranks the site owner's recollection.
 - `BUSINESS_CONTACT.location` in `app/data/contact.ts` is owner-confirmed: on
   2026-09-05, the owner explicitly confirmed the published address, saying "the address is right."
 
@@ -249,15 +250,12 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   filenames, from the photographs themselves, or from what the site already
   says: source-folder names and address prefixes have each argued a photo into
   the wrong building here, and photographs have been read as a full kitchen on a
-  "w/ Kitchenette" listing. On 2026-09-05, the owner confirmed that Sea Grape 101
-  and Sea Grape 102 do have sofa beds, **those two only**; Sea Grape 201 has
-  none. A sofa is not a sofa bed. Listing captions that name a sofa bed
-  elsewhere lose to that owner decision — understate and flag, do not publish
-  the extra bed.
-  **When changing a number already in `units.ts`, check git history for that
-  field so a new source does not restore a value that was deliberately
-  corrected earlier** (`pineapple-102` was Queen with no sofa as of 2026-09-03;
-  a later caption-based sofa-bed add had to be reverted).
+  "w/ Kitchenette" listing. Current listing information outranks earlier corrections
+  from the site owner, including the 2026-09-05 sofa-bed recollection, because the
+  property owners update their listings as units change. A sofa is not a sofa bed:
+  publish it as a bed only when the current listing identifies it as one.
+  **When changing a number already in `units.ts`, check git history for context,**
+  but do not let an earlier correction override newer Hospitable listing data.
   **A positive claim needs a positive source; absence of contradiction is not
   corroboration.** Where the public booking API exposes no signal (it exposes no
   bedroom count and no amenity list), say so and fall back to
