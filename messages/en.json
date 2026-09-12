@@ -350,7 +350,18 @@
       "closeLabel": "Close photo viewer",
       "previousLabel": "Previous photo",
       "nextLabel": "Next photo",
-      "counter": "{current} / {total}"
+      "counter": "{current} / {total}",
+      "groupsHeading": "Photo tour",
+      "neighbourhoodNote": "Neighbourhood photos show what is nearby, not the unit."
+    },
+    "photoGroups": {
+      "studio": "The studio",
+      "living": "Living area",
+      "bedroom": "Bedroom",
+      "kitchen": "Kitchen",
+      "bathroom": "Bathroom",
+      "grounds": "Grounds & entrance",
+      "neighbourhood": "Neighbourhood"
     },
     "facts": {
       "heading": "The space",

@@ -350,7 +350,18 @@
       "closeLabel": "Cerrar visor de fotos",
       "previousLabel": "Foto anterior",
       "nextLabel": "Siguiente foto",
-      "counter": "{current} / {total}"
+      "counter": "{current} / {total}",
+      "groupsHeading": "Recorrido fotográfico",
+      "neighbourhoodNote": "Las fotos del vecindario muestran lo que hay cerca, no la unidad."
+    },
+    "photoGroups": {
+      "studio": "El estudio",
+      "living": "Sala de estar",
+      "bedroom": "Dormitorio",
+      "kitchen": "Cocina",
+      "bathroom": "Baño",
+      "grounds": "Exteriores y entrada",
+      "neighbourhood": "Vecindario"
     },
     "facts": {
       "heading": "El espacio",
