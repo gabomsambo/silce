@@ -1,4 +1,5 @@
 import source from "./hospitable-units.json"
+import spanishContent from "./hospitable-unit-content.es.json"
 import type { Unit } from "./units"
 
 interface RawCoordinates {
@@ -80,13 +81,17 @@ function reconcileNarrative(text: string, hospitableId: string) {
   const permitsFullKitchen = FULL_KITCHEN_PROPERTY_IDS.has(hospitableId)
   const permitsSofaBed = SOFA_BED_PROPERTY_IDS.has(hospitableId)
 
-  return text
+  const reconciled = text
     .split("\n")
     .filter((line) => permitsSofaBed || !/\bsofa[- ]?bed\b/i.test(line))
     .filter((line) => permitsFullKitchen || !(/\bkitchen\b/i.test(line) && !/\bkitchenette\b/i.test(line)))
     .join("\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim()
+
+  return permitsFullKitchen
+    ? reconciled.replace(/\bkitchenette\b/gi, (word) => word[0] === word[0].toUpperCase() ? "Kitchen" : "kitchen")
+    : reconciled
 }
 
 function reconcileRoomDetails(rawUnit: RawUnit, hospitableId: string) {
@@ -109,9 +114,12 @@ function reconcileRoomDetails(rawUnit: RawUnit, hospitableId: string) {
 }
 
 function unitContentFromRaw(rawUnit: RawUnit, hospitableId: string): Partial<Unit> {
+  const spanish = spanishContent[hospitableId as keyof typeof spanishContent]
   return {
     summary: reconcileNarrative(rawUnit.summary, hospitableId),
     description: reconcileNarrative(rawUnit.description, hospitableId),
+    summaryEs: spanish.summary,
+    descriptionEs: spanish.description,
     squareFootage: parseSquareFootage(rawUnit.description, rawUnit.summary),
     amenities: normalizeAmenities(rawUnit),
     roomDetails: reconcileRoomDetails(rawUnit, hospitableId),

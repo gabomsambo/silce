@@ -51,6 +51,8 @@ export interface Unit {
   hospitable_id: string
   summary?: string
   description?: string
+  summaryEs?: string
+  descriptionEs?: string
   squareFootage?: UnitSquareFootage
   amenities?: string[]
   roomDetails?: UnitRoomDetail[]

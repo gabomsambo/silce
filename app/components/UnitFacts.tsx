@@ -53,6 +53,8 @@ export default function UnitFacts({
 }) {
   const t = useTranslations("unitPage.facts")
   const locale = useLocale() === "es" ? "es" : "en"
+  const summary = locale === "es" ? unit.summaryEs : unit.summary
+  const description = locale === "es" ? unit.descriptionEs : unit.description
 
   const facts = [
     {
@@ -122,14 +124,14 @@ export default function UnitFacts({
         ))}
       </div>
 
-      {locale === "en" && (unit.summary || unit.description) ? (
+      {summary || description ? (
         <div className="mt-6 rounded-2xl border border-primary/10 bg-white p-5">
           <h3 className="text-lg font-bold text-primary">{t("aboutHeading")}</h3>
-          {unit.summary ? (
-            <p className="mt-2 text-base font-medium leading-relaxed text-primary/90">{unit.summary}</p>
+          {summary ? (
+            <p className="mt-2 text-base font-medium leading-relaxed text-primary/90">{summary}</p>
           ) : null}
-          {unit.description ? (
-            <p className="mt-2 text-sm leading-relaxed text-primary/80">{unit.description}</p>
+          {description ? (
+            <p className="mt-2 text-sm leading-relaxed text-primary/80">{description}</p>
           ) : null}
         </div>
       ) : null}
