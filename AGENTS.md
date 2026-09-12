@@ -178,6 +178,13 @@ to travel with the change in the tree, where it cannot be lost. They live under
 `artifacts/screenshots/` or the task-specific evidence directories in `docs/`;
 nothing there is imported by the build or served by Pages.
 
+UI changes ship before/after screenshots committed to the branch and embedded in
+the PR body as a labelled two-column table using SHA-pinned
+`raw.githubusercontent.com` URLs. Confirm they render by opening the PR. **PIN
+LAST:** pinning is the final act after the last code push; push nothing between
+pinning and verification. This prevents local machine paths, which are invisible
+to the reviewer, from being mistaken for reviewable evidence.
+
 Because it is permanent history, downscale and compress before committing: palette
 PNG (`Image.quantize(colors=256)` + `optimize=True`) shrinks these flat-UI captures
 by ~65% on its own, and full-page captures resize to 1200px wide. Keep the
