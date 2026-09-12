@@ -37,7 +37,6 @@ const PROPERTY_ID_BY_NAME: Record<string, string> = {
 
 const rawUnits = (source.units ?? []) as RawUnit[]
 const rawUnitByName = new Map(rawUnits.map((unit) => [unit.name, unit]))
-const FULL_KITCHEN_PROPERTY_IDS = new Set(["2282915", "2282920"])
 
 function assertRawUnit(name: string) {
   const unit = rawUnitByName.get(name)
@@ -60,13 +59,12 @@ function parseSquareFootage(description: string, summary: string) {
   }
 }
 
-function normalizeAmenities(rawUnit: RawUnit, hospitableId: string) {
+function normalizeAmenities(rawUnit: RawUnit) {
   const prose = `${rawUnit.summary}\n${rawUnit.description}`
   const hasKitchenetteInProse = /\bkitchenette\b/i.test(prose)
-  const allowsFullKitchen = FULL_KITCHEN_PROPERTY_IDS.has(hospitableId)
   const roomTypes = new Set(
     rawUnit.room_details.map((room) =>
-      room.type === "kitchen" && hasKitchenetteInProse && !allowsFullKitchen ? "kitchenette" : room.type
+      room.type === "kitchen" && hasKitchenetteInProse ? "kitchenette" : room.type
     )
   )
   const withKitchenGuard = rawUnit.amenities.filter((amenity) =>
@@ -86,15 +84,14 @@ function normalizeAmenities(rawUnit: RawUnit, hospitableId: string) {
     : withKitchenette
 }
 
-function reconcileRoomDetails(rawUnit: RawUnit, hospitableId: string) {
+function reconcileRoomDetails(rawUnit: RawUnit) {
   const prose = `${rawUnit.summary}\n${rawUnit.description}`
   const hasKitchenetteInProse = /\bkitchenette\b/i.test(prose)
   const hasSofaBedInProse = /\bsofa[- ]?bed\b/i.test(prose)
-  const allowsFullKitchen = FULL_KITCHEN_PROPERTY_IDS.has(hospitableId)
 
   const rooms = rawUnit.room_details.map((room) => ({
     type:
-      room.type === "kitchen" && hasKitchenetteInProse && !allowsFullKitchen
+      room.type === "kitchen" && hasKitchenetteInProse
         ? "kitchenette"
         : room.type,
     beds: room.beds.map((bed) => ({ type: bed.type, quantity: bed.quantity })),
@@ -122,8 +119,8 @@ function unitContentFromRaw(rawUnit: RawUnit, hospitableId: string): Partial<Uni
     summaryEs: spanish.summary,
     descriptionEs: spanish.description,
     squareFootage: parseSquareFootage(rawUnit.description, rawUnit.summary),
-    amenities: normalizeAmenities(rawUnit, hospitableId),
-    roomDetails: reconcileRoomDetails(rawUnit, hospitableId),
+    amenities: normalizeAmenities(rawUnit),
+    roomDetails: reconcileRoomDetails(rawUnit),
     coordinates: {
       lat: Number(rawUnit.address.coordinates.latitude),
       lng: Number(rawUnit.address.coordinates.longitude),
