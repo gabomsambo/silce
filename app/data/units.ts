@@ -1,8 +1,40 @@
 // app/data/units.ts
 import type { CategoryKey } from "./categories"
+import { getHospitableUnitContent } from "./hospitableContent"
 
 export interface UnitPhoto {
   src: string
+}
+
+export interface UnitSquareFootage {
+  value: number
+  approximate?: boolean
+  source?: "description"
+  sourceText?: string
+}
+
+export interface UnitCoordinate {
+  lat: number
+  lng: number
+}
+
+export interface UnitBedDetail {
+  type: string
+  quantity: number
+}
+
+export interface UnitRoomDetail {
+  type: string
+  beds?: UnitBedDetail[]
+}
+
+export interface UnitHouseRules {
+  petsAllowed: boolean
+  smokingAllowed: boolean
+  eventsAllowed: boolean
+  quietHoursStart: string
+  checkinTime: string
+  checkoutTime: string
 }
 
 export interface Unit {
@@ -17,10 +49,19 @@ export interface Unit {
   floor?: string              // e.g., "Ground", "Upper"
   extras?: string[]           // e.g., ["Dining table", "Workspace"]
   hospitable_id: string
+  summary?: string
+  description?: string
+  summaryEs?: string
+  descriptionEs?: string
+  squareFootage?: UnitSquareFootage
+  amenities?: string[]
+  roomDetails?: UnitRoomDetail[]
+  coordinates?: UnitCoordinate
+  houseRules?: UnitHouseRules
   images: UnitPhoto[]
 }
 
-export const UNITS: Unit[] = [
+const BASE_UNITS: Unit[] = [
   {
     slug: "unit-2528",
     titleKey: "units.unit-2528.title",
@@ -359,3 +400,8 @@ export const UNITS: Unit[] = [
     ],
   },
 ]
+
+export const UNITS: Unit[] = BASE_UNITS.map((unit) => ({
+  ...unit,
+  ...getHospitableUnitContent(unit.hospitable_id),
+}))

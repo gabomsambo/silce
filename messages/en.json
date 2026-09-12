@@ -124,6 +124,10 @@
       "intracoastal-brewing": {
         "title": "Intracoastal Brewing Co.",
         "description": "Local craft brewery and dining"
+      },
+      "unit-location": {
+        "title": "This unit",
+        "description": "Exact location of this Silver Pineapple unit"
       }
     }
   },
@@ -333,7 +337,9 @@
     "titleBlock": {
       "from": "From",
       "perNight": "/night",
-      "locationLabel": "Eau Gallie, Melbourne FL"
+      "locationLabel": "Eau Gallie, Melbourne FL",
+      "squareFootageExact": "{value} sq ft",
+      "squareFootageApprox": "~{value} sq ft"
     },
     "gallery": {
       "showAll": "Show all {count} photos",
@@ -349,14 +355,32 @@
     "facts": {
       "heading": "The space",
       "subheading": "The essentials for a comfortable stay.",
+      "aboutHeading": "About this unit",
+      "roomsHeading": "Room details",
+      "houseRulesHeading": "House rules",
       "bed": "Bed",
       "layout": "Layout",
       "bathroom": "Bathroom",
       "sleeps": "Sleeps",
       "floor": "Floor",
+      "squareFootage": "Size",
+      "squareFootageExact": "{value} sq ft",
+      "squareFootageApprox": "~{value} sq ft",
+      "roomBed": "{quantity} x {type}",
+      "ruleCheckin": "Check-in: {time}",
+      "ruleCheckout": "Check-out: {time} sharp",
+      "ruleQuietHours": "Quiet hours start at {time}",
+      "rulePets": "Pets allowed: {value}",
+      "ruleSmoking": "Smoking allowed: {value}",
+      "ruleEvents": "Events allowed: {value}",
+      "yes": "Yes",
+      "no": "No",
       "privateBath": "{count, plural, one {# bathroom} other {# bathrooms}}",
-      "guests": "{count, plural, one {# guest} other {# guests}}",
-      "categoryDescription": "{blurb}"
+      "guests": "{count, plural, one {# guest} other {# guests}}"
+    },
+    "amenities": {
+      "heading": "Included amenities",
+      "subheading": "Real, unit-specific amenities from the listing."
     },
     "reviews": {
       "heading": "Guest reviews",

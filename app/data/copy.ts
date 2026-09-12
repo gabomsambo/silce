@@ -1,5 +1,4 @@
 // app/data/copy.ts
-import { CATEGORIES } from "../data/categories"
 import type { Unit } from "../data/units"
 
 /**
@@ -93,15 +92,3 @@ export function buildUnitShortDescription(unit: Unit, t: Translate) {
   return bits.join(" · ")
 }
 
-export function buildUnitLongDescription(unit: Unit, t: Translate) {
-  const cat = CATEGORIES[unit.category]
-  const specifics = [
-    buildBedroomsSpec(unit.bedrooms, t),
-    buildBathroomsSpec(unit.bathrooms, t),
-    t("propertyDetail.templates.specsGuests", { maxGuests: unit.maxGuests }),
-    translateBedType(unit.bedType, t),
-    unit.extras?.length ? unit.extras.map((e) => translateExtra(e, t)).join(", ") : null,
-  ].filter(Boolean).join(" · ")
-
-  return t("unit.description.full", { blurb: t(cat.blurbKey), specifics })
-}

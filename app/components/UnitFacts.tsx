@@ -1,38 +1,60 @@
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { Bed, Bath, Home, Users, ArrowUp, Maximize2 } from "lucide-react"
 import {
   buildBedroomsSpec,
-  buildBathroomsSpec,
   translateBedType,
-  translateExtra,
   translateFloor,
-  type Translate,
 } from "@/app/data/copy"
 import type { Unit } from "@/app/data/units"
 
+const ROOM_TYPE_LABELS: Record<string, { en: string; es: string }> = {
+  backyard: { en: "Backyard", es: "Patio trasero" },
+  bedroom: { en: "Bedroom", es: "Habitación" },
+  exterior: { en: "Exterior", es: "Exterior" },
+  full_bathroom: { en: "Full bathroom", es: "Baño completo" },
+  kitchen: { en: "Kitchen", es: "Cocina" },
+  kitchenette: { en: "Kitchenette", es: "Cocineta" },
+  laundry_room: { en: "Laundry room", es: "Cuarto de lavado" },
+  living_room: { en: "Living room", es: "Sala" },
+  patio: { en: "Patio", es: "Patio" },
+  studio: { en: "Studio", es: "Estudio" },
+}
+
+const BED_TYPE_LABELS: Record<string, { en: string; es: string }> = {
+  double_bed: { en: "Double bed", es: "Cama matrimonial" },
+  queen_bed: { en: "Queen bed", es: "Cama queen" },
+  sofa_bed: { en: "Sofa bed", es: "Sofá cama" },
+}
+
+function localizeToken(
+  token: string,
+  labels: Record<string, { en: string; es: string }>,
+  locale: "en" | "es"
+) {
+  const known = labels[token]
+  if (known) return locale === "es" ? known.es : known.en
+  return token.replace(/_/g, " ")
+}
+
 /**
- * Surfaces the per-unit facts that have always lived in `units.ts`
- * (bedType, floor, extras) and were never rendered on the unit page.
+ * Surfaces per-unit facts and listing-backed content on the unit page.
  *
- * Five fixed cards on desktop: Bed, Layout, Bathroom, Sleeps, Floor.
- * Extras (the unbounded list) render as a chip row underneath. The card
- * layout is the same shape used by Airbnb and Expedia and reads as the
- * minimum a guest needs before they decide to keep reading.
- *
- * No new data is required: every fact here is already sourced in
- * `units.ts` and translated via `copy.ts` (`translateBedType`,
- * `translateFloor`, `translateExtra`).
+ * The cards cover high-signal specs (bed, layout, bathrooms, guests, floor,
+ * and square footage when provided). Long-form description, room-by-room
+ * details, and house rules all come directly from unit data so this section
+ * no longer depends on category-level template copy.
  */
 export default function UnitFacts({
   unit,
   tRoot,
-  blurb,
 }: {
   unit: Unit
-  tRoot: Translate
-  blurb: string
+  tRoot: (key: string, values?: Record<string, string | number>) => string
 }) {
   const t = useTranslations("unitPage.facts")
+  const locale = useLocale() === "es" ? "es" : "en"
+  const summary = locale === "es" ? unit.summaryEs : unit.summary
+  const description = locale === "es" ? unit.descriptionEs : unit.description
 
   const facts = [
     {
@@ -69,6 +91,17 @@ export default function UnitFacts({
     })
   }
 
+  if (unit.squareFootage) {
+    facts.push({
+      key: "sqft",
+      label: t("squareFootage"),
+      value: t(unit.squareFootage.approximate ? "squareFootageApprox" : "squareFootageExact", {
+        value: unit.squareFootage.value,
+      }),
+      Icon: Home,
+    })
+  }
+
   return (
     <section id="space" className="scroll-mt-20 py-2">
       <header className="mb-4">
@@ -91,22 +124,61 @@ export default function UnitFacts({
         ))}
       </div>
 
-      {unit.extras && unit.extras.length > 0 ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {unit.extras.map((e) => (
-            <span
-              key={e}
-              className="inline-flex items-center rounded-full border border-primary/15 bg-white px-3 py-1.5 text-xs font-medium text-primary"
-            >
-              {translateExtra(e, tRoot)}
-            </span>
-          ))}
+      {summary || description ? (
+        <div className="mt-6 rounded-2xl border border-primary/10 bg-white p-5">
+          <h3 className="text-lg font-bold text-primary">{t("aboutHeading")}</h3>
+          {summary ? (
+            <p className="mt-2 text-base font-medium leading-relaxed text-primary/90">{summary}</p>
+          ) : null}
+          {description ? (
+            <p className="mt-2 text-sm leading-relaxed text-primary/80">{description}</p>
+          ) : null}
         </div>
       ) : null}
 
-      <p className="mt-5 text-base leading-relaxed text-primary/85 md:text-lg">
-        {t("categoryDescription", { blurb })}
-      </p>
+      {unit.roomDetails && unit.roomDetails.length > 0 ? (
+        <div className="mt-6 rounded-2xl border border-primary/10 bg-white p-5">
+          <h3 className="text-lg font-bold text-primary">{t("roomsHeading")}</h3>
+          <div className="mt-3 space-y-3">
+            {unit.roomDetails.map((room, index) => (
+              <div key={`${room.type}-${index}`} className="rounded-xl border border-primary/10 bg-sand-fade p-3">
+                <p className="text-sm font-semibold text-primary">
+                  {localizeToken(room.type, ROOM_TYPE_LABELS, locale)}
+                </p>
+                {room.beds && room.beds.length > 0 ? (
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {room.beds.map((bed, bedIndex) => (
+                      <li
+                        key={`${bed.type}-${bedIndex}`}
+                        className="inline-flex items-center rounded-full border border-primary/15 bg-white px-3 py-1 text-xs font-medium text-primary"
+                      >
+                        {t("roomBed", {
+                          quantity: bed.quantity,
+                          type: localizeToken(bed.type, BED_TYPE_LABELS, locale),
+                        })}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {unit.houseRules ? (
+        <div className="mt-6 rounded-2xl border border-primary/10 bg-white p-5">
+          <h3 className="text-lg font-bold text-primary">{t("houseRulesHeading")}</h3>
+          <ul className="mt-3 space-y-1 text-sm text-primary/80">
+            <li>{t("ruleCheckin", { time: unit.houseRules.checkinTime })}</li>
+            <li>{t("ruleCheckout", { time: unit.houseRules.checkoutTime })}</li>
+            <li>{t("ruleQuietHours", { time: unit.houseRules.quietHoursStart })}</li>
+            <li>{t("rulePets", { value: unit.houseRules.petsAllowed ? t("yes") : t("no") })}</li>
+            <li>{t("ruleSmoking", { value: unit.houseRules.smokingAllowed ? t("yes") : t("no") })}</li>
+            <li>{t("ruleEvents", { value: unit.houseRules.eventsAllowed ? t("yes") : t("no") })}</li>
+          </ul>
+        </div>
+      ) : null}
     </section>
   )
 }
