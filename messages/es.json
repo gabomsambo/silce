@@ -368,7 +368,7 @@
       "squareFootageApprox": "aprox. {value} pies²",
       "roomBed": "{quantity} x {type}",
       "ruleCheckin": "Check-in: {time}",
-      "ruleCheckout": "Check-out: {time}",
+      "ruleCheckout": "Check-out: {time} en punto",
       "ruleQuietHours": "Horario de silencio desde las {time}",
       "rulePets": "Mascotas permitidas: {value}",
       "ruleSmoking": "Fumar permitido: {value}",

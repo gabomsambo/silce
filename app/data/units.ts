@@ -1,5 +1,6 @@
 // app/data/units.ts
 import type { CategoryKey } from "./categories"
+import { getHospitableUnitContent } from "./hospitableContent"
 
 export interface UnitPhoto {
   src: string
@@ -8,6 +9,8 @@ export interface UnitPhoto {
 export interface UnitSquareFootage {
   value: number
   approximate?: boolean
+  source?: "description"
+  sourceText?: string
 }
 
 export interface UnitCoordinate {
@@ -56,7 +59,7 @@ export interface Unit {
   images: UnitPhoto[]
 }
 
-export const UNITS: Unit[] = [
+const BASE_UNITS: Unit[] = [
   {
     slug: "unit-2528",
     titleKey: "units.unit-2528.title",
@@ -395,3 +398,8 @@ export const UNITS: Unit[] = [
     ],
   },
 ]
+
+export const UNITS: Unit[] = BASE_UNITS.map((unit) => ({
+  ...unit,
+  ...getHospitableUnitContent(unit.hospitable_id),
+}))

@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { Bed, Bath, Home, Users, ArrowUp, Maximize2 } from "lucide-react"
 import {
   buildBedroomsSpec,
@@ -6,6 +6,35 @@ import {
   translateFloor,
 } from "@/app/data/copy"
 import type { Unit } from "@/app/data/units"
+
+const ROOM_TYPE_LABELS: Record<string, { en: string; es: string }> = {
+  backyard: { en: "Backyard", es: "Patio trasero" },
+  bedroom: { en: "Bedroom", es: "Habitación" },
+  exterior: { en: "Exterior", es: "Exterior" },
+  full_bathroom: { en: "Full bathroom", es: "Baño completo" },
+  kitchen: { en: "Kitchen", es: "Cocina" },
+  kitchenette: { en: "Kitchenette", es: "Cocineta" },
+  laundry_room: { en: "Laundry room", es: "Cuarto de lavado" },
+  living_room: { en: "Living room", es: "Sala" },
+  patio: { en: "Patio", es: "Patio" },
+  studio: { en: "Studio", es: "Estudio" },
+}
+
+const BED_TYPE_LABELS: Record<string, { en: string; es: string }> = {
+  double_bed: { en: "Double bed", es: "Cama matrimonial" },
+  queen_bed: { en: "Queen bed", es: "Cama queen" },
+  sofa_bed: { en: "Sofa bed", es: "Sofá cama" },
+}
+
+function localizeToken(
+  token: string,
+  labels: Record<string, { en: string; es: string }>,
+  locale: "en" | "es"
+) {
+  const known = labels[token]
+  if (known) return locale === "es" ? known.es : known.en
+  return token.replace(/_/g, " ")
+}
 
 /**
  * Surfaces per-unit facts and listing-backed content on the unit page.
@@ -23,6 +52,7 @@ export default function UnitFacts({
   tRoot: (key: string, values?: Record<string, string | number>) => string
 }) {
   const t = useTranslations("unitPage.facts")
+  const locale = useLocale() === "es" ? "es" : "en"
 
   const facts = [
     {
@@ -110,7 +140,9 @@ export default function UnitFacts({
           <div className="mt-3 space-y-3">
             {unit.roomDetails.map((room, index) => (
               <div key={`${room.type}-${index}`} className="rounded-xl border border-primary/10 bg-sand-fade p-3">
-                <p className="text-sm font-semibold text-primary">{room.type}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {localizeToken(room.type, ROOM_TYPE_LABELS, locale)}
+                </p>
                 {room.beds && room.beds.length > 0 ? (
                   <ul className="mt-2 flex flex-wrap gap-2">
                     {room.beds.map((bed, bedIndex) => (
@@ -118,7 +150,10 @@ export default function UnitFacts({
                         key={`${bed.type}-${bedIndex}`}
                         className="inline-flex items-center rounded-full border border-primary/15 bg-white px-3 py-1 text-xs font-medium text-primary"
                       >
-                        {t("roomBed", { quantity: bed.quantity, type: bed.type })}
+                        {t("roomBed", {
+                          quantity: bed.quantity,
+                          type: localizeToken(bed.type, BED_TYPE_LABELS, locale),
+                        })}
                       </li>
                     ))}
                   </ul>
