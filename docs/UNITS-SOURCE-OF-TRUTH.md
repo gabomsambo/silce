@@ -4,7 +4,7 @@ Reconciles three systems: **Hospitable** (`booking-widget-codes.md` export),
 the **photo library** (`Fotos de todas las unidades/`), and the **site**
 (`app/data/units.ts`).
 
-Last reconciled: 2026-09-12.
+Last reconciled: 2026-09-06.
 
 ## Naming key
 
@@ -190,26 +190,6 @@ stays Queen — the export's sofa bed is not owner-stated, and an armchair is
 not a sofa bed. Pre-existing `Queen + Sofa Bed` strings on `unit-2538`,
 `pineapple-105` and `sea-grape-1052-101` were dropped for the same reason.
 
-## Per-unit listing content
-
-`app/data/hospitable-units.json` is the owner-supplied structured Hospitable
-snapshot for unit-page summaries, descriptions, amenities, room details,
-coordinates and house rules. `app/data/hospitableContent.ts` joins it to the
-site by property ID and owns the reconciliation overrides; unit pages do not
-fetch or revalidate this content at runtime. Spanish narratives live in the
-paired `app/data/hospitable-unit-content.es.json` snapshot.
-
-Owner classification overrides imported kitchen and bedding wording. Full
-kitchens are limited to `pineapple-102`, `sea-grape-102` and
-`sea-grape-1052-101`; `unit-2528` is a kitchenette, and no other unit may gain a
-positive full-kitchen claim from raw listing prose or amenity tokens. Sofa beds
-remain limited to Sea Grape 101 and 102 as described above. Laundry is published
-as paid, coin-operated and on-site, without an amount.
-
-Square footage is restored only when the unit's own listing summary or
-description states it. The parser retains whether the source used `~`, and the
-English and Spanish displays preserve that approximate-versus-exact distinction.
-
 ## Category amenity chips
 
 Chips on the rooms-index category headers are guest-facing claims and take the
@@ -254,12 +234,12 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    pre-existing and unsourced; no repo document or API response asserts it. The
    extras string is a kitchen claim. It still renders on the rooms-index
    featured card one line below the `two-bed-1-bath` header the "Full kitchen"
-   chip was removed from as unsourced. It stays in `units.ts`: silence is not
-   contradiction, and removing a possibly-true fact a guest values has a real
-   cost of its own. Sourcing it is deferred to a systematic category-card pass.
-   Unit pages no longer render `extras`; their unit-specific amenities come from
-   the structured Hospitable snapshot described above. Square footage is likewise
-   absent unless the unit's own listing copy positively states it.
+   chip was removed from as unsourced, and the unit page now also shows it as
+   a facts-section chip. It stays in `units.ts`: silence is not contradiction, and removing
+   a possibly-true fact a guest values has a real cost of its own. Sourcing it
+   is deferred to the systematic bed-and-content pass. The unsourced `sqFt: 520`
+   was removed on the owner's direction on 2026-09-06, together with every other
+   square-footage value and the associated display copy.
 3. *(resolved 2026-09-06 as an understatement)* **`pineapple-101` bed
    configuration.** The previous site carried `Queen ` (trailing space). The
    live listing caption names a full bed; the public listing name is silent on
@@ -275,8 +255,8 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    2526. The export's "unknown type" is superseded by those captions.
 6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio — Comfort" is still copy-paste
-   from when the two shared an ID. Its old unverified `sqFt: 720` remains absent;
-   square footage is now restored only from the unit's own listing copy.
+   from when the two shared an ID. Its equally unverified `sqFt: 720` was removed
+   with all square-footage data at the owner's direction on 2026-09-06.
    Titles now live in the message catalogs (`units.<slug>.title` in
    `messages/en.json` and `messages/es.json`), not in `units.ts`, which carries
    only `titleKey` — a title correction has to be made in both catalogs.
@@ -298,9 +278,9 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
      River", carries no compact/comfort signal.
    - Export row `Unit PA2536` gives capacity and bedding only, no tier.
    - This document assigns it no category either.
-   - Square footage cannot arbitrate category membership: only values explicitly
-     stated in each unit's listing copy are displayed, and those statements do
-     not define the site's compact/comfort tiering.
+   - Square footage cannot arbitrate: every value was unsourced and inconsistent
+     with the tiering, so all values and their display copy were removed at the
+     owner's direction on 2026-09-06.
 
    Resolving it — retitle or refile — is the owner's call, because either
    choice changes how a guest browses and which apartments they compare.

@@ -4,13 +4,16 @@ import { useTranslations } from "next-intl"
 import dynamic from "next/dynamic"
 import { useState } from "react"
 import { MAP_MARKERS } from "@/app/data/mapMarkers"
-import type { UnitCoordinate } from "@/app/data/units"
 
 /**
  * "Where you'll be" — the location band on the unit page.
  *
- * Two fact cards (arts district, riverfront) and a map that can place the
- * exact unit marker when coordinates are present in unit data.
+ * Two fact cards (arts district, riverfront) and the existing site-wide map.
+ *
+ * The map is shared across all units today (one marker for the property
+ * at the Eau Gallie centre), so per-unit pins would be a separate change
+ * if/when the captain supplies coordinates. The component is honest about
+ * this in the caption.
  *
  * The map is loaded only when the guest clicks "Show map" — Leaflet is
  * ~150kB and the lazy load keeps the unit page's initial bundle lean.
@@ -23,27 +26,11 @@ const MapWrapper = dynamic(() => import("./MapWrapper"), {
 
 export default function UnitLocation({
   address,
-  coordinates,
 }: {
   address: string
-  coordinates?: UnitCoordinate
 }) {
   const t = useTranslations("unitPage.location")
   const [mapOpen, setMapOpen] = useState(false)
-  const areaMarkers = MAP_MARKERS.filter((marker) => marker.id !== "staylokal-main")
-  const markers = coordinates
-    ? [
-        {
-          id: "unit-location",
-          position: [coordinates.lat, coordinates.lng] as [number, number],
-          titleKey: "map.markers.unit-location.title",
-          descriptionKey: "map.markers.unit-location.description",
-          type: "property" as const,
-        },
-        ...areaMarkers,
-      ]
-    : areaMarkers
-  const mapCenter = coordinates ? ([coordinates.lat, coordinates.lng] as [number, number]) : undefined
 
   return (
     <section id="location" className="scroll-mt-20 border-t border-primary/10 py-8">
@@ -74,7 +61,7 @@ export default function UnitLocation({
         <article className="flex flex-col overflow-hidden rounded-2xl border border-primary/10 bg-white">
           <div className="relative aspect-[4/3] overflow-hidden bg-coastal-mist">
             {mapOpen ? (
-              <MapWrapper markers={markers} center={mapCenter} />
+              <MapWrapper markers={MAP_MARKERS} />
             ) : (
               <button
                 type="button"

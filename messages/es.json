@@ -124,10 +124,6 @@
       "intracoastal-brewing": {
         "title": "Intracoastal Brewing Co.",
         "description": "Cervecería artesanal local y restaurante"
-      },
-      "unit-location": {
-        "title": "Esta unidad",
-        "description": "Ubicación exacta de esta unidad de Silver Pineapple"
       }
     }
   },
@@ -337,9 +333,7 @@
     "titleBlock": {
       "from": "Desde",
       "perNight": "/noche",
-      "locationLabel": "Eau Gallie, Melbourne FL",
-      "squareFootageExact": "{value} pies²",
-      "squareFootageApprox": "aprox. {value} pies²"
+      "locationLabel": "Eau Gallie, Melbourne FL"
     },
     "gallery": {
       "showAll": "Ver las {count} fotos",
@@ -355,32 +349,14 @@
     "facts": {
       "heading": "El espacio",
       "subheading": "Lo esencial para una estadía cómoda.",
-      "aboutHeading": "Sobre esta unidad",
-      "roomsHeading": "Detalles por habitación",
-      "houseRulesHeading": "Reglas de la casa",
       "bed": "Cama",
       "layout": "Distribución",
       "bathroom": "Baño",
       "sleeps": "Capacidad",
       "floor": "Piso",
-      "squareFootage": "Tamaño",
-      "squareFootageExact": "{value} pies²",
-      "squareFootageApprox": "aprox. {value} pies²",
-      "roomBed": "{quantity} x {type}",
-      "ruleCheckin": "Check-in: {time}",
-      "ruleCheckout": "Check-out: {time} en punto",
-      "ruleQuietHours": "Horario de silencio desde las {time}",
-      "rulePets": "Mascotas permitidas: {value}",
-      "ruleSmoking": "Fumar permitido: {value}",
-      "ruleEvents": "Eventos permitidos: {value}",
-      "yes": "Sí",
-      "no": "No",
       "privateBath": "{count, plural, one {# baño} other {# baños}}",
-      "guests": "{count, plural, one {# huésped} other {# huéspedes}}"
-    },
-    "amenities": {
-      "heading": "Comodidades incluidas",
-      "subheading": "Comodidades reales y específicas de esta unidad."
+      "guests": "{count, plural, one {# huésped} other {# huéspedes}}",
+      "categoryDescription": "{blurb}"
     },
     "reviews": {
       "heading": "Reseñas de huéspedes",
