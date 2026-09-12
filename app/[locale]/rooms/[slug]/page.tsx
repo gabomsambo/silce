@@ -8,7 +8,7 @@ import UnitGallery from "../../../components/UnitGallery";
 import UnitFacts from "../../../components/UnitFacts";
 import UnitReviews from "../../../components/UnitReviews";
 import UnitLocation from "../../../components/UnitLocation";
-import AmenityGrid from "../../../components/AmenityGrid";
+import UnitAmenities from "../../../components/UnitAmenities";
 import { UNITS } from "../../../data/units";
 import {
   buildBathroomsSpec,
@@ -156,6 +156,14 @@ function UnitTitleBlock({
     t("propertyDetail.templates.specsGuests", { maxGuests: unit.maxGuests }),
     buildBathroomsSpec(unit.bathrooms, t),
     translateBedType(unit.bedType, t),
+    unit.squareFootage
+      ? t(
+          unit.squareFootage.approximate
+            ? "unitPage.titleBlock.squareFootageApprox"
+            : "unitPage.titleBlock.squareFootageExact",
+          { value: unit.squareFootage.value }
+        )
+      : null,
   ].filter(Boolean)
 
   return (
@@ -274,12 +282,11 @@ export default async function PropertyPage({ params }: Props) {
               <UnitFacts
                 unit={property}
                 tRoot={tRoot}
-                blurb={tRoot(CATEGORIES[property.category].blurbKey)}
               />
 
               {/* Amenities — section divider for visual rhythm */}
               <div className="mt-8 border-t border-primary/10 pt-8">
-                <AmenityGrid />
+                <UnitAmenities amenities={property.amenities} />
               </div>
 
               {/* Reviews */}
@@ -290,6 +297,7 @@ export default async function PropertyPage({ params }: Props) {
               {/* Location */}
               <UnitLocation
                 address={BUSINESS_CONTACT.location}
+                coordinates={property.coordinates}
               />
             </div>
 
