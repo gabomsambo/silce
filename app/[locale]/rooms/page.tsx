@@ -86,12 +86,20 @@ export default async function RoomsPage({ params }: RoomsPageProps) {
         <RoomsHeroSection />
         <RoomsIntroduction />
 
-        {/* Category sections */}
-        {grouped.map(({ cat, units }) => (
-          units.length > 0 && (
-            <RoomCategorySection key={cat.key} category={cat} units={units} />
-          )
-        ))}
+        {/* Programmatic focus makes the navbar booking action useful here
+            without adding another stop to the normal tab order. */}
+        <div
+          id="available-units"
+          role="region"
+          aria-label={tRoot("rooms.hero.heading")}
+          tabIndex={-1}
+        >
+          {grouped.map(({ cat, units }) => (
+            units.length > 0 && (
+              <RoomCategorySection key={cat.key} category={cat} units={units} />
+            )
+          ))}
+        </div>
 
         <AmenityGrid />
         <Footer />

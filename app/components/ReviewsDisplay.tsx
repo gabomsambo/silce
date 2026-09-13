@@ -106,10 +106,11 @@ export default function ReviewsDisplay() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Property Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="review-property-filter" className="block text-sm font-medium text-gray-700 mb-2">
                 {t("propertyLabel")}
               </label>
               <select
+                id="review-property-filter"
                 value={selectedProperty}
                 onChange={(e) => setSelectedProperty(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
@@ -125,12 +126,14 @@ export default function ReviewsDisplay() {
 
             {/* Rating Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div id="review-rating-filter-label" className="block text-sm font-medium text-gray-700 mb-2">
                 {t("ratingLabel")}
-              </label>
-              <div className="flex gap-2">
+              </div>
+              <div className="flex gap-2" role="group" aria-labelledby="review-rating-filter-label">
                 <button
+                  type="button"
                   onClick={() => setMinRating(1)}
+                  aria-pressed={minRating === 1}
                   className={`flex-1 px-4 py-3 border rounded-lg font-medium transition-all ${
                     minRating === 1
                       ? "bg-tan text-primary border-tan-ink"
@@ -140,7 +143,9 @@ export default function ReviewsDisplay() {
                   {t("ratingAll")}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setMinRating(4)}
+                  aria-pressed={minRating === 4}
                   className={`flex-1 px-4 py-3 border rounded-lg font-medium transition-all ${
                     minRating === 4
                       ? "bg-tan text-primary border-tan-ink"
@@ -150,7 +155,9 @@ export default function ReviewsDisplay() {
                   {t("ratingFourPlus")}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setMinRating(5)}
+                  aria-pressed={minRating === 5}
                   className={`flex-1 px-4 py-3 border rounded-lg font-medium transition-all ${
                     minRating === 5
                       ? "bg-tan text-primary border-tan-ink"
@@ -164,10 +171,11 @@ export default function ReviewsDisplay() {
 
             {/* Platform Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="review-platform-filter" className="block text-sm font-medium text-gray-700 mb-2">
                 {t("platformLabel")}
               </label>
               <select
+                id="review-platform-filter"
                 value={selectedPlatform}
                 onChange={(e) => setSelectedPlatform(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tan-ink focus:border-transparent"
@@ -217,10 +225,14 @@ export default function ReviewsDisplay() {
                   </div>
 
                   {/* Stars */}
-                  <div className="flex items-center gap-1">
+                  <div
+                    className="flex items-center gap-1"
+                    aria-label={t("reviewRating", { rating: review.overallRating })}
+                  >
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
+                        aria-hidden="true"
                         className={`w-4 h-4 ${
                           i < review.overallRating
                             ? "text-primary fill-primary"

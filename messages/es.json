@@ -393,6 +393,13 @@
       "heading": "Comodidades incluidas",
       "subheading": "Comodidades reales y específicas de esta unidad."
     },
+    "bookingAccessibility": {
+      "heading": "Información de accesibilidad",
+      "details": "No tenemos información de accesibilidad para esta unidad, incluidos detalles sobre escalones, entradas, baños o estacionamiento. Pregúntenos por sus necesidades de acceso antes de reservar. Confirmaremos lo que podamos en lugar de adivinar.",
+      "askLink": "Consultar sobre accesibilidad",
+      "emailSubject": "Consulta de accesibilidad sobre una unidad",
+      "thirdParty": "El widget de reservas que aparece a continuación lo proporciona Hospitable, un servicio de terceros que Silver Pineapple no controla. Podemos etiquetar y ubicar el widget en esta página y ayudarle si tiene problemas, pero no podemos cambiar los controles ni el comportamiento de accesibilidad dentro del widget."
+    },
     "reviews": {
       "heading": "Reseñas de huéspedes",
       "verifiedNote": "Huéspedes verificados de Airbnb",
@@ -543,6 +550,7 @@
       "ratingAll": "Todas",
       "ratingFourPlus": "4★+",
       "ratingFive": "5★",
+      "reviewRating": "{rating} de 5 estrellas",
       "platformLabel": "Plataforma",
       "allPlatforms": "Todas las Plataformas",
       "showingCount": "Mostrando {shown} de {total} opiniones",

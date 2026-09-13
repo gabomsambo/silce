@@ -84,6 +84,8 @@ export default function BookingIframe({ hospitableId, propertyTitle, locale = "e
       sandbox="allow-top-navigation allow-scripts allow-same-origin allow-forms allow-popups"
       style={{ width: "100%", height: "600px" }}
       frameBorder="0"
+      tabIndex={0}
+      aria-describedby="booking-accessibility-details booking-widget-control-details"
       src={`${WIDGET_ORIGIN}/widget/9f9d3a07-f287-40dc-bb60-1966173ea154/${hospitableId}?locale=${locale}`}
       title={t("bookingIframeTitle", { title: propertyTitle })}
     />
