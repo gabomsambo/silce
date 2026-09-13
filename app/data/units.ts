@@ -1,9 +1,14 @@
 // app/data/units.ts
 import type { CategoryKey } from "./categories"
 import { getHospitableUnitContent } from "./hospitableContent"
+import { getUnitPhotoMetadata } from "./photoMetadata"
+import type { PhotoGroupKey } from "@/lib/photoGroups"
 
 export interface UnitPhoto {
   src: string
+  group?: PhotoGroupKey
+  sourceCaption?: string
+  sourceOrder?: number
 }
 
 export interface UnitSquareFootage {
@@ -383,6 +388,9 @@ const BASE_UNITS: Unit[] = [
     bathrooms: 1,
     bedType: "Queen",
     hospitable_id: "2282929",
+    // Unit 101 Ed 1052 SG is the sole listing whose 16 source photos have no
+    // captions. Keep its gallery flat: assigning groups from the images would
+    // violate the project's prohibition on photo-derived labels.
     images: [
       { src: "/photos_seagrape_1052_101/01.webp" },
       { src: "/photos_seagrape_1052_101/02.webp" },
@@ -404,4 +412,8 @@ const BASE_UNITS: Unit[] = [
 export const UNITS: Unit[] = BASE_UNITS.map((unit) => ({
   ...unit,
   ...getHospitableUnitContent(unit.hospitable_id),
+  images: unit.images.map((photo) => ({
+    ...photo,
+    ...getUnitPhotoMetadata(unit.hospitable_id, photo.src),
+  })),
 }))

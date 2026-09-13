@@ -9,6 +9,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "lint": "next lint",
     "check:icons": "node scripts/check-icons.mjs",
     "check:links": "node scripts/check-links.mjs",

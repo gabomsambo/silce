@@ -160,35 +160,13 @@ positive source, the same test applied to amenity chips and to photo
 provenance. The public booking API is **not** that source: `.../properties/<id>`
 returns `name`, `max_guests`, check-in times and house rules and no bed or
 amenity data at all (re-checked 2026-09-04 against `2282920` and `2282921`).
-The only authority is Hospitable's own per-listing sleeping arrangement in the
-reconciliation export. Never derive a bed from `max_guests`, from a photograph,
-or from what the site already says.
-
-Sofa-bed claims are restricted to what the owner stated on 2026-09-05 (twice)
-and to those two listings only:
-
-- `sea-grape-102` (`2282920`) and `sea-grape-101` (`2282921`): owner-stated
-  sofa beds. They read `Queen + Queen + Sofa Bed`. `sea-grape-201` has none.
-  Listing captions on 2026-09-06 also name a sofa bed on `sea-grape-102`
-  ("Two queen bedrooms plus a sofa bed…"). That agrees with the owner; it is
-  not an independent grant to publish sofa beds elsewhere.
-- A sofa is not a sofa bed — armchair / sofa / "sleeper sofa" caption copy is
-  not enough. Captions that named a sofa bed on `pineapple-101` / `pineapple-102`
-  conflict with the owner's standing decision, so those sofa beds stay off
-  the site. Understatement is the rule where sources conflict.
-- `unit-2538` (`2282919`, live name "Minimalist Studio | Wifi + Arts Scene &
-  Near River" = export row `Unit PA2538`) once advertised `King`. The export
-  gives it a queen in the living room. It now reads `Queen` only: the king was
-  invented, and the export's sofa bed is not owner-stated.
-
-**Applied 2026-09-06 against the owner override and live listing names** (the
-public API still has no bed-type field). Sofa beds on Sea Grape 101 and 102
-are owner-stated. Sea Grape 201 has none. Listing names/captions source a
-queen on `pineapple-104` and `unit-2528`, a full bed on `unit-2526` and
-`pineapple-101`, and a queen on `pineapple-103` ("Queen Bed"). `unit-2536`
-stays Queen — the export's sofa bed is not owner-stated, and an armchair is
-not a sofa bed. Pre-existing `Queen + Sofa Bed` strings on `unit-2538`,
-`pineapple-105` and `sea-grape-1052-101` were dropped for the same reason.
+The authority is Hospitable's current per-listing sleeping arrangement: use the
+structured reconciliation export and the listing's human-written captions.
+Those property-owner-maintained sources outrank recollections or earlier
+corrections from the site owner because a unit can change over time. Never derive
+a bed from `max_guests`, from the photograph itself, or from what the site already
+says. A generic sofa or armchair is not a sofa bed; the listing must identify the
+sleeping surface positively.
 
 ## Per-unit listing content
 
@@ -199,12 +177,12 @@ site by property ID and owns the reconciliation overrides; unit pages do not
 fetch or revalidate this content at runtime. Spanish narratives live in the
 paired `app/data/hospitable-unit-content.es.json` snapshot.
 
-Owner classification overrides imported kitchen and bedding wording. Full
-kitchens are limited to `pineapple-102`, `sea-grape-102` and
-`sea-grape-1052-101`; `unit-2528` is a kitchenette, and no other unit may gain a
-positive full-kitchen claim from raw listing prose or amenity tokens. Sofa beds
-remain limited to Sea Grape 101 and 102 as described above. Laundry is published
-as paid, coin-operated and on-site, without an amount.
+The reconciled kitchen classification limits full kitchens to `pineapple-102`,
+`sea-grape-102` and `sea-grape-1052-101`; `unit-2528` is a kitchenette, and no
+other unit may gain a positive full-kitchen claim from raw listing prose or
+amenity tokens. Sofa-bed wording follows the current per-listing authority
+described above. Laundry is published as paid, coin-operated and on-site,
+without an amount.
 
 Square footage is restored only when the unit's own listing summary or
 description states it. The parser retains whether the source used `~`, and the
@@ -260,20 +238,7 @@ the now-orphaned `kitchenetteDiningTable` key was deleted from `en.json` and
    Unit pages no longer render `extras`; their unit-specific amenities come from
    the structured Hospitable snapshot described above. Square footage is likewise
    absent unless the unit's own listing copy positively states it.
-3. *(resolved 2026-09-06 as an understatement)* **`pineapple-101` bed
-   configuration.** The previous site carried `Queen ` (trailing space). The
-   live listing caption names a full bed; the public listing name is silent on
-   bed size. Full is the smaller claim, so `bedType` is `Full` with **no** sofa
-   bed — the caption's sofa bed conflicts with the owner's 2026-09-05 decision
-   that sofa beds exist in Sea Grape 101 and 102 only.
-4. *(resolved 2026-09-06 as understatements kept)* **`unit-2536` and
-   `pineapple-103` sofa beds.** Export gave each a sofa bed. Live captions show
-   an armchair on 103 and no sofa bed on 2536. Queen stands; do not invent the
-   extra bed.
-5. *(resolved 2026-09-06)* **Bed type on `pineapple-104`, `unit-2528`,
-   `unit-2526`.** Live captions name a queen on the first two and a full bed on
-   2526. The export's "unknown type" is superseded by those captions.
-6. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
+3. **`pineapple-104` metadata.** `maxGuests` is now 2 per Hospitable (and
    `pineapple-101` is 4), but the title "Studio — Comfort" is still copy-paste
    from when the two shared an ID. Its old unverified `sqFt: 720` remains absent;
    square footage is now restored only from the unit's own listing copy.

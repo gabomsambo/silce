@@ -19,8 +19,9 @@ import type { UnitPhoto } from "@/app/data/units"
  *   is correct here and only here.
  *
  * The component is a thin client wrapper around `PhotoViewer`. The unit
- * page passes `images: UnitPhoto[]` and we hand the same array through;
- * the viewer is a flat strip (n-of-total counter, no room grouping).
+ * page passes `images: UnitPhoto[]` and we hand the same array through. The
+ * viewer builds its room tour from caption-derived group labels while keeping
+ * the inherited photo order unchanged.
  */
 export default function UnitGallery({
   images,
