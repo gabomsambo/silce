@@ -310,6 +310,34 @@ export default async function PropertyPage({ params }: Props) {
                       {t("pricing", { price: formatPrice(property.priceFrom, locale) })}
                     </div>
                   </div>
+                  <section
+                    className="mb-5 rounded-xl border border-primary/15 bg-sand-fade p-4"
+                    aria-labelledby="booking-accessibility-heading"
+                  >
+                    <h2
+                      id="booking-accessibility-heading"
+                      className="text-lg font-bold text-primary"
+                    >
+                      {tRoot("unitPage.bookingAccessibility.heading")}
+                    </h2>
+                    <p className="mt-2 text-sm leading-relaxed text-primary/80">
+                      <span id="booking-accessibility-details">
+                        {tRoot("unitPage.bookingAccessibility.details")}
+                      </span>{" "}
+                      <a
+                        href={`mailto:${BUSINESS_CONTACT.email}?subject=${encodeURIComponent(tRoot("unitPage.bookingAccessibility.emailSubject"))}`}
+                        className="font-semibold text-tan-hover underline underline-offset-2 hover:text-primary"
+                      >
+                        {tRoot("unitPage.bookingAccessibility.askLink")}
+                      </a>
+                    </p>
+                    <p
+                      id="booking-widget-control-details"
+                      className="mt-3 text-sm leading-relaxed text-primary/80"
+                    >
+                      {tRoot("unitPage.bookingAccessibility.thirdParty")}
+                    </p>
+                  </section>
                   <div className="booking-widget-container">
                     <BookingIframe
                       hospitableId={property.hospitable_id}

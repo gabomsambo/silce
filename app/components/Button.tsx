@@ -4,11 +4,11 @@ import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "@/i18n/navigation"
 import { ShimmerButton } from "@/components/ui/shimmer-button"
 
-export type BookingAction = "scroll-to-widget" | "go-to-rooms" | "already-there"
+export type BookingAction = "scroll-to-widget" | "go-to-rooms" | "focus-inventory"
 
 export function bookingActionForPath(pathname: string): BookingAction {
   if (pathname.startsWith('/rooms/')) return "scroll-to-widget"
-  if (pathname === '/rooms') return "already-there"
+  if (pathname === '/rooms') return "focus-inventory"
   return "go-to-rooms"
 }
 
@@ -35,14 +35,22 @@ export default function Button({ text, variant = "primary", onClick, className =
 
     const action = bookingAction ?? bookingActionForPath(pathname)
 
-    // Already on the inventory: neither navigating nor scrolling helps the guest
-    if (action === "already-there") return
-
     if (action === "scroll-to-widget") {
-      // Individual property page: Scroll to booking widget
+      // Move both the viewport and keyboard focus to the named iframe so a
+      // keyboard or screen-reader user can continue into its controls.
       const bookingWidget = document.getElementById('booking-iframe')
       if (bookingWidget) {
         bookingWidget.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        bookingWidget.focus({ preventScroll: true })
+        return
+      }
+    }
+
+    if (action === "focus-inventory") {
+      const inventory = document.getElementById('available-units')
+      if (inventory) {
+        inventory.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        inventory.focus({ preventScroll: true })
         return
       }
     }
