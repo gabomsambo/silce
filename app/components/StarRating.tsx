@@ -15,7 +15,7 @@ export default function StarRating({ rating, label, size = "md", className = "" 
   }
 
   return (
-    <div className={`flex ${className}`} aria-label={label}>
+    <div className={`flex ${className}`} role="img" aria-label={label}>
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}

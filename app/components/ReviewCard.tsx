@@ -18,7 +18,7 @@ export default function ReviewCard({ review, ratingLabel }: ReviewCardProps) {
     <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 shadow-md
   hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
       {/* Rating Stars */}
-      <div className="flex mb-4" aria-label={ratingLabel}>
+      <div className="flex mb-4" role="img" aria-label={ratingLabel}>
         {[...Array(review.rating)].map((_, i) => (
           <Star key={i} aria-hidden="true" className="w-5 h-5 text-tan-ink fill-current" />
         ))}

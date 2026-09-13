@@ -227,6 +227,7 @@ export default function ReviewsDisplay() {
                   {/* Stars */}
                   <div
                     className="flex items-center gap-1"
+                    role="img"
                     aria-label={t("reviewRating", { rating: review.overallRating })}
                   >
                     {[...Array(5)].map((_, i) => (
