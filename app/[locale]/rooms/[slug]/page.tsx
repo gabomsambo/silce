@@ -25,6 +25,7 @@ import {
 import { SITE_URL } from "@/lib/site";
 import { BUSINESS_CONTACT } from "@/app/data/contact";
 import { Link } from "@/i18n/navigation";
+import { ChevronDown } from "lucide-react";
 
 // Generate static params for all rooms in both locales
 export function generateStaticParams() {
@@ -310,33 +311,66 @@ export default async function PropertyPage({ params }: Props) {
                       {t("pricing", { price: formatPrice(property.priceFrom, locale) })}
                     </div>
                   </div>
+                  {/*
+                    Native <details>/<summary>, deliberately not a hand-rolled
+                    div-and-onClick disclosure: the platform supplies keyboard
+                    operation (Tab to reach, Enter/Space to toggle) and the
+                    expanded/collapsed state in the accessibility tree for free,
+                    with no JavaScript. The notice stays in the DOM while
+                    collapsed, so in-page find still reaches it and Chrome opens
+                    the <details> on a match.
+                  */}
                   <section
-                    className="mb-5 rounded-xl border border-primary/15 bg-sand-fade p-4"
+                    className="mb-5"
                     aria-labelledby="booking-accessibility-heading"
                   >
-                    <h2
-                      id="booking-accessibility-heading"
-                      className="text-lg font-bold text-primary"
-                    >
-                      {tRoot("unitPage.bookingAccessibility.heading")}
-                    </h2>
-                    <p className="mt-2 text-sm leading-relaxed text-primary/80">
+                    <details className="group rounded-xl border border-primary/15 bg-sand-fade">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-xl p-4 [&::-webkit-details-marker]:hidden">
+                        <h2
+                          id="booking-accessibility-heading"
+                          className="text-base font-bold text-primary"
+                        >
+                          {tRoot("unitPage.bookingAccessibility.heading")}
+                        </h2>
+                        <ChevronDown
+                          aria-hidden="true"
+                          className="h-5 w-5 shrink-0 text-primary/70 transition-transform duration-200 group-open:rotate-180"
+                        />
+                      </summary>
+                      <p className="px-4 text-sm leading-relaxed text-primary/80">
+                        {tRoot("unitPage.bookingAccessibility.details")}{" "}
+                        <a
+                          href={`mailto:${BUSINESS_CONTACT.email}?subject=${encodeURIComponent(tRoot("unitPage.bookingAccessibility.emailSubject"))}`}
+                          className="font-semibold text-tan-hover underline underline-offset-2 hover:text-primary"
+                        >
+                          {tRoot("unitPage.bookingAccessibility.askLink")}
+                        </a>
+                      </p>
+                      <p className="mt-3 px-4 pb-4 text-sm leading-relaxed text-primary/80">
+                        {tRoot("unitPage.bookingAccessibility.thirdParty")}
+                      </p>
+                    </details>
+                    {/*
+                      The booking iframe describes itself with these two strings
+                      via aria-describedby. Chrome skips rendering a closed
+                      <details>'s content entirely, so ids living inside it stop
+                      resolving into the iframe's accessible description the
+                      moment the notice is collapsed — measured in Chrome, not
+                      assumed. Mirroring the strings here keeps the description
+                      that shipped in PR 26 intact in both states. aria-hidden
+                      keeps the mirror out of the normal reading order so an
+                      expanded notice is not announced twice; a directly
+                      referenced node is still pulled into the accessible
+                      description.
+                    */}
+                    <div className="sr-only" aria-hidden="true">
                       <span id="booking-accessibility-details">
                         {tRoot("unitPage.bookingAccessibility.details")}
-                      </span>{" "}
-                      <a
-                        href={`mailto:${BUSINESS_CONTACT.email}?subject=${encodeURIComponent(tRoot("unitPage.bookingAccessibility.emailSubject"))}`}
-                        className="font-semibold text-tan-hover underline underline-offset-2 hover:text-primary"
-                      >
-                        {tRoot("unitPage.bookingAccessibility.askLink")}
-                      </a>
-                    </p>
-                    <p
-                      id="booking-widget-control-details"
-                      className="mt-3 text-sm leading-relaxed text-primary/80"
-                    >
-                      {tRoot("unitPage.bookingAccessibility.thirdParty")}
-                    </p>
+                      </span>
+                      <span id="booking-widget-control-details">
+                        {tRoot("unitPage.bookingAccessibility.thirdParty")}
+                      </span>
+                    </div>
                   </section>
                   <div className="booking-widget-container">
                     <BookingIframe
