@@ -160,16 +160,6 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   deliberate, so do not prune it as stray. The custom-element search widget is
   the same case and IS ringed — `hospitable-direct-mps` matches `:focus-within`
   and takes the full two-band ring.
-- **A closed `<details>` breaks `aria-describedby` into it.** Chrome skips
-  rendering a closed disclosure's content, so ids that live inside it stop
-  resolving into a referencing element's accessible description — the unit
-  page's booking iframe loses its whole description the moment the
-  accessibility notice is collapsed. A `sr-only` mirror of the strings placed
-  outside the `<details>` restores it; `aria-hidden="true"` on that mirror
-  keeps it out of the normal reading order without removing it from the
-  description, because a directly referenced node is still pulled in. Verify
-  by reading the iframe node's `description` in the accessibility tree in both
-  states — the DOM and the served HTML look correct either way.
 - **Two traps when probing focus rings.** A zero-area element (`width`/`height`
   0) reports a fully populated computed `outline`/`box-shadow`, so a probe calls
   it a pass while the user sees nothing — assert on `getBoundingClientRect()`.
