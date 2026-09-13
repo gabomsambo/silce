@@ -245,7 +245,7 @@ export default function ReviewsDisplay() {
 
                   {/* Review Text */}
                   <p className="text-sm text-gray-700 leading-relaxed line-clamp-4">
-                    "{review.text}"
+                    &ldquo;{review.text}&rdquo;
                   </p>
 
                   {/* Author Info */}
@@ -258,7 +258,7 @@ export default function ReviewsDisplay() {
                       <p className="text-xs text-gray-500 mt-1">{formatStayDuration(review.stayDuration)}</p>
                     )}
                     {review.highlight && (
-                      <p className="text-xs text-primary font-medium mt-1 italic">"{review.highlight}"</p>
+                      <p className="text-xs text-primary font-medium mt-1 italic">&ldquo;{review.highlight}&rdquo;</p>
                     )}
                   </div>
 
