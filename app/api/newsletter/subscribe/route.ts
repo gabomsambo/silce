@@ -11,8 +11,6 @@ const turnstileResponseSchema = z.object({
 const newsletterSubmissionSchema = z.object({
   firstName: z.string().trim().min(1).max(120),
   email: z.string().trim().email().max(320),
-  interests: z.array(z.string().trim().min(1).max(64)).max(20),
-  locale: z.enum(["en", "es"]),
   turnstileToken: z.string().trim().min(1).max(2048),
 })
 
