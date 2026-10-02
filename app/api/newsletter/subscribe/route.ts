@@ -21,6 +21,7 @@ const resendContactSchema = z.object({
 })
 
 const PRODUCTION_TURNSTILE_HOSTNAMES = new Set(["silverpineapple.net", "www.silverpineapple.net"])
+const LOOPBACK_TURNSTILE_HOSTNAMES = new Set(["localhost", "127.0.0.1"])
 
 const RESEND_API_BASE = "https://api.resend.com"
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
@@ -64,14 +65,14 @@ function getAllowedTurnstileHostnames(): Set<string> {
   const cloudflarePagesUrl = process.env.CF_PAGES_URL
   if (cloudflarePagesUrl) {
     const parsedHostname = parseHostname(cloudflarePagesUrl)
-    if (parsedHostname) {
+    const isProductionLoopback = process.env.NODE_ENV === "production" && parsedHostname && LOOPBACK_TURNSTILE_HOSTNAMES.has(parsedHostname)
+    if (parsedHostname && !isProductionLoopback) {
       hostnames.add(parsedHostname)
     }
   }
 
   if (process.env.NODE_ENV !== "production") {
-    hostnames.add("localhost")
-    hostnames.add("127.0.0.1")
+    LOOPBACK_TURNSTILE_HOSTNAMES.forEach((hostname) => hostnames.add(hostname))
   }
 
   return hostnames
