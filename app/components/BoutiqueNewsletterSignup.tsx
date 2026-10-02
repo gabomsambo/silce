@@ -1,29 +1,125 @@
 "use client"
 
-import { useState, useRef } from "react"
-import { Mail, Heart, Star, Coffee, Gift, MapPin, Check } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { type ChangeEvent, type FormEvent, useRef, useState } from "react"
+import Script from "next/script"
+import { Mail, Heart, Star, Gift, MapPin, Check } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
 import { Confetti, type ConfettiRef } from "@/components/ui/confetti"
 import { MagicCard } from "@/components/ui/magic-card"
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: HTMLElement | string,
+        options: {
+          sitekey: string
+          action: string
+          callback: (token: string) => void
+          "expired-callback": () => void
+          "error-callback": () => void
+          "timeout-callback": () => void
+        }
+      ) => string
+      reset: (widgetId: string) => void
+    }
+  }
+}
+
+type SubmissionOutcome = "subscribed" | "already_subscribed"
+
+const UI_COPY = {
+  en: {
+    alreadySubscribedHeading: "You're Already on Our List",
+    alreadySubscribedBody: "We'll keep sharing personal recommendations, local tips, and family offers with care.",
+    submitErrorByCode: {
+      validation_error: "Please review your details and try again.",
+      captcha_failed: "Please complete the security check and try again.",
+      service_unavailable: "Newsletter signup is temporarily unavailable. Please try again shortly.",
+      submission_failed: "We couldn't save your signup just now. Please try again.",
+      unknown_error: "Something went wrong while saving your signup. Please try again.",
+    },
+  },
+  es: {
+    alreadySubscribedHeading: "Ya Estabas en Nuestra Lista",
+    alreadySubscribedBody: "Seguiremos compartiendo recomendaciones personales, consejos locales y ofertas familiares con el mismo cuidado.",
+    submitErrorByCode: {
+      validation_error: "Revise sus datos e intente de nuevo.",
+      captcha_failed: "Complete la verificación de seguridad e intente nuevamente.",
+      service_unavailable: "El registro al boletín no está disponible en este momento. Inténtelo de nuevo en breve.",
+      submission_failed: "No pudimos guardar su registro en este momento. Inténtelo nuevamente.",
+      unknown_error: "Hubo un problema al guardar su registro. Inténtelo de nuevo.",
+    },
+  },
+} as const
+
+type ApiErrorCode = keyof (typeof UI_COPY)["en"]["submitErrorByCode"]
+
+function resolveApiErrorCode(value: unknown): ApiErrorCode {
+  if (
+    value === "validation_error" ||
+    value === "captcha_failed" ||
+    value === "service_unavailable" ||
+    value === "submission_failed" ||
+    value === "unknown_error"
+  ) {
+    return value
+  }
+
+  return "unknown_error"
+}
 
 
 export default function BoutiqueNewsletterSignup() {
   const t = useTranslations("newsletter")
+  const locale = useLocale() === "es" ? "es" : "en"
+  const uiCopy = UI_COPY[locale]
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
     interests: [] as string[],
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submissionOutcome, setSubmissionOutcome] = useState<SubmissionOutcome | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState("")
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const confettiRef = useRef<ConfettiRef>(null)
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }))
+  }
+
+  const resetTurnstile = () => {
+    setTurnstileToken("")
+    if (typeof window === "undefined" || !window.turnstile || !turnstileWidgetIdRef.current) {
+      return
+    }
+
+    window.turnstile.reset(turnstileWidgetIdRef.current)
+  }
+
+  const renderTurnstile = () => {
+    if (typeof window === "undefined" || !window.turnstile || !turnstileContainerRef.current || !siteKey || turnstileWidgetIdRef.current) {
+      return
+    }
+
+    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey: siteKey,
+      action: "newsletter",
+      callback: (token: string) => setTurnstileToken(token),
+      "expired-callback": resetTurnstile,
+      "error-callback": resetTurnstile,
+      "timeout-callback": resetTurnstile,
+    })
   }
 
   const handleCheckboxChange = (value: string) => {
@@ -35,16 +131,92 @@ export default function BoutiqueNewsletterSignup() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setIsSubmitted(true)
-    
-    // Trigger confetti celebration
-    confettiRef.current?.fire({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    })
+    if (isSubmitting) {
+      return
+    }
+
+    setSubmitError(null)
+    setIsSubmitting(true)
+
+    if (!siteKey) {
+      setSubmitError(uiCopy.submitErrorByCode.service_unavailable)
+      setIsSubmitting(false)
+      return
+    }
+
+    if (!turnstileToken) {
+      setSubmitError(uiCopy.submitErrorByCode.captcha_failed)
+      resetTurnstile()
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      const response = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName.trim(),
+          email: formData.email.trim(),
+          interests: formData.interests,
+          locale,
+          turnstileToken,
+        }),
+      })
+
+      let responseBody: unknown = null
+      try {
+        responseBody = await response.json()
+      } catch {
+        responseBody = null
+      }
+
+      if (!response.ok) {
+        const errorCode =
+          responseBody && typeof responseBody === "object" && "error" in responseBody
+            ? resolveApiErrorCode(responseBody.error)
+            : "unknown_error"
+        setSubmitError(uiCopy.submitErrorByCode[errorCode])
+        resetTurnstile()
+        return
+      }
+
+      if (
+        responseBody === null ||
+        typeof responseBody !== "object" ||
+        !("ok" in responseBody) ||
+        responseBody.ok !== true ||
+        !("outcome" in responseBody) ||
+        (responseBody.outcome !== "subscribed" && responseBody.outcome !== "already_subscribed")
+      ) {
+        setSubmitError(uiCopy.submitErrorByCode.unknown_error)
+        resetTurnstile()
+        return
+      }
+
+      const outcome = responseBody.outcome
+
+      setSubmissionOutcome(outcome)
+      setIsSubmitted(true)
+
+      if (outcome === "subscribed") {
+        confettiRef.current?.fire({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        })
+      }
+    } catch (error) {
+      console.error("Newsletter signup failed", error)
+      setSubmitError(uiCopy.submitErrorByCode.unknown_error)
+      resetTurnstile()
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   // Boutique family business benefits
@@ -91,15 +263,17 @@ export default function BoutiqueNewsletterSignup() {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Check className="w-10 h-10 text-green-600" />
               </div>
-              <h2 className="text-3xl font-bold text-primary mb-4">{t("headingSuccess")}</h2>
+              <h2 className="text-3xl font-bold text-primary mb-4">
+                {submissionOutcome === "already_subscribed" ? uiCopy.alreadySubscribedHeading : t("headingSuccess")}
+              </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                {t("bodySuccess1")}
+                {submissionOutcome === "already_subscribed" ? uiCopy.alreadySubscribedBody : t("bodySuccess1")}
               </p>
-              <div className="mt-8 p-4 bg-tan/10 rounded-lg">
-                <p className="text-sm text-gray-700">
-                  {t("bodySuccess2")}
-                </p>
-              </div>
+              {submissionOutcome === "subscribed" && (
+                <div className="mt-8 p-4 bg-tan/10 rounded-lg">
+                  <p className="text-sm text-gray-700">{t("bodySuccess2")}</p>
+                </div>
+              )}
             </MagicCard>
           </div>
         </div>
@@ -110,6 +284,7 @@ export default function BoutiqueNewsletterSignup() {
 
   return (
     <section className="py-24 bg-gradient-to-br from-coastal-sunrise/10 to-coastal-teal/5 relative overflow-hidden">
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer onReady={renderTurnstile} />
       <div className="absolute inset-0 bg-[url('/6.jpg')] bg-cover bg-center opacity-5" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -223,11 +398,20 @@ export default function BoutiqueNewsletterSignup() {
                       </div>
                     </div>
 
+                    <div ref={turnstileContainerRef} />
+
+                    {submitError && (
+                      <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
+                        {submitError}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                      disabled={isSubmitting}
+                      className="w-full bg-tan hover:bg-tan/90 text-primary font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:cursor-wait disabled:opacity-70"
                     >
-                      {t("form.buttonSubmit")}
+                      {isSubmitting ? `${t("form.buttonSubmit")}...` : t("form.buttonSubmit")}
                     </button>
 
                     <p className="text-xs text-gray-500 text-center">
