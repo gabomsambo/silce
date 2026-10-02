@@ -274,7 +274,7 @@ export default function BoutiqueNewsletterSignup() {
 
   return (
     <section className="py-24 bg-gradient-to-br from-coastal-sunrise/10 to-coastal-teal/5 relative overflow-hidden">
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer onLoad={renderTurnstile} />
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer onReady={renderTurnstile} />
       <div className="absolute inset-0 bg-[url('/6.jpg')] bg-cover bg-center opacity-5" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">

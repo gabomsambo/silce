@@ -16,6 +16,10 @@ const newsletterSubmissionSchema = z.object({
   turnstileToken: z.string().trim().min(1).max(2048),
 })
 
+const resendContactSchema = z.object({
+  unsubscribed: z.boolean(),
+})
+
 const PRODUCTION_TURNSTILE_HOSTNAMES = new Set(["silverpineapple.net", "www.silverpineapple.net"])
 
 const RESEND_API_BASE = "https://api.resend.com"
@@ -193,10 +197,59 @@ async function createResendContact(params: {
     normalizedDetail.includes("already subscribed")
 
   if (isAlreadySubscribed) {
-    console.info("Newsletter address already subscribed", {
+    const contactUrl = `${RESEND_API_BASE}/contacts/${encodeURIComponent(params.email)}`
+    const authorizationHeaders = {
+      Authorization: `Bearer ${params.resendKey}`,
+    }
+    const existingContactResponse = await fetch(contactUrl, {
+      headers: authorizationHeaders,
+    })
+
+    if (!existingContactResponse.ok) {
+      console.error("Resend contact lookup failed", {
+        status: existingContactResponse.status,
+        email: maskEmailAddress(params.email),
+      })
+      return { outcome: "failed", errorCode: "submission_failed" }
+    }
+
+    const existingContact = resendContactSchema.safeParse(await existingContactResponse.json())
+    if (!existingContact.success) {
+      console.error("Resend contact lookup returned malformed payload", {
+        email: maskEmailAddress(params.email),
+      })
+      return { outcome: "failed", errorCode: "submission_failed" }
+    }
+
+    const updateResponse = await fetch(contactUrl, {
+      method: "PATCH",
+      headers: {
+        ...authorizationHeaders,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        first_name: params.firstName,
+        properties: {
+          locale: params.locale,
+          interests: params.interests.join(","),
+        },
+        ...(existingContact.data.unsubscribed ? { unsubscribed: false } : {}),
+      }),
+    })
+
+    if (!updateResponse.ok) {
+      console.error("Resend contact update failed", {
+        status: updateResponse.status,
+        email: maskEmailAddress(params.email),
+      })
+      return { outcome: "failed", errorCode: "submission_failed" }
+    }
+
+    const outcome = existingContact.data.unsubscribed ? "subscribed" : "already_subscribed"
+    console.info(outcome === "subscribed" ? "Newsletter address resubscribed" : "Newsletter address already subscribed", {
       email: maskEmailAddress(params.email),
     })
-    return { outcome: "already_subscribed" }
+    return { outcome }
   }
 
   console.error("Resend contact creation failed", {
