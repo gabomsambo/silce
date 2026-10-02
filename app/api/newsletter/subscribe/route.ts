@@ -151,6 +151,43 @@ async function verifyTurnstileToken(params: {
   return { ok: true }
 }
 
+async function ensureResendContactProperty(resendKey: string, key: "locale" | "interests"): Promise<boolean> {
+  const response = await fetch(`${RESEND_API_BASE}/contact-properties`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ key, type: "string" }),
+  })
+
+  if (response.ok || response.status === 409) {
+    return true
+  }
+
+  let errorPayload: unknown
+  try {
+    errorPayload = await response.json()
+  } catch {
+    errorPayload = null
+  }
+
+  const errorDetail =
+    typeof errorPayload === "object" && errorPayload !== null
+      ? `${"name" in errorPayload ? String(errorPayload.name) : ""} ${"message" in errorPayload ? String(errorPayload.message) : ""}`.toLowerCase()
+      : ""
+
+  if (errorDetail.includes("already exists")) {
+    return true
+  }
+
+  console.error("Resend contact property provisioning failed", {
+    status: response.status,
+    property: key,
+  })
+  return false
+}
+
 async function createResendContact(params: {
   resendKey: string
   firstName: string
@@ -158,6 +195,15 @@ async function createResendContact(params: {
   locale: "en" | "es"
   interests: string[]
 }): Promise<{ outcome: "subscribed" | "already_subscribed" } | { outcome: "failed"; errorCode: ApiErrorCode }> {
+  const propertiesReady = await Promise.all([
+    ensureResendContactProperty(params.resendKey, "locale"),
+    ensureResendContactProperty(params.resendKey, "interests"),
+  ])
+
+  if (propertiesReady.includes(false)) {
+    return { outcome: "failed", errorCode: "submission_failed" }
+  }
+
   const response = await fetch(`${RESEND_API_BASE}/contacts`, {
     method: "POST",
     headers: {
