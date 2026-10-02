@@ -304,7 +304,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Unexpected newsletter submission failure", {
       email: maskEmailAddress(email),
-      reason: error instanceof Error ? error.message : "unknown_error",
+      reason: error instanceof Error ? error.name : "unknown_error",
     })
     return NextResponse.json({ error: "unknown_error" as ApiErrorCode }, { status: 500 })
   }

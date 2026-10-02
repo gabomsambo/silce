@@ -185,15 +185,14 @@ export default function BoutiqueNewsletterSignup() {
         return
       }
 
-      const isConfirmedSubscription =
-        responseBody !== null &&
-        typeof responseBody === "object" &&
-        "ok" in responseBody &&
-        responseBody.ok === true &&
-        "outcome" in responseBody &&
-        (responseBody.outcome === "subscribed" || responseBody.outcome === "already_subscribed")
-
-      if (!isConfirmedSubscription) {
+      if (
+        responseBody === null ||
+        typeof responseBody !== "object" ||
+        !("ok" in responseBody) ||
+        responseBody.ok !== true ||
+        !("outcome" in responseBody) ||
+        (responseBody.outcome !== "subscribed" && responseBody.outcome !== "already_subscribed")
+      ) {
         setSubmitError(uiCopy.submitErrorByCode.unknown_error)
         resetTurnstile()
         return
