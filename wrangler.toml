@@ -7,6 +7,7 @@ pages_build_output_dir = ".open-next"
 # Environment variables (client-side only, no secrets)
 [vars]
 NEXT_PUBLIC_SITE_URL = "https://silverpineapple.net"
+NEXT_PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAAFL9ztreUNgIJA0m"
 
 # Note: For secrets (like API keys), use Cloudflare dashboard:
 # Settings > Environment Variables > Production
