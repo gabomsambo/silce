@@ -124,9 +124,10 @@ Error: INVALID_MESSAGE
 
 3. **Environment Variables:**
    Set in Cloudflare Dashboard (Settings > Environment Variables):
-   - `NEXT_PUBLIC_SITE_URL`: https://silverpineapple.net
-   - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`: (if exists)
-   - `NEXT_PUBLIC_ANALYTICS_ID`: (Google Analytics ID)
+   - Use `.env.example` as the authoritative variable inventory, supplying
+     deployment values for each enabled feature.
+   - Store server-only values as encrypted secrets; never expose them through a
+     `NEXT_PUBLIC_` variable.
 
 4. **Advanced Settings:**
    - Node.js version: 22 or newer (the repo's `.nvmrc` pins `22`, which Pages reads
