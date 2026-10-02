@@ -210,7 +210,9 @@ Two things reliably ruin a capture here, both silently:
 
 A `before-` shot has to be captured against the base commit, not reconstructed:
 `git restore --source=<base> -- app messages`, rebuild, capture, then
-`git restore --source=HEAD -- app messages`. Both locales, both halves of the
+`git restore --source=HEAD -- app messages`. **Commit the change first.** That
+last restore returns the tree to `HEAD`, so an uncommitted edit is destroyed
+rather than restored, silently and with a clean `git status` to show for it. Both locales, both halves of the
 pair, same 1200px viewport — a `before-`/`after-` pair taken at different widths
 proves nothing about the delta.
 
