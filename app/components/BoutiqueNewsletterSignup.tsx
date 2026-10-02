@@ -185,10 +185,21 @@ export default function BoutiqueNewsletterSignup() {
         return
       }
 
-      const outcome =
-        responseBody && typeof responseBody === "object" && "outcome" in responseBody && responseBody.outcome === "already_subscribed"
-          ? "already_subscribed"
-          : "subscribed"
+      const isConfirmedSubscription =
+        responseBody !== null &&
+        typeof responseBody === "object" &&
+        "ok" in responseBody &&
+        responseBody.ok === true &&
+        "outcome" in responseBody &&
+        (responseBody.outcome === "subscribed" || responseBody.outcome === "already_subscribed")
+
+      if (!isConfirmedSubscription) {
+        setSubmitError(uiCopy.submitErrorByCode.unknown_error)
+        resetTurnstile()
+        return
+      }
+
+      const outcome = responseBody.outcome
 
       setSubmissionOutcome(outcome)
       setIsSubmitted(true)

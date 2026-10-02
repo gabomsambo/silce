@@ -96,6 +96,7 @@ async function verifyTurnstileToken(params: {
   const timeoutHandle = setTimeout(() => controller.abort(), 10_000)
 
   let response: Response
+  let responseBody: unknown
   try {
     response = await fetch(TURNSTILE_VERIFY_URL, {
       method: "POST",
@@ -105,6 +106,13 @@ async function verifyTurnstileToken(params: {
       body,
       signal: controller.signal,
     })
+
+    if (!response.ok) {
+      console.error("Turnstile verification returned non-OK status", { status: response.status })
+      return { ok: false, errorCode: "captcha_failed" }
+    }
+
+    responseBody = await response.json()
   } catch (error) {
     console.error("Turnstile verification request failed", {
       reason: error instanceof Error ? error.message : "unknown_error",
@@ -114,12 +122,7 @@ async function verifyTurnstileToken(params: {
     clearTimeout(timeoutHandle)
   }
 
-  if (!response.ok) {
-    console.error("Turnstile verification returned non-OK status", { status: response.status })
-    return { ok: false, errorCode: "captcha_failed" }
-  }
-
-  const parsedJson = turnstileResponseSchema.safeParse(await response.json())
+  const parsedJson = turnstileResponseSchema.safeParse(responseBody)
   if (!parsedJson.success) {
     console.error("Turnstile verification returned malformed payload")
     return { ok: false, errorCode: "captcha_failed" }
@@ -256,8 +259,6 @@ async function createResendContact(params: {
   console.error("Resend contact creation failed", {
     status: response.status,
     email: maskEmailAddress(params.email),
-    errorName: maybeName || "unknown",
-    errorMessage: maybeMessage || "unknown",
   })
   return { outcome: "failed", errorCode: "submission_failed" }
 }
