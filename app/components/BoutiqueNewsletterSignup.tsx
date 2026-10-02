@@ -18,6 +18,7 @@ declare global {
           callback: (token: string) => void
           "expired-callback": () => void
           "error-callback": () => void
+          "timeout-callback": () => void
         }
       ) => string
       reset: (widgetId: string) => void
@@ -29,7 +30,8 @@ type SubmissionOutcome = "subscribed" | "already_subscribed"
 
 const UI_COPY = {
   en: {
-    alreadySubscribed: "You're already on our list. We'll keep sharing recommendations and family offers with care.",
+    alreadySubscribedHeading: "You're Already on Our List",
+    alreadySubscribedBody: "We'll keep sharing personal recommendations, local tips, and family offers with care.",
     submitErrorByCode: {
       validation_error: "Please review your details and try again.",
       captcha_failed: "Please complete the security check and try again.",
@@ -39,7 +41,8 @@ const UI_COPY = {
     },
   },
   es: {
-    alreadySubscribed: "Ya estabas en nuestra lista. Seguiremos compartiendo recomendaciones y ofertas familiares con el mismo cuidado.",
+    alreadySubscribedHeading: "Ya Estabas en Nuestra Lista",
+    alreadySubscribedBody: "Seguiremos compartiendo recomendaciones personales, consejos locales y ofertas familiares con el mismo cuidado.",
     submitErrorByCode: {
       validation_error: "Revise sus datos e intente de nuevo.",
       captcha_failed: "Complete la verificación de seguridad e intente nuevamente.",
@@ -82,10 +85,10 @@ export default function BoutiqueNewsletterSignup() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState("")
-  const [turnstileWidgetId, setTurnstileWidgetId] = useState<string | null>(null)
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const confettiRef = useRef<ConfettiRef>(null)
   const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -97,27 +100,26 @@ export default function BoutiqueNewsletterSignup() {
 
   const resetTurnstile = () => {
     setTurnstileToken("")
-    if (typeof window === "undefined" || !window.turnstile || !turnstileWidgetId) {
+    if (typeof window === "undefined" || !window.turnstile || !turnstileWidgetIdRef.current) {
       return
     }
 
-    window.turnstile.reset(turnstileWidgetId)
+    window.turnstile.reset(turnstileWidgetIdRef.current)
   }
 
   const renderTurnstile = () => {
-    if (typeof window === "undefined" || !window.turnstile || !turnstileContainerRef.current || !siteKey || turnstileWidgetId) {
+    if (typeof window === "undefined" || !window.turnstile || !turnstileContainerRef.current || !siteKey || turnstileWidgetIdRef.current) {
       return
     }
 
-    const widgetId = window.turnstile.render(turnstileContainerRef.current, {
+    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
       sitekey: siteKey,
       action: "newsletter",
       callback: (token: string) => setTurnstileToken(token),
-      "expired-callback": () => setTurnstileToken(""),
-      "error-callback": () => setTurnstileToken(""),
+      "expired-callback": resetTurnstile,
+      "error-callback": resetTurnstile,
+      "timeout-callback": resetTurnstile,
     })
-
-    setTurnstileWidgetId(widgetId)
   }
 
   const handleCheckboxChange = (value: string) => {
@@ -251,18 +253,17 @@ export default function BoutiqueNewsletterSignup() {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Check className="w-10 h-10 text-green-600" />
               </div>
-              <h2 className="text-3xl font-bold text-primary mb-4">{t("headingSuccess")}</h2>
+              <h2 className="text-3xl font-bold text-primary mb-4">
+                {submissionOutcome === "already_subscribed" ? uiCopy.alreadySubscribedHeading : t("headingSuccess")}
+              </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                {t("bodySuccess1")}
+                {submissionOutcome === "already_subscribed" ? uiCopy.alreadySubscribedBody : t("bodySuccess1")}
               </p>
-              {submissionOutcome === "already_subscribed" && (
-                <p className="mt-4 text-sm font-medium text-primary">{uiCopy.alreadySubscribed}</p>
+              {submissionOutcome === "subscribed" && (
+                <div className="mt-8 p-4 bg-tan/10 rounded-lg">
+                  <p className="text-sm text-gray-700">{t("bodySuccess2")}</p>
+                </div>
               )}
-              <div className="mt-8 p-4 bg-tan/10 rounded-lg">
-                <p className="text-sm text-gray-700">
-                  {t("bodySuccess2")}
-                </p>
-              </div>
             </MagicCard>
           </div>
         </div>
@@ -273,7 +274,7 @@ export default function BoutiqueNewsletterSignup() {
 
   return (
     <section className="py-24 bg-gradient-to-br from-coastal-sunrise/10 to-coastal-teal/5 relative overflow-hidden">
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onLoad={renderTurnstile} />
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer onLoad={renderTurnstile} />
       <div className="absolute inset-0 bg-[url('/6.jpg')] bg-cover bg-center opacity-5" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -387,12 +388,7 @@ export default function BoutiqueNewsletterSignup() {
                       </div>
                     </div>
 
-                    <div
-                      ref={turnstileContainerRef}
-                      className="cf-turnstile"
-                      data-sitekey={siteKey ?? ""}
-                      data-action="newsletter"
-                    />
+                    <div ref={turnstileContainerRef} />
 
                     {submitError && (
                       <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">

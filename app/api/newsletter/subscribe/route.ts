@@ -161,7 +161,7 @@ async function createResendContact(params: {
       first_name: params.firstName,
       properties: {
         locale: params.locale,
-        interests: params.interests,
+        interests: params.interests.join(","),
       },
     }),
   })
