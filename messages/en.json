@@ -643,6 +643,7 @@
   "cookieConsent": {
     "title": "Cookie preferences",
     "description": "We use optional analytics cookies to understand site usage and improve this website. You can accept or decline analytics cookies below.",
+    "loadsBeforeChoice": "Even before you choose below, this site loads OpenStreetMap map tiles to show the location map and resources from Hospitable's booking service (booking.hospitable.com and hospitable.b-cdn.net) so the booking widget and property search can work.",
     "iframeNotice": "Our Hospitable booking widget is embedded in a third-party iframe. Hospitable, and any services it loads inside that iframe for payments or analytics (for example Stripe or PostHog), may set their own cookies. Those cookies are set by those third parties, not by us, and they cannot be controlled, read, or cleared from this site.",
     "accept": "Accept analytics cookies",
     "decline": "Decline analytics cookies"
