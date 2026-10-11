@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # next-intl with Next.js 15 App Router - Complete Reference Guide
 
 **Last Updated:** January 2025

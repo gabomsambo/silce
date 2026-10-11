@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # next-intl + OpenNext Cloudflare Compatibility Research
 
 **Last Updated:** October 19, 2025

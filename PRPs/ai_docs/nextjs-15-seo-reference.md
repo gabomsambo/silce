@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # Next.js 15 SEO Reference Guide
 
 **Last Updated:** 2025-10-18

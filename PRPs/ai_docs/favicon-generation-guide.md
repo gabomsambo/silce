@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # Favicon and App Icon Generation Guide for Next.js 15
 
 > **Historical — superseded for this repo.** This guide recommends the Next.js

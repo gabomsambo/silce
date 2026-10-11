@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # Translation Text Inventory - Silver Pineapple Website
 
 **Purpose:** Comprehensive list of all hardcoded English text that needs translation for Spanish language support.

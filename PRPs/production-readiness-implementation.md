@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # Production Readiness Implementation for silverpineapple.net
 
 **Feature:** Complete production readiness transformation for Silver Pineapple boutique rental website

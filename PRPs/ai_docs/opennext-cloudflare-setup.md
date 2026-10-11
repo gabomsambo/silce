@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # @opennextjs/cloudflare Setup Guide for Next.js 15
 
 **Last Updated:** October 2025

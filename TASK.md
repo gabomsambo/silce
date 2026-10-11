@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # TASK.md — Active Work & Backlog
 
 **Today:** 2025-08-12
