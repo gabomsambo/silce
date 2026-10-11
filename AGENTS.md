@@ -248,7 +248,7 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   bedroom count and no amenity list), say so and fall back to
   `docs/UNITS-SOURCE-OF-TRUTH.md` rather than guessing — it owns the per-listing
   photo-provenance check and the open bed-type questions.
--   `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
+- `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
   listings, the photo library and `app/data/units.ts`. `PLANNING.md`, `TASK.md`
   and `PRPs/` are superseded historical records and contradict the code.
 - Hospitable IDs can be verified without credentials against the public booking API:

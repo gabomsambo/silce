@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
-// import HospitableBookingWidget from "./HospitableBookingWidget"
 
 export default async function Hero() {
   const t = await getTranslations('hero');
@@ -25,10 +24,7 @@ export default async function Hero() {
         </p>
       </div>
 
-      {/* Hospitable Booking Widget positioned at bottom - TEMPORARILY DISABLED */}
-      {/* <div id="hero-search-widget" className="relative z-10 pb-8">
-        <HospitableBookingWidget />
-      </div> */}
+      {/* Hospitable booking widget at the bottom of the hero is temporarily disabled. */}
 
       {/* Temporary Book Now button - links to rooms page */}
       <div className="relative z-10 pb-12 flex justify-center">
