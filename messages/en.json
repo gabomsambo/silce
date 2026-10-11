@@ -37,7 +37,8 @@
     "copyright": "© {year} Silver Pineapple. All rights reserved.",
     "cookiePreferences": "Cookie preferences",
     "addressLabel": "Address",
-    "groupBookingsLabel": "Email Silver Pineapple about group bookings"
+    "groupBookingsLabel": "Email Silver Pineapple about group bookings",
+    "privacyPolicy": "Privacy and cookie policy"
   },
   "hero": {
     "heading": "UPGRADE YOUR NEXT STAY",
@@ -629,6 +630,10 @@
       "ogDescription": "Find an apartment for your dates in Melbourne’s arts district.",
       "twitterTitle": "Search Availability | Silver Pineapple",
       "twitterDescription": "Boutique short-term rentals in Eau Gallie."
+    },
+    "privacy": {
+      "title": "Privacy and Cookie Policy | Silver Pineapple",
+      "description": "What personal information silverpineapple.net collects, why, who receives it, the cookies it uses, and your choices."
     }
   },
   "propertyDetail": {
@@ -652,6 +657,169 @@
     "loadsBeforeChoice": "Even before you choose below, this site loads OpenStreetMap map tiles to show the location map and resources from Hospitable's booking service (booking.hospitable.com and hospitable.b-cdn.net) so the booking widget and property search can work.",
     "iframeNotice": "Our Hospitable booking widget is embedded in a third-party iframe. Hospitable, and any services it loads inside that iframe for payments or analytics (for example Stripe or PostHog), may set their own cookies. Those cookies are set by those third parties, not by us, and they cannot be controlled, read, or cleared from this site.",
     "accept": "Accept analytics cookies",
-    "decline": "Decline analytics cookies"
+    "decline": "Decline analytics cookies",
+    "privacyLink": "Read our privacy and cookie policy"
+  },
+  "privacy": {
+    "title": "Privacy and Cookie Policy",
+    "lastUpdated": "Last updated: {date}",
+    "intro": "This page explains what personal information silverpineapple.net collects, why, who else receives it, and the choices you have. It covers this website. When you book a stay, Hospitable's own terms and privacy policy also apply.",
+    "whoWeAre": {
+      "heading": "Who we are",
+      "body": "This website is run by Silver Pineapple LLC, a short-term rental business in Melbourne, FL 32935, United States. Silver Pineapple LLC decides how the personal information described here is used.",
+      "privacyContact": "Privacy questions and data requests: <privacyEmail>{privacyAddress}</privacyEmail>",
+      "email": "General questions: <email>{address}</email>"
+    },
+    "collect": {
+      "heading": "What we collect and why",
+      "intro": "You can browse this site without telling us who you are. We only receive personal information when you send it to us, and basic technical information when your browser loads the site.",
+      "whatLabel": "What",
+      "whyLabel": "Why",
+      "whoLabel": "Who handles it",
+      "newsletter": {
+        "heading": "Newsletter sign-up",
+        "what": "Your first name and email address, the language of the page you signed up on, and any topics you tick.",
+        "why": "To send you our newsletter. We rely on your consent, which you can withdraw at any time by asking us to remove you.",
+        "who": "Resend stores our mailing list and sends the emails. Cloudflare Turnstile checks that the form is not being used by a bot: it receives your IP address and technical details about your browser. Our server writes a shortened version of your email address (its first letter and the domain) to its logs when a Resend lookup, update or create fails, and when an existing contact is updated. Captcha and validation failures do not log the email."
+      },
+      "contact": {
+        "heading": "Contact form",
+        "what": "Your name, email address and message, and the address of the page you sent it from.",
+        "why": "To answer you. We rely on our legitimate interest in replying to people who contact us, or on taking the steps you ask for before a booking.",
+        "who": "The contact form sends your name, email address, message and the page address to FormSubmit (formsubmit.co), a form-relay service, which forwards them by email to our inbox."
+      },
+      "reviews": {
+        "heading": "Review form",
+        "what": "The review form on the reviews page does not currently send or store what you enter. Nothing you type there is transmitted or kept.",
+        "why": "We do not use what you type into that form, because it is neither sent nor stored.",
+        "who": "No one. The form does not transmit what you type to us or to any other service."
+      },
+      "booking": {
+        "heading": "Booking a stay",
+        "what": "Bookings are made in Hospitable's booking widget and checkout, not on our own pages. There you give your first and last name, email address, phone number, number of guests and dates, and then your payment details.",
+        "why": "To take and manage your booking, which is needed to carry out the booking contract with you.",
+        "who": "Hospitable runs the booking system and receives these details. Payments go through Stripe, which Hospitable's widget loads; your card details are entered there, not into our website."
+      },
+      "direct": {
+        "heading": "Email, phone and WhatsApp",
+        "what": "Whatever you choose to send us, with your email address or phone number.",
+        "why": "To reply to you. We rely on our legitimate interest in answering messages.",
+        "who": "Our email inbox and phone. Messages sent by WhatsApp are also handled by WhatsApp (Meta)."
+      },
+      "visit": {
+        "heading": "When you visit the site",
+        "what": "Your IP address, browser details and the pages you request.",
+        "why": "To deliver the site and keep it secure. We rely on our legitimate interest in running a working, safe website.",
+        "who": "Cloudflare hosts the site and receives this for every visit. Cloudflare may also receive an automatic report when a page fails to load. We do not use Cloudflare Web Analytics."
+      }
+    },
+    "storage": {
+      "heading": "Cookies and similar storage",
+      "intro": "Cookies and browser storage are small pieces of data saved in your browser. This is everything we found this site, and the services it embeds, storing in a browser.",
+      "setByLabel": "Set by",
+      "typeLabel": "Type",
+      "purposeLabel": "Purpose",
+      "durationLabel": "How long",
+      "kinds": {
+        "cookie": "Cookie",
+        "localStorage": "Browser storage",
+        "sessionStorage": "Browser storage (this tab only)"
+      },
+      "items": {
+        "consent": {
+          "purpose": "Remembers whether you accepted or declined analytics cookies.",
+          "duration": "Until you clear it, or reset your choice with “Cookie preferences”"
+        },
+        "locale": {
+          "purpose": "Remembers your language when it differs from your browser's language.",
+          "duration": "Until you close your browser"
+        },
+        "analytics": {
+          "purpose": "Optional statistics about how the site is used. Only set if you click “Accept analytics cookies”. Analytics is not switched on at the moment, so accepting sets none of these today.",
+          "duration": "Not set at present"
+        },
+        "turnstile": {
+          "purpose": "Lets Cloudflare Turnstile check that the newsletter form is used by a person, not a bot. Loads on the home page.",
+          "duration": "Until you clear your browser storage"
+        },
+        "hospitableLanguage": {
+          "purpose": "Remembers the language of the booking widget on room pages.",
+          "duration": "30 days"
+        },
+        "hospitableAnalytics": {
+          "purpose": "Hospitable's own usage statistics for its booking widget on room pages.",
+          "duration": "Until you clear your browser storage, or close the tab"
+        },
+        "stripeCookie": {
+          "purpose": "Used by Stripe's payment service, which the booking widget loads on room pages.",
+          "duration": "About 13 months"
+        },
+        "stripeSession": {
+          "purpose": "Used by Stripe's payment service, which the booking widget loads on room pages.",
+          "duration": "Until you close the tab"
+        }
+      },
+      "choicesHeading": "Your choices",
+      "choices": "The cookie banner controls our analytics cookies, which are only set if you accept them. You can change your mind at any time with “Cookie preferences” at the bottom of every page; declining also deletes analytics cookies already set.",
+      "thirdParty": "The items set by Hospitable, Stripe and Cloudflare live inside those services' own frames. We cannot read, change or delete them, and they do not follow your choice in our banner. You can block or delete them in your browser settings.",
+      "loadsHeading": "Content loaded from other services",
+      "loadsIntro": "Some pages load content straight from other companies' servers, before you make any cookie choice. Your browser then sends them your IP address and basic browser details:",
+      "loads": {
+        "maps": "OpenStreetMap map images, for the location maps.",
+        "hospitable": "Hospitable's search widget code on every page (from hospitable.b-cdn.net), and Hospitable's booking and search services on room pages and the search page.",
+        "stripe": "Stripe's payment code, inside the booking widget on room pages.",
+        "fonts": "Google Fonts, loaded by Hospitable's widgets on room pages and the search page.",
+        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form."
+      }
+    },
+    "recipients": {
+      "heading": "Who receives your information",
+      "intro": "We share personal information only with the services that run parts of this site. Each has its own privacy policy.",
+      "items": {
+        "cloudflare": "Cloudflare: hosting, security and the newsletter spam check.",
+        "resend": "Resend: our newsletter list.",
+        "formsubmit": "FormSubmit, a form-relay service: the contact form sends it your name, email address, message and the page address, and it forwards them by email to our inbox.",
+        "hospitable": "Hospitable: bookings, availability and property search, with PostHog for its own usage statistics.",
+        "stripe": "Stripe: payments for bookings.",
+        "openstreetmap": "OpenStreetMap Foundation: map images.",
+        "google": "Google: fonts loaded by Hospitable's widgets, and Google Analytics only if it is switched on and you accept it.",
+        "whatsapp": "WhatsApp (Meta): only if you message us there."
+      }
+    },
+    "location": {
+      "heading": "Where your information is handled",
+      "body": "We are based in the United States, so information you send us is handled in the United States. The services listed above may also process it in the United States or other countries."
+    },
+    "retention": {
+      "heading": "How long we keep it",
+      "newsletter": "Newsletter contacts: we keep your details while you are subscribed. If you unsubscribe, Resend marks your contact as unsubscribed so you are not emailed again. At present the record itself (your name, email address, language and topics) stays on our list, and signing up again resubscribes it. You can ask us to delete it completely at any time.",
+      "messages": "Contact-form messages: we keep them for as long as we need them for the reason you sent them (answering you), and longer only where the law requires it. You can ask us to delete yours at any time.",
+      "bookings": "Bookings: this website itself stores no booking or payment details. Bookings made here are processed by Hospitable, and payments by Stripe; stays booked through Airbnb are handled by Airbnb. How long they keep your information is set by their own policies: <hospitable>Hospitable</hospitable>, <stripe>Stripe</stripe> and <airbnb>Airbnb</airbnb>.",
+      "browser": "Cookies and browser storage: as listed in the table above."
+    },
+    "rights": {
+      "heading": "Your rights",
+      "body": "Depending on where you live, you can ask us to show you the personal information we hold about you, correct it, delete it, limit or object to how we use it, or give you a copy in a portable format. Where we rely on your consent, you can withdraw it at any time; this does not affect anything we did before.",
+      "request": "To make a request, email <privacyEmail>{privacyAddress}</privacyEmail>.",
+      "complaint": "If you are in the European Union and think we have mishandled your information, you can complain to your local data protection authority. In Spain, that is the Agencia Española de Protección de Datos (aepd.es)."
+    },
+    "required": {
+      "heading": "Do you have to give us information?",
+      "body": "No. You can browse the site without giving us anything. To join the newsletter we need your first name and email address; to send a message, your name, email address and message; to book, the details Hospitable's checkout asks for.",
+      "automated": "We do not make decisions about you by automated means, apart from the automatic spam check on the newsletter form."
+    },
+    "dnt": {
+      "heading": "Do Not Track",
+      "body": "This site does not change what it does in response to a browser's “Do Not Track” signal. Our own analytics only runs if you accept it in the cookie banner. Inside the booking widget, Hospitable (with PostHog) and Stripe may collect information about your activity under their own policies."
+    },
+    "changes": {
+      "heading": "Changes to this policy",
+      "body": "If we change how we handle personal information, we will update this page and the date at the top."
+    },
+    "contact": {
+      "heading": "Contact",
+      "privacy": "Privacy questions and requests: <privacyEmail>{privacyAddress}</privacyEmail>",
+      "general": "Anything else: <email>{address}</email>"
+    }
   }
 }

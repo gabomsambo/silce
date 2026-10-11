@@ -12,8 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const allPages: MetadataRoute.Sitemap = []
 
   // Static pages with locale prefixes
-  const staticRoutes = ['', '/rooms', '/about', '/reviews']
-  const staticPriorities = [1.0, 0.8, 0.5, 0.6]
+  const staticRoutes = ['', '/rooms', '/about', '/reviews', '/privacy']
+  const staticPriorities = [1.0, 0.8, 0.5, 0.6, 0.3]
 
   staticRoutes.forEach((route, index) => {
     locales.forEach(locale => {
