@@ -5,7 +5,7 @@ import {
 
 function FeatureList({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-2 rounded-xl border border-primary/10 bg-sand-fade/60 p-3">
+    <ul className="space-y-2 rounded-xl border border-primary/10 bg-sand-fade p-3">
       {items.map((item, index) => (
         <li key={`${index}-${item.slice(0, 24)}`} className="text-sm leading-relaxed text-primary/85">
           {item}
