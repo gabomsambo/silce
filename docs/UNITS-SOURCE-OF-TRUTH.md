@@ -168,6 +168,17 @@ a bed from `max_guests`, from the photograph itself, or from what the site alrea
 says. A generic sofa or armchair is not a sofa bed; the listing must identify the
 sleeping surface positively.
 
+## Floor
+
+`floor` in `units.ts` is a guest-facing claim about stairs. The public booking
+API does not expose one. Owner confirmation on 2026-10-11: every unit is on
+the ground floor except Sea Grape 201, the only upper floor. That confirmation
+covers the four-digit units and the Pineapple Ave building; the examples given
+were 2536, 2538 and 2546. `sea-grape-201` is `Upper`. The Hospitable listing
+`Unit SG201 ED 1042` in `app/data/hospitable-units.json` also says the
+apartment is "located on the second floor". The other twelve units are
+`Ground`. `app/data/copy.ts` maps those two literals onto the message catalogs.
+
 ## Per-unit listing content
 
 `app/data/hospitable-units.json` is the owner-supplied structured Hospitable
