@@ -58,9 +58,8 @@ const config: Config = {
         // hover must get DARKER, never fainter: an opacity modifier fades the
         // ink toward the page and drops contrast exactly when the user signals
         // interest. Same hue/saturation at 30% lightness -> 7.30:1 on white and
-        // 6.24:1 on the `/reviews` teal gradient that `tan-ink` fails. It is not
-        // universally safe either: over a photo showing through the scrolled
-        // navbar it measures 1.70:1 (see the navbar bullet in AGENTS.md).
+        // 6.24:1 on the `/reviews` teal gradient that `tan-ink` fails. It still
+        // needs rendered-pixel verification on other tinted or image surfaces.
         "tan-hover": "#6E512B",
         // Coastal Palette - Beach vacation aesthetic
         "coastal-blue": "#0EA5E9",      // Ocean blue (Tailwind sky-500)
