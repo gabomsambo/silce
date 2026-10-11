@@ -52,7 +52,7 @@ export default function CookieConsentBanner() {
   // at z-index 2147483647 so their calendars and dropdowns stay reachable while it shows.
   return (
     <aside className="fixed inset-x-0 bottom-0 z-40 p-4 pointer-events-none">
-      <div className="pointer-events-auto w-full sm:max-w-md rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm">
+      <div className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm sm:max-w-md">
         <h2 className="text-lg font-semibold text-primary mb-2">{t("title")}</h2>
         <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("description")}</p>
         <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("loadsBeforeChoice")}</p>
