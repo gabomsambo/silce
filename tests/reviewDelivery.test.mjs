@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 import {
+  buildReviewFormSchema,
   buildReviewMessage,
   createReviewSubmissionSchema,
   propertyTitleForSlug,
@@ -46,7 +47,7 @@ test("a review email includes every submitted field and leaves blank ratings unm
   assert.equal(propertyTitleForSlug("missing", unitTitles), "missing")
 })
 
-test("the subject stays a single line when the guest name contains a line break", () => {
+test("the subject and name header stay one line when the guest name contains a line break", () => {
   const parsed = reviewSubmissionSchema.parse(validSubmission)
   const message = buildReviewMessage(
     { ...parsed, guestName: "TEST\nGuest" },
@@ -54,6 +55,56 @@ test("the subject stays a single line when the guest name contains a line break"
   )
   assert.equal(message.subject.includes("\n"), false)
   assert.match(message.subject, /TEST Guest/)
+  assert.match(message.text, /^Name: TEST Guest$/m)
+  assert.equal(message.text.includes("\nGuest"), false)
+
+  const forged = buildReviewMessage(
+    { ...parsed, guestName: "Ann\nEmail: other@example.com" },
+    propertyTitleForSlug(parsed.propertySlug, unitTitles),
+  )
+  assert.equal(forged.subject.includes("\n"), false)
+  assert.match(forged.text, /^Name: Ann Email: other@example.com$/m)
+  assert.deepEqual(
+    forged.text.split("\n").filter((line) => line.startsWith("Email:")),
+    ["Email: review-form-test@example.com"],
+  )
+})
+
+test("the form schema trims before length checks and keeps the field message", () => {
+  const formSchema = buildReviewFormSchema((key) => key)
+  const validForm = {
+    guestName: "TEST Guest",
+    email: "review-form-test@example.com",
+    propertySlug: "unit-2528",
+    overallRating: 5,
+    reviewText: validSubmission.reviewText,
+  }
+
+  const spaces = formSchema.safeParse({ ...validForm, guestName: "  " })
+  assert.equal(spaces.success, false)
+  assert.equal(
+    spaces.error.issues.find((issue) => issue.path[0] === "guestName")?.message,
+    "validation.nameMin",
+  )
+
+  const paddedNote = formSchema.safeParse({
+    ...validForm,
+    reviewText: `${"x".repeat(49)} `,
+  })
+  assert.equal(paddedNote.success, false)
+  assert.equal(
+    paddedNote.error.issues.find((issue) => issue.path[0] === "reviewText")?.message,
+    "validation.reviewMin",
+  )
+
+  const trimmed = formSchema.safeParse({
+    ...validForm,
+    guestName: "  Ann  ",
+    reviewText: ` ${"y".repeat(50)} `,
+  })
+  assert.equal(trimmed.success, true)
+  assert.equal(trimmed.data.guestName, "Ann")
+  assert.equal(trimmed.data.reviewText, "y".repeat(50))
 })
 
 test("delivery validation rejects an unknown property, a short note, and a missing captcha token", () => {

@@ -5,10 +5,10 @@ import Script from "next/script"
 import { useLocale, useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { Star, Send, CheckCircle2 } from "lucide-react"
 import { MagicCard } from "@/components/ui/magic-card"
 import { UNITS } from "@/app/data/units"
+import { buildReviewFormSchema, type ReviewFormData } from "@/lib/reviewDelivery"
 import confetti from "canvas-confetti"
 
 const REVIEW_ERROR_CODES = [
@@ -27,38 +27,6 @@ function resolveReviewErrorCode(value: unknown): ReviewErrorCode {
   }
   return "unknown_error"
 }
-
-// Zod validation schema. Built from the active translator so validation
-// messages follow the page locale like every other string on the form.
-type Translate = (key: string) => string
-
-const buildReviewSchema = (t: Translate) => z.object({
-  guestName: z.string()
-    .min(2, t("validation.nameMin"))
-    .max(50, t("validation.nameMax")),
-  email: z.string()
-    .email(t("validation.email")),
-  propertySlug: z.string()
-    .min(1, t("validation.property")),
-  // Without the explicit messages an unrated form falls back to zod's own
-  // English "Required", which no catalog can reach.
-  overallRating: z.number({
-    required_error: t("validation.rating"),
-    invalid_type_error: t("validation.rating")
-  })
-    .min(1, t("validation.rating"))
-    .max(5),
-  cleanliness: z.number().min(1).max(5).optional(),
-  communication: z.number().min(1).max(5).optional(),
-  location: z.number().min(1).max(5).optional(),
-  value: z.number().min(1).max(5).optional(),
-  reviewText: z.string()
-    .min(50, t("validation.reviewMin"))
-    .max(500, t("validation.reviewMax")),
-  stayDate: z.string().optional()
-})
-
-type ReviewFormData = z.infer<ReturnType<typeof buildReviewSchema>>
 
 // Star Rating Component
 interface StarRatingProps {
@@ -126,7 +94,7 @@ export default function ReviewSubmissionForm() {
   const tRoot = useTranslations()
   const locale = useLocale() === "es" ? "es" : "en"
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-  const reviewSchema = useMemo(() => buildReviewSchema(t), [t])
+  const reviewSchema = useMemo(() => buildReviewFormSchema(t), [t])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)

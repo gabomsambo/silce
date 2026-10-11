@@ -25,6 +25,41 @@ export function createReviewSubmissionSchema(propertySlugs: readonly string[]) {
 
 export type ReviewSubmission = z.infer<ReturnType<typeof createReviewSubmissionSchema>>
 
+type Translate = (key: string) => string
+
+// Built from the active translator so validation messages follow the page locale.
+export function buildReviewFormSchema(t: Translate) {
+  return z.object({
+    guestName: z.string()
+      .trim()
+      .min(2, t("validation.nameMin"))
+      .max(50, t("validation.nameMax")),
+    email: z.string()
+      .email(t("validation.email")),
+    propertySlug: z.string()
+      .min(1, t("validation.property")),
+    // Without the explicit messages an unrated form falls back to zod's own
+    // English "Required", which no catalog can reach.
+    overallRating: z.number({
+      required_error: t("validation.rating"),
+      invalid_type_error: t("validation.rating"),
+    })
+      .min(1, t("validation.rating"))
+      .max(5),
+    cleanliness: z.number().min(1).max(5).optional(),
+    communication: z.number().min(1).max(5).optional(),
+    location: z.number().min(1).max(5).optional(),
+    value: z.number().min(1).max(5).optional(),
+    reviewText: z.string()
+      .trim()
+      .min(50, t("validation.reviewMin"))
+      .max(500, t("validation.reviewMax")),
+    stayDate: z.string().optional(),
+  })
+}
+
+export type ReviewFormData = z.infer<ReturnType<typeof buildReviewFormSchema>>
+
 export function propertyTitleForSlug(slug: string, titles: Record<string, { title?: string } | undefined>): string {
   const title = titles[slug]?.title?.trim()
   return title || slug
@@ -43,14 +78,15 @@ export function buildReviewMessage(
   propertyTitle: string,
 ): { subject: string; text: string } {
   const stayDate = submission.stayDate ? submission.stayDate : "Not provided"
+  const guestName = oneLine(submission.guestName)
   const subject = oneLine(
-    `Guest review (${submission.locale.toUpperCase()}) — ${propertyTitle} — ${submission.guestName}`,
+    `Guest review (${submission.locale.toUpperCase()}) — ${propertyTitle} — ${guestName}`,
   )
   const text = [
     "A guest sent a review note from the Silver Pineapple website.",
     "Notes from this form are delivered by email only and are not posted on the site.",
     "",
-    `Name: ${submission.guestName}`,
+    `Name: ${guestName}`,
     `Email: ${submission.email}`,
     `Property: ${propertyTitle}`,
     `Property slug: ${submission.propertySlug}`,
