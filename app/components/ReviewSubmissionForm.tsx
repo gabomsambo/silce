@@ -1,46 +1,32 @@
 "use client"
 
 import { useEffect, useId, useMemo, useRef, useState } from "react"
-import { useTranslations } from "next-intl"
+import Script from "next/script"
+import { useLocale, useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { Star, Send, CheckCircle2 } from "lucide-react"
 import { MagicCard } from "@/components/ui/magic-card"
 import { UNITS } from "@/app/data/units"
+import { buildReviewFormSchema, type ReviewFormData } from "@/lib/reviewDelivery"
 import confetti from "canvas-confetti"
 
-// Zod validation schema. Built from the active translator so validation
-// messages follow the page locale like every other string on the form.
-type Translate = (key: string) => string
+const REVIEW_ERROR_CODES = [
+  "validation_error",
+  "captcha_failed",
+  "service_unavailable",
+  "submission_failed",
+  "unknown_error",
+] as const
 
-const buildReviewSchema = (t: Translate) => z.object({
-  guestName: z.string()
-    .min(2, t("validation.nameMin"))
-    .max(50, t("validation.nameMax")),
-  email: z.string()
-    .email(t("validation.email")),
-  propertySlug: z.string()
-    .min(1, t("validation.property")),
-  // Without the explicit messages an unrated form falls back to zod's own
-  // English "Required", which no catalog can reach.
-  overallRating: z.number({
-    required_error: t("validation.rating"),
-    invalid_type_error: t("validation.rating")
-  })
-    .min(1, t("validation.rating"))
-    .max(5),
-  cleanliness: z.number().min(1).max(5).optional(),
-  communication: z.number().min(1).max(5).optional(),
-  location: z.number().min(1).max(5).optional(),
-  value: z.number().min(1).max(5).optional(),
-  reviewText: z.string()
-    .min(50, t("validation.reviewMin"))
-    .max(500, t("validation.reviewMax")),
-  stayDate: z.string().optional()
-})
+type ReviewErrorCode = (typeof REVIEW_ERROR_CODES)[number]
 
-type ReviewFormData = z.infer<ReturnType<typeof buildReviewSchema>>
+function resolveReviewErrorCode(value: unknown): ReviewErrorCode {
+  if (typeof value === "string" && REVIEW_ERROR_CODES.includes(value as ReviewErrorCode)) {
+    return value as ReviewErrorCode
+  }
+  return "unknown_error"
+}
 
 // Star Rating Component
 interface StarRatingProps {
@@ -106,9 +92,13 @@ function StarRating({ rating, onChange, label, required = false, errorId, invali
 export default function ReviewSubmissionForm() {
   const t = useTranslations("reviews.form")
   const tRoot = useTranslations()
-  const reviewSchema = useMemo(() => buildReviewSchema(t), [t])
+  const locale = useLocale() === "es" ? "es" : "en"
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  const reviewSchema = useMemo(() => buildReviewFormSchema(t), [t])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState("")
   const [overallRating, setOverallRating] = useState(0)
   const [categoryRatings, setCategoryRatings] = useState({
     cleanliness: 0,
@@ -116,12 +106,13 @@ export default function ReviewSubmissionForm() {
     location: 0,
     value: 0
   })
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue
   } = useForm<ReviewFormData>({
     resolver: zodResolver(reviewSchema)
@@ -136,40 +127,117 @@ export default function ReviewSubmissionForm() {
     }
   }, [errors])
 
+  const resetTurnstile = () => {
+    setTurnstileToken("")
+    if (typeof window === "undefined" || !window.turnstile || !turnstileWidgetIdRef.current) {
+      return
+    }
+    window.turnstile.reset(turnstileWidgetIdRef.current)
+  }
+
+  const renderTurnstile = () => {
+    if (
+      typeof window === "undefined" ||
+      !window.turnstile ||
+      !turnstileContainerRef.current ||
+      !siteKey ||
+      turnstileWidgetIdRef.current
+    ) {
+      return
+    }
+
+    const options = {
+      sitekey: siteKey,
+      action: "review",
+      language: locale,
+      callback: (token: string) => setTurnstileToken(token),
+      "expired-callback": resetTurnstile,
+      "error-callback": resetTurnstile,
+      "timeout-callback": resetTurnstile,
+    }
+
+    turnstileWidgetIdRef.current = window.turnstile.render(
+      turnstileContainerRef.current,
+      options as Parameters<NonNullable<Window["turnstile"]>["render"]>[1],
+    )
+  }
+
+  useEffect(() => {
+    renderTurnstile()
+  })
+
   const onSubmit = async (data: ReviewFormData) => {
+    if (isSubmitting) {
+      return
+    }
+
+    setSubmitError(null)
     setIsSubmitting(true)
 
+    if (!siteKey) {
+      setSubmitError(t("errors.service_unavailable"))
+      setIsSubmitting(false)
+      return
+    }
+
+    if (!turnstileToken) {
+      setSubmitError(t("errors.captcha_failed"))
+      resetTurnstile()
+      setIsSubmitting(false)
+      return
+    }
+
+    const optionalRating = (value: number | undefined) => (value && value >= 1 ? value : undefined)
+
     try {
-      // TODO: Replace with actual Formspree endpoint or API
-      // For now, simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      const response = await fetch("/api/reviews/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          guestName: data.guestName.trim(),
+          email: data.email.trim(),
+          propertySlug: data.propertySlug,
+          overallRating: data.overallRating,
+          cleanliness: optionalRating(data.cleanliness),
+          communication: optionalRating(data.communication),
+          location: optionalRating(data.location),
+          value: optionalRating(data.value),
+          reviewText: data.reviewText.trim(),
+          stayDate: data.stayDate ?? "",
+          locale,
+          turnstileToken,
+        }),
+      })
 
-      // Success state
+      let responseBody: unknown = null
+      try {
+        responseBody = await response.json()
+      } catch {
+        responseBody = null
+      }
+
+      if (!response.ok || !responseBody || typeof responseBody !== "object" || !("ok" in responseBody) || responseBody.ok !== true) {
+        const errorCode =
+          responseBody && typeof responseBody === "object" && "error" in responseBody
+            ? resolveReviewErrorCode(responseBody.error)
+            : "unknown_error"
+        setSubmitError(t(`errors.${errorCode}`))
+        resetTurnstile()
+        return
+      }
+
       setIsSuccess(true)
-
-      // Trigger confetti celebration
       confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 }
       })
-
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setIsSuccess(false)
-        reset()
-        setOverallRating(0)
-        setCategoryRatings({
-          cleanliness: 0,
-          communication: 0,
-          location: 0,
-          value: 0
-        })
-      }, 3000)
-
     } catch (error) {
       console.error("Error submitting review:", error)
-      alert(t("errorAlert"))
+      setSubmitError(t("errors.unknown_error"))
+      resetTurnstile()
     } finally {
       setIsSubmitting(false)
     }
@@ -205,6 +273,7 @@ export default function ReviewSubmissionForm() {
 
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-muted/30 to-white">
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer onReady={renderTurnstile} />
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
@@ -349,6 +418,14 @@ export default function ReviewSubmissionForm() {
               )}
               <p className="mt-1 text-xs text-gray-500">{t("reviewHint")}</p>
             </div>
+
+            <div ref={turnstileContainerRef} />
+
+            {submitError && (
+              <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
+                {submitError}
+              </p>
+            )}
 
             {/* Submit Button */}
             <div className="flex justify-center">

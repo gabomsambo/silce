@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         '/test-booking',      // Hide test pages from Google
         '/hospitable-config', // Hide config pages from Google
-        '/api/',              // Block API routes (if any in future)
+        '/api/',              // API routes are not pages
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
