@@ -643,6 +643,7 @@
   "cookieConsent": {
     "title": "Preferencias de cookies",
     "description": "Usamos cookies analíticas opcionales para comprender el uso del sitio y mejorar este sitio web. Puede aceptar o rechazar las cookies analíticas abajo.",
+    "loadsBeforeChoice": "Aunque aún no elija abajo, este sitio carga los mapas de OpenStreetMap para mostrar el mapa de la zona y recursos del servicio de reservas de Hospitable (booking.hospitable.com y hospitable.b-cdn.net) para que funcionen el widget de reserva y el buscador de alojamientos.",
     "iframeNotice": "Nuestro widget de reservas de Hospitable está integrado en un iframe de terceros. Hospitable, y cualquier servicio que cargue dentro de ese iframe para pagos o analítica (por ejemplo Stripe o PostHog), puede establecer sus propias cookies. Esas cookies las establecen esos terceros, no nosotros, y no se pueden controlar, leer ni eliminar desde este sitio.",
     "accept": "Aceptar cookies analíticas",
     "decline": "Rechazar cookies analíticas"

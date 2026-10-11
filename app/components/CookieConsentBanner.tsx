@@ -55,6 +55,7 @@ export default function CookieConsentBanner() {
       <div className="pointer-events-auto w-full sm:max-w-md rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm">
         <h2 className="text-lg font-semibold text-primary mb-2">{t("title")}</h2>
         <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("description")}</p>
+        <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("loadsBeforeChoice")}</p>
         <p className="text-sm text-gray-700 leading-relaxed mb-4">{t("iframeNotice")}</p>
         <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
           <button
