@@ -49,14 +49,19 @@ export function serializeNewsletterInterests(interests: readonly NewsletterInter
 }
 
 export function buildNewsletterResendProperties(params: {
-  locale: unknown
-  interests: unknown
+  locale?: unknown
+  interests?: unknown
 }): Record<string, string> {
-  const locale = normalizeNewsletterLocale(params.locale)
-  const interestIds = sanitizeNewsletterInterests(params.interests)
+  const properties: Record<string, string> = {}
 
-  return {
-    [RESEND_NEWSLETTER_PROPERTY_KEYS.locale]: locale,
-    [RESEND_NEWSLETTER_PROPERTY_KEYS.interests]: serializeNewsletterInterests(interestIds),
+  if (params.locale !== undefined) {
+    properties[RESEND_NEWSLETTER_PROPERTY_KEYS.locale] = normalizeNewsletterLocale(params.locale)
   }
+
+  if (params.interests !== undefined) {
+    const interestIds = sanitizeNewsletterInterests(params.interests)
+    properties[RESEND_NEWSLETTER_PROPERTY_KEYS.interests] = serializeNewsletterInterests(interestIds)
+  }
+
+  return properties
 }

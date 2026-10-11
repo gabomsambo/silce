@@ -24,7 +24,13 @@ test("serializeNewsletterInterests joins stable ids for Resend", () => {
   assert.equal(serializeNewsletterInterests([]), "")
 })
 
-test("buildNewsletterResendProperties maps locale and interests property keys", () => {
+test("buildNewsletterResendProperties omits absent segmentation properties", () => {
+  assert.deepEqual(buildNewsletterResendProperties({}), {})
+  assert.deepEqual(buildNewsletterResendProperties({ locale: "es" }), { locale: "es" })
+  assert.deepEqual(buildNewsletterResendProperties({ interests: [] }), { newsletter_interests: "" })
+})
+
+test("buildNewsletterResendProperties maps present locale and sanitized interests", () => {
   assert.deepEqual(
     buildNewsletterResendProperties({
       locale: "es",
