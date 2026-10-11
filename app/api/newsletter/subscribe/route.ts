@@ -18,7 +18,7 @@ const newsletterSubmissionSchema = z.object({
   firstName: z.string().trim().min(1).max(120),
   email: z.string().trim().email().max(320),
   turnstileToken: z.string().trim().min(1).max(2048),
-  locale: z.string().optional(),
+  locale: z.enum(["en", "es"]).optional(),
   interests: z.array(z.string()).optional(),
 })
 
