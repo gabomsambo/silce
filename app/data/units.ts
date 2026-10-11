@@ -51,7 +51,7 @@ export interface Unit {
   bedrooms: number            // 0 = studio from listing name; public API has no bedroom field
   bathrooms: number
   bedType: string             // e.g., "Queen", "Queen + Sofa Bed" — sourced, never inferred
-  floor?: string              // e.g., "Ground", "Upper"
+  floor?: string              // "Ground" | "Upper" — see BASE_UNITS floor provenance
   extras?: string[]           // e.g., ["Dining table", "Workspace"]
   hospitable_id: string
   summary?: string
@@ -66,6 +66,9 @@ export interface Unit {
   images: UnitPhoto[]
 }
 
+// Floor provenance: all units Ground — owner confirmation 2026-10-11, except
+// sea-grape-201 Upper — owner confirmation 2026-10-11 + Hospitable listing
+// text "located on the second floor".
 const BASE_UNITS: Unit[] = [
   {
     slug: "unit-2528",
@@ -103,7 +106,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    floor: "Upper",
+    floor: "Ground",
     extras: ["Espresso station"],
     hospitable_id: "2282918",
     images: [
@@ -130,7 +133,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    floor: "Upper",
+    floor: "Ground",
     extras: ["High ceilings"],
     hospitable_id: "2282919",
     images: [
@@ -210,7 +213,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Full",
-    floor: "Upper",
+    floor: "Ground",
     hospitable_id: "2282928",
     images: [
       { src: "/photos_2526/01.webp" },
@@ -236,7 +239,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    floor: "Upper",
+    floor: "Ground",
     hospitable_id: "2282916",
     images: [
       { src: "/photos_103/01.webp" },
@@ -261,7 +264,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
-    floor: "Upper",
+    floor: "Ground",
     hospitable_id: "2282923",
     images: [
       { src: "/photos_104/01.webp" },
@@ -288,6 +291,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Queen",
+    floor: "Ground",
     hospitable_id: "2282917",
     images: [
       { src: "/photos_105/01.webp" },
@@ -314,7 +318,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 0,
     bathrooms: 1,
     bedType: "Full",
-    floor: "Upper",
+    floor: "Ground",
     hospitable_id: "2282914",
     images: [
       { src: "/photos_101/01.webp" },
@@ -339,6 +343,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 2,
     bathrooms: 1,
     bedType: "Queen + Queen + Sofa Bed",
+    floor: "Ground",
     hospitable_id: "2282921",
     images: [
       { src: "/photos_seagrape_101/01.webp" },
@@ -363,6 +368,8 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 1,
     bathrooms: 1,
     bedType: "Queen",
+    // Upper: owner 2026-10-11; Hospitable listing "located on the second floor".
+    floor: "Upper",
     hospitable_id: "2282922",
     images: [
       { src: "/photos_seagrape_201/01.webp" },
@@ -387,6 +394,7 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 1,
     bathrooms: 1,
     bedType: "Queen",
+    floor: "Ground",
     hospitable_id: "2282929",
     // Unit 101 Ed 1052 SG is the sole listing whose 16 source photos have no
     // captions. Keep its gallery flat: assigning groups from the images would
