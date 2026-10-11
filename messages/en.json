@@ -690,9 +690,9 @@
       },
       "reviews": {
         "heading": "Review form",
-        "what": "The review form on the reviews page does not currently send or store what you enter. Nothing you type there is transmitted or kept.",
-        "why": "We do not use what you type into that form, because it is neither sent nor stored.",
-        "who": "No one. The form does not transmit what you type to us or to any other service."
+        "what": "Your name and email address, the property you choose, your overall rating and any optional category ratings (cleanliness, communication, location and value), your review text, an optional stay date, the page language, and a Turnstile token when you submit.",
+        "why": "To read your feedback about your stay. Your review is not posted on the website. We rely on your consent when you choose to send the form.",
+        "who": "Cloudflare Turnstile checks that the form is not being used by a bot: it receives your IP address and technical details about your browser. Our server sends your submission to Resend, which emails it to our inbox (from reviews@silverpineapple.net, with your email as the reply address). Our server writes a shortened version of your email address (its first letter and the domain) to its logs when Resend accepts the review email."
       },
       "booking": {
         "heading": "Booking a stay",
@@ -739,7 +739,7 @@
           "duration": "Not set at present"
         },
         "turnstile": {
-          "purpose": "Lets Cloudflare Turnstile check that the newsletter form is used by a person, not a bot. Loads on the home page.",
+          "purpose": "Lets Cloudflare Turnstile check that the newsletter and review forms are used by a person, not a bot. Loads on the home page and the reviews page.",
           "duration": "Until you clear your browser storage"
         },
         "hospitableLanguage": {
@@ -769,7 +769,7 @@
         "hospitable": "Hospitable's search widget code on every page (from hospitable.b-cdn.net), and Hospitable's booking and search services on room pages and the search page.",
         "stripe": "Stripe's payment code, inside the booking widget on room pages.",
         "fonts": "Google Fonts, loaded by Hospitable's widgets on room pages and the search page.",
-        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form."
+        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form and on the reviews page with the review form."
       }
     },
     "recipients": {
@@ -777,7 +777,7 @@
       "intro": "We share personal information only with the services that run parts of this site. Each has its own privacy policy.",
       "items": {
         "cloudflare": "Cloudflare: hosting, security and the newsletter spam check.",
-        "resend": "Resend: our newsletter list.",
+        "resend": "Resend: our newsletter list and delivery of review submissions by email to our inbox.",
         "formsubmit": "FormSubmit, a form-relay service: the contact form sends it your name, email address, message and the page address, and it forwards them by email to our inbox.",
         "hospitable": "Hospitable: bookings, availability and property search, with PostHog for its own usage statistics.",
         "stripe": "Stripe: payments for bookings.",
@@ -794,6 +794,7 @@
       "heading": "How long we keep it",
       "newsletter": "Newsletter contacts: we keep your details while you are subscribed. If you unsubscribe, Resend marks your contact as unsubscribed so you are not emailed again. At present the record itself (your name, email address, language and topics) stays on our list, and signing up again resubscribes it. You can ask us to delete it completely at any time.",
       "messages": "Contact-form messages: we keep them for as long as we need them for the reason you sent them (answering you), and longer only where the law requires it. You can ask us to delete yours at any time.",
+      "reviews": "Review emails: we keep them in our inbox for as long as we need them to read and respond to them, and longer only where the law requires it. You can ask us to delete yours at any time.",
       "bookings": "Bookings: this website itself stores no booking or payment details. Bookings made here are processed by Hospitable, and payments by Stripe; stays booked through Airbnb are handled by Airbnb. How long they keep your information is set by their own policies: <hospitable>Hospitable</hospitable>, <stripe>Stripe</stripe> and <airbnb>Airbnb</airbnb>.",
       "browser": "Cookies and browser storage: as listed in the table above."
     },
@@ -806,7 +807,7 @@
     "required": {
       "heading": "Do you have to give us information?",
       "body": "No. You can browse the site without giving us anything. To join the newsletter we need your first name and email address; to send a message, your name, email address and message; to book, the details Hospitable's checkout asks for.",
-      "automated": "We do not make decisions about you by automated means, apart from the automatic spam check on the newsletter form."
+      "automated": "We do not make decisions about you by automated means, apart from the automatic spam check on the newsletter form and the review form."
     },
     "dnt": {
       "heading": "Do Not Track",

@@ -37,6 +37,17 @@ test("every listed cookie or storage item has a purpose and duration in both cat
   }
 })
 
+test("review privacy copy describes delivery instead of claiming nothing is sent", () => {
+  for (const [locale, catalog] of Object.entries(catalogs)) {
+    const reviews = catalog.privacy.collect.reviews
+    const serialized = JSON.stringify(reviews)
+    assert.ok(!serialized.includes("does not currently send"), `${locale}: stale review copy`)
+    assert.ok(!serialized.includes("no envía ni guarda actualmente"), `${locale}: stale review copy`)
+    assert.match(reviews.who, /Resend/, `${locale}: Resend in who`)
+    assert.ok(catalog.privacy.retention.reviews, `${locale}: retention.reviews`)
+  }
+})
+
 test("no owner placeholder is left in the published copy", () => {
   for (const [locale, catalog] of Object.entries(catalogs)) {
     const copy = JSON.stringify(catalog.privacy)

@@ -690,9 +690,9 @@
       },
       "reviews": {
         "heading": "Formulario de opiniones",
-        "what": "El formulario de opiniones de la página de opiniones no envía ni guarda actualmente lo que usted escribe. Nada de lo que escriba allí se transmite ni se conserva.",
-        "why": "No usamos lo que escriba en ese formulario, porque ni se envía ni se guarda.",
-        "who": "Nadie. El formulario no transmite lo que usted escribe ni a nosotros ni a ningún otro servicio."
+        "what": "Su nombre y correo electrónico, el alojamiento que elija, su valoración general y las valoraciones opcionales por categoría (limpieza, comunicación, ubicación y relación calidad-precio), el texto de su opinión, una fecha de estancia opcional, el idioma de la página y un token de Turnstile al enviar el formulario.",
+        "why": "Para leer sus comentarios sobre su estancia. Su opinión no se publica en el sitio web. Nos basamos en su consentimiento cuando decide enviar el formulario.",
+        "who": "Cloudflare Turnstile comprueba que el formulario no lo usa un bot: recibe su dirección IP y datos técnicos de su navegador. Nuestro servidor envía su envío a Resend, que lo entrega por correo electrónico a nuestro buzón (desde reviews@silverpineapple.net, con su correo como dirección de respuesta). Nuestro servidor escribe en sus registros una versión abreviada de su correo (la primera letra y el dominio) cuando Resend acepta el correo de la opinión."
       },
       "booking": {
         "heading": "Reservar una estancia",
@@ -739,7 +739,7 @@
           "duration": "No se instalan actualmente"
         },
         "turnstile": {
-          "purpose": "Permite a Cloudflare Turnstile comprobar que el formulario del boletín lo usa una persona y no un bot. Se carga en la página de inicio.",
+          "purpose": "Permite a Cloudflare Turnstile comprobar que los formularios del boletín y de opiniones los usa una persona y no un bot. Se carga en la página de inicio y en la de opiniones.",
           "duration": "Hasta que borre el almacenamiento del navegador"
         },
         "hospitableLanguage": {
@@ -769,7 +769,7 @@
         "hospitable": "El código del buscador de Hospitable en todas las páginas (desde hospitable.b-cdn.net), y los servicios de reserva y búsqueda de Hospitable en las páginas de alojamiento y en la página de búsqueda.",
         "stripe": "El código de pagos de Stripe, dentro del widget de reservas en las páginas de alojamiento.",
         "fonts": "Google Fonts, que cargan los widgets de Hospitable en las páginas de alojamiento y en la página de búsqueda.",
-        "turnstile": "Cloudflare Turnstile, en la página de inicio, con el formulario del boletín."
+        "turnstile": "Cloudflare Turnstile, en la página de inicio con el formulario del boletín y en la página de opiniones con el formulario de opiniones."
       }
     },
     "recipients": {
@@ -777,7 +777,7 @@
       "intro": "Solo compartimos información personal con los servicios que hacen funcionar partes de este sitio. Cada uno tiene su propia política de privacidad.",
       "items": {
         "cloudflare": "Cloudflare: alojamiento, seguridad y la comprobación antispam del boletín.",
-        "resend": "Resend: nuestra lista del boletín.",
+        "resend": "Resend: nuestra lista del boletín y el envío por correo de las opiniones enviadas a nuestro buzón.",
         "formsubmit": "FormSubmit, un servicio de reenvío de formularios: el formulario de contacto le envía su nombre, correo electrónico, mensaje y la dirección de la página, y él los reenvía por correo electrónico a nuestro buzón.",
         "hospitable": "Hospitable: reservas, disponibilidad y búsqueda de alojamientos, con PostHog para sus propias estadísticas de uso.",
         "stripe": "Stripe: los pagos de las reservas.",
@@ -794,6 +794,7 @@
       "heading": "Cuánto tiempo la conservamos",
       "newsletter": "Suscriptores del boletín: conservamos sus datos mientras siga suscrito. Si se da de baja, Resend marca su contacto como dado de baja para que no le volvamos a escribir. Por ahora el registro en sí (su nombre, correo electrónico, idioma y temas) sigue en nuestra lista, y si vuelve a suscribirse se reactiva. Puede pedirnos en cualquier momento que lo borremos por completo.",
       "messages": "Mensajes del formulario de contacto: los conservamos mientras los necesitemos para el motivo por el que nos los envió (responderle), y más tiempo solo cuando la ley lo exija. Puede pedirnos en cualquier momento que borremos los suyos.",
+      "reviews": "Correos de opiniones: los conservamos en nuestro buzón mientras los necesitemos para leerlos y responderlos, y más tiempo solo cuando la ley lo exija. Puede pedirnos en cualquier momento que borremos los suyos.",
       "bookings": "Reservas: este sitio web no guarda ningún dato de reservas ni de pagos. Las reservas hechas aquí las tramita Hospitable, y los pagos Stripe; las estancias reservadas en Airbnb las gestiona Airbnb. Cuánto tiempo conservan su información lo fijan sus propias políticas: <hospitable>Hospitable</hospitable>, <stripe>Stripe</stripe> y <airbnb>Airbnb</airbnb>.",
       "browser": "Cookies y almacenamiento del navegador: según la tabla anterior."
     },
@@ -806,7 +807,7 @@
     "required": {
       "heading": "¿Está obligado a darnos información?",
       "body": "No. Puede navegar por el sitio sin darnos nada. Para suscribirse al boletín necesitamos su nombre y correo electrónico; para enviarnos un mensaje, su nombre, correo y mensaje; para reservar, los datos que pide la página de pago de Hospitable.",
-      "automated": "No tomamos decisiones sobre usted por medios automatizados, salvo la comprobación antispam automática del formulario del boletín."
+      "automated": "No tomamos decisiones sobre usted por medios automatizados, salvo la comprobación antispam automática de los formularios del boletín y de opiniones."
     },
     "dnt": {
       "heading": "Señal “Do Not Track”",
