@@ -51,7 +51,7 @@ export interface Unit {
   bedrooms: number            // 0 = studio from listing name; public API has no bedroom field
   bathrooms: number
   bedType: string             // e.g., "Queen", "Queen + Sofa Bed" — sourced, never inferred
-  floor?: string              // "Ground" | "Upper" — see BASE_UNITS floor provenance
+  floor?: string              // "Ground" | "Upper" — docs/UNITS-SOURCE-OF-TRUTH.md (Floor)
   extras?: string[]           // e.g., ["Dining table", "Workspace"]
   hospitable_id: string
   summary?: string
@@ -66,9 +66,7 @@ export interface Unit {
   images: UnitPhoto[]
 }
 
-// Floor provenance: all units Ground — owner confirmation 2026-10-11, except
-// sea-grape-201 Upper — owner confirmation 2026-10-11 + Hospitable listing
-// text "located on the second floor".
+// Floor provenance: docs/UNITS-SOURCE-OF-TRUTH.md (Floor).
 const BASE_UNITS: Unit[] = [
   {
     slug: "unit-2528",
@@ -368,7 +366,6 @@ const BASE_UNITS: Unit[] = [
     bedrooms: 1,
     bathrooms: 1,
     bedType: "Queen",
-    // Upper: owner 2026-10-11; Hospitable listing "located on the second floor".
     floor: "Upper",
     hospitable_id: "2282922",
     images: [
