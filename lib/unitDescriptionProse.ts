@@ -46,20 +46,38 @@ function startsWithUppercaseLetter(text: string) {
   return char.toLowerCase() !== char.toUpperCase() && char === char.toUpperCase()
 }
 
-function isListContinuation(previous: string, line: string) {
+function isListContinuation(line: string) {
   if (!isPlainProseLine(line) || isNewLabelLine(line)) return false
   if (isIndentedLine(line)) return true
-  return startsWithLowercaseLetter(line.trim()) && !lineEndsSentence(previous)
+  return startsWithLowercaseLetter(line.trim())
 }
 
 function readMarkedItem(lines: string[], start: number): { text: string; nextIndex: number } {
   const parts = [lines[start].trim()]
   let index = start + 1
-  while (index < lines.length && isListContinuation(parts[parts.length - 1], lines[index])) {
+  while (index < lines.length && isListContinuation(lines[index])) {
     parts.push(lines[index].trim())
     index += 1
   }
   return { text: parts.join(" "), nextIndex: index }
+}
+
+function readMarkedList(
+  lines: string[],
+  start: number,
+  isMarkerLine: (line: string) => boolean,
+): { items: string[]; nextIndex: number } {
+  const items: string[] = []
+  let index = start
+  while (index < lines.length && isMarkerLine(lines[index])) {
+    const item = readMarkedItem(lines, index)
+    items.push(item.text)
+    index = item.nextIndex
+    while (index < lines.length && lines[index].trim().length === 0) {
+      index += 1
+    }
+  }
+  return { items, nextIndex: index }
 }
 
 function isShortTitle(line: string) {
@@ -92,24 +110,16 @@ export function parseUnitDescriptionBlocks(description: string): UnitDescription
     }
 
     if (isFeatureLine(line)) {
-      const items: string[] = []
-      while (index < lines.length && isFeatureLine(lines[index])) {
-        const item = readMarkedItem(lines, index)
-        items.push(item.text)
-        index = item.nextIndex
-      }
-      blocks.push({ type: "features", items })
+      const list = readMarkedList(lines, index, isFeatureLine)
+      blocks.push({ type: "features", items: list.items })
+      index = list.nextIndex
       continue
     }
 
     if (isBulletLine(line)) {
-      const items: string[] = []
-      while (index < lines.length && isBulletLine(lines[index])) {
-        const item = readMarkedItem(lines, index)
-        items.push(item.text)
-        index = item.nextIndex
-      }
-      blocks.push({ type: "bullets", items })
+      const list = readMarkedList(lines, index, isBulletLine)
+      blocks.push({ type: "bullets", items: list.items })
+      index = list.nextIndex
       continue
     }
 

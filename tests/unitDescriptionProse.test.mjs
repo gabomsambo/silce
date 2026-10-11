@@ -67,15 +67,17 @@ test("hard-wrapped feature and bullet lines stay one item", () => {
   assert.match(blocks[1].items[0], /drip coffee maker and utensils for easy meals/)
 })
 
-test("a finished sentence or a new label ends the open item", () => {
+test("a new label ends the open item and a lowercase wrap continues past a period", () => {
   const sample = [
     "▸ Área para dormir: cama tamaño queen con ropa de cama de primera calidad,",
     "y aire acondicionado para un sueño reparador",
     "asientos lujosos: ideales para relajarse después de un día completo",
     "▸ Cocina básica: Mininevera, microondas, horno grande, fregadero, goteo.",
-    "cafetera, tostadora y juego completo de utensilios",
+    "cafetera, tostadora y juego completo de utensilios, todo lo que puedas",
+    "necesidad de comidas caseras fáciles",
   ].join("\n")
   const blocks = parseUnitDescriptionBlocks(sample)
+  assert.equal(blocks.length, 3)
   assert.equal(blocks[0].type, "features")
   assert.equal(blocks[0].items.length, 1)
   assert.match(blocks[0].items[0], /calidad, y aire acondicionado/)
@@ -86,12 +88,11 @@ test("a finished sentence or a new label ends the open item", () => {
     "asientos lujosos: ideales para relajarse después de un día completo",
   )
   assert.equal(blocks[2].type, "features")
+  assert.equal(blocks[2].items.length, 1)
   assert.equal(
     blocks[2].items[0],
-    "▸ Cocina básica: Mininevera, microondas, horno grande, fregadero, goteo.",
+    "▸ Cocina básica: Mininevera, microondas, horno grande, fregadero, goteo. cafetera, tostadora y juego completo de utensilios, todo lo que puedas necesidad de comidas caseras fáciles",
   )
-  assert.equal(blocks[3].type, "prose")
-  assert.equal(blocks[3].text, "cafetera, tostadora y juego completo de utensilios")
 })
 
 test("adjacent short headings stay separate and narrative wraps stay joined", () => {
@@ -164,6 +165,15 @@ test("owner snapshots keep wrapped amenity lines and heading breaks", () => {
   const dormir = esItems.find((item) => item.includes("Área para dormir:"))
   assert.ok(dormir?.includes("y aire acondicionado para un sueño reparador"))
   assert.equal(dormir.includes("asientos lujosos"), false)
+  const cocina = esItems.find((item) => item.includes("Cocina básica:"))
+  assert.ok(cocina?.includes("fregadero, goteo. cafetera, tostadora"))
+  assert.ok(cocina?.includes("necesidad de comidas caseras fáciles"))
+  assert.equal(
+    esBlocks.some(
+      (block) => block.type === "prose" && block.text.startsWith("cafetera, tostadora"),
+    ),
+    false,
+  )
   assert.equal(
     esBlocks.some(
       (block) =>
@@ -189,6 +199,85 @@ test("owner snapshots keep wrapped amenity lines and heading breaks", () => {
     ),
     false,
   )
+})
+
+test("blank lines keep sibling markers in one list", () => {
+  const sample = [
+    "GETTING AROUND",
+    "▸ ON FOOT: The district is walkable —",
+    "  most places are a short walk.",
+    "",
+    "▸ BY CAR: Free parking is included.",
+    "",
+    "Hello there.",
+    "",
+    "▸ SECURITY: Cameras monitor entrances.",
+    "",
+    "▸ SMOKING: Strictly prohibited inside and on all shared premises.",
+    "",
+    "──────",
+    "▸ Parking: one spot.",
+    "",
+    "• First highlight",
+    "",
+    "• Second highlight",
+    "",
+    "▸ Not a bullet",
+  ].join("\n")
+  const blocks = parseUnitDescriptionBlocks(sample)
+  assert.equal(blocks[0].type, "prose")
+  assert.equal(blocks[0].text, "GETTING AROUND")
+  assert.equal(blocks[1].type, "features")
+  assert.equal(blocks[1].items.length, 2)
+  assert.match(blocks[1].items[0], /walkable — most places are a short walk\./)
+  assert.equal(blocks[1].items[0].includes("BY CAR:"), false)
+  assert.equal(blocks[1].items[1], "▸ BY CAR: Free parking is included.")
+  assert.equal(blocks[2].type, "prose")
+  assert.equal(blocks[2].text, "Hello there.")
+  assert.equal(blocks[3].type, "features")
+  assert.equal(blocks[3].items.length, 2)
+  assert.equal(blocks[3].items[0], "▸ SECURITY: Cameras monitor entrances.")
+  assert.equal(
+    blocks[3].items[1],
+    "▸ SMOKING: Strictly prohibited inside and on all shared premises.",
+  )
+  assert.equal(blocks[4].type, "features")
+  assert.deepEqual(blocks[4].items, ["▸ Parking: one spot."])
+  assert.equal(blocks[5].type, "bullets")
+  assert.deepEqual(blocks[5].items, ["• First highlight", "• Second highlight"])
+  assert.equal(blocks[6].type, "features")
+  assert.deepEqual(blocks[6].items, ["▸ Not a bullet"])
+
+  const pa103 = hospitableUnits.units.find((unit) => unit.name === "Unit PA103 Ed 2546")
+  const gettingAround = parseUnitDescriptionBlocks(pa103.description).find(
+    (block) => block.type === "features" && block.items.some((item) => item.includes("ON FOOT:")),
+  )
+  assert.equal(gettingAround.items.length, 5)
+  for (const label of ["ON FOOT:", "BY CAR:", "BY BIKE:", "RIDESHARE:", "PUBLIC TRANSIT:"]) {
+    assert.equal(gettingAround.items.filter((item) => item.includes(label)).length, 1)
+  }
+  const onFoot = gettingAround.items.find((item) => item.includes("ON FOOT:"))
+  assert.match(onFoot, /10-20 minute walk/)
+  assert.equal(onFoot.includes("BY CAR:"), false)
+
+  const pa105 = hospitableUnits.units.find((unit) => unit.name === "Unit PA105 Ed 2546")
+  const houseRules = parseUnitDescriptionBlocks(pa105.description).find(
+    (block) => block.type === "features" && block.items.some((item) => item.includes("SECURITY:")),
+  )
+  const security = houseRules.items.find((item) => item.includes("SECURITY:"))
+  const smoking = houseRules.items.find((item) => item.includes("SMOKING:"))
+  assert.match(security, /No cameras inside the unit\./)
+  assert.equal(security.includes("SMOKING:"), false)
+  assert.equal(smoking, "▸ SMOKING: Strictly prohibited inside and on all shared premises.")
+
+  const spanishRules = parseUnitDescriptionBlocks(spanishById["2282917"].description).find(
+    (block) => block.type === "features" && block.items.some((item) => item.includes("SEGURIDAD:")),
+  )
+  const seguridad = spanishRules.items.find((item) => item.includes("SEGURIDAD:"))
+  const fumar = spanishRules.items.find((item) => item.includes("FUMAR:"))
+  assert.match(seguridad, /No hay cámaras dentro de la unidad\./)
+  assert.equal(seguridad.includes("FUMAR:"), false)
+  assert.equal(fumar, "▸ FUMAR: Está estrictamente prohibido dentro y en todos los locales compartidos.")
 })
 
 test("feature and bullet runs split without dropping characters", () => {

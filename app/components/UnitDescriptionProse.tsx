@@ -17,7 +17,7 @@ function FeatureList({ items }: { items: string[] }) {
 
 function BulletList({ items }: { items: string[] }) {
   return (
-    <ul className="list-disc space-y-1 pl-5 text-sm leading-relaxed text-primary/80">
+    <ul className="space-y-1 pl-5 text-sm leading-relaxed text-primary/80">
       {items.map((item, index) => (
         <li key={`${index}-${item.slice(0, 24)}`}>{item}</li>
       ))}
