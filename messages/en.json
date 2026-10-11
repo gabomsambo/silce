@@ -674,13 +674,13 @@
         "heading": "Newsletter sign-up",
         "what": "Your first name and email address, the language of the page you signed up on, and any topics you tick.",
         "why": "To send you our newsletter. We rely on your consent, which you can withdraw at any time by asking us to remove you.",
-        "who": "Resend stores our mailing list and sends the emails. Cloudflare Turnstile checks that the form is not being used by a bot: it receives your IP address and technical details about your browser. If a sign-up fails, our server logs a shortened version of your email address (its first letter and the domain) so we can fix the problem."
+        "who": "Resend stores our mailing list and sends the emails. Cloudflare Turnstile checks that the form is not being used by a bot: it receives your IP address and technical details about your browser. Our server writes a shortened version of your email address (its first letter and the domain) to its logs when a Resend lookup, update or create fails, and when an existing contact is updated. Captcha and validation failures do not log the email."
       },
       "contact": {
         "heading": "Contact form",
         "what": "Your name, email address and message, and the address of the page you sent it from.",
         "why": "To answer you. We rely on our legitimate interest in replying to people who contact us, or on taking the steps you ask for before a booking.",
-        "who": "FormSubmit (formsubmit.co) delivers the form to our email inbox."
+        "who": "The contact form sends your name, email address, message and the page address to FormSubmit (formsubmit.co), a form-relay service, which forwards them by email to our inbox."
       },
       "reviews": {
         "heading": "Review form",
@@ -772,7 +772,7 @@
       "items": {
         "cloudflare": "Cloudflare: hosting, security and the newsletter spam check.",
         "resend": "Resend: our newsletter list.",
-        "formsubmit": "FormSubmit: delivery of contact-form messages.",
+        "formsubmit": "FormSubmit, a form-relay service: the contact form sends it your name, email address, message and the page address, and it forwards them by email to our inbox.",
         "hospitable": "Hospitable: bookings, availability and property search, with PostHog for its own usage statistics.",
         "stripe": "Stripe: payments for bookings.",
         "openstreetmap": "OpenStreetMap Foundation: map images.",

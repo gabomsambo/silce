@@ -674,13 +674,13 @@
         "heading": "Suscripción al boletín",
         "what": "Su nombre y correo electrónico, el idioma de la página desde la que se suscribió y los temas que marque.",
         "why": "Para enviarle nuestro boletín. Nos basamos en su consentimiento, que puede retirar en cualquier momento pidiéndonos que le demos de baja.",
-        "who": "Resend guarda nuestra lista de suscriptores y envía los correos. Cloudflare Turnstile comprueba que el formulario no lo usa un bot: recibe su dirección IP y datos técnicos de su navegador. Si una suscripción falla, nuestro servidor registra una versión abreviada de su correo (la primera letra y el dominio) para poder corregir el problema."
+        "who": "Resend guarda nuestra lista de suscriptores y envía los correos. Cloudflare Turnstile comprueba que el formulario no lo usa un bot: recibe su dirección IP y datos técnicos de su navegador. Nuestro servidor escribe en sus registros una versión abreviada de su correo (la primera letra y el dominio) cuando falla la consulta, la actualización o la creación del contacto en Resend, y cuando se actualiza un contacto ya existente. Los fallos del captcha y de la validación no registran el correo."
       },
       "contact": {
         "heading": "Formulario de contacto",
         "what": "Su nombre, correo electrónico y mensaje, y la dirección de la página desde la que lo envió.",
         "why": "Para responderle. Nos basamos en nuestro interés legítimo en contestar a quien nos escribe, o en tomar las medidas que nos pida antes de una reserva.",
-        "who": "FormSubmit (formsubmit.co) entrega el formulario en nuestro buzón de correo."
+        "who": "El formulario de contacto envía su nombre, correo electrónico, mensaje y la dirección de la página a FormSubmit (formsubmit.co), un servicio de reenvío de formularios, que los reenvía por correo electrónico a nuestro buzón."
       },
       "reviews": {
         "heading": "Formulario de opiniones",
@@ -772,7 +772,7 @@
       "items": {
         "cloudflare": "Cloudflare: alojamiento, seguridad y la comprobación antispam del boletín.",
         "resend": "Resend: nuestra lista del boletín.",
-        "formsubmit": "FormSubmit: la entrega de los mensajes del formulario de contacto.",
+        "formsubmit": "FormSubmit, un servicio de reenvío de formularios: el formulario de contacto le envía su nombre, correo electrónico, mensaje y la dirección de la página, y él los reenvía por correo electrónico a nuestro buzón.",
         "hospitable": "Hospitable: reservas, disponibilidad y búsqueda de alojamientos, con PostHog para sus propias estadísticas de uso.",
         "stripe": "Stripe: los pagos de las reservas.",
         "openstreetmap": "OpenStreetMap Foundation: las imágenes de los mapas.",
