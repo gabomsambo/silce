@@ -4,7 +4,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { BUSINESS_CONTACT } from "@/app/data/contact";
-import { BROWSER_STORAGE_ITEMS, PRIVACY_POLICY_UPDATED } from "@/app/data/privacy";
+import { BROWSER_STORAGE_ITEMS, PRIVACY_POLICY_UPDATED, THIRD_PARTY_POLICIES } from "@/app/data/privacy";
 
 export async function generateMetadata({
   params
@@ -28,12 +28,37 @@ export async function generateMetadata({
   };
 }
 
-// Facts the owner has not confirmed yet are wrapped in <todo> in the catalogs and
-// rendered as a highlighted mark, so a placeholder can never pass for a published fact.
-const richTags = {
-  todo: (chunks: ReactNode) => (
-    <mark className="rounded bg-yellow-200 px-1 font-semibold text-gray-900">{chunks}</mark>
-  )
+const LINK_CLASS = "font-semibold text-tan-hover underline underline-offset-4 hover:text-primary";
+
+function mailLink(address: string) {
+  return function MailLink(chunks: ReactNode) {
+    return (
+      <a href={`mailto:${address}`} className={LINK_CLASS}>
+        {chunks}
+      </a>
+    );
+  };
+}
+
+function externalLink(href: string) {
+  return function ExternalLink(chunks: ReactNode) {
+    return (
+      <a href={href} className={LINK_CLASS} target="_blank" rel="noopener noreferrer">
+        {chunks}
+      </a>
+    );
+  };
+}
+
+const emailTags = { address: BUSINESS_CONTACT.email, email: mailLink(BUSINESS_CONTACT.email) };
+const privacyEmailTags = {
+  privacyAddress: BUSINESS_CONTACT.privacyEmail,
+  privacyEmail: mailLink(BUSINESS_CONTACT.privacyEmail)
+};
+const policyTags = {
+  hospitable: externalLink(THIRD_PARTY_POLICIES.hospitable),
+  stripe: externalLink(THIRD_PARTY_POLICIES.stripe),
+  airbnb: externalLink(THIRD_PARTY_POLICIES.airbnb)
 };
 
 const COLLECTION_SECTIONS = ["newsletter", "contact", "reviews", "booking", "direct", "visit"] as const;
@@ -73,18 +98,6 @@ export default async function PrivacyPage({
     dateStyle: "long",
     timeZone: "UTC"
   });
-  const emailTags = {
-    address: BUSINESS_CONTACT.email,
-    email: (chunks: ReactNode) => (
-      <a
-        href={`mailto:${BUSINESS_CONTACT.email}`}
-        className="font-semibold text-tan-hover underline underline-offset-4 hover:text-primary"
-      >
-        {chunks}
-      </a>
-    )
-  };
-
   return (
     <main className="min-h-screen bg-coastal-mist">
       <Navbar />
@@ -93,15 +106,12 @@ export default async function PrivacyPage({
           <h1 className="text-4xl font-bold text-primary md:text-5xl">{t("title")}</h1>
           <p className="text-sm text-gray-600">{t("lastUpdated", { date: updated })}</p>
           <p className="text-lg">{t("intro")}</p>
-          <p className="rounded-md border border-yellow-300 bg-yellow-50 p-3 text-sm text-gray-900">
-            {t("placeholderNote")}
-          </p>
         </header>
 
         <div className="space-y-12">
           <Section id="who-we-are" heading={t("whoWeAre.heading")}>
-            <p>{t.rich("whoWeAre.body", richTags)}</p>
-            <p>{t.rich("whoWeAre.address", richTags)}</p>
+            <p>{t("whoWeAre.body")}</p>
+            <p>{t.rich("whoWeAre.privacyContact", privacyEmailTags)}</p>
             <p>{t.rich("whoWeAre.email", emailTags)}</p>
           </Section>
 
@@ -179,14 +189,14 @@ export default async function PrivacyPage({
           <Section id="retention" heading={t("retention.heading")}>
             <ul className="list-disc space-y-2 pl-6">
               {RETENTION_ITEMS.map((key) => (
-                <li key={key}>{t.rich(`retention.${key}`, richTags)}</li>
+                <li key={key}>{key === "bookings" ? t.rich("retention.bookings", policyTags) : t(`retention.${key}`)}</li>
               ))}
             </ul>
           </Section>
 
           <Section id="rights" heading={t("rights.heading")}>
             <p>{t("rights.body")}</p>
-            <p>{t.rich("rights.request", richTags)}</p>
+            <p>{t.rich("rights.request", privacyEmailTags)}</p>
             <p>{t("rights.complaint")}</p>
           </Section>
 
@@ -204,7 +214,7 @@ export default async function PrivacyPage({
           </Section>
 
           <Section id="contact" heading={t("contact.heading")}>
-            <p>{t.rich("contact.privacy", richTags)}</p>
+            <p>{t.rich("contact.privacy", privacyEmailTags)}</p>
             <p>{t.rich("contact.general", emailTags)}</p>
           </Section>
         </div>

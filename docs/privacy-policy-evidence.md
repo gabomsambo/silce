@@ -1,7 +1,7 @@
 # Privacy policy evidence inventory
 
 Every statement on `/[locale]/privacy` traces to a row below. Observed on
-2026-10-11 against `main` at `97308af` and the live site (`https://silverpineapple.net`),
+2026-10-11 against `main` at `97308af` (rebased onto `7d822bb`, which merged #32) and the live site (`https://silverpineapple.net`),
 in headless Chromium with a fresh profile, before and after clicking
 "Accept analytics cookies". No secret values were read or printed: env files were
 listed by variable name only, and the Resend CLI was used read-only.
@@ -13,15 +13,16 @@ listed by variable name only, and the Resend CLI was used read-only.
 | Trading name "Silver Pineapple" | `app/[locale]/layout.tsx:30-31` (`creator`, `publisher`) |
 | Published location "Melbourne, FL 32935", owner-confirmed 2026-09-05 | `app/data/contact.ts:10`, `AGENTS.md` "Business facts" |
 | Public email `hello@silverpineapple.net`; phone/WhatsApp `+1 (201) 282-7398` | `app/data/contact.ts:9,16`, rendered in `app/components/Footer.tsx:96-122` |
-| Legal entity name: **not derivable**. `layout.tsx:29` says `authors: 'Silver Pineapple LLC'` in page metadata only; no registration record confirms it | placeholder |
-| Postal address for requests, data-request contact, retention periods: **not derivable** | placeholders |
+| Legal entity "Silver Pineapple LLC" | `layout.tsx:29`; confirmed by the owner 2026-10-11 |
+| Street address withheld; city/state/ZIP plus email published | owner's choice 2026-10-11 — street can be added later |
+| Privacy contact `gabriel@silverpineapple.net` | owner's choice 2026-10-11; `app/data/contact.ts` `privacyEmail`. MX for `silverpineapple.net` is Google Workspace (`aspmx.l.google.com`, priority 1) plus Proton (`mail.protonmail.ch`, 10); no Cloudflare Email Routing on the account (`wrangler email routing list`: none). Whether the `gabriel@` mailbox exists could not be checked from here (outbound SMTP blocked) |
 
 ## Data a visitor gives us
 
 | Flow | Fields | Where it goes | Proof |
 | --- | --- | --- | --- |
 | Newsletter signup (home page) | first name, email; Turnstile token | `POST /api/newsletter/subscribe` → Cloudflare Turnstile `siteverify` (token + visitor IP as `remoteip`) → Resend `POST /contacts` (`email`, `first_name`) | `app/components/BoutiqueNewsletterSignup.tsx:157-167,287,343,365`; `app/api/newsletter/subscribe/route.ts:11-15,41-49,84-91,157-167,278-294` |
-| Newsletter language + interests | `locale` (en/es), `newsletter_interests` (ids of ticked boxes) | Resend contact properties | Form already sends `interests` (`BoutiqueNewsletterSignup.tsx:165,246-249`); stored by open PR https://github.com/gabomsambo/silce/pull/32 (`lib/newsletterSegment.ts`). Resend account (`resend contact-properties list`, read-only) already defines `locale` (fallback `en`) and `newsletter_interests` (fallback ``), both created 2026-10-11 |
+| Newsletter language + interests | `locale` (en/es), `newsletter_interests` (ids of ticked boxes) | Resend contact properties | Form already sends `interests` (`BoutiqueNewsletterSignup.tsx:165,246-249`); stored since https://github.com/gabomsambo/silce/pull/32 merged (`lib/newsletterSegment.ts`, `route.ts:292`). Resend account (`resend contact-properties list`, read-only) already defines `locale` (fallback `en`) and `newsletter_interests` (fallback ``), both created 2026-10-11 |
 | Newsletter resubscribe | an earlier unsubscribed contact is set back to subscribed on a new signup | Resend `PATCH /contacts/<email>` | `route.ts:195-244` |
 | Failed newsletter signup logging | masked email (first character + domain) | server log (Cloudflare) | `route.ts:34-39,205-250,305-308` |
 | Contact form (footer, every page) | name, email, message, the page URL; hidden `_honey` spam trap | FormSubmit (`https://formsubmit.co/ajax/hello@silverpineapple.net`), which emails the business inbox | `app/components/ContactForm.tsx:27-41`; `app/data/contact.ts:15` |
@@ -69,11 +70,10 @@ analytics on our own pages. The site's own font (Geist) is self-hosted via `next
 - Turnstile public site key in `wrangler.toml [vars]`; secret and Resend key are
   server-only env bindings (`route.ts:255-263`, `.env.example`).
 
-## Facts the owner must supply (placeholders on the page)
+## Retention (owner answers 2026-10-11)
 
-1. Legal name of the business that runs the site.
-2. Postal address for privacy matters.
-3. Email or other contact for privacy / data requests.
-4. How long newsletter contacts are kept (including after unsubscribing).
-5. How long contact-form messages and review submissions are kept.
-6. How long the business keeps booking and guest records.
+| Data | Page says | Source |
+| --- | --- | --- |
+| Newsletter contacts | kept while subscribed; an unsubscribe marks the Resend contact unsubscribed, the record stays and a new signup resubscribes it; full deletion on request | `route.ts:195-244` (resubscribe path). No automatic deletion exists — follow-up, not promised on the page |
+| Contact messages, review submissions | kept as long as needed for the reason sent, longer only where law requires; deletion on request | owner: mirror Airbnb; Airbnb Privacy Policy §10.1 (https://www.airbnb.com/help/article/3175, last updated 2026-02-05) |
+| Bookings and payments | the site stores none; Hospitable / Stripe / Airbnb policies govern | no database, no API route besides `/api/newsletter/subscribe`, booking runs in the `booking.hospitable.com` iframe (`BookingIframe.tsx`); Airbnb listings evidenced by `app/data/reviews.ts` Airbnb records. Hospitable's policy (https://hospitable.com/legal/privacy-policy) states no retention period |

@@ -658,11 +658,10 @@
     "title": "Política de privacidad y cookies",
     "lastUpdated": "Última actualización: {date}",
     "intro": "Esta página explica qué información personal recoge silverpineapple.net, para qué, quién más la recibe y qué opciones tiene usted. Se refiere a este sitio web. Cuando reserva una estancia, también se aplican las condiciones y la política de privacidad de Hospitable.",
-    "placeholderNote": "El texto entre corchetes resaltados está pendiente de confirmación por el propietario y no es definitivo.",
     "whoWeAre": {
       "heading": "Quiénes somos",
-      "body": "Silver Pineapple es un negocio de alquiler vacacional en Melbourne, FL 32935, Estados Unidos. El sitio web lo gestiona <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: razón social]</todo>, que decide cómo se usa la información personal descrita aquí.",
-      "address": "Dirección postal: <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: dirección postal para asuntos de privacidad]</todo>",
+      "body": "Este sitio web lo gestiona Silver Pineapple LLC, un negocio de alquiler vacacional en Melbourne, FL 32935, Estados Unidos. Silver Pineapple LLC decide cómo se usa la información personal descrita aquí.",
+      "privacyContact": "Preguntas y solicitudes sobre privacidad: <privacyEmail>{privacyAddress}</privacyEmail>",
       "email": "Consultas generales: <email>{address}</email>"
     },
     "collect": {
@@ -787,15 +786,15 @@
     },
     "retention": {
       "heading": "Cuánto tiempo la conservamos",
-      "newsletter": "Suscriptores del boletín: <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: cuánto tiempo se conservan, también después de darse de baja]</todo>",
-      "messages": "Mensajes del formulario de contacto y opiniones enviadas: <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: cuánto tiempo se conservan]</todo>",
-      "bookings": "Registros de reservas y huéspedes que conservamos: <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: cuánto tiempo se conservan]</todo> Hospitable y Stripe conservan sus propios registros según sus propias políticas.",
+      "newsletter": "Suscriptores del boletín: conservamos sus datos mientras siga suscrito. Si se da de baja, Resend marca su contacto como dado de baja para que no le volvamos a escribir. Por ahora el registro en sí (su nombre, correo electrónico, idioma y temas) sigue en nuestra lista, y si vuelve a suscribirse se reactiva. Puede pedirnos en cualquier momento que lo borremos por completo.",
+      "messages": "Mensajes del formulario de contacto y opiniones enviadas: los conservamos mientras los necesitemos para el motivo por el que nos los envió (responderle o leer sus comentarios), y más tiempo solo cuando la ley lo exija. Puede pedirnos en cualquier momento que borremos los suyos.",
+      "bookings": "Reservas: este sitio web no guarda ningún dato de reservas ni de pagos. Las reservas hechas aquí las tramita Hospitable, y los pagos Stripe; las estancias reservadas en Airbnb las gestiona Airbnb. Cuánto tiempo conservan su información lo fijan sus propias políticas: <hospitable>Hospitable</hospitable>, <stripe>Stripe</stripe> y <airbnb>Airbnb</airbnb>.",
       "browser": "Cookies y almacenamiento del navegador: según la tabla anterior."
     },
     "rights": {
       "heading": "Sus derechos",
       "body": "Según dónde viva, puede pedirnos que le mostremos la información personal que tenemos sobre usted, que la corrijamos, que la suprimamos, que limitemos su uso o que dejemos de usarla, o que le entreguemos una copia en un formato portable. Cuando nos basamos en su consentimiento, puede retirarlo en cualquier momento; esto no afecta a lo que hicimos antes.",
-      "request": "Para hacer una solicitud, contacte con <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: contacto para solicitudes de privacidad y datos]</todo>.",
+      "request": "Para hacer una solicitud, escriba a <privacyEmail>{privacyAddress}</privacyEmail>.",
       "complaint": "Si está en la Unión Europea y cree que hemos tratado mal su información, puede reclamar ante su autoridad de protección de datos. En España es la Agencia Española de Protección de Datos (aepd.es)."
     },
     "required": {
@@ -813,7 +812,7 @@
     },
     "contact": {
       "heading": "Contacto",
-      "privacy": "Preguntas y solicitudes sobre privacidad: <todo>[PENDIENTE DE CONFIRMAR POR EL PROPIETARIO: contacto para solicitudes de privacidad y datos]</todo>",
+      "privacy": "Preguntas y solicitudes sobre privacidad: <privacyEmail>{privacyAddress}</privacyEmail>",
       "general": "Cualquier otra consulta: <email>{address}</email>"
     }
   }

@@ -4,6 +4,14 @@
 
 export const PRIVACY_POLICY_UPDATED = "2026-10-11"
 
+// Privacy policies of the services that process bookings and payments. The site links
+// to them rather than restating their retention periods.
+export const THIRD_PARTY_POLICIES = {
+  hospitable: "https://hospitable.com/legal/privacy-policy",
+  stripe: "https://stripe.com/privacy",
+  airbnb: "https://www.airbnb.com/help/article/3175",
+} as const
+
 export type StorageKind = "cookie" | "localStorage" | "sessionStorage"
 
 export interface BrowserStorageItem {

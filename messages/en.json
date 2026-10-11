@@ -658,11 +658,10 @@
     "title": "Privacy and Cookie Policy",
     "lastUpdated": "Last updated: {date}",
     "intro": "This page explains what personal information silverpineapple.net collects, why, who else receives it, and the choices you have. It covers this website. When you book a stay, Hospitable's own terms and privacy policy also apply.",
-    "placeholderNote": "Text in highlighted brackets is still being confirmed by the owner and is not final.",
     "whoWeAre": {
       "heading": "Who we are",
-      "body": "Silver Pineapple is a short-term rental business in Melbourne, FL 32935, United States. The website is run by <todo>[TO BE CONFIRMED BY OWNER: legal business name]</todo>, which decides how the personal information described here is used.",
-      "address": "Postal address: <todo>[TO BE CONFIRMED BY OWNER: postal address for privacy matters]</todo>",
+      "body": "This website is run by Silver Pineapple LLC, a short-term rental business in Melbourne, FL 32935, United States. Silver Pineapple LLC decides how the personal information described here is used.",
+      "privacyContact": "Privacy questions and data requests: <privacyEmail>{privacyAddress}</privacyEmail>",
       "email": "General questions: <email>{address}</email>"
     },
     "collect": {
@@ -787,15 +786,15 @@
     },
     "retention": {
       "heading": "How long we keep it",
-      "newsletter": "Newsletter contacts: <todo>[TO BE CONFIRMED BY OWNER: how long newsletter contacts are kept, including after you unsubscribe]</todo>",
-      "messages": "Contact-form messages and review submissions: <todo>[TO BE CONFIRMED BY OWNER: how long messages and reviews are kept]</todo>",
-      "bookings": "Booking and guest records we hold: <todo>[TO BE CONFIRMED BY OWNER: how long booking records are kept]</todo> Hospitable and Stripe keep their own records under their own policies.",
+      "newsletter": "Newsletter contacts: we keep your details while you are subscribed. If you unsubscribe, Resend marks your contact as unsubscribed so you are not emailed again. At present the record itself (your name, email address, language and topics) stays on our list, and signing up again resubscribes it. You can ask us to delete it completely at any time.",
+      "messages": "Contact-form messages and review submissions: we keep them for as long as we need them for the reason you sent them (answering you, or reading your feedback), and longer only where the law requires it. You can ask us to delete yours at any time.",
+      "bookings": "Bookings: this website itself stores no booking or payment details. Bookings made here are processed by Hospitable, and payments by Stripe; stays booked through Airbnb are handled by Airbnb. How long they keep your information is set by their own policies: <hospitable>Hospitable</hospitable>, <stripe>Stripe</stripe> and <airbnb>Airbnb</airbnb>.",
       "browser": "Cookies and browser storage: as listed in the table above."
     },
     "rights": {
       "heading": "Your rights",
       "body": "Depending on where you live, you can ask us to show you the personal information we hold about you, correct it, delete it, limit or object to how we use it, or give you a copy in a portable format. Where we rely on your consent, you can withdraw it at any time; this does not affect anything we did before.",
-      "request": "To make a request, contact <todo>[TO BE CONFIRMED BY OWNER: contact for privacy and data requests]</todo>.",
+      "request": "To make a request, email <privacyEmail>{privacyAddress}</privacyEmail>.",
       "complaint": "If you are in the European Union and think we have mishandled your information, you can complain to your local data protection authority. In Spain, that is the Agencia Española de Protección de Datos (aepd.es)."
     },
     "required": {
@@ -813,7 +812,7 @@
     },
     "contact": {
       "heading": "Contact",
-      "privacy": "Privacy questions and requests: <todo>[TO BE CONFIRMED BY OWNER: contact for privacy and data requests]</todo>",
+      "privacy": "Privacy questions and requests: <privacyEmail>{privacyAddress}</privacyEmail>",
       "general": "Anything else: <email>{address}</email>"
     }
   }

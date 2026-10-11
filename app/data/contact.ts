@@ -1,5 +1,6 @@
 interface BusinessContact {
   email: string
+  privacyEmail: string
   location: string
   formEndpoint: string
   phoneAndWhatsApp: string | null
@@ -7,6 +8,8 @@ interface BusinessContact {
 
 export const BUSINESS_CONTACT: BusinessContact = {
   email: "hello@silverpineapple.net",
+  // Owner-chosen address for privacy and data requests (2026-10-11).
+  privacyEmail: "gabriel@silverpineapple.net",
   location: "Melbourne, FL 32935",
   // FormSubmit requires a one-time click-through activation of this inbox before it
   // delivers anything; until then this stays the raw address. Once activated, swap in

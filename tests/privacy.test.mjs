@@ -37,12 +37,19 @@ test("every listed cookie or storage item has a purpose and duration in both cat
   }
 })
 
-test("owner placeholders appear in the same places in both languages", () => {
-  const placeholderPaths = (catalog) =>
-    leafPaths(catalog.privacy).filter((path) =>
-      path.split(".").reduce((node, key) => node[key], catalog.privacy).includes("<todo>"),
-    )
-  const en = placeholderPaths(catalogs.en)
-  assert.ok(en.length > 0)
-  assert.deepEqual(placeholderPaths(catalogs.es), en)
+test("no owner placeholder is left in the published copy", () => {
+  for (const [locale, catalog] of Object.entries(catalogs)) {
+    const copy = JSON.stringify(catalog.privacy)
+    assert.ok(!copy.includes("<todo>"), `${locale}: <todo> placeholder`)
+    assert.ok(!/TO BE CONFIRMED|PENDIENTE DE CONFIRMAR/.test(copy), `${locale}: placeholder text`)
+  }
+})
+
+test("rich-text tags match between English and Spanish", () => {
+  const tagsAt = (catalog) =>
+    leafPaths(catalog.privacy).map((path) => {
+      const text = path.split(".").reduce((node, key) => node[key], catalog.privacy)
+      return `${path}:${[...text.matchAll(/<(\w+)>/g)].map((m) => m[1]).sort().join(",")}`
+    })
+  assert.deepEqual(tagsAt(catalogs.es).sort(), tagsAt(catalogs.en).sort())
 })
