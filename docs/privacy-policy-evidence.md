@@ -11,8 +11,8 @@ listed by variable name only, and the Resend CLI was used read-only.
 | Fact | Proof |
 | --- | --- |
 | Trading name "Silver Pineapple" | `app/[locale]/layout.tsx:30-31` (`creator`, `publisher`) |
-| Published location "Melbourne, FL 32935", owner-confirmed 2026-09-05 | `app/data/contact.ts:10`, `AGENTS.md` "Business facts" |
-| Public email `hello@silverpineapple.net`; phone/WhatsApp `+1 (201) 282-7398` | `app/data/contact.ts:9,16`, rendered in `app/components/Footer.tsx:96-122` |
+| Published location "Melbourne, FL 32935", owner-confirmed 2026-09-05 | `app/data/contact.ts:13`, `AGENTS.md` "Business facts" |
+| Public email `hello@silverpineapple.net`; phone/WhatsApp `+1 (201) 282-7398` | `app/data/contact.ts:10,19`, rendered in `app/components/Footer.tsx:96-122` |
 | Legal entity "Silver Pineapple LLC" | `layout.tsx:29`; confirmed by the owner 2026-10-11 |
 | Street address withheld; city/state/ZIP plus email published | owner's choice 2026-10-11 — street can be added later |
 | Privacy contact `gabriel@silverpineapple.net` | owner's choice 2026-10-11; `app/data/contact.ts` `privacyEmail`. MX for `silverpineapple.net` is Google Workspace (`aspmx.l.google.com`, priority 1) plus Proton (`mail.protonmail.ch`, 10); no Cloudflare Email Routing on the account (`wrangler email routing list`: none). Whether the `gabriel@` mailbox exists could not be checked from here (outbound SMTP blocked) |
@@ -21,8 +21,8 @@ listed by variable name only, and the Resend CLI was used read-only.
 
 | Flow | Fields | Where it goes | Proof |
 | --- | --- | --- | --- |
-| Newsletter signup (home page) | first name, email; Turnstile token | `POST /api/newsletter/subscribe` → Cloudflare Turnstile `siteverify` (token + visitor IP as `remoteip`) → Resend `POST /contacts` (`email`, `first_name`) | `app/components/BoutiqueNewsletterSignup.tsx:157-167,287,343,365`; `app/api/newsletter/subscribe/route.ts:11-15,41-49,84-91,157-167,278-294` |
-| Newsletter language + interests | `locale` (en/es), `newsletter_interests` (ids of ticked boxes) | Resend contact properties | Form already sends `interests` (`BoutiqueNewsletterSignup.tsx:165,246-249`); stored since https://github.com/gabomsambo/silce/pull/32 merged (`lib/newsletterSegment.ts`, `route.ts:292`). Resend account (`resend contact-properties list`, read-only) already defines `locale` (fallback `en`) and `newsletter_interests` (fallback ``), both created 2026-10-11 |
+| Newsletter signup (home page) | first name, email; Turnstile token | `POST /api/newsletter/subscribe` → Cloudflare Turnstile `siteverify` (token + visitor IP as `remoteip`) → Resend `POST /contacts` (`email`, `first_name`) | `app/components/BoutiqueNewsletterSignup.tsx:157-167,287,343,365`; `app/api/newsletter/subscribe/route.ts:21-27,93-99,170-180,293-311` |
+| Newsletter language + interests | `locale` (en/es), `newsletter_interests` (ids of ticked boxes) | Resend contact properties | Form already sends `interests` (`BoutiqueNewsletterSignup.tsx:165,246-249`); stored since https://github.com/gabomsambo/silce/pull/32 merged (`lib/newsletterSegment.ts`, `route.ts:176-179,294`). Resend account (`resend contact-properties list`, read-only) already defines `locale` (fallback `en`) and `newsletter_interests` (fallback ``), both created 2026-10-11 |
 | Newsletter resubscribe | an earlier unsubscribed contact is set back to subscribed on a new signup | Resend `PATCH /contacts/<email>` | `route.ts:195-244` |
 | Newsletter server logs | masked email (first character + domain) when a Resend lookup, update or create fails, and when an existing contact is updated. Captcha and validation failures do not log the email. A successful first-time create does not log it either | server log (Cloudflare) | `app/api/newsletter/subscribe/route.ts:43-48,118-157,219-266,289-291,322-325` |
 | Contact form (footer, every page) | name, email, message, the page URL; hidden `_honey` spam trap | The form sends the name, email, message and page address to FormSubmit (`https://formsubmit.co/ajax/hello@silverpineapple.net`), a form-relay service, which forwards them by email to the business inbox. Delivery depends on the one-time FormSubmit activation of hello@silverpineapple.net, which was found NOT activated on 2026-10-11 and was sent to the owner to click. The public page does not mention activation | `app/components/ContactForm.tsx:27-41`; `app/data/contact.ts:14-18` |
@@ -39,7 +39,7 @@ Identical before and after accepting analytics.
 
 | Name | Kind | Set by | Duration observed | Purpose / proof |
 | --- | --- | --- | --- | --- |
-| `silver-pineapple-cookie-consent` | localStorage | us | until cleared; reset by footer "Cookie preferences" | stores `accepted` / `declined` — `app/components/cookieConsent.ts:3,26-58`; `Footer.tsx:134-140` |
+| `silver-pineapple-cookie-consent` | localStorage | us | until cleared; reset by footer "Cookie preferences" | stores `accepted` / `declined` — `app/components/cookieConsent.ts:3,26-58`; `Footer.tsx:140-146` |
 | `NEXT_LOCALE` | cookie, first-party, no expiry (session), `SameSite=Lax` | us (next-intl middleware) | session | set only when the visited language differs from the browser's language: `curl -H 'Accept-Language: en-US' /es` returns `set-cookie: NEXT_LOCALE=es`, `/en` returns none — `middleware.ts`, `i18n/routing.ts` |
 | `_ga`, `_ga_<id>`, `_gid`, `_gat*` | cookies | Google Analytics | — | only after "Accept": `GoogleAnalytics.tsx:16-49`; cleared on decline `cookieConsent.ts:6-8,62-82`. **Live build has no measurement ID**: the shipped chunk reads `l.env.NEXT_PUBLIC_ANALYTICS_ID` un-inlined (`.env.example` placeholder only; not in `wrangler.toml [vars]`) and no `googletagmanager.com` request was made after accepting |
 | `cf.turnstile.u` | localStorage (origin `challenges.cloudflare.com`) | Cloudflare Turnstile | persistent | anti-spam check; loads on the home page with the newsletter form, before any consent choice — `BoutiqueNewsletterSignup.tsx:287` |
@@ -68,7 +68,7 @@ analytics on our own pages. The site's own font (Geist) is self-hosted via `next
   enabled, receiving disabled (`resend domains list`).
 - Resend contact properties: `locale`, `newsletter_interests` (`resend contact-properties list`).
 - Turnstile public site key in `wrangler.toml [vars]`; secret and Resend key are
-  server-only env bindings (`route.ts:255-263`, `.env.example`).
+  server-only env bindings (`route.ts:270-277`, `.env.example`).
 
 ## Retention (owner answers 2026-10-11)
 
