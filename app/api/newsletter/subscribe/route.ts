@@ -4,14 +4,9 @@ import { buildNewsletterResendProperties } from "@/lib/newsletterSegment"
 
 const turnstileResponseSchema = z.object({
   success: z.boolean(),
-  action: z.string().optional().nullable(),
+  action: z.string().optional(),
   hostname: z.string().optional(),
   "error-codes": z.array(z.string()).optional(),
-  metadata: z
-    .object({
-      result_with_testing_key: z.boolean().optional(),
-    })
-    .optional(),
 })
 
 const newsletterSubmissionSchema = z.object({
@@ -135,13 +130,10 @@ async function verifyTurnstileToken(params: {
   }
 
   const verified = parsedJson.data
-  const isTurnstileTestingKey =
-    process.env.NODE_ENV !== "production" && verified.metadata?.result_with_testing_key === true
   const allowedHostnames = getAllowedTurnstileHostnames()
   const returnedHostname = (verified.hostname || "").toLowerCase()
-  const hasValidHostname =
-    isTurnstileTestingKey || (returnedHostname.length > 0 && allowedHostnames.has(returnedHostname))
-  const hasValidAction = isTurnstileTestingKey || verified.action === "newsletter"
+  const hasValidHostname = returnedHostname.length > 0 && allowedHostnames.has(returnedHostname)
+  const hasValidAction = verified.action === "newsletter"
   const hasSuccess = verified.success === true
 
   if (!hasSuccess || !hasValidAction || !hasValidHostname) {
