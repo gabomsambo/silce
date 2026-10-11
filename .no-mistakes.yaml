@@ -1,24 +1,15 @@
 # no-mistakes pipeline agent preference order.
 #
-# On 2026-09-06 the owner made codex first as a standing preference, even after
-# being told fallback might make that unnecessary: "yes put codex ahead of
-# opencode for review." This list is not per-step: its first available entry is
-# primary for the whole run, so codex is primary for implementation and fixes too,
-# not only review. Codex has native structured output, so review never depends on
-# a text-parsing fallback, and its subscription window is already paid for while
-# every Opencode Zen token is a fresh marginal charge; one validation-class task
-# measured on 2026-09-06 cost over $15 on Zen.
+# This list is not per-step: the first available entry becomes the primary agent
+# for the whole run, so order is the only dial here.
 #
-# Opencode has no session reuse, so each review run starts cold with no context
-# from prior passes. Its structured-output weakness is observed, not hypothetical:
-# on 2026-09-06 an opencode review returned malformed finding JSON —
-# findings[0].id was not a string — and failed the run outright. A weaker primary
-# had been considered safe because the runner falls through to the next agent both
-# when an agent is unavailable or declines and when it fails at runtime; these are
-# separate fallback paths. That safety reasoning remains, but codex is first by
-# owner preference. Cursor sits second so a codex exhaustion does not fall
-# through to claude; it needs no entry-specific pin here because it is already
-# pinned to cursor-grok-4.6-high in the machine-wide agent_config. Opencode
-# then claude remain fallbacks after cursor.
+# cursor leads as of 2026-10-11. Codex quota was the tightest subscription
+# window, so it no longer runs first; cursor is pinned to cursor-grok-4.6-high in
+# the machine-wide agent_config. opencode then codex then claude are fallbacks.
+# The runner falls through to the next agent when one is unavailable, declines,
+# or fails at runtime.
+#
+# On 2026-09-06 the owner had made codex first by preference; that standing
+# order held until the 2026-10-11 reorder above.
 
-agent: [codex, cursor, opencode, claude]
+agent: [cursor, opencode, codex, claude]
