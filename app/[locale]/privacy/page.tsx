@@ -73,7 +73,7 @@ const RECIPIENTS = [
   "google",
   "whatsapp"
 ] as const;
-const RETENTION_ITEMS = ["newsletter", "messages", "bookings", "browser"] as const;
+const RETENTION_ITEMS = ["newsletter", "messages", "reviews", "bookings", "browser"] as const;
 
 function Section({ id, heading, children }: { id: string; heading: string; children: ReactNode }) {
   return (

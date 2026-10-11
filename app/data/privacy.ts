@@ -2,7 +2,7 @@
 // request in docs/privacy-policy-evidence.md; the display copy for each item lives in
 // the catalogs under privacy.storage.items.<id>.
 
-export const PRIVACY_POLICY_UPDATED = "2026-10-11"
+export const PRIVACY_POLICY_UPDATED = "2026-10-12"
 
 // Privacy policies of the services that process bookings and payments. The site links
 // to them rather than restating their retention periods.
