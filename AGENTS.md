@@ -128,26 +128,11 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   that teal, 7.30:1 on white) and let hover go to `text-primary`, which keeps hover
   strictly darker than rest.
 - **The scrolled navbar's plate is a gradient, so `background-color` lies about
-  it.** `Navbar.tsx` swaps to `bg-gradient-to-r from-white via-coastal-mist/5
-  to-white shadow-lg` past 50px. `background-color` reads `rgba(0,0,0,0)` there,
-  but that is not because the bar has no plate — the plate is a
-  `background-image`, which is exactly the gradient blind spot the bullet above
-  describes. Sample the rendered pixel instead. The real cause is the `via` stop's
-  5% alpha: the centre of the bar, where the desktop links sit, is ~95%
-  see-through onto the page behind it, so `text-gray-900` links over the `/about`
-  hero photo measure 4.09-4.24:1 and any tan hover there is far worse
-  (`tan-ink` 1.19:1, `tan-hover` 1.70:1, measured on the rendered pixel). So the
-  fix is one token — drop the `/5` — and not a scrim or any new design element,
-  but it is a visible change to the bar on every route and is **deliberately not
-  applied**: it is tracked separately as `sp-nav-over-photos`. Nav hover keeps
-  `tan-hover`, which is the right token on the bar's opaque white ends (7.30:1)
-  where the base `tan` was 1.97:1, but be honest about the cost on the
-  see-through centre: base `tan` measured ~2.20:1 over that photo and
-  `tan-hover` measures 1.70:1, so on that one surface the token swap moved the
-  number the wrong way. Neither value passes AA and no token can fix it while
-  the `via` stop stays at 5% — that is the whole point of the deferral, not a
-  detail to gloss. Sampling the bar needs a settle wait: read immediately after
-  an instant scroll and you catch a mid-fade value that is not what renders.
+  it.** Past 50px `Navbar.tsx` uses `bg-gradient-to-r from-white via-coastal-mist
+  to-white shadow-lg` (opaque `via`; the old `via-coastal-mist/5` stop let the
+  centre read through hero photos and failed pixel AA). Sample the rendered pixel,
+  not `background-color`, and after programmatic scroll dispatch `scroll` and wait
+  for `isScrolled` to settle before measuring.
 - **The cross-origin booking `<iframe>` is ringed on `:focus-within`, never on
   `:focus`/`:focus-visible`.** While it is `document.activeElement` it matches
   neither `:focus` nor `:focus-visible` — focus has passed into the vendor's
