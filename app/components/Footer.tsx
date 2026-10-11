@@ -131,6 +131,12 @@ export default function Footer() {
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
             <p className="text-gray-400 text-sm">{t('copyright', { year })}</p>
+            <Link
+              href="/privacy"
+              className="text-gray-400 text-sm underline underline-offset-4 hover:text-tan transition-colors duration-300"
+            >
+              {t('privacyPolicy')}
+            </Link>
             <button
               type="button"
               onClick={() => clearCookieConsent()}

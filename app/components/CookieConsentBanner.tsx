@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
 import {
   COOKIE_CONSENT_STORAGE_KEY,
   COOKIE_CONSENT_UPDATED_EVENT,
@@ -56,7 +57,12 @@ export default function CookieConsentBanner() {
         <h2 className="text-lg font-semibold text-primary mb-2">{t("title")}</h2>
         <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("description")}</p>
         <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("loadsBeforeChoice")}</p>
-        <p className="text-sm text-gray-700 leading-relaxed mb-4">{t("iframeNotice")}</p>
+        <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("iframeNotice")}</p>
+        <p className="text-sm leading-relaxed mb-4">
+          <Link href="/privacy" className="font-medium text-tan-hover underline underline-offset-4 hover:text-primary">
+            {t("privacyLink")}
+          </Link>
+        </p>
         <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
           <button
             type="button"
