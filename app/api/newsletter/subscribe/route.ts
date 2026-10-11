@@ -1,3 +1,7 @@
+import {
+  LOOPBACK_TURNSTILE_HOSTNAMES,
+  PRODUCTION_TURNSTILE_HOSTNAMES,
+} from "@/lib/newsletterTurnstileHostnames"
 import { NextResponse } from "next/server"
 import { z } from "zod"
 
@@ -17,9 +21,6 @@ const newsletterSubmissionSchema = z.object({
 const resendContactSchema = z.object({
   unsubscribed: z.boolean(),
 })
-
-const PRODUCTION_TURNSTILE_HOSTNAMES = new Set(["silverpineapple.net", "www.silverpineapple.net"])
-const LOOPBACK_TURNSTILE_HOSTNAMES = new Set(["localhost", "127.0.0.1"])
 
 const RESEND_API_BASE = "https://api.resend.com"
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
