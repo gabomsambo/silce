@@ -203,10 +203,11 @@ proves nothing about the delta.
 
 ## Shape
 
-No database, no server actions, no `use server`. Content is hand-written
-TypeScript in `app/data/`, and pages prerender at build time. The one API route
-is newsletter signup, `app/api/newsletter/subscribe/route.ts`; the Resend
-segmentation fields it writes are defined in `lib/newsletterSegment.ts`.
+No database, no server actions, no `use server`. Page content is hand-written
+TypeScript in `app/data/`, and pages prerender at build time. The in-app API
+routes are newsletter signup (`app/api/newsletter/subscribe/route.ts`; the Resend
+segmentation fields it writes are defined in `lib/newsletterSegment.ts`) and
+review submission (`app/api/reviews/submit`).
 
 ## Business facts
 
@@ -220,16 +221,24 @@ segmentation fields it writes are defined in `lib/newsletterSegment.ts`.
 
 ## Form delivery
 
-- Static forms use FormSubmit; the shared recipient, endpoint and the one-line slot
-  for a future phone/WhatsApp number all live in `app/data/contact.ts`. The endpoint
-  as shipped is the **raw-inbox** AJAX URL (`https://formsubmit.co/ajax/<address>`):
-  FormSubmit only issues a hashed alias once the inbox owner clicks its one-time
-  activation email, so no hashed endpoint exists in this repo yet and nothing is
-  delivered until that click. Swapping to the alias is a one-line change in that
-  file, and it is worth doing because `ContactForm.tsx` is a client component, so
-  whatever is in that string ships in the browser bundle.
-- Only show success after FormSubmit accepts the request — never on submit alone.
-  The visible business email remains an intentional fallback.
+- The contact form is the static FormSubmit form. The shared recipient, endpoint
+  and the one-line slot for a future phone/WhatsApp number all live in
+  `app/data/contact.ts`. The endpoint as shipped is the **raw-inbox** AJAX URL
+  (`https://formsubmit.co/ajax/<address>`): FormSubmit only issues a hashed alias
+  once the inbox owner clicks its one-time activation email, so no hashed endpoint
+  exists in this repo yet and nothing is delivered until that click. Swapping to
+  the alias is a one-line change in that file, and it is worth doing because
+  `ContactForm.tsx` is a client component, so whatever is in that string ships in
+  the browser bundle.
+- Show contact-form success only after FormSubmit accepts the request — never on
+  submit alone. The visible business email remains an intentional fallback.
+- The review form (`ReviewSubmissionForm`) POSTs to `app/api/reviews/submit`. The
+  route emails the note to `BUSINESS_CONTACT.email` through Resend from
+  `reviews@silverpineapple.net` (reply-to the guest) only after Turnstile accepts
+  the `review` action. Success is shown only when Resend returns an email id. The
+  note is not posted on the site, and the route does not create or update Resend
+  contacts. It uses the same server secrets as newsletter signup; `.env.example`
+  names them.
 
 ## Booking / units data
 
