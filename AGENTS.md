@@ -24,9 +24,9 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - **A green build no longer lies, but it still isn't a test suite.** The build now
   fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
   escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
-  build, the link crawl and the icon check on every PR. There are still **no unit
-  tests** — verify UI changes in a real browser against
-  `npm run build && npx next start`.
+  build, the link crawl and the icon check on every PR. Unit tests live under
+  `tests/` and run with `npm test`; CI does not run them. Verify UI changes in a
+  real browser against `npm run build && npx next start`.
 - **Next 15.5 streams metadata *outside* `<head>`.** `<title>`, `canonical`, `robots`
   and `hreflang` are emitted after `</head>` in the served HTML, so checking a page's
   SEO tags by splitting on `</head>` gives a false "MISSING" on tags that are in fact
@@ -203,8 +203,10 @@ proves nothing about the delta.
 
 ## Shape
 
-No database, no API routes, no server actions, no `use server`. All content is
-hand-written TypeScript in `app/data/`, and every route prerenders at build time.
+No database, no server actions, no `use server`. Content is hand-written
+TypeScript in `app/data/`, and pages prerender at build time. The one API route
+is newsletter signup, `app/api/newsletter/subscribe/route.ts`; the Resend
+segmentation fields it writes are defined in `lib/newsletterSegment.ts`.
 
 ## Business facts
 
