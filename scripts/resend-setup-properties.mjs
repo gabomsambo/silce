@@ -85,6 +85,16 @@ async function main() {
   const created = []
 
   for (const property of REQUIRED_PROPERTIES) {
+    const row = existing.get(property.key)
+    if (row && row.type !== property.type) {
+      console.error(
+        `Incompatible property ${property.key}: expected type=${property.type}, found type=${row.type}`,
+      )
+      process.exit(1)
+    }
+  }
+
+  for (const property of REQUIRED_PROPERTIES) {
     if (existing.has(property.key)) {
       console.log(`skip: ${property.key} (already declared)`)
       continue
@@ -100,6 +110,12 @@ async function main() {
     const row = after.get(property.key)
     if (!row) {
       console.error(`verify failed: missing ${property.key} after setup`)
+      process.exit(1)
+    }
+    if (row.type !== property.type) {
+      console.error(
+        `verify failed: ${property.key} expected type=${property.type}, found type=${row.type}`,
+      )
       process.exit(1)
     }
     console.log(`verified: ${property.key} type=${row.type}`)
