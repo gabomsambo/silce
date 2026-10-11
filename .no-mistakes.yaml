@@ -4,8 +4,9 @@
 # for the whole run, so order is the only dial here.
 #
 # cursor leads as of 2026-10-11. Codex quota was the tightest subscription
-# window, so it no longer runs first; cursor is pinned to cursor-grok-4.6-high in
-# the machine-wide agent_config. opencode then codex then claude are fallbacks.
+# window, so it no longer runs first; cursor's model is pinned in the
+# machine-wide ~/.no-mistakes/config.yaml agent_config. opencode then codex
+# then claude are fallbacks.
 # The runner falls through to the next agent when one is unavailable, declines,
 # or fails at runtime.
 #
