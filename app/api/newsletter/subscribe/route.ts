@@ -135,7 +135,8 @@ async function verifyTurnstileToken(params: {
   }
 
   const verified = parsedJson.data
-  const isTurnstileTestingKey = verified.metadata?.result_with_testing_key === true
+  const isTurnstileTestingKey =
+    process.env.NODE_ENV !== "production" && verified.metadata?.result_with_testing_key === true
   const allowedHostnames = getAllowedTurnstileHostnames()
   const returnedHostname = (verified.hostname || "").toLowerCase()
   const hasValidHostname =
