@@ -1,10 +1,14 @@
 # Privacy policy evidence inventory
 
-Every statement on `/[locale]/privacy` traces to a row below. Observed on
-2026-10-11 against `main` at `97308af` (rebased onto `7d822bb`, which merged #32) and the live site (`https://silverpineapple.net`),
+Every statement on `/[locale]/privacy` traces to a row below. The browser
+inventory was observed on 2026-10-11 against `main` at `97308af` (rebased onto
+`7d822bb`, which merged #32) and the live site (`https://silverpineapple.net`),
 in headless Chromium with a fresh profile, before and after clicking
 "Accept analytics cookies". No secret values were read or printed: env files were
 listed by variable name only, and the Resend CLI was used read-only.
+Review-form delivery, logging, Turnstile on `/reviews`, and review-email
+retention were revised on 2026-10-12 against the current review-submit code;
+those rows cite that code, not the 2026-10-11 snapshot.
 
 ## Who we are
 
@@ -71,7 +75,7 @@ analytics on our own pages. The site's own font (Geist) is self-hosted via `next
 - Turnstile public site key in `wrangler.toml [vars]`; secret and Resend key are
   server-only env bindings (`route.ts:270-277`, `.env.example`).
 
-## Retention (owner answers 2026-10-11)
+## Retention (owner answers 2026-10-11; review emails revised 2026-10-12)
 
 | Data | Page says | Source |
 | --- | --- | --- |
