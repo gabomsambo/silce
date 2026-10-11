@@ -684,9 +684,9 @@
       },
       "reviews": {
         "heading": "Formulario de opiniones",
-        "what": "Su nombre, correo electrónico, el alojamiento en el que se hospedó, sus valoraciones y su opinión, y la fecha de su estancia si la indica.",
-        "why": "Para leer sus comentarios sobre su estancia. Nos basamos en su consentimiento.",
-        "who": "Resend nos entrega su opinión por correo electrónico."
+        "what": "El formulario de opiniones de la página de opiniones no envía ni guarda actualmente lo que usted escribe. Nada de lo que escriba allí se transmite ni se conserva.",
+        "why": "No usamos lo que escriba en ese formulario, porque ni se envía ni se guarda.",
+        "who": "Nadie. El formulario no transmite lo que usted escribe ni a nosotros ni a ningún otro servicio."
       },
       "booking": {
         "heading": "Reservar una estancia",
@@ -771,7 +771,7 @@
       "intro": "Solo compartimos información personal con los servicios que hacen funcionar partes de este sitio. Cada uno tiene su propia política de privacidad.",
       "items": {
         "cloudflare": "Cloudflare: alojamiento, seguridad y la comprobación antispam del boletín.",
-        "resend": "Resend: nuestra lista del boletín y la entrega de opiniones por correo.",
+        "resend": "Resend: nuestra lista del boletín.",
         "formsubmit": "FormSubmit: la entrega de los mensajes del formulario de contacto.",
         "hospitable": "Hospitable: reservas, disponibilidad y búsqueda de alojamientos, con PostHog para sus propias estadísticas de uso.",
         "stripe": "Stripe: los pagos de las reservas.",
@@ -787,7 +787,7 @@
     "retention": {
       "heading": "Cuánto tiempo la conservamos",
       "newsletter": "Suscriptores del boletín: conservamos sus datos mientras siga suscrito. Si se da de baja, Resend marca su contacto como dado de baja para que no le volvamos a escribir. Por ahora el registro en sí (su nombre, correo electrónico, idioma y temas) sigue en nuestra lista, y si vuelve a suscribirse se reactiva. Puede pedirnos en cualquier momento que lo borremos por completo.",
-      "messages": "Mensajes del formulario de contacto y opiniones enviadas: los conservamos mientras los necesitemos para el motivo por el que nos los envió (responderle o leer sus comentarios), y más tiempo solo cuando la ley lo exija. Puede pedirnos en cualquier momento que borremos los suyos.",
+      "messages": "Mensajes del formulario de contacto: los conservamos mientras los necesitemos para el motivo por el que nos los envió (responderle), y más tiempo solo cuando la ley lo exija. Puede pedirnos en cualquier momento que borremos los suyos.",
       "bookings": "Reservas: este sitio web no guarda ningún dato de reservas ni de pagos. Las reservas hechas aquí las tramita Hospitable, y los pagos Stripe; las estancias reservadas en Airbnb las gestiona Airbnb. Cuánto tiempo conservan su información lo fijan sus propias políticas: <hospitable>Hospitable</hospitable>, <stripe>Stripe</stripe> y <airbnb>Airbnb</airbnb>.",
       "browser": "Cookies y almacenamiento del navegador: según la tabla anterior."
     },
