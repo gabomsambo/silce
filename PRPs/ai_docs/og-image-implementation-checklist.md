@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # OG Image Implementation Checklist
 
 ## Silver Pineapple - OpenGraph Image Rollout

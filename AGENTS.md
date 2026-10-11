@@ -31,10 +31,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   and `hreflang` are emitted after `</head>` in the served HTML, so checking a page's
   SEO tags by splitting on `</head>` gives a false "MISSING" on tags that are in fact
   present. Grep the whole document. (Next also spells the attribute `hrefLang`.)
-- **`styles/globals.css` is orphaned.** Nothing imports it; the only stylesheet in
-  play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). The shadcn CSS
-  variables live only in the orphan, so `bg-background`, `text-muted-foreground`,
-  `rounded-lg` and friends silently render as nothing. Don't reach for them.
+- **shadcn CSS variables are not in the live stylesheet.** The only stylesheet
+  in play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). Those
+  variables are not defined there, so `bg-background`, `text-muted-foreground`
+  and friends render as nothing. Don't reach for them.
 - **Two tans, and they are not interchangeable.** `tan` (`#D2B48C`) is the brand
   colour and owns backgrounds, tints, borders and text on the near-black
   `bg-primary` surfaces (8.82:1 there). It is 1.97:1 on white, so it must never
@@ -50,9 +50,9 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   and `focus-visible:outline-none` utilities silently erase one band or both.
   Form controls are styled on `:focus-within` because Chrome matches neither
   `:focus` nor `:focus-visible` on an `<input type="date">` host.
-- **Names lie in `app/components/` and `components/ui/`.** Roughly a quarter of
-  `app/components/` and most of the 56 files in `components/ui/` are unreferenced,
-  and near-duplicate names differ in which one is live. Grep for the importer
+- **Names lie in `app/components/` and `components/ui/`.** Near-duplicate names
+  differ in which one is live (`app/components/Button.tsx` and
+  `components/ui/button.tsx` are different modules). Grep for the importer
   before editing anything.
 - **A merge to `main` is a production release.** Cloudflare's git integration
   builds and deploys `main` on its own — there is no separate release step and no
@@ -248,9 +248,9 @@ hand-written TypeScript in `app/data/`, and every route prerenders at build time
   bedroom count and no amenity list), say so and fall back to
   `docs/UNITS-SOURCE-OF-TRUTH.md` rather than guessing — it owns the per-listing
   photo-provenance check and the open bed-type questions.
-- `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
-  listings, the photo library and `app/data/units.ts`. `PLANNING.md`, `TASK.md`,
-  `Apartments_matching.md` and `PRPs/` are historical and contradict the code.
+-   `docs/UNITS-SOURCE-OF-TRUTH.md` is the authoritative reconciliation of Hospitable
+  listings, the photo library and `app/data/units.ts`. `PLANNING.md`, `TASK.md`
+  and `PRPs/` are superseded historical records and contradict the code.
 - Hospitable IDs can be verified without credentials against the public booking API:
   `https://api.hospitable.com/bookings/api/properties/<id>` (name, `max_guests`) and
   `.../properties/<id>/calendar?start_date=&end_date=` (nightly `price`, used to derive

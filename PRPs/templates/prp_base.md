@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 name: "Base PRP Template v2 - Context-Rich with Validation Loops"
 description: |
 

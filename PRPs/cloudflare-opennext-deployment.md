@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # Deploy Silver Pineapple to Cloudflare Pages with OpenNext Adapter
 
 **Feature**: Production deployment to Cloudflare Pages using @opennextjs/cloudflare

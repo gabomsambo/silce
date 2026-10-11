@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # PLANNING.md — Short‑Term Rental Site (Cursor Foundation)
 
 **Last updated:** 2025-08-12

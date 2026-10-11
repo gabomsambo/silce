@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # PRP: Transform Reviews Page into Interactive Review Submission Hub
 
 ## Goal

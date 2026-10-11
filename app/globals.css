@@ -26,7 +26,7 @@
    * !important is load-bearing, not laziness. Both bands live in properties
    * that Tailwind utilities also write, and utilities outrank @layer base:
    * `shadow-lg` (on the primary buttons) would erase the near-black band and
-   * `focus-visible:outline-none` (baked into components/ui/input.tsx) would
+   * `focus-visible:outline-none` (baked into components/ui/button.tsx) would
    * erase the tan one, leaving those controls with no ring at all. This was
    * measured on a real tab traversal before the !important was added.
    *

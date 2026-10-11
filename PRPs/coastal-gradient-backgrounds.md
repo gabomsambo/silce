@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 name: "Coastal Gradient Backgrounds Implementation"
 description: |
   Implement soft coastal gradients (Ocean Sunrise + Coastal Mist aesthetics) across all pages to replace monotonous white backgrounds with beachy Airbnb-inspired visual depth.

@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # OpenGraph & Twitter Card Image Best Practices
 
 ## Executive Summary

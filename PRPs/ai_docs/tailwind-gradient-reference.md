@@ -1,3 +1,5 @@
+Superseded historical record - not a current plan; see docs/UNITS-SOURCE-OF-TRUTH.md and the live code
+
 # Tailwind CSS Gradient Reference Guide
 
 Complete reference for implementing gradients in Tailwind CSS, including syntax, examples, performance considerations, and best practices.
