@@ -1,0 +1,1 @@
+Superseded historical record - not a current plan: every file in PRPs/planning/, including spanish-translations.json, is a historical record and not current; the live Spanish catalog is messages/es.json.
