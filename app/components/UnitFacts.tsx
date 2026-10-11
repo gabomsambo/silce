@@ -6,6 +6,7 @@ import {
   translateFloor,
 } from "@/app/data/copy"
 import type { Unit } from "@/app/data/units"
+import UnitDescriptionProse from "@/app/components/UnitDescriptionProse"
 
 const ROOM_TYPE_LABELS: Record<string, { en: string; es: string }> = {
   backyard: { en: "Backyard", es: "Patio trasero" },
@@ -130,9 +131,7 @@ export default function UnitFacts({
           {summary ? (
             <p className="mt-2 text-base font-medium leading-relaxed text-primary/90">{summary}</p>
           ) : null}
-          {description ? (
-            <p className="mt-2 text-sm leading-relaxed text-primary/80">{description}</p>
-          ) : null}
+          {description ? <UnitDescriptionProse description={description} /> : null}
         </div>
       ) : null}
 
