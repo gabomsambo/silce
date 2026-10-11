@@ -1,17 +1,25 @@
 import { NextResponse } from "next/server"
 import { z } from "zod"
+import { buildNewsletterResendProperties } from "@/lib/newsletterSegment"
 
 const turnstileResponseSchema = z.object({
   success: z.boolean(),
-  action: z.string().optional(),
+  action: z.string().optional().nullable(),
   hostname: z.string().optional(),
   "error-codes": z.array(z.string()).optional(),
+  metadata: z
+    .object({
+      result_with_testing_key: z.boolean().optional(),
+    })
+    .optional(),
 })
 
 const newsletterSubmissionSchema = z.object({
   firstName: z.string().trim().min(1).max(120),
   email: z.string().trim().email().max(320),
   turnstileToken: z.string().trim().min(1).max(2048),
+  locale: z.enum(["en", "es"]).optional(),
+  interests: z.array(z.string()).optional(),
 })
 
 const resendContactSchema = z.object({
@@ -127,10 +135,13 @@ async function verifyTurnstileToken(params: {
   }
 
   const verified = parsedJson.data
+  const isTurnstileTestingKey =
+    process.env.NODE_ENV !== "production" && verified.metadata?.result_with_testing_key === true
   const allowedHostnames = getAllowedTurnstileHostnames()
   const returnedHostname = (verified.hostname || "").toLowerCase()
-  const hasValidHostname = returnedHostname.length > 0 && allowedHostnames.has(returnedHostname)
-  const hasValidAction = verified.action === "newsletter"
+  const hasValidHostname =
+    isTurnstileTestingKey || (returnedHostname.length > 0 && allowedHostnames.has(returnedHostname))
+  const hasValidAction = isTurnstileTestingKey || verified.action === "newsletter"
   const hasSuccess = verified.success === true
 
   if (!hasSuccess || !hasValidAction || !hasValidHostname) {
@@ -153,6 +164,7 @@ async function createResendContact(params: {
   resendKey: string
   firstName: string
   email: string
+  properties: Record<string, string>
 }): Promise<{ outcome: "subscribed" | "already_subscribed" } | { outcome: "failed"; errorCode: ApiErrorCode }> {
   const response = await fetch(`${RESEND_API_BASE}/contacts`, {
     method: "POST",
@@ -163,6 +175,7 @@ async function createResendContact(params: {
     body: JSON.stringify({
       email: params.email,
       first_name: params.firstName,
+      properties: params.properties,
     }),
   })
 
@@ -225,6 +238,7 @@ async function createResendContact(params: {
       },
       body: JSON.stringify({
         first_name: params.firstName,
+        properties: params.properties,
         ...(existingContact.data.unsubscribed ? { unsubscribed: false } : {}),
       }),
     })
@@ -275,7 +289,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
   }
 
-  const { firstName, email, turnstileToken } = parsedPayload.data
+  const { firstName, email, turnstileToken, locale, interests } = parsedPayload.data
+  const resendProperties = buildNewsletterResendProperties({ locale, interests })
   const turnstileResult = await verifyTurnstileToken({
     token: turnstileToken,
     ipAddress: getRequestIp(request.headers),
@@ -291,6 +306,7 @@ export async function POST(request: Request) {
       resendKey,
       firstName,
       email,
+      properties: resendProperties,
     })
 
     if (resendResult.outcome === "failed") {
