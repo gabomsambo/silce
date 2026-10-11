@@ -496,13 +496,13 @@
     },
     "form": {
       "heading": "COMPARTA SU EXPERIENCIA",
-      "subheading": "Ayude a futuros huéspedes compartiendo su experiencia en Silver Pineapple",
+      "subheading": "Cuéntenos sobre su estadía. Leemos cada nota, y las notas de este formulario no se publican en el sitio.",
       "sectionInfo": "Sus Datos",
       "labelName": "Su Nombre *",
       "placeholderName": "Juan Pérez",
       "labelEmail": "Correo Electrónico *",
       "placeholderEmail": "su@email.com",
-      "emailPrivacy": "Su correo electrónico no se mostrará públicamente",
+      "emailPrivacy": "Usamos su correo solo para responder sobre esta nota.",
       "labelProperty": "Propiedad Donde Se Hospedó *",
       "placeholderProperty": "Seleccione una propiedad...",
       "labelStayDate": "Fecha de la Estadía (Opcional)",
@@ -518,8 +518,14 @@
       "submit": "Enviar Opinión",
       "submitting": "Enviando...",
       "successHeading": "¡Gracias!",
-      "successBody": "Su opinión se envió correctamente. ¡Le agradecemos que se haya tomado el tiempo de compartir su experiencia con nosotros!",
-      "errorAlert": "Hubo un error al enviar su opinión. Inténtelo de nuevo.",
+      "successBody": "Recibimos su nota por correo. No se publica en el sitio.",
+      "errors": {
+        "validation_error": "Revise el formulario e intente de nuevo.",
+        "captcha_failed": "Complete la verificación de seguridad e intente nuevamente.",
+        "service_unavailable": "Las notas de opinión no están disponibles en este momento. Inténtelo de nuevo en breve.",
+        "submission_failed": "No pudimos enviar su nota en este momento. Inténtelo nuevamente.",
+        "unknown_error": "Hubo un problema al enviar su nota. Inténtelo de nuevo."
+      },
       "validation": {
         "nameMin": "El nombre debe tener al menos 2 caracteres",
         "nameMax": "El nombre debe tener menos de 50 caracteres",
