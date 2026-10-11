@@ -17,6 +17,58 @@ function isDividerLine(line: string) {
   return trimmed.length > 0 && /^[\u2500─\-]+$/.test(trimmed)
 }
 
+function isPlainProseLine(line: string) {
+  return line.trim().length > 0 && !isFeatureLine(line) && !isBulletLine(line) && !isDividerLine(line)
+}
+
+function lineEndsSentence(line: string) {
+  return /[.!?…]["”')\]]*$/.test(line.trim())
+}
+
+function isIndentedLine(line: string) {
+  return /^\s+\S/.test(line)
+}
+
+function isNewLabelLine(line: string) {
+  const match = /^([^:]{1,24}):/.exec(line.trim())
+  if (!match) return false
+  const clause = match[1].trim()
+  return clause.length > 0 && clause.length <= 24
+}
+
+function startsWithLowercaseLetter(text: string) {
+  const char = text.charAt(0)
+  return char.toLowerCase() !== char.toUpperCase() && char === char.toLowerCase()
+}
+
+function startsWithUppercaseLetter(text: string) {
+  const char = text.charAt(0)
+  return char.toLowerCase() !== char.toUpperCase() && char === char.toUpperCase()
+}
+
+function isListContinuation(previous: string, line: string) {
+  if (!isPlainProseLine(line) || isNewLabelLine(line)) return false
+  if (isIndentedLine(line)) return true
+  return startsWithLowercaseLetter(line.trim()) && !lineEndsSentence(previous)
+}
+
+function readMarkedItem(lines: string[], start: number): { text: string; nextIndex: number } {
+  const parts = [lines[start].trim()]
+  let index = start + 1
+  while (index < lines.length && isListContinuation(parts[parts.length - 1], lines[index])) {
+    parts.push(lines[index].trim())
+    index += 1
+  }
+  return { text: parts.join(" "), nextIndex: index }
+}
+
+function isShortTitle(line: string) {
+  const trimmed = line.trim()
+  if (trimmed.length === 0 || trimmed.length > 24) return false
+  if (lineEndsSentence(trimmed)) return false
+  return startsWithUppercaseLetter(trimmed)
+}
+
 /**
  * Splits owner listing prose into scannable blocks without changing wording.
  * Decorative divider lines (──────) are omitted from blocks; compare via
@@ -42,8 +94,9 @@ export function parseUnitDescriptionBlocks(description: string): UnitDescription
     if (isFeatureLine(line)) {
       const items: string[] = []
       while (index < lines.length && isFeatureLine(lines[index])) {
-        items.push(lines[index].trim())
-        index += 1
+        const item = readMarkedItem(lines, index)
+        items.push(item.text)
+        index = item.nextIndex
       }
       blocks.push({ type: "features", items })
       continue
@@ -52,21 +105,23 @@ export function parseUnitDescriptionBlocks(description: string): UnitDescription
     if (isBulletLine(line)) {
       const items: string[] = []
       while (index < lines.length && isBulletLine(lines[index])) {
-        items.push(lines[index].trim())
-        index += 1
+        const item = readMarkedItem(lines, index)
+        items.push(item.text)
+        index = item.nextIndex
       }
       blocks.push({ type: "bullets", items })
       continue
     }
 
     const paragraph: string[] = []
-    while (
-      index < lines.length &&
-      lines[index].trim() &&
-      !isFeatureLine(lines[index]) &&
-      !isBulletLine(lines[index]) &&
-      !isDividerLine(lines[index])
-    ) {
+    while (index < lines.length && isPlainProseLine(lines[index])) {
+      if (
+        paragraph.length > 0 &&
+        isShortTitle(paragraph[paragraph.length - 1]) &&
+        isShortTitle(lines[index])
+      ) {
+        break
+      }
       paragraph.push(lines[index].trim())
       index += 1
     }
