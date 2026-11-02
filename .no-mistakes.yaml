@@ -13,4 +13,6 @@
 # On 2026-09-06 the owner had made codex first by preference; that standing
 # order held until the 2026-10-11 reorder above.
 
-agent: [cursor, opencode, codex, claude]
+# TEMPORARY (2026-11-02): cursor skipped - usage exhausted, reviewer returns "Upgrade your plan". Restore on or after 2026-11-15:
+# agent: [cursor, opencode, codex, claude]
+agent: [opencode, codex, claude]
