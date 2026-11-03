@@ -2,7 +2,7 @@
 
 ## ✅ Completed Implementation
 
-This document summarizes the successful setup of Cloudflare Pages deployment using @opennextjs/cloudflare for the Silver Pineapple Next.js 15 rental website.
+This document summarizes the successful setup of Cloudflare Pages deployment using @opennextjs/cloudflare for the Silver Pineapple Next.js 16 rental website.
 
 ### What Was Done
 
@@ -131,8 +131,8 @@ Error: INVALID_MESSAGE
 
 4. **Advanced Settings:**
    - Node.js version: 22 or newer (the repo's `.nvmrc` pins `22`, which Pages reads
-     to select its build image). `@opennextjs/cloudflare` 1.19.11 requires
-     `wrangler ^4.86.0`, wrangler `>=4.86` declares `engines.node >=22`, and
+     to select its build image). `@opennextjs/cloudflare` 1.20.15 requires
+     `wrangler ^4.148.0`, wrangler `>=4.86` declares `engines.node >=22`, and
      `opennextjs-cloudflare build` imports wrangler at runtime — including an
      `import("wrangler/package.json", { with: { type: "json" } })` that Node 18
      cannot parse — so a Pages build on Node 18 dies in the adapter CLI before it
