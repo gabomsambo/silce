@@ -52,29 +52,21 @@ Pages loaded with HTML content but no styling because:
 
 ### Modified `package.json` Script
 
-**Before:**
-```json
-"pages:build": "opennextjs-cloudflare build"
-```
+This file records the Advanced Mode layout fix only. The live `pages:build`
+script is in `package.json` (read it there); `DEPLOYMENT_CLOUDFLARE.md` owns
+deployment guidance. Historically the layout steps were:
 
-**After (Fix #1 - Worker only):**
-```json
-"pages:build": "opennextjs-cloudflare build && mv .open-next/worker.js .open-next/_worker.js"
-```
+**Before:** `opennextjs-cloudflare build` alone.
 
-**After (Fix #2 - Complete with CSS):**
-```json
-"pages:build": "opennextjs-cloudflare build && mv .open-next/worker.js .open-next/_worker.js && mv .open-next/assets/_next .open-next/_next && cp -r .open-next/assets/* .open-next/ && rm -rf .open-next/assets && cp .claude/routes.json .open-next/_routes.json"
-```
+**After (Fix #1 - Worker only):** rename `.open-next/worker.js` → `_worker.js`.
 
-### What The Final Script Does
+**After (Fix #2 - Complete with CSS):** also move `assets/_next` → `_next`, copy
+remaining `assets/*` to the output root, remove `assets/`, and copy
+`.claude/routes.json` → `_routes.json`.
 
-1. **Build with OpenNext:** `opennextjs-cloudflare build`
-2. **Rename worker file:** `mv .open-next/worker.js .open-next/_worker.js` (Fix #1)
-3. **Move _next directory:** `mv .open-next/assets/_next .open-next/_next` (Fix #2)
-4. **Copy public assets:** `cp -r .open-next/assets/* .open-next/` (images, etc.)
-5. **Clean up assets dir:** `rm -rf .open-next/assets`
-6. **Copy routing config:** `cp .claude/routes.json .open-next/_routes.json`
+A later step (`scripts/patch-opennext-require-hook.mjs`) runs before the adapter
+build; do not copy that script into this historical summary — see its header and
+`DEPLOYMENT_CLOUDFLARE.md`.
 
 ---
 
@@ -219,12 +211,11 @@ The deployment will then correctly find `_worker.js` and serve all routes.
 ## 📝 File Changes Summary
 
 ### Files Modified
-- ✅ `package.json` - Updated `pages:build` script with complete asset handling:
-  - Renames worker file for Cloudflare compatibility
-  - Moves `_next` directory to root for CSS loading
-  - Copies public assets
-  - Cleans up assets directory
-  - Copies routing configuration
+- ✅ `package.json` - This incident added the Advanced Mode layout moves to
+  `pages:build` (rename worker, hoist `_next`, copy public assets, drop
+  `assets/`, copy `_routes.json`). The live script is only in `package.json`;
+  later steps (e.g. the require-hook patch) are documented there and in
+  `DEPLOYMENT_CLOUDFLARE.md`, not here.
 
 ### Files Created During Build
 - ✅ `.open-next/_worker.js` - Worker entry point (renamed from `worker.js`)
@@ -287,13 +278,14 @@ curl http://localhost:8788/_next/static/css/ec2266b74d8e5e56.css | head -c 200
 
 ## 🚨 Important Notes
 
-1. **Both fixes are already applied** - The package.json has been updated with the complete solution
-2. **Local testing confirmed working** - Pages load with full styling and proper routing
-3. **Ready for deployment** - Just push to Git and Cloudflare Pages will build correctly
-4. **No app code changes needed** - All Next.js app code is correct as-is
-5. **Only build process issues** - Worker file naming + static asset structure
-6. **Critical for production** - Without these fixes, pages would be blank or unstyled
-7. **Asset structure matters** - The `_next` directory MUST be at root level for Cloudflare to serve CSS
+1. **Layout fixes above are historical** - Confirm the live `pages:build` in
+   `package.json`; do not treat this file as the current script.
+2. **Local styling/routing were verified for this layout fix** - That does not
+   prove a real Pages deployment (see `DEPLOYMENT_CLOUDFLARE.md`).
+3. **No app code changes needed for this layout issue** - Worker naming + static
+   asset structure only.
+4. **Asset structure matters** - The `_next` directory MUST be at root level for
+   Cloudflare to serve CSS.
 
 ---
 

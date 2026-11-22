@@ -50,10 +50,14 @@ NEXT_PUBLIC_SITE_URL = "https://silverpineapple.net"
 
 The Cloudflare scripts (`pages:build`, `pages:dev`, `preview`, `deploy`,
 `cf-typegen`) live in `package.json`; read them there rather than from a copy.
-Note that `pages:build` no longer stops at `opennextjs-cloudflare build` — it
-chains unguarded `mv`/`cp` calls to reshape `.open-next/` into the Pages
-Advanced Mode layout (see "Issue #1" in `CLOUDFLARE_FIX_SUMMARY.md`), which is
-why the adapter version is pinned.
+`pages:build` does not stop at `opennextjs-cloudflare build`: it first runs
+`scripts/patch-opennext-require-hook.mjs` (that file owns why — Pages' production
+workerd lacks `Module.prototype`, so the adapter's relative-only require-hook
+shim left Next 16's bare `next/dist/server/require-hook` import live and every
+page returned HTTP 500), then chains unguarded `mv`/`cp` calls to reshape
+`.open-next/` into the Pages Advanced Mode layout (see "Issue #1" in
+`CLOUDFLARE_FIX_SUMMARY.md`). The adapter version stays pinned because those
+layout moves have no assertions.
 
 ### Build Statistics
 
@@ -95,7 +99,10 @@ Error: INVALID_MESSAGE
    ```bash
    npm run pages:dev
    ```
-   Visit http://localhost:8788 to test in Workers runtime
+   Visit http://localhost:8788 to test in Workers runtime. Local `wrangler
+   pages dev` can pass while a real Pages deployment fails (newer local workerd
+   vs Pages' production runtime) — treat a Cloudflare preview URL as the source
+   of truth, not localhost.
 
 2. **Manual testing checklist:**
    - [ ] Visit /en and /es home pages
@@ -105,6 +112,8 @@ Error: INVALID_MESSAGE
    - [ ] Check browser console for errors
    - [ ] Test navigation between pages
    - [ ] Verify sitemap includes locale prefixes: `/sitemap.xml`
+   - [ ] Against a real preview or production host:
+         `node scripts/check-preview.mjs https://<host>`
 
 #### Cloudflare Pages Setup
 
@@ -151,11 +160,12 @@ Error: INVALID_MESSAGE
 
 #### Post-Deployment Validation
 
-1. **Test Production URL:**
-   - Visit deployment URL (https://silver-pineapple-xxx.pages.dev)
-   - Test all locale routes (/en/* and /es/*)
-   - Verify language switching works
-   - Test sample room pages
+1. **Smoke-check the real host** (not `pages:dev`):
+   ```bash
+   node scripts/check-preview.mjs https://<preview-or-pages-host>
+   ```
+   Then spot-check language switching, sample room pages, and the booking widget
+   in a browser.
 
 2. **SEO Validation:**
    - Visit `/sitemap.xml` - Should show 34 URLs with locale prefixes
@@ -179,6 +189,11 @@ Cloudflare Pages automatically deploys on every push to `main` branch:
 - ✅ Automatic builds enabled
 - ✅ Branch preview deployments for PRs
 - ✅ Rollback capability via Cloudflare dashboard
+
+`.github/workflows/preview-smoke.yml` waits for the PR's Cloudflare Pages
+preview check, then runs `scripts/check-preview.mjs` against that URL (Pages
+marks a deploy successful on upload without ever hitting the Worker). Make that
+workflow required in branch protection so a merge cannot outrun it.
 
 ### File Structure
 
