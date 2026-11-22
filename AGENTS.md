@@ -57,11 +57,11 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - **A merge to `main` is a production release.** Cloudflare's git integration
   builds and deploys `main` on its own — there is no separate release step and no
   staging environment. Files that existed nowhere before a PR merged were serving
-  200 from the live site minutes later. So a green CI / Pages upload alone is not
-  safety — verify against a real Cloudflare preview before merge. It also means
-  nobody should run `npm run deploy` / `wrangler pages deploy` by hand: **never
-  run them** — merging already deploys, and doing it manually bypasses the
-  pipeline. `npm run preview` is broken by construction here.
+  200 from the live site minutes later. So browser verification *before* merge is
+  the only gate that exists; a green build is not safety. It also means nobody
+  should run `npm run deploy` / `wrangler pages deploy` by hand: **never run
+  them** — merging already deploys, and doing it manually bypasses the pipeline.
+  `npm run preview` is broken by construction here.
 - **Icons must be static `public/` assets.** `.claude/routes.json` excludes image
   extensions from the Worker, so Next metadata file-convention icon routes can
   work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
