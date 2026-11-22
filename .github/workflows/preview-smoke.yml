@@ -1,9 +1,11 @@
 name: Preview smoke
 
 # Cloudflare Pages reports a deploy as successful once its files are uploaded; it
-# never sends a request to the Worker. The Next 16 upgrade (#44) passed every check
-# and then served HTTP 500 on every page in production. This job waits for the PR's
-# real Cloudflare Pages preview deployment and requests it.
+# never sends a request. The Next 16 upgrade (#44) passed every check and then served
+# HTTP 500 on every page in production; its fix (#45) then answered 503 "error code:
+# 1102" (Worker over its CPU limit) on 10-50% of requests, which a single pass cannot
+# see. This job waits for the PR's real Cloudflare Pages preview deployment, requests
+# every page, then runs a sustained 600-request test that fails on ANY non-200.
 #
 # Make this check required in the branch protection rules so a merge cannot
 # outrun it: merging to main deploys straight to production.
@@ -67,5 +69,5 @@ jobs:
           echo "::error::Timed out waiting for the Cloudflare Pages preview"
           exit 1
 
-      - name: Smoke-check the preview
-        run: node scripts/check-preview.mjs "${{ steps.preview.outputs.url }}"
+      - name: Smoke and sustained-load check the preview
+        run: node scripts/check-preview.mjs "${{ steps.preview.outputs.url }}" --requests 600 --concurrency 6

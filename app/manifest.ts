@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next'
 
+// Required by `output: 'export'`: this file is written out as a static file.
+export const dynamic = 'force-static'
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Silver Pineapple | Boutique Short-Term Rentals',

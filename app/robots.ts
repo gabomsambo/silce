@@ -1,4 +1,7 @@
 import type { MetadataRoute } from 'next'
+
+// Required by `output: 'export'`: this file is written out as a static file.
+export const dynamic = 'force-static'
 import { SITE_URL } from '@/lib/site'
 
 export default function robots(): MetadataRoute.Robots {

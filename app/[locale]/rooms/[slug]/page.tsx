@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
@@ -231,6 +231,7 @@ function UnitTitleBlock({
 
 export default async function PropertyPage({ params }: Props) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const property = UNITS.find((p) => p.slug === slug);
   if (!property) notFound();
 

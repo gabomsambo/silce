@@ -4,7 +4,7 @@ import test from "node:test"
 
 register("./alias-hook.mjs", import.meta.url)
 
-const { POST } = await import("../app/api/newsletter/subscribe/route.ts")
+const { POST } = await import("../server/newsletterSubscribe.ts")
 
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 const RESEND_CONTACTS_URL = "https://api.resend.com/contacts"

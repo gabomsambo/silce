@@ -24,10 +24,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - **A green build no longer lies, but it still isn't a test suite.** The build now
   fails on type errors (the `ignoreBuildErrors` escape hatch is gone; Next 16
   removed build-time linting, so lint only runs as `npx eslint .` in CI) and
-  `.github/workflows/ci.yml` runs typecheck, lint,
-  build, the link crawl and the icon check on every PR. Unit tests live under
-  `tests/` and run with `npm test`; CI does not run them. Verify UI changes in a
-  real browser against `npm run build && npx next start`.
+  `.github/workflows/ci.yml` runs typecheck, lint, the unit tests (`npm test`),
+  the build, the link crawl and the icon check on every PR. Verify UI changes in a
+  real browser against `npm run pages:build && npx wrangler pages dev .open-next`
+  (`next start` cannot serve the static export).
 - **Next spells the hreflang attribute `hrefLang`.** `<title>`, `canonical`, `robots`
   and `hrefLang` are in `<head>` on Next 16 (15.5 streamed them after `</head>`), so a
   grep for lowercase `hreflang` gives a false "MISSING" on tags that are present.
@@ -59,13 +59,17 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   staging environment. Files that existed nowhere before a PR merged were serving
   200 from the live site minutes later. So a green CI / Pages upload alone is not
   safety — verify against a real Cloudflare preview before merge. It also means
-  nobody should run `npm run deploy` / `wrangler pages deploy` by hand: **never
-  run them** — merging already deploys, and doing it manually bypasses the
-  pipeline. `npm run preview` is broken by construction here.
-- **Icons must be static `public/` assets.** `.claude/routes.json` excludes image
-  extensions from the Worker, so Next metadata file-convention icon routes can
-  work under `next start` but 404 on Cloudflare Pages. Do not edit the routes file
-  to accommodate icons; verify them in `.open-next/` after `npm run pages:build`.
+  nobody should run `wrangler pages deploy` by hand: **never run it** — merging
+  already deploys, and doing it manually bypasses the pipeline.
+- **The site is a static export; only `public/_routes.json` lets code run.** Pages
+  are files in `.open-next/`, served without a Worker (`DEPLOYMENT_CLOUDFLARE.md`
+  has the architecture and why). `public/_routes.json` lists the only paths that
+  invoke a Function (`/api/*` and the unprefixed locale redirects); widening it
+  puts the Free plan's 10 ms CPU limit back in front of page views, which is how
+  the 503 "error code: 1102" incident happened. Every page and layout under
+  `app/[locale]/` needs `setRequestLocale(locale)`.
+- **Icons must be static `public/` assets**; verify them in `.open-next/` after
+  `npm run pages:build`.
 - **Unit galleries are pre-generated WebP.** `next.config.mjs` sets
   `images.unoptimized` because Cloudflare Pages does not run Next's optimizer.
   `units.ts` stores the 1500w path on each `images[].src` (`/photos_<id>/01.webp`);
@@ -74,16 +78,16 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 
 ## Safety net
 
-- `npm run check:links` crawls the built output in a real `next start` server and
-  fails on internal 404s and on hrefs that drop the `/en` / `/es` prefix — the two
-  bug classes that have shipped past a green build here. It needs `npm run build`
-  first; `scripts/check-links.mjs` documents the rest.
+- `npm run check:links` crawls the built output (served by `wrangler pages dev`,
+  so it has Pages' URL handling) and fails on internal 404s and on hrefs that drop
+  the `/en` / `/es` prefix — the two bug classes that have shipped past a green
+  build here. It needs `npm run pages:build` first; `scripts/check-links.mjs` documents the rest.
 - `npm run check:icons` is the same idea for assets the crawl skips: in both
   locales it fetches every declared `icon` / `apple-touch-icon` / `manifest` href
   and every manifest `icons[].src`, and fails on a non-200, a wrong content type,
   or delivered pixels that do not match the declared `sizes` (for `favicon.ico`,
   that the ICO really carries a frame at each declared size). Also needs
-  `npm run build`; `--base-url` points it at an already-running server, e.g. one
+  `npm run pages:build`; `--base-url` points it at an already-running server, e.g. one
   serving the Cloudflare output.
 - `eslint.config.mjs` extends `eslint-config-next/core-web-vitals`. Five rules with
   pre-existing violations (`react/no-unescaped-entities`, `@next/next/no-sync-scripts`
@@ -206,10 +210,11 @@ proves nothing about the delta.
 ## Shape
 
 No database, no server actions, no `use server`. Page content is hand-written
-TypeScript in `app/data/`, and pages prerender at build time. The in-app API
-routes are newsletter signup (`app/api/newsletter/subscribe/route.ts`; the Resend
-segmentation fields it writes are defined in `lib/newsletterSegment.ts`) and
-review submission (`app/api/reviews/submit`).
+TypeScript in `app/data/`, and pages prerender at build time. The server code is
+two Pages Functions in `functions/api/`: newsletter signup
+(`server/newsletterSubscribe.ts`; the Resend segmentation fields it writes are
+defined in `lib/newsletterSegment.ts`) and review submission
+(`server/reviewSubmit.ts`).
 
 ## Business facts
 
@@ -234,7 +239,8 @@ review submission (`app/api/reviews/submit`).
   the browser bundle.
 - Show contact-form success only after FormSubmit accepts the request — never on
   submit alone. The visible business email remains an intentional fallback.
-- The review form (`ReviewSubmissionForm`) POSTs to `app/api/reviews/submit`. The
+- The review form (`ReviewSubmissionForm`) POSTs to `/api/reviews/submit`
+  (`server/reviewSubmit.ts`). The
   route emails the note to `BUSINESS_CONTACT.email` through Resend from
   `reviews@silverpineapple.net` (reply-to the guest) only after Turnstile accepts
   the `review` action. Success is shown only when Resend returns an email id. The
@@ -294,7 +300,7 @@ review submission (`app/api/reviews/submit`).
   in `PropertySearchWidget.tsx` and `app/[locale]/search/page.tsx`.
   Unlike the booking iframe below, this widget **does** render against a `localhost`
   referrer (its API sends `access-control-allow-origin: *`), so `/search` is verifiable
-  end-to-end from `npm run build && npx next start`.
+  end-to-end from `npm run pages:build && npx wrangler pages dev .open-next`.
 - The search widget's language comes from **`window.currentLocale`, read once at boot**, or
   `window.setMPSLanguage(lang)` afterwards — *not* the booking iframe's postMessage
   handshake. The layout sets the global before the widget script so the widget never paints
@@ -310,7 +316,7 @@ review submission (`app/api/reviews/submit`).
   falls back to English silently.
 - **The booking widget is fully verifiable locally** — it renders real availability
   and live pricing against a `localhost` referrer (confirmed 2026-09-04 against
-  `npx next start`; an earlier note here claimed otherwise). `BookingIframe` forwards
+  a local `next start`; an earlier note here claimed otherwise). `BookingIframe` forwards
   `checkin` / `checkout` / `adults` from the page URL into the iframe `src`, so
   `/{locale}/rooms/{slug}?checkin=YYYY-MM-DD&checkout=YYYY-MM-DD&adults=2` on an
   available stay drives the widget to an **enabled** Reserve / Reservar link carrying
@@ -342,38 +348,27 @@ that file doubles as the operational record; `copy.ts` maps the known values ont
 catalog keys and falls back to the raw literal, so an unrecognised value degrades
 rather than throwing.
 
-## Dependency pinning: `next` and `@opennextjs/cloudflare`
+## Dependency pinning: `next`
 
-Both are pinned to exact versions on purpose — do not reintroduce a caret on either.
+`next` is pinned to an exact version on purpose — do not reintroduce a caret.
 
-- **`next` must stay on a supported major.** `@opennextjs/aws` refuses to build an
-  unsupported Next (`checkNextVersionSupport`: a major is supported for two years
-  from release, or while the second-next major is not yet in its table), and
-  nextjs.org/support-policy ends Next 15 security releases on 2027-01-31. The repo is
-  on the 16.x Active LTS; older lines are no longer security-backported. Check any candidate against
-  the real advisory data before bumping — `https://api.github.com/advisories?ecosystem=npm&affects=next`
-  lists `vulnerable_version_range` per release line, and `npm audit` after installing
+- **`next` must stay on a supported major.** nextjs.org/support-policy ends Next 15
+  security releases on 2027-01-31; the repo is on the 16.x Active LTS. Check any
+  candidate against the real advisory data before bumping —
+  `https://api.github.com/advisories?ecosystem=npm&affects=next` lists
+  `vulnerable_version_range` per release line, and `npm audit` after installing
   confirms it; guessing patch numbers from an advisory's `first_patched_version` is
   unreliable because later advisories re-open earlier lines.
-- **`@opennextjs/cloudflare` is pinned because `pages:build` does unguarded file surgery.**
-  The script chains six `mv`/`cp` calls over `.open-next/worker.js` and `.open-next/assets/`
-  with no assertions, so a minor bump that relocates either breaks production behind a
-  fully green build. After any bump, assert the output contains `_worker.js`, `_next/`
-  and `_routes.json` and that `assets/` is gone.
-- Its `peerDependencies.next` range is the binding constraint on how low `next` may go
-  (and versions `<1.17.1` carry a worker-runtime SSRF, GHSA-c7mq-gh6q-6q7c).
-- 1.20.15 requires `wrangler ^4.148.0`, and wrangler `>=4.86` declares
-  `engines.node >=22`, so this pin sets the repo's build-time Node floor — hence
-  `.nvmrc` and `engines.node` in `package.json`. Cloudflare Pages must build on
-  Node 20 or newer or `pages:build` dies in the adapter CLI before it prints
-  anything (`yargs-parser` hard-throws), and on Node 22 or newer for `wrangler`.
+- `wrangler` (devDependency, used by `wrangler pages dev` in the check scripts) sets
+  the repo's Node floor: `>=4.86` declares `engines.node >=22` — hence `.nvmrc` and
+  `engines.node` in `package.json`.
 - **`.nvmrc` must hold a full `major.minor.patch` version.** It is the only lever
   in the repo over the Node version Cloudflare Pages builds with, and the Pages
   build image wants an exact version: a bare major is not guaranteed to resolve,
   and when it does not, Pages silently falls back to its image default (18.17.1
-  on build system v2) and the adapter CLI dies. `.github/workflows/ci.yml` reads
-  the same file via `node-version-file`, so CI and Pages cannot drift and an
-  unresolvable value fails CI first.
+  on build system v2). `.github/workflows/ci.yml` reads the same file via
+  `node-version-file`, so CI and Pages cannot drift and an unresolvable value
+  fails CI first.
 
 ## Maintaining this file
 

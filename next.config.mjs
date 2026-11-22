@@ -4,6 +4,10 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Every page is prerendered to a plain file in `out/`. Cloudflare Pages serves
+  // those directly, with no Worker invocation; only /api/* and the unprefixed
+  // locale redirects run code (see functions/ and public/_routes.json).
+  output: 'export',
   images: {
     // Cloudflare Pages does not run Next's optimizer. Unit galleries ship
     // pre-generated WebP at 640/1024/1500; see lib/photos.ts.
@@ -17,7 +21,3 @@ const nextConfig = {
 }
 
 export default withNextIntl(nextConfig)
-
-// Enable Cloudflare bindings in local development
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-initOpenNextCloudflareForDev();

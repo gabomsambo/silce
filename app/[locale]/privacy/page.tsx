@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { getFormatter, getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { BUSINESS_CONTACT } from "@/app/data/contact";
@@ -92,6 +92,7 @@ export default async function PrivacyPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "privacy" });
   const format = await getFormatter({ locale });
   const updated = format.dateTime(new Date(`${PRIVACY_POLICY_UPDATED}T12:00:00Z`), {

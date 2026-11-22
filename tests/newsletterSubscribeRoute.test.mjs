@@ -5,7 +5,7 @@ import { after, test } from "node:test"
 
 register(new URL("./ts-alias-loader.mjs", import.meta.url))
 
-const { POST } = await import("../app/api/newsletter/subscribe/route.ts")
+const { POST } = await import("../server/newsletterSubscribe.ts")
 
 const FAKE_RESEND_KEY = "re_test_local_only"
 const FAKE_TURNSTILE_SECRET = "turnstile-test-local-only"

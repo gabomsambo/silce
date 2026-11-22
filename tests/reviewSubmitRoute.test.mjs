@@ -4,7 +4,7 @@ import test from "node:test"
 
 register(new URL("./ts-alias-loader.mjs", import.meta.url))
 
-const { POST } = await import("../app/api/reviews/submit/route.ts")
+const { POST } = await import("../server/reviewSubmit.ts")
 
 const FAKE_RESEND_KEY = "re_test_local_only"
 const FAKE_TURNSTILE_SECRET = "turnstile-test-local-only"

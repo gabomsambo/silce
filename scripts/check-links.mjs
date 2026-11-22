@@ -2,8 +2,8 @@
 /**
  * Link-integrity check for the production build.
  *
- * Crawls every page reachable from `/en` and `/es` in a real `next start`
- * server and asserts two things about every internal <a href>:
+ * Crawls every page reachable from `/en` and `/es` against the built
+ * site served the way Cloudflare Pages serves it and asserts two things about every internal <a href>:
  *
  *   1. it does not 404 (and does not only work because middleware redirects it)
  *   2. it carries a locale prefix — `routing.localePrefix` is 'always', so an
@@ -14,17 +14,12 @@
  * hrefs like `/rooms` that only survive because of the next-intl middleware.
  *
  * Usage:
- *   node scripts/check-links.mjs                 # builds nothing; starts `next start` itself
+ *   node scripts/check-links.mjs                 # builds nothing; serves .open-next itself
  *   node scripts/check-links.mjs --base-url URL  # crawl an already-running server
  */
 
-import { spawn } from 'node:child_process';
-import { createRequire } from 'node:module';
-import path from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
-
-const require = createRequire(import.meta.url);
-const nextBin = path.join(path.dirname(require.resolve('next/package.json')), 'dist/bin/next');
+import { startPagesServer } from './lib/serve-pages.mjs';
 
 const LOCALES = ['en', 'es'];
 // `/search` is a real route that nothing links to, so the crawl would never
@@ -168,18 +163,12 @@ async function crawl(base) {
 }
 
 async function main() {
-  let child;
+  let stop;
   let base = baseUrlArg;
 
   if (!base) {
     base = `http://127.0.0.1:${portArg}`;
-    // Spawn the local `next` bin directly (not through npx) and in its own
-    // process group, so SIGTERM below reaps the server instead of orphaning it.
-    child = spawn(process.execPath, [nextBin, 'start', '-p', String(portArg)], {
-      stdio: ['ignore', 'inherit', 'inherit'],
-      detached: true,
-    });
-    console.log(`Started next start on port ${portArg} (pid ${child.pid})`);
+    stop = startPagesServer(portArg);
   }
 
   try {
@@ -200,13 +189,7 @@ async function main() {
     }
     return 1;
   } finally {
-    if (child?.pid) {
-      try {
-        process.kill(-child.pid, 'SIGTERM');
-      } catch {
-        child.kill('SIGTERM');
-      }
-    }
+    stop?.();
   }
 }
 

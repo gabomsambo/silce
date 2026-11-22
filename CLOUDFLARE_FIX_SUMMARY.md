@@ -1,3 +1,7 @@
+> **Historical.** This records fixes to the OpenNext Worker build, which the site no
+> longer uses: pages are now a static export (see `DEPLOYMENT_CLOUDFLARE.md`). Nothing
+> below describes the current build.
+
 # Cloudflare OpenNext Deployment Fixes - RESOLVED ✅
 
 **Date:** October 20, 2025
