@@ -22,15 +22,15 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   and Cloudflare Pages both install with `npm ci`, so a lockfile written by a newer
   npm fails the build while `npm ci` on the authoring machine stays green.
 - **A green build no longer lies, but it still isn't a test suite.** The build now
-  fails on type errors (the `ignoreBuildErrors` escape hatch is gone; Next 16
-  removed build-time linting, so lint only runs as `npx eslint .` in CI) and
-  `.github/workflows/ci.yml` runs typecheck, lint,
+  fails on type and lint errors (the `ignoreDuringBuilds` / `ignoreBuildErrors`
+  escape hatches are gone) and `.github/workflows/ci.yml` runs typecheck, lint,
   build, the link crawl and the icon check on every PR. Unit tests live under
   `tests/` and run with `npm test`; CI does not run them. Verify UI changes in a
   real browser against `npm run build && npx next start`.
-- **Next spells the hreflang attribute `hrefLang`.** `<title>`, `canonical`, `robots`
-  and `hrefLang` are in `<head>` on Next 16 (15.5 streamed them after `</head>`), so a
-  grep for lowercase `hreflang` gives a false "MISSING" on tags that are present.
+- **Next 15.5 streams metadata *outside* `<head>`.** `<title>`, `canonical`, `robots`
+  and `hreflang` are emitted after `</head>` in the served HTML, so checking a page's
+  SEO tags by splitting on `</head>` gives a false "MISSING" on tags that are in fact
+  present. Grep the whole document. (Next also spells the attribute `hrefLang`.)
 - **shadcn CSS variables are not in the live stylesheet.** The only stylesheet
   in play is `app/globals.css` (imported by `app/[locale]/layout.tsx`). Those
   variables are not defined there, so `bg-background`, `text-muted-foreground`
@@ -85,10 +85,8 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   that the ICO really carries a frame at each declared size). Also needs
   `npm run build`; `--base-url` points it at an already-running server, e.g. one
   serving the Cloudflare output.
-- `eslint.config.mjs` extends `eslint-config-next/core-web-vitals`. Five rules with
-  pre-existing violations (`react/no-unescaped-entities`, `@next/next/no-sync-scripts`
-  and the React Compiler-derived `react-hooks/set-state-in-effect`,
-  `react-hooks/static-components`, `react-hooks/refs`) are
+- `eslint.config.mjs` extends `next/core-web-vitals`. Two rules with pre-existing
+  violations (`react/no-unescaped-entities`, `@next/next/no-sync-scripts`) are
   demoted to warnings so the config passes on the current tree; everything else,
   notably `@next/next/no-html-link-for-pages`, is a hard error.
 - CI installs with `npm ci --ignore-scripts` for the reason above.
@@ -346,11 +344,9 @@ rather than throwing.
 
 Both are pinned to exact versions on purpose — do not reintroduce a caret on either.
 
-- **`next` must stay on a supported major.** `@opennextjs/aws` refuses to build an
-  unsupported Next (`checkNextVersionSupport`: a major is supported for two years
-  from release, or while the second-next major is not yet in its table), and
-  nextjs.org/support-policy ends Next 15 security releases on 2027-01-31. The repo is
-  on the 16.x Active LTS; older lines are no longer security-backported. Check any candidate against
+- **`next` must stay on the 15.5 backport line.** The 15.2.x and 15.3.x lines are no
+  longer security-backported: their newest releases still carry ~26 open advisories.
+  npm's `backport` dist-tag tracks the maintained 15.x line. Check any candidate against
   the real advisory data before bumping — `https://api.github.com/advisories?ecosystem=npm&affects=next`
   lists `vulnerable_version_range` per release line, and `npm audit` after installing
   confirms it; guessing patch numbers from an advisory's `first_patched_version` is
@@ -362,7 +358,7 @@ Both are pinned to exact versions on purpose — do not reintroduce a caret on e
   and `_routes.json` and that `assets/` is gone.
 - Its `peerDependencies.next` range is the binding constraint on how low `next` may go
   (and versions `<1.17.1` carry a worker-runtime SSRF, GHSA-c7mq-gh6q-6q7c).
-- 1.20.15 requires `wrangler ^4.148.0`, and wrangler `>=4.86` declares
+- 1.19.11 requires `wrangler ^4.86.0`, and wrangler `>=4.86` declares
   `engines.node >=22`, so this pin sets the repo's build-time Node floor — hence
   `.nvmrc` and `engines.node` in `package.json`. Cloudflare Pages must build on
   Node 20 or newer or `pages:build` dies in the adapter CLI before it prints

@@ -20,7 +20,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  // CRITICAL: MUST await params (Promise since Next.js 15)
+  // CRITICAL: MUST await params in Next.js 15
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata.global' });
 
@@ -98,7 +98,7 @@ export default async function LocaleLayout({
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // CRITICAL: MUST await params (Promise since Next.js 15)
+  // CRITICAL: MUST await params in Next.js 15
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid

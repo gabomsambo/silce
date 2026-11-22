@@ -2,7 +2,7 @@
 
 ## ✅ Completed Implementation
 
-This document summarizes the successful setup of Cloudflare Pages deployment using @opennextjs/cloudflare for the Silver Pineapple Next.js 16 rental website.
+This document summarizes the successful setup of Cloudflare Pages deployment using @opennextjs/cloudflare for the Silver Pineapple Next.js 15 rental website.
 
 ### What Was Done
 
@@ -130,18 +130,20 @@ Error: INVALID_MESSAGE
      `NEXT_PUBLIC_` variable.
 
 4. **Advanced Settings:**
-   - Node.js version: use the exact value in `.nvmrc` (Pages reads that file for
-     its build image). The Node floor and the pinned `@opennextjs/cloudflare` /
-     `wrangler` versions live in `package.json` and the dependency-pinning
-     section of `AGENTS.md` — a Pages build on Node 18 dies in the adapter CLI
-     before it ever produces `.open-next`.
+   - Node.js version: 22 or newer (the repo's `.nvmrc` pins `22`, which Pages reads
+     to select its build image). `@opennextjs/cloudflare` 1.19.11 requires
+     `wrangler ^4.86.0`, wrangler `>=4.86` declares `engines.node >=22`, and
+     `opennextjs-cloudflare build` imports wrangler at runtime — including an
+     `import("wrangler/package.json", { with: { type: "json" } })` that Node 18
+     cannot parse — so a Pages build on Node 18 dies in the adapter CLI before it
+     ever produces `.open-next`.
    - Compatibility date: 2024-09-23
    - Compatibility flags: nodejs_compat
    - (These should be inherited from wrangler.toml)
 
 5. **Deploy:**
-   - Merge to `main` — Cloudflare's git integration builds and deploys automatically.
-     Do not run `npm run deploy` / `wrangler pages deploy` by hand (see AGENTS.md).
+   - First deployment via dashboard (automatic on push to main)
+   - OR manual deployment: `npm run deploy`
 
 6. **Custom Domain:**
    - After first successful deployment
@@ -182,17 +184,15 @@ Cloudflare Pages automatically deploys on every push to `main` branch:
 
 ### File Structure
 
-After `npm run pages:build` (which reshapes OpenNext output for Pages Advanced
-Mode — see `CLOUDFLARE_FIX_SUMMARY.md`):
-
 ```
-.open-next/                 # Build output (gitignored)
-├── _worker.js              # Cloudflare Pages Advanced Mode entry
-├── _next/                  # Next static assets (flattened from assets/)
-├── _routes.json            # Copied from .claude/routes.json
-└── …                       # Public assets copied to output root
-wrangler.toml               # Cloudflare configuration
-open-next.config.ts         # OpenNext adapter config
+silce/
+├── .open-next/              # Build output (gitignored)
+│   ├── worker.js            # Cloudflare Workers entry point
+│   ├── assets/              # Static files
+│   └── middleware/          # next-intl middleware
+├── wrangler.toml            # Cloudflare configuration
+├── open-next.config.ts      # OpenNext adapter config
+└── ... (existing files)
 ```
 
 ### Important Commands
@@ -210,12 +210,12 @@ npm run pages:build
 # Local preview (Workers runtime)
 npm run pages:dev
 
+# Deploy to Cloudflare Pages
+npm run deploy
+
 # Generate TypeScript types for bindings
 npm run cf-typegen
 ```
-
-Production deploys only via merge to `main` — never `npm run deploy` by hand
-(see AGENTS.md).
 
 ### Support & Resources
 
