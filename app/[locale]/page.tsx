@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Introduction from "../components/Introduction";
@@ -45,7 +45,14 @@ export async function generateMetadata({
   };
 }
 
-export default function Home() {
+export default async function Home({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <main className="min-h-screen bg-ocean-sunrise">
       <Navbar />

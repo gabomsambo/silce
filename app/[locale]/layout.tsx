@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { createLodgingBusinessJsonLd } from '@/lib/structuredData';
@@ -105,6 +105,11 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
+
+  // Opt the whole tree into static rendering. Without this next-intl reads the
+  // locale from request headers, which makes every page dynamic: a full React
+  // render in the Worker on every request.
+  setRequestLocale(locale);
 
   const tRoot = await getTranslations({ locale });
   const lodgingBusinessJsonLd = createLodgingBusinessJsonLd(locale, tRoot);

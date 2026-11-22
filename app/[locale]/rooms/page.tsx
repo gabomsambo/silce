@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Navbar from "../../components/Navbar";
 import RoomsHeroSection from "../../components/RoomsHeroSection";
 import RoomsIntroduction from "../../components/RoomsIntroduction";
@@ -54,6 +54,7 @@ interface RoomsPageProps {
 
 export default async function RoomsPage({ params }: RoomsPageProps) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const tRoot = await getTranslations({ locale });
   const breadcrumbJsonLd = createRoomsBreadcrumbJsonLd(locale, tRoot);
 
