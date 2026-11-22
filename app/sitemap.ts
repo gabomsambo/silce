@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { UNITS } from './data/units'
 import { SITE_URL } from '@/lib/site'
 
-// CRITICAL: Force static generation in Next.js 15
+// CRITICAL: Force static generation (App Router default can be dynamic)
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
