@@ -38,11 +38,15 @@ jobs:
       - name: Lint
         run: npx eslint .
 
-      - name: Build
-        run: npm run build
+      - name: Unit tests
+        run: npm test
 
-      # The check that pays for itself here: crawls the built output in a real
-      # `next start` server and fails on internal 404s or dropped locale prefixes.
+      # Builds exactly what Cloudflare Pages builds: a static export in .open-next/.
+      - name: Build
+        run: npm run pages:build
+
+      # The check that pays for itself here: crawls the built output, served the way
+      # Cloudflare Pages serves it, and fails on internal 404s or dropped locale prefixes.
       - name: Link integrity
         run: npm run check:links
 

@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server"
 import { z } from "zod"
 import { BUSINESS_CONTACT } from "@/app/data/contact"
 import { UNITS } from "@/app/data/units"
@@ -109,19 +108,19 @@ export async function POST(request: Request) {
       hasResendKey: Boolean(resendKey),
       hasTurnstileSecret: Boolean(turnstileSecret),
     })
-    return NextResponse.json({ error: "service_unavailable" as ApiErrorCode }, { status: 500 })
+    return Response.json({ error: "service_unavailable" as ApiErrorCode }, { status: 500 })
   }
 
   let payload: unknown
   try {
     payload = await request.json()
   } catch {
-    return NextResponse.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
+    return Response.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
   }
 
   const parsedPayload = reviewSubmissionSchema.safeParse(payload)
   if (!parsedPayload.success) {
-    return NextResponse.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
+    return Response.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
   }
 
   const submission = parsedPayload.data
@@ -133,21 +132,21 @@ export async function POST(request: Request) {
   })
 
   if (!turnstileResult.ok) {
-    return NextResponse.json({ error: "captcha_failed" as ApiErrorCode }, { status: 403 })
+    return Response.json({ error: "captcha_failed" as ApiErrorCode }, { status: 403 })
   }
 
   try {
     const sent = await sendReviewEmail({ resendKey, submission })
     if (!sent.ok) {
-      return NextResponse.json({ error: "submission_failed" as ApiErrorCode }, { status: 502 })
+      return Response.json({ error: "submission_failed" as ApiErrorCode }, { status: 502 })
     }
 
-    return NextResponse.json({ ok: true })
+    return Response.json({ ok: true })
   } catch (error) {
     console.error("Unexpected review submission failure", {
       guest: maskEmailAddress(submission.email),
       reason: error instanceof Error ? error.name : "unknown_error",
     })
-    return NextResponse.json({ error: "unknown_error" as ApiErrorCode }, { status: 500 })
+    return Response.json({ error: "unknown_error" as ApiErrorCode }, { status: 500 })
   }
 }

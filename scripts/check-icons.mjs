@@ -7,8 +7,8 @@
  * in the web app manifest that no static file backs. That ships past a green
  * build, past the link crawl, and only shows up as a blank tab.
  *
- * Against a real `next start` server (or any base URL — pass a `wrangler pages
- * dev .open-next` URL to check the Cloudflare output), for every locale this
+ * Against the built site served the way Cloudflare Pages serves it (or any base
+ * URL), for every locale this
  * asserts:
  *
  *   1. every `<link rel="icon" | "apple-touch-icon" | "manifest">` href
@@ -20,17 +20,12 @@
  *      dimensions match that entry's declared `sizes`
  *
  * Usage:
- *   node scripts/check-icons.mjs                 # starts `next start` itself
+ *   node scripts/check-icons.mjs                 # serves .open-next itself
  *   node scripts/check-icons.mjs --base-url URL  # check an already-running server
  */
 
-import { spawn } from 'node:child_process';
-import { createRequire } from 'node:module';
-import path from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
-
-const require = createRequire(import.meta.url);
-const nextBin = path.join(path.dirname(require.resolve('next/package.json')), 'dist/bin/next');
+import { startPagesServer } from './lib/serve-pages.mjs';
 
 const LOCALES = ['en', 'es'];
 const START_TIMEOUT_MS = 90_000;
@@ -184,14 +179,12 @@ async function waitForServer(base) {
 }
 
 async function main() {
-  let server;
+  let stop;
   let base = baseUrlArg;
 
   if (!base) {
     base = `http://127.0.0.1:${portArg}`;
-    server = spawn(process.execPath, [nextBin, 'start', '-p', String(portArg)], {
-      stdio: ['ignore', 'ignore', 'inherit'],
-    });
+    stop = startPagesServer(portArg);
   }
 
   try {
@@ -205,7 +198,7 @@ async function main() {
     }
     console.log(`Icon integrity OK — ${checked} icon responses verified against ${base}`);
   } finally {
-    server?.kill('SIGTERM');
+    stop?.();
   }
 }
 

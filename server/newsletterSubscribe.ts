@@ -2,7 +2,6 @@ import {
   LOOPBACK_TURNSTILE_HOSTNAMES,
   PRODUCTION_TURNSTILE_HOSTNAMES,
 } from "@/lib/newsletterTurnstileHostnames"
-import { NextResponse } from "next/server"
 import { z } from "zod"
 import { buildNewsletterResendProperties } from "@/lib/newsletterSegment"
 
@@ -267,19 +266,19 @@ export async function POST(request: Request) {
       hasResendKey: Boolean(resendKey),
       hasTurnstileSecret: Boolean(turnstileSecret),
     })
-    return NextResponse.json({ error: "service_unavailable" as ApiErrorCode }, { status: 500 })
+    return Response.json({ error: "service_unavailable" as ApiErrorCode }, { status: 500 })
   }
 
   let payload: unknown
   try {
     payload = await request.json()
   } catch {
-    return NextResponse.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
+    return Response.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
   }
 
   const parsedPayload = newsletterSubmissionSchema.safeParse(payload)
   if (!parsedPayload.success) {
-    return NextResponse.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
+    return Response.json({ error: "validation_error" as ApiErrorCode }, { status: 400 })
   }
 
   const { firstName, email, turnstileToken, locale, interests } = parsedPayload.data
@@ -291,7 +290,7 @@ export async function POST(request: Request) {
   })
 
   if (!turnstileResult.ok) {
-    return NextResponse.json({ error: turnstileResult.errorCode }, { status: 403 })
+    return Response.json({ error: turnstileResult.errorCode }, { status: 403 })
   }
 
   try {
@@ -303,10 +302,10 @@ export async function POST(request: Request) {
     })
 
     if (resendResult.outcome === "failed") {
-      return NextResponse.json({ error: resendResult.errorCode }, { status: 502 })
+      return Response.json({ error: resendResult.errorCode }, { status: 502 })
     }
 
-    return NextResponse.json({
+    return Response.json({
       ok: true,
       outcome: resendResult.outcome,
     })
@@ -315,6 +314,6 @@ export async function POST(request: Request) {
       email: maskEmailAddress(email),
       reason: error instanceof Error ? error.name : "unknown_error",
     })
-    return NextResponse.json({ error: "unknown_error" as ApiErrorCode }, { status: 500 })
+    return Response.json({ error: "unknown_error" as ApiErrorCode }, { status: 500 })
   }
 }
