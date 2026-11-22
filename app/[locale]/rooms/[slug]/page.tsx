@@ -44,14 +44,14 @@ export function generateStaticParams() {
   return params;
 }
 
-// CRITICAL: Next.js 15 requires async params
+// CRITICAL: params/searchParams are Promises (since Next.js 15)
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // CRITICAL: MUST await params in Next.js 15
+  // CRITICAL: MUST await params (Promise since Next.js 15)
   const { locale, slug } = await params;
   const unit = UNITS.find((u) => u.slug === slug);
 

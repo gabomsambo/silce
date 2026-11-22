@@ -12,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  // CRITICAL: MUST await params in Next.js 15
+  // CRITICAL: MUST await params (Promise since Next.js 15)
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata.home' });
 
