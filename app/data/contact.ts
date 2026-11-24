@@ -7,7 +7,7 @@ interface BusinessContact {
 }
 
 export const BUSINESS_CONTACT: BusinessContact = {
-  email: "hello@silverpineapple.net",
+  email: "gabriel@silverpineapple.net",
   // Owner-chosen address for privacy and data requests (2026-10-11).
   privacyEmail: "gabriel@silverpineapple.net",
   location: "Melbourne, FL 32935",
@@ -15,6 +15,6 @@ export const BUSINESS_CONTACT: BusinessContact = {
   // delivers anything; until then this stays the raw address. Once activated, swap in
   // the hashed alias endpoint so the inbox is not compiled into the client bundle.
   // See "Form delivery" in AGENTS.md.
-  formEndpoint: "https://formsubmit.co/ajax/hello@silverpineapple.net",
+  formEndpoint: "https://formsubmit.co/ajax/gabriel@silverpineapple.net",
   phoneAndWhatsApp: "+1 (201) 282-7398",
 }

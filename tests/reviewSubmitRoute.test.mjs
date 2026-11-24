@@ -158,7 +158,7 @@ test("an accepted review email is delivered to the inbox and logs only a shorten
   assert.ok(sent, "Resend was called")
   const email = JSON.parse(sent.body)
   assert.equal(email.from, "Silver Pineapple <reviews@silverpineapple.net>")
-  assert.deepEqual(email.to, ["hello@silverpineapple.net"])
+  assert.deepEqual(email.to, ["gabriel@silverpineapple.net"])
   assert.equal(email.reply_to, GUEST_EMAIL)
   assert.match(email.text, /not posted on the site/)
   assert.match(email.text, new RegExp(GUEST_EMAIL))
