@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import {
+  ANALYTICS_ENABLED,
   COOKIE_CONSENT_STORAGE_KEY,
   COOKIE_CONSENT_UPDATED_EVENT,
   type CookieConsentChoice,
@@ -11,10 +12,15 @@ import {
   writeCookieConsent,
 } from "./cookieConsent"
 
+// Published while the compact bar is on screen so full-viewport heroes (Book Now at the
+// bottom of h-screen) can lift their CTA above it. Cleared as soon as the bar goes away.
+const COOKIE_CONSENT_OFFSET_VAR = "--cookie-consent-offset"
+
 export default function CookieConsentBanner() {
   const t = useTranslations("cookieConsent")
   const [isHydrated, setIsHydrated] = useState(false)
   const [consent, setConsent] = useState<CookieConsentChoice | null>(null)
+  const asideRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const syncConsent = () => {
@@ -38,32 +44,57 @@ export default function CookieConsentBanner() {
     }
   }, [])
 
+  const showBanner = ANALYTICS_ENABLED && isHydrated && consent === null
+
+  useEffect(() => {
+    if (!showBanner) {
+      document.documentElement.style.removeProperty(COOKIE_CONSENT_OFFSET_VAR)
+      return
+    }
+
+    const el = asideRef.current
+    if (!el) return
+
+    const publishOffset = () => {
+      document.documentElement.style.setProperty(
+        COOKIE_CONSENT_OFFSET_VAR,
+        `${Math.ceil(el.getBoundingClientRect().height)}px`,
+      )
+    }
+
+    publishOffset()
+    const ro = new ResizeObserver(publishOffset)
+    ro.observe(el)
+    return () => {
+      ro.disconnect()
+      document.documentElement.style.removeProperty(COOKIE_CONSENT_OFFSET_VAR)
+    }
+  }, [showBanner])
+
   const handleConsent = (choice: CookieConsentChoice) => {
     writeCookieConsent(choice)
     setConsent(choice)
   }
 
-  if (!isHydrated || consent !== null) {
+  if (!showBanner) {
     return null
   }
 
-  // Bottom-anchored, with a pointer-events-none wrapper around a pointer-events-auto card,
-  // so the banner never covers or swallows clicks on the sticky booking column of a room
-  // page. z-40 also keeps it under the Hospitable widget overlays, which globals.css pins
-  // at z-index 2147483647 so their calendars and dropdowns stay reachable while it shows.
+  // A compact bottom bar: it must leave the hero and the Book Now button visible on a
+  // phone. The pointer-events-none wrapper around a pointer-events-auto card keeps it from
+  // swallowing clicks on the sticky booking column of a room page. z-40 also keeps it under
+  // the Hospitable widget overlays, which globals.css pins at z-index 2147483647 so their
+  // calendars and dropdowns stay reachable while it shows.
   return (
-    <aside className="fixed inset-x-0 bottom-0 z-40 p-4 pointer-events-none">
-      <div className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-xl border border-gray-200 bg-white/95 p-5 shadow-xl backdrop-blur-sm sm:max-w-md">
-        <h2 className="text-lg font-semibold text-primary mb-2">{t("title")}</h2>
-        <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("description")}</p>
-        <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("loadsBeforeChoice")}</p>
-        <p className="text-sm text-gray-700 leading-relaxed mb-2">{t("iframeNotice")}</p>
-        <p className="text-sm leading-relaxed mb-4">
+    <aside ref={asideRef} aria-label={t("title")} className="fixed inset-x-0 bottom-0 z-40 p-2 sm:p-4 pointer-events-none">
+      <div className="pointer-events-auto flex w-full flex-col gap-3 rounded-xl border border-gray-200 bg-white/95 p-3 shadow-xl backdrop-blur-sm sm:mx-auto sm:max-w-3xl sm:flex-row sm:items-center sm:gap-4 sm:p-4">
+        <p className="flex-1 text-sm leading-snug text-gray-700">
+          {t("description")}{" "}
           <Link href="/privacy" className="font-medium text-tan-hover underline underline-offset-4 hover:text-primary">
             {t("privacyLink")}
           </Link>
         </p>
-        <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:shrink-0">
           <button
             type="button"
             onClick={() => handleConsent("declined")}

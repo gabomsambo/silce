@@ -653,12 +653,10 @@
   },
   "cookieConsent": {
     "title": "Cookie preferences",
-    "description": "We use optional analytics cookies to understand site usage and improve this website. You can accept or decline analytics cookies below.",
-    "loadsBeforeChoice": "Even before you choose below, this site loads OpenStreetMap map tiles to show the location map and resources from Hospitable's booking service (booking.hospitable.com and hospitable.b-cdn.net) so the booking widget and property search can work.",
-    "iframeNotice": "Our Hospitable booking widget is embedded in a third-party iframe. Hospitable, and any services it loads inside that iframe for payments or analytics (for example Stripe or PostHog), may set their own cookies. Those cookies are set by those third parties, not by us, and they cannot be controlled, read, or cleared from this site.",
-    "accept": "Accept analytics cookies",
-    "decline": "Decline analytics cookies",
-    "privacyLink": "Read our privacy and cookie policy"
+    "description": "Optional analytics cookies help us improve this site. Cookies from Hospitable's booking tool are set by Hospitable and are not covered by this choice.",
+    "accept": "Accept analytics",
+    "decline": "Decline analytics",
+    "privacyLink": "Privacy and cookie policy"
   },
   "privacy": {
     "title": "Privacy and Cookie Policy",
@@ -727,15 +725,15 @@
       },
       "items": {
         "consent": {
-          "purpose": "Remembers whether you accepted or declined analytics cookies.",
-          "duration": "Until you clear it, or reset your choice with “Cookie preferences”"
+          "purpose": "Remembers whether you accepted or declined analytics cookies. It is only written if analytics is switched on and you make a choice; analytics is not switched on at the moment, so it is not set today.",
+          "duration": "Not set at present. If analytics is switched on: until you clear it, or reset your choice with “Cookie preferences”"
         },
         "locale": {
           "purpose": "Remembers your language when it differs from your browser's language.",
           "duration": "Until you close your browser"
         },
         "analytics": {
-          "purpose": "Optional statistics about how the site is used. Only set if you click “Accept analytics cookies”. Analytics is not switched on at the moment, so accepting sets none of these today.",
+          "purpose": "Optional statistics about how the site is used. Only set if you click “Accept analytics” in the cookie banner. Analytics is not switched on at the moment, so there is no banner and none of these are set today.",
           "duration": "Not set at present"
         },
         "turnstile": {
@@ -747,8 +745,8 @@
           "duration": "30 days"
         },
         "hospitableAnalytics": {
-          "purpose": "Hospitable's own usage statistics for its booking widget on room pages.",
-          "duration": "Until you clear your browser storage, or close the tab"
+          "purpose": "Hospitable's own usage statistics for its booking widget on room pages and its checkout page. At checkout Hospitable also keeps it as a cookie.",
+          "duration": "Until you clear your browser storage or close the tab; as a cookie at checkout, about 1 year"
         },
         "stripeCookie": {
           "purpose": "Used by Stripe's payment service, which the booking widget loads on room pages.",
@@ -757,19 +755,37 @@
         "stripeSession": {
           "purpose": "Used by Stripe's payment service, which the booking widget loads on room pages.",
           "duration": "Until you close the tab"
+        },
+        "hospitableReplay": {
+          "purpose": "Hospitable's error monitoring (Sentry), including session replay, which can record how its booking widget and checkout page are used so problems can be diagnosed. Set by Hospitable's booking tool, not by us.",
+          "duration": "Until you close the tab"
+        },
+        "hospitableCheckout": {
+          "purpose": "Part of Hospitable's own Google Analytics tracking of its checkout (a “begin checkout” event for your quote). Set on Hospitable's checkout page after you press Reserve, not by us.",
+          "duration": "Until you close the tab"
+        },
+        "stripeFraud": {
+          "purpose": "Used by Stripe's payment service for fraud prevention on Hospitable's checkout page. Set by Hospitable's booking tool and Stripe, not by us.",
+          "duration": "About 1 year (__stripe_mid); until you close your browser (__stripe_sid)"
+        },
+        "fontsBotCheck": {
+          "purpose": "Cloudflare bot management on cdn.fonts.net, a font host that the booking widget on room pages loads from. Set by that host, not by us.",
+          "duration": "About 30 minutes"
         }
       },
       "choicesHeading": "Your choices",
-      "choices": "The cookie banner controls our analytics cookies, which are only set if you accept them. You can change your mind at any time with “Cookie preferences” at the bottom of every page; declining also deletes analytics cookies already set.",
-      "thirdParty": "The items set by Hospitable, Stripe and Cloudflare live inside those services' own frames. We cannot read, change or delete them, and they do not follow your choice in our banner. You can block or delete them in your browser settings.",
+      "choices": "This site currently has no analytics, so it shows no cookie banner. If analytics is ever switched on, it stays off until you click “Accept analytics” in a banner, and “Cookie preferences” at the bottom of every page lets you change your mind; declining also deletes analytics cookies already set.",
+      "thirdParty": "The items set by Hospitable's booking tool and checkout (including those from Stripe, Sentry, Google Analytics and cdn.fonts.net) and by Cloudflare live in those services' own frames and pages. We cannot read, change or delete them, and they do not follow any choice on this site, including the cookie banner if one is shown. You can block or delete them in your browser settings.",
       "loadsHeading": "Content loaded from other services",
-      "loadsIntro": "Some pages load content straight from other companies' servers, before you make any cookie choice. Your browser then sends them your IP address and basic browser details:",
+      "loadsIntro": "Some pages load content straight from other companies' servers as the page loads, without waiting for any cookie choice. Your browser then sends them your IP address and basic browser details:",
       "loads": {
         "maps": "OpenStreetMap map images, for the location maps.",
         "hospitable": "Hospitable's search widget code on every page (from hospitable.b-cdn.net), and Hospitable's booking and search services on room pages and the search page.",
         "stripe": "Stripe's payment code, inside the booking widget on room pages.",
         "fonts": "Google Fonts, loaded by Hospitable's widgets on room pages and the search page.",
-        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form and on the reviews page with the review form."
+        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form and on the reviews page with the review form.",
+        "fontsNet": "cdn.fonts.net, a font host loaded by the booking widget on room pages.",
+        "country": "api.country.is, a lookup that Hospitable's checkout page uses to turn your IP address into a country, so it can preselect your phone-number prefix."
       }
     },
     "recipients": {
@@ -779,11 +795,12 @@
         "cloudflare": "Cloudflare: hosting, security and the newsletter spam check.",
         "resend": "Resend: our newsletter list and delivery of review submissions by email to our inbox.",
         "formsubmit": "FormSubmit, a form-relay service: the contact form sends it your name, email address, message and the page address, and it forwards them by email to our inbox.",
-        "hospitable": "Hospitable: bookings, availability and property search, with PostHog for its own usage statistics.",
+        "hospitable": "Hospitable: bookings, availability and property search, with PostHog and Sentry for its own usage statistics and error monitoring, and Google Analytics on its checkout page.",
         "stripe": "Stripe: payments for bookings.",
         "openstreetmap": "OpenStreetMap Foundation: map images.",
         "google": "Google: fonts loaded by Hospitable's widgets, and Google Analytics only if it is switched on and you accept it.",
-        "whatsapp": "WhatsApp (Meta): only if you message us there."
+        "whatsapp": "WhatsApp (Meta): only if you message us there.",
+        "countryIs": "country.is: an IP-to-country lookup used by Hospitable's checkout page."
       }
     },
     "location": {
@@ -811,7 +828,7 @@
     },
     "dnt": {
       "heading": "Do Not Track",
-      "body": "This site does not change what it does in response to a browser's “Do Not Track” signal. Our own analytics only runs if you accept it in the cookie banner. Inside the booking widget, Hospitable (with PostHog) and Stripe may collect information about your activity under their own policies."
+      "body": "This site does not change what it does in response to a browser's “Do Not Track” signal. Our own analytics is not switched on; if it ever is, it will only run if you accept it in the cookie banner. Inside the booking widget and checkout, Hospitable (with PostHog, Sentry and Google Analytics) and Stripe may collect information about your activity under their own policies."
     },
     "changes": {
       "heading": "Changes to this policy",

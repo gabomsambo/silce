@@ -190,9 +190,10 @@ what the shot evidences — these have gone stale twice.
 
 Two things reliably ruin a capture here, both silently:
 
-- **The cookie-preferences panel paints over the lower-left of the first page
+- **The cookie-preferences panel paints over the bottom of the first page
   load** and has already occluded the exact chip row a change was meant to prove.
-  Click "Decline analytics cookies" / "Rechazar" before capturing; that writes
+  It only exists in a build with `NEXT_PUBLIC_ANALYTICS_ID` set; without one there is
+  no banner. Click "Decline analytics" / "Rechazar analítica" before capturing; that writes
   `silver-pineapple-cookie-consent` to `localStorage`, so the second locale on the
   same origin stays clean.
 - **Images below the fold lazy-load**, so a single jump to the bottom followed by

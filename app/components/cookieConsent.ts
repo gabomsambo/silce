@@ -3,6 +3,12 @@
 export const COOKIE_CONSENT_STORAGE_KEY = "silver-pineapple-cookie-consent"
 export const COOKIE_CONSENT_UPDATED_EVENT = "silver-pineapple-cookie-consent-updated"
 
+// Analytics is optional and off unless an id is set at build time (GoogleAnalytics.tsx
+// loads nothing without one). With no analytics there is nothing to consent to, so the
+// banner and the footer's "Cookie preferences" link are not shown. Next inlines this
+// at build, so it is a constant in the client bundle.
+export const ANALYTICS_ENABLED = Boolean(process.env.NEXT_PUBLIC_ANALYTICS_ID)
+
 // Only the first-party GA cookies this site sets (_ga, _ga_<id>, _gid, _gat*). Cookies set
 // inside the Hospitable booking iframe belong to that origin and are unreachable from here.
 const ANALYTICS_COOKIE_PATTERN = /^(_ga($|_)|_gid$|_gat($|_))/
