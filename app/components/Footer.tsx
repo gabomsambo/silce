@@ -7,7 +7,7 @@ import { Mail, MapPin, MessageCircle, Phone } from "lucide-react"
 import { BUSINESS_CONTACT } from "@/app/data/contact"
 import Logo from "./Logo"
 import ContactForm from "./ContactForm"
-import { clearCookieConsent } from "./cookieConsent"
+import { ANALYTICS_ENABLED, clearCookieConsent } from "./cookieConsent"
 
 // Every route here is prerendered, so the year baked into the HTML is the build
 // year. Rendering that on the hydrating pass keeps server and client identical;
@@ -105,7 +105,7 @@ export default function Footer() {
                   <div className="flex items-center">
                     <Phone aria-hidden="true" className="w-5 h-5 text-tan mr-3" />
                     <a
-                      href={`tel:${BUSINESS_CONTACT.phoneAndWhatsApp}`}
+                      href={`tel:+${BUSINESS_CONTACT.phoneAndWhatsApp.replace(/\D/g, "")}`}
                       className="text-gray-300 hover:text-tan transition-colors duration-300"
                     >
                       {BUSINESS_CONTACT.phoneAndWhatsApp}
@@ -137,13 +137,15 @@ export default function Footer() {
             >
               {t('privacyPolicy')}
             </Link>
-            <button
-              type="button"
-              onClick={() => clearCookieConsent()}
-              className="text-gray-400 text-sm underline underline-offset-4 hover:text-tan transition-colors duration-300"
-            >
-              {t('cookiePreferences')}
-            </button>
+            {ANALYTICS_ENABLED && (
+              <button
+                type="button"
+                onClick={() => clearCookieConsent()}
+                className="text-gray-400 text-sm underline underline-offset-4 hover:text-tan transition-colors duration-300"
+              >
+                {t('cookiePreferences')}
+              </button>
+            )}
           </div>
         </div>
       </div>

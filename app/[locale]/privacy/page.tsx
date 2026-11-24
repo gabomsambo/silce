@@ -62,7 +62,7 @@ const policyTags = {
 };
 
 const COLLECTION_SECTIONS = ["newsletter", "contact", "reviews", "booking", "direct", "visit"] as const;
-const THIRD_PARTY_LOADS = ["maps", "hospitable", "stripe", "fonts", "turnstile"] as const;
+const THIRD_PARTY_LOADS = ["maps", "hospitable", "stripe", "fonts", "fontsNet", "country", "turnstile"] as const;
 const RECIPIENTS = [
   "cloudflare",
   "resend",
@@ -71,6 +71,7 @@ const RECIPIENTS = [
   "stripe",
   "openstreetmap",
   "google",
+  "countryIs",
   "whatsapp"
 ] as const;
 const RETENTION_ITEMS = ["newsletter", "messages", "reviews", "bookings", "browser"] as const;

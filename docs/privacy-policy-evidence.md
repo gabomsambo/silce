@@ -44,12 +44,16 @@ Identical before and after accepting analytics.
 
 | Name | Kind | Set by | Duration observed | Purpose / proof |
 | --- | --- | --- | --- | --- |
-| `silver-pineapple-cookie-consent` | localStorage | us | until cleared; reset by footer "Cookie preferences" | stores `accepted` / `declined` — `app/components/cookieConsent.ts:3,26-58`; `Footer.tsx:140-146` |
+| `silver-pineapple-cookie-consent` | localStorage | us | until cleared; reset by footer "Cookie preferences". Not written while no analytics id is set at build (no banner, no footer link, since 2026-11-24) | stores `accepted` / `declined` — `app/components/cookieConsent.ts:3,26-58`; `Footer.tsx:140-146` |
 | `NEXT_LOCALE` | cookie, first-party, no expiry (session), `SameSite=Lax` | us (next-intl middleware) | session | set only when the visited language differs from the browser's language: `curl -H 'Accept-Language: en-US' /es` returns `set-cookie: NEXT_LOCALE=es`, `/en` returns none — `middleware.ts`, `i18n/routing.ts` |
 | `_ga`, `_ga_<id>`, `_gid`, `_gat*` | cookies | Google Analytics | — | only after "Accept": `GoogleAnalytics.tsx:16-49`; cleared on decline `cookieConsent.ts:6-8,62-82`. **Live build has no measurement ID**: the shipped chunk reads `l.env.NEXT_PUBLIC_ANALYTICS_ID` un-inlined (`.env.example` placeholder only; not in `wrangler.toml [vars]`) and no `googletagmanager.com` request was made after accepting |
 | `cf.turnstile.u` | localStorage (origin `challenges.cloudflare.com`) | Cloudflare Turnstile | persistent | anti-spam check; loads on the home page with the newsletter form and on `/reviews` with the review form, before any consent choice — `BoutiqueNewsletterSignup.tsx:287`; `ReviewSubmissionForm.tsx:276` |
 | `translation_language` | cookie (`booking.hospitable.com`, `SameSite=None`) | Hospitable | 30 days (expires 2026-11-10 when set 2026-10-11) | widget language |
 | `ph_phc_…_posthog` (+ `_window_id`, `_primary_window_exists`) | localStorage + sessionStorage (`booking.hospitable.com`) | Hospitable's PostHog analytics | persistent / session | requests to `ph.hospitable.com`; the BOOK NOW link carries `ph_session_id` and `ph_distinct_id` |
+| `sentryReplaySession` | sessionStorage (`booking.hospitable.com`) | Hospitable's Sentry error / session-replay monitoring | session | requests to `o212300.ingest.us.sentry.io`; added to the policy 2026-11-24 from the live guest audit |
+| `hospitable_ga_begin_checkout_<quote>` | sessionStorage (`booking.hospitable.com`, checkout page after Reserve) | Hospitable's own Google Analytics event | session | as above |
+| `__stripe_mid`, `__stripe_sid` | cookies (`booking.hospitable.com` checkout) | Stripe | ~1 year / session | as above; `ph_phc_…_posthog` is also a cookie (`.hospitable.com`, ~1 year) at checkout |
+| `__cf_bm` | cookie (`cdn.fonts.net`, third-party, HttpOnly) | Cloudflare bot management on a font host | short-lived (~30 min per Cloudflare's docs) | loaded by the booking widget on room pages; as above |
 | `m` | cookie (`m.stripe.com`, `SameSite=None`) | Stripe | ~13 months (expires 2027-11-15) | Stripe, loaded inside the booking widget |
 | `_ab`, `_mf`, `id` | sessionStorage (`m.stripe.network`) | Stripe | session | as above |
 
@@ -61,6 +65,8 @@ Identical before and after accepting analytics.
 | `a/b/c.tile.openstreetmap.org` | home (and room pages' map) | Leaflet tiles — `app/components/EauGallieMap.tsx:58-61` |
 | `challenges.cloudflare.com` | home, `/reviews` | Turnstile — `BoutiqueNewsletterSignup.tsx:287`; `ReviewSubmissionForm.tsx:276` |
 | `booking.hospitable.com`, `api.hospitable.com`, `ph.hospitable.com`, `js.stripe.com`, `m.stripe.network`, `m.stripe.com`, `fonts.gstatic.com` | room pages | booking iframe and what it loads — `BookingIframe.tsx:84-89` |
+| `api.country.is` | Hospitable checkout (after Reserve) | IP → country lookup for the phone prefix; added to the policy 2026-11-24 |
+| `cdn.fonts.net` | room pages | font host loaded by the booking widget (sets `__cf_bm`) |
 | `api.hospitable.com`, `fonts.googleapis.com`, `fonts.gstatic.com` | `/search` | search widget; its bundle requests `fonts.googleapis.com/css2?family=Montserrat` |
 
 Not present: no `googletagmanager.com` / `google-analytics.com` request (before or after

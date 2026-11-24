@@ -2,7 +2,7 @@
 // request in docs/privacy-policy-evidence.md; the display copy for each item lives in
 // the catalogs under privacy.storage.items.<id>.
 
-export const PRIVACY_POLICY_UPDATED = "2026-10-12"
+export const PRIVACY_POLICY_UPDATED = "2026-11-24"
 
 // Privacy policies of the services that process bookings and payments. The site links
 // to them rather than restating their retention periods.
@@ -35,9 +35,18 @@ export const BROWSER_STORAGE_ITEMS: BrowserStorageItem[] = [
   {
     id: "hospitableAnalytics",
     names: "ph_phc_…_posthog, ph_phc_…_window_id, ph_phc_…_primary_window_exists",
-    kinds: ["localStorage", "sessionStorage"],
+    kinds: ["cookie", "localStorage", "sessionStorage"],
     setBy: "Hospitable (PostHog)",
   },
+  { id: "hospitableReplay", names: "sentryReplaySession", kinds: ["sessionStorage"], setBy: "Hospitable (Sentry)" },
+  {
+    id: "hospitableCheckout",
+    names: "hospitable_ga_begin_checkout_<quote>",
+    kinds: ["sessionStorage"],
+    setBy: "Hospitable (Google Analytics)",
+  },
   { id: "stripeCookie", names: "m", kinds: ["cookie"], setBy: "Stripe" },
+  { id: "stripeFraud", names: "__stripe_mid, __stripe_sid", kinds: ["cookie"], setBy: "Stripe" },
   { id: "stripeSession", names: "_ab, _mf, id", kinds: ["sessionStorage"], setBy: "Stripe" },
+  { id: "fontsBotCheck", names: "__cf_bm", kinds: ["cookie"], setBy: "cdn.fonts.net (Cloudflare)" },
 ]

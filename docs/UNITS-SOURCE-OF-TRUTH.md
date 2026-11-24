@@ -121,8 +121,13 @@ pages booked the wrong apartment. The new IDs resolve it.
 `priceFrom` is the minimum nightly `price` over the next 12 months, read from
 `.../properties/<id>/calendar`. Re-derive it there rather than editing by hand;
 every value below the true floor advertises a rate no guest can book. All
-thirteen match their live floor exactly, re-derived against that endpoint on
-2026-09-05 and re-confirmed 2026-09-06.
+thirteen matched their live floor exactly on 2026-09-05 and 2026-09-06. On
+2026-11-24 the booking window had grown to a year (to 2027-11-24) and four had
+drifted — `pineapple-101` 80→85, `sea-grape-201` 95→101, `sea-grape-102`
+110→102, `sea-grape-101` 110→99 — so they were re-derived over that year, taking
+the minimum `price` among nights with `available: true` (`sea-grape-201` has a
+cheaper $95 night that is not `available`, so it is not the floor); the other
+nine still matched.
 
 **Read `available`, not just `price`, and treat the floor as perishable.** The
 endpoint returns a `price` for nights that cannot be booked at all, and those

@@ -653,12 +653,10 @@
   },
   "cookieConsent": {
     "title": "Preferencias de cookies",
-    "description": "Usamos cookies analíticas opcionales para comprender el uso del sitio y mejorar este sitio web. Puede aceptar o rechazar las cookies analíticas abajo.",
-    "loadsBeforeChoice": "Aunque aún no elija abajo, este sitio carga los mapas de OpenStreetMap para mostrar el mapa de la zona y recursos del servicio de reservas de Hospitable (booking.hospitable.com y hospitable.b-cdn.net) para que funcionen el widget de reserva y el buscador de alojamientos.",
-    "iframeNotice": "Nuestro widget de reservas de Hospitable está integrado en un iframe de terceros. Hospitable, y cualquier servicio que cargue dentro de ese iframe para pagos o analítica (por ejemplo Stripe o PostHog), puede establecer sus propias cookies. Esas cookies las establecen esos terceros, no nosotros, y no se pueden controlar, leer ni eliminar desde este sitio.",
-    "accept": "Aceptar cookies analíticas",
-    "decline": "Rechazar cookies analíticas",
-    "privacyLink": "Lea nuestra política de privacidad y cookies"
+    "description": "Las cookies analíticas opcionales nos ayudan a mejorar este sitio. Las cookies de la herramienta de reservas de Hospitable las establece Hospitable y esta elección no las cubre.",
+    "accept": "Aceptar analítica",
+    "decline": "Rechazar analítica",
+    "privacyLink": "Política de privacidad y cookies"
   },
   "privacy": {
     "title": "Política de privacidad y cookies",
@@ -727,15 +725,15 @@
       },
       "items": {
         "consent": {
-          "purpose": "Recuerda si aceptó o rechazó las cookies analíticas.",
-          "duration": "Hasta que la borre o restablezca su elección en “Preferencias de cookies”"
+          "purpose": "Recuerda si aceptó o rechazó las cookies analíticas. Solo se guarda si la analítica está activada y usted elige; ahora mismo la analítica no está activada, así que hoy no se instala.",
+          "duration": "No se instala por ahora. Si se activa la analítica: hasta que la borre o restablezca su elección en “Preferencias de cookies”"
         },
         "locale": {
           "purpose": "Recuerda su idioma cuando no coincide con el de su navegador.",
           "duration": "Hasta que cierre el navegador"
         },
         "analytics": {
-          "purpose": "Estadísticas opcionales sobre el uso del sitio. Solo se instalan si pulsa “Aceptar cookies analíticas”. La analítica no está activada en este momento, así que aceptar no instala ninguna de ellas hoy.",
+          "purpose": "Estadísticas opcionales sobre cómo se usa el sitio. Solo se instalan si pulsa “Aceptar analítica” en el aviso de cookies. Ahora mismo la analítica no está activada, así que no hay aviso y hoy no se instala ninguna.",
           "duration": "No se instalan actualmente"
         },
         "turnstile": {
@@ -747,8 +745,8 @@
           "duration": "30 días"
         },
         "hospitableAnalytics": {
-          "purpose": "Estadísticas de uso propias de Hospitable sobre su widget de reservas en las páginas de alojamiento.",
-          "duration": "Hasta que borre el almacenamiento del navegador o cierre la pestaña"
+          "purpose": "Estadísticas de uso propias de Hospitable sobre su widget de reservas en las páginas de alojamiento y en su página de pago. En el pago, Hospitable también la guarda como cookie.",
+          "duration": "Hasta que borre el almacenamiento del navegador o cierre la pestaña; como cookie en el pago, aproximadamente 1 año"
         },
         "stripeCookie": {
           "purpose": "La usa el servicio de pagos de Stripe, que carga el widget de reservas en las páginas de alojamiento.",
@@ -757,19 +755,37 @@
         "stripeSession": {
           "purpose": "Lo usa el servicio de pagos de Stripe, que carga el widget de reservas en las páginas de alojamiento.",
           "duration": "Hasta que cierre la pestaña"
+        },
+        "hospitableReplay": {
+          "purpose": "Supervisión de errores de Hospitable (Sentry), incluida la repetición de sesiones, que puede registrar cómo se usan su widget de reservas y su página de pago para diagnosticar problemas. La establece la herramienta de reservas de Hospitable, no nosotros.",
+          "duration": "Hasta que cierre la pestaña"
+        },
+        "hospitableCheckout": {
+          "purpose": "Parte del seguimiento con Google Analytics que hace Hospitable de su página de pago (un evento de “inicio de pago” de su cotización). Se establece en la página de pago de Hospitable después de pulsar Reservar, no por nosotros.",
+          "duration": "Hasta que cierre la pestaña"
+        },
+        "stripeFraud": {
+          "purpose": "Las usa el servicio de pagos de Stripe para prevenir fraudes en la página de pago de Hospitable. Las establecen la herramienta de reservas de Hospitable y Stripe, no nosotros.",
+          "duration": "Aproximadamente 1 año (__stripe_mid); hasta que cierre el navegador (__stripe_sid)"
+        },
+        "fontsBotCheck": {
+          "purpose": "Gestión de bots de Cloudflare en cdn.fonts.net, un servidor de fuentes que carga el widget de reservas en las páginas de alojamiento. La establece ese servidor, no nosotros.",
+          "duration": "Unos 30 minutos"
         }
       },
       "choicesHeading": "Sus opciones",
-      "choices": "El aviso de cookies controla nuestras cookies analíticas, que solo se instalan si las acepta. Puede cambiar de opinión en cualquier momento con “Preferencias de cookies”, al pie de cada página; si las rechaza, también se borran las cookies analíticas ya instaladas.",
-      "thirdParty": "Los elementos que instalan Hospitable, Stripe y Cloudflare están dentro de los marcos propios de esos servicios. No podemos leerlos, cambiarlos ni borrarlos, y no siguen la elección que haga en nuestro aviso. Puede bloquearlos o borrarlos en la configuración de su navegador.",
+      "choices": "Actualmente este sitio no tiene analítica, por lo que no muestra ningún aviso de cookies. Si algún día se activa la analítica, seguirá desactivada hasta que pulse “Aceptar analítica” en un aviso, y “Preferencias de cookies”, al pie de cada página, le permitirá cambiar de opinión; si las rechaza, también se borran las cookies analíticas ya instaladas.",
+      "thirdParty": "Los elementos que instalan la herramienta de reservas y la página de pago de Hospitable (incluidos los de Stripe, Sentry, Google Analytics y cdn.fonts.net) y Cloudflare están dentro de los marcos y páginas propios de esos servicios. No podemos leerlos, cambiarlos ni borrarlos, y no siguen ninguna elección que haga en este sitio, incluido el aviso de cookies si se muestra. Puede bloquearlos o borrarlos en la configuración de su navegador.",
       "loadsHeading": "Contenido cargado desde otros servicios",
-      "loadsIntro": "Algunas páginas cargan contenido directamente desde servidores de otras empresas, antes de que elija nada sobre las cookies. Su navegador les envía entonces su dirección IP y datos básicos del navegador:",
+      "loadsIntro": "Algunas páginas cargan contenido directamente desde servidores de otras empresas al abrirse, sin esperar a ninguna elección sobre las cookies. Su navegador les envía entonces su dirección IP y datos básicos del navegador:",
       "loads": {
         "maps": "Imágenes de mapas de OpenStreetMap, para los mapas de ubicación.",
         "hospitable": "El código del buscador de Hospitable en todas las páginas (desde hospitable.b-cdn.net), y los servicios de reserva y búsqueda de Hospitable en las páginas de alojamiento y en la página de búsqueda.",
         "stripe": "El código de pagos de Stripe, dentro del widget de reservas en las páginas de alojamiento.",
         "fonts": "Google Fonts, que cargan los widgets de Hospitable en las páginas de alojamiento y en la página de búsqueda.",
-        "turnstile": "Cloudflare Turnstile, en la página de inicio con el formulario del boletín y en la página de opiniones con el formulario de opiniones."
+        "turnstile": "Cloudflare Turnstile, en la página de inicio con el formulario del boletín y en la página de opiniones con el formulario de opiniones.",
+        "fontsNet": "cdn.fonts.net, un servidor de fuentes que carga el widget de reservas en las páginas de alojamiento.",
+        "country": "api.country.is, una consulta que la página de pago de Hospitable usa para convertir su dirección IP en un país y preseleccionar el prefijo telefónico."
       }
     },
     "recipients": {
@@ -779,11 +795,12 @@
         "cloudflare": "Cloudflare: alojamiento, seguridad y la comprobación antispam del boletín.",
         "resend": "Resend: nuestra lista del boletín y el envío por correo de las opiniones enviadas a nuestro buzón.",
         "formsubmit": "FormSubmit, un servicio de reenvío de formularios: el formulario de contacto le envía su nombre, correo electrónico, mensaje y la dirección de la página, y él los reenvía por correo electrónico a nuestro buzón.",
-        "hospitable": "Hospitable: reservas, disponibilidad y búsqueda de alojamientos, con PostHog para sus propias estadísticas de uso.",
+        "hospitable": "Hospitable: reservas, disponibilidad y búsqueda de alojamientos, con PostHog y Sentry para sus propias estadísticas de uso y supervisión de errores, y Google Analytics en su página de pago.",
         "stripe": "Stripe: los pagos de las reservas.",
         "openstreetmap": "OpenStreetMap Foundation: las imágenes de los mapas.",
         "google": "Google: las fuentes que cargan los widgets de Hospitable, y Google Analytics solo si está activado y usted lo acepta.",
-        "whatsapp": "WhatsApp (Meta): solo si nos escribe por ahí."
+        "whatsapp": "WhatsApp (Meta): solo si nos escribe por ahí.",
+        "countryIs": "country.is: una consulta de IP a país que usa la página de pago de Hospitable."
       }
     },
     "location": {
@@ -811,7 +828,7 @@
     },
     "dnt": {
       "heading": "Señal “Do Not Track”",
-      "body": "Este sitio no cambia su funcionamiento cuando un navegador envía la señal “Do Not Track” (no rastrear). Nuestra propia analítica solo funciona si la acepta en el aviso de cookies. Dentro del widget de reservas, Hospitable (con PostHog) y Stripe pueden recoger información sobre su actividad según sus propias políticas."
+      "body": "Este sitio no cambia su funcionamiento cuando un navegador envía la señal “Do Not Track” (no rastrear). Nuestra propia analítica no está activada; si algún día se activa, solo funcionará si la acepta en el aviso de cookies. Dentro del widget de reservas y de la página de pago, Hospitable (con PostHog, Sentry y Google Analytics) y Stripe pueden recoger información sobre su actividad según sus propias políticas."
     },
     "changes": {
       "heading": "Cambios en esta política",
