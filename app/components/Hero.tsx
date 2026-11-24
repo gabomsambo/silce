@@ -26,8 +26,13 @@ export default async function Hero() {
 
       {/* Hospitable booking widget at the bottom of the hero is temporarily disabled. */}
 
-      {/* Temporary Book Now button - links to rooms page */}
-      <div className="relative z-10 pb-12 flex justify-center">
+      {/* Temporary Book Now button - links to rooms page. Bottom padding grows by the
+          cookie bar height (--cookie-consent-offset) when analytics is on and the bar
+          is showing, so the CTA stays above it on a phone-sized h-screen hero. */}
+      <div
+        className="relative z-10 flex justify-center"
+        style={{ paddingBottom: "max(3rem, calc(var(--cookie-consent-offset, 0px) + 0.75rem))" }}
+      >
         <Link 
           href="/rooms"
           className="px-8 py-4 bg-white text-primary font-semibold text-lg rounded-lg hover:bg-tan transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"

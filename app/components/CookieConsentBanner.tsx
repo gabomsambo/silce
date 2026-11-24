@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import {
@@ -12,10 +12,15 @@ import {
   writeCookieConsent,
 } from "./cookieConsent"
 
+// Published while the compact bar is on screen so full-viewport heroes (Book Now at the
+// bottom of h-screen) can lift their CTA above it. Cleared as soon as the bar goes away.
+const COOKIE_CONSENT_OFFSET_VAR = "--cookie-consent-offset"
+
 export default function CookieConsentBanner() {
   const t = useTranslations("cookieConsent")
   const [isHydrated, setIsHydrated] = useState(false)
   const [consent, setConsent] = useState<CookieConsentChoice | null>(null)
+  const asideRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const syncConsent = () => {
@@ -39,12 +44,39 @@ export default function CookieConsentBanner() {
     }
   }, [])
 
+  const showBanner = ANALYTICS_ENABLED && isHydrated && consent === null
+
+  useEffect(() => {
+    if (!showBanner) {
+      document.documentElement.style.removeProperty(COOKIE_CONSENT_OFFSET_VAR)
+      return
+    }
+
+    const el = asideRef.current
+    if (!el) return
+
+    const publishOffset = () => {
+      document.documentElement.style.setProperty(
+        COOKIE_CONSENT_OFFSET_VAR,
+        `${Math.ceil(el.getBoundingClientRect().height)}px`,
+      )
+    }
+
+    publishOffset()
+    const ro = new ResizeObserver(publishOffset)
+    ro.observe(el)
+    return () => {
+      ro.disconnect()
+      document.documentElement.style.removeProperty(COOKIE_CONSENT_OFFSET_VAR)
+    }
+  }, [showBanner])
+
   const handleConsent = (choice: CookieConsentChoice) => {
     writeCookieConsent(choice)
     setConsent(choice)
   }
 
-  if (!ANALYTICS_ENABLED || !isHydrated || consent !== null) {
+  if (!showBanner) {
     return null
   }
 
@@ -54,7 +86,7 @@ export default function CookieConsentBanner() {
   // the Hospitable widget overlays, which globals.css pins at z-index 2147483647 so their
   // calendars and dropdowns stay reachable while it shows.
   return (
-    <aside aria-label={t("title")} className="fixed inset-x-0 bottom-0 z-40 p-2 sm:p-4 pointer-events-none">
+    <aside ref={asideRef} aria-label={t("title")} className="fixed inset-x-0 bottom-0 z-40 p-2 sm:p-4 pointer-events-none">
       <div className="pointer-events-auto flex w-full flex-col gap-3 rounded-xl border border-gray-200 bg-white/95 p-3 shadow-xl backdrop-blur-sm sm:mx-auto sm:max-w-3xl sm:flex-row sm:items-center sm:gap-4 sm:p-4">
         <p className="flex-1 text-sm leading-snug text-gray-700">
           {t("description")}{" "}
