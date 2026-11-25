@@ -686,9 +686,9 @@
       },
       "contact": {
         "heading": "Formulario de contacto",
-        "what": "Su nombre, correo electrónico y mensaje, y la dirección de la página desde la que lo envió.",
+        "what": "Su nombre, correo electrónico y mensaje, la dirección de la página desde la que lo envió y un token de Turnstile al enviar el formulario.",
         "why": "Para responderle. Nos basamos en nuestro interés legítimo en contestar a quien nos escribe, o en tomar las medidas que nos pida antes de una reserva.",
-        "who": "El formulario de contacto envía su nombre, correo electrónico, mensaje y la dirección de la página a FormSubmit (formsubmit.co), un servicio de reenvío de formularios, que los reenvía por correo electrónico a nuestro buzón."
+        "who": "Cloudflare Turnstile comprueba que el formulario no lo usa un bot: recibe su dirección IP y datos técnicos de su navegador. Nuestro servidor envía su nombre, correo electrónico, mensaje y la dirección de la página a Resend, que los entrega por correo electrónico a nuestro buzón (desde contact@silverpineapple.net, con su correo como dirección de respuesta). Nuestro servidor escribe en sus registros una versión abreviada de su correo (la primera letra y el dominio) cuando Resend acepta el mensaje."
       },
       "reviews": {
         "heading": "Formulario de opiniones",
@@ -741,7 +741,7 @@
           "duration": "No se instalan actualmente"
         },
         "turnstile": {
-          "purpose": "Permite a Cloudflare Turnstile comprobar que los formularios del boletín y de opiniones los usa una persona y no un bot. Se carga en la página de inicio y en la de opiniones.",
+          "purpose": "Permite a Cloudflare Turnstile comprobar que los formularios del boletín, de opiniones y de contacto los usa una persona y no un bot. Se carga en la página de inicio y en la de opiniones, y en cualquier página cuando empieza a rellenar el formulario de contacto del pie.",
           "duration": "Hasta que borre el almacenamiento del navegador"
         },
         "hospitableLanguage": {
@@ -787,7 +787,7 @@
         "hospitable": "El código del buscador de Hospitable en todas las páginas (desde hospitable.b-cdn.net), y los servicios de reserva y búsqueda de Hospitable en las páginas de alojamiento y en la página de búsqueda.",
         "stripe": "El código de pagos de Stripe, dentro del widget de reservas en las páginas de alojamiento.",
         "fonts": "Google Fonts, que cargan los widgets de Hospitable en las páginas de alojamiento y en la página de búsqueda.",
-        "turnstile": "Cloudflare Turnstile, en la página de inicio con el formulario del boletín y en la página de opiniones con el formulario de opiniones.",
+        "turnstile": "Cloudflare Turnstile, en la página de inicio con el formulario del boletín, en la página de opiniones con el formulario de opiniones y en cualquier página cuando empieza a rellenar el formulario de contacto del pie.",
         "fontsNet": "cdn.fonts.net, un servidor de fuentes que carga el widget de reservas en las páginas de alojamiento.",
         "country": "api.country.is, una consulta que la página de pago de Hospitable usa para convertir su dirección IP en un país y preseleccionar el prefijo telefónico."
       }
@@ -796,9 +796,8 @@
       "heading": "Quién recibe su información",
       "intro": "Solo compartimos información personal con los servicios que hacen funcionar partes de este sitio. Cada uno tiene su propia política de privacidad.",
       "items": {
-        "cloudflare": "Cloudflare: alojamiento, seguridad y la comprobación antispam del boletín.",
-        "resend": "Resend: nuestra lista del boletín y el envío por correo de las opiniones enviadas a nuestro buzón.",
-        "formsubmit": "FormSubmit, un servicio de reenvío de formularios: el formulario de contacto le envía su nombre, correo electrónico, mensaje y la dirección de la página, y él los reenvía por correo electrónico a nuestro buzón.",
+        "cloudflare": "Cloudflare: alojamiento, seguridad y la comprobación antispam de nuestros formularios.",
+        "resend": "Resend: nuestra lista del boletín y el envío por correo de las opiniones y los mensajes de contacto a nuestro buzón.",
         "hospitable": "Hospitable: reservas, disponibilidad y búsqueda de alojamientos, con PostHog y Sentry para sus propias estadísticas de uso y supervisión de errores, y Google Analytics en su página de pago.",
         "stripe": "Stripe: los pagos de las reservas.",
         "openstreetmap": "OpenStreetMap Foundation: las imágenes de los mapas.",

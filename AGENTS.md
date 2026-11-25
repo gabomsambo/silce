@@ -212,10 +212,11 @@ proves nothing about the delta.
 
 No database, no server actions, no `use server`. Page content is hand-written
 TypeScript in `app/data/`, and pages prerender at build time. The server code is
-two Pages Functions in `functions/api/`: newsletter signup
+three Pages Functions in `functions/api/`: newsletter signup
 (`server/newsletterSubscribe.ts`; the Resend segmentation fields it writes are
-defined in `lib/newsletterSegment.ts`) and review submission
-(`server/reviewSubmit.ts`).
+defined in `lib/newsletterSegment.ts`), review submission
+(`server/reviewSubmit.ts`) and the footer contact form
+(`server/contactSubmit.ts`).
 
 ## Business facts
 
@@ -229,17 +230,14 @@ defined in `lib/newsletterSegment.ts`) and review submission
 
 ## Form delivery
 
-- The contact form is the static FormSubmit form. The shared recipient, endpoint
-  and the one-line slot for a future phone/WhatsApp number all live in
-  `app/data/contact.ts`. The endpoint as shipped is the **raw-inbox** AJAX URL
-  (`https://formsubmit.co/ajax/<address>`): FormSubmit only issues a hashed alias
-  once the inbox owner clicks its one-time activation email, so no hashed endpoint
-  exists in this repo yet and nothing is delivered until that click. Swapping to
-  the alias is a one-line change in that file, and it is worth doing because
-  `ContactForm.tsx` is a client component, so whatever is in that string ships in
-  the browser bundle.
-- Show contact-form success only after FormSubmit accepts the request — never on
-  submit alone. The visible business email remains an intentional fallback.
+- The contact form (`ContactForm`) POSTs to `/api/contact/submit`
+  (`server/contactSubmit.ts`), the same Turnstile + Resend path as the review form:
+  it emails `BUSINESS_CONTACT.email` from `contact@silverpineapple.net` (reply-to the
+  guest) only after Turnstile accepts the `contact` action. It replaced FormSubmit,
+  which took about 57 s to answer. Success is shown only when Resend returns an email
+  id; every other outcome shows the error with the visible business email as the
+  fallback. The Turnstile script loads when a visitor first focuses the form, not on
+  every page view.
 - The review form (`ReviewSubmissionForm`) POSTs to `/api/reviews/submit`
   (`server/reviewSubmit.ts`). The
   route emails the note to `BUSINESS_CONTACT.email` through Resend from

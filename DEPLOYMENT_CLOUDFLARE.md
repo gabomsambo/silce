@@ -28,6 +28,7 @@ ship static files rather than to buy a higher CPU limit.
 | Client-side navigation | the `.txt` RSC payloads Next writes next to each page | No |
 | Newsletter signup | `functions/api/newsletter/subscribe.ts` -> `server/newsletterSubscribe.ts` | Yes, only on form submit |
 | Review note | `functions/api/reviews/submit.ts` -> `server/reviewSubmit.ts` | Yes, only on form submit |
+| Footer contact form | `functions/api/contact/submit.ts` -> `server/contactSubmit.ts` | Yes, only on form submit |
 | `/`, `/rooms`, `/rooms/*`, `/about`, `/privacy`, `/reviews`, `/search` (no locale prefix) | `functions/[[path]].ts` -> `server/localeRedirect.ts` | Yes: a 307 to `/en` or `/es` from the `NEXT_LOCALE` cookie or `Accept-Language` |
 
 `public/_routes.json` is copied to the output root and lists the only paths that
