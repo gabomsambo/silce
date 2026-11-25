@@ -682,9 +682,9 @@
       },
       "contact": {
         "heading": "Contact form",
-        "what": "Your name, email address and message, and the address of the page you sent it from.",
+        "what": "Your name, email address and message, the address of the page you sent it from, and a Turnstile token when you submit.",
         "why": "To answer you. We rely on our legitimate interest in replying to people who contact us, or on taking the steps you ask for before a booking.",
-        "who": "The contact form sends your name, email address, message and the page address to FormSubmit (formsubmit.co), a form-relay service, which forwards them by email to our inbox."
+        "who": "Cloudflare Turnstile checks that the form is not being used by a bot: it receives your IP address and technical details about your browser. Our server sends your name, email address, message and the page address to Resend, which emails them to our inbox (from contact@silverpineapple.net, with your email as the reply address). Our server writes a shortened version of your email address (its first letter and the domain) to its logs when Resend accepts the message."
       },
       "reviews": {
         "heading": "Review form",
@@ -737,7 +737,7 @@
           "duration": "Not set at present"
         },
         "turnstile": {
-          "purpose": "Lets Cloudflare Turnstile check that the newsletter and review forms are used by a person, not a bot. Loads on the home page and the reviews page.",
+          "purpose": "Lets Cloudflare Turnstile check that the newsletter, review and contact forms are used by a person, not a bot. Loads on the home page and the reviews page, and on any page once you start filling in the contact form in the footer.",
           "duration": "Until you clear your browser storage"
         },
         "hospitableLanguage": {
@@ -783,7 +783,7 @@
         "hospitable": "Hospitable's search widget code on every page (from hospitable.b-cdn.net), and Hospitable's booking and search services on room pages and the search page.",
         "stripe": "Stripe's payment code, inside the booking widget on room pages.",
         "fonts": "Google Fonts, loaded by Hospitable's widgets on room pages and the search page.",
-        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form and on the reviews page with the review form.",
+        "turnstile": "Cloudflare Turnstile, on the home page with the newsletter form, on the reviews page with the review form, and on any page once you start filling in the contact form in the footer.",
         "fontsNet": "cdn.fonts.net, a font host loaded by the booking widget on room pages.",
         "country": "api.country.is, a lookup that Hospitable's checkout page uses to turn your IP address into a country, so it can preselect your phone-number prefix."
       }
@@ -792,9 +792,8 @@
       "heading": "Who receives your information",
       "intro": "We share personal information only with the services that run parts of this site. Each has its own privacy policy.",
       "items": {
-        "cloudflare": "Cloudflare: hosting, security and the newsletter spam check.",
-        "resend": "Resend: our newsletter list and delivery of review submissions by email to our inbox.",
-        "formsubmit": "FormSubmit, a form-relay service: the contact form sends it your name, email address, message and the page address, and it forwards them by email to our inbox.",
+        "cloudflare": "Cloudflare: hosting, security and the spam check on our forms.",
+        "resend": "Resend: our newsletter list and delivery of review and contact messages by email to our inbox.",
         "hospitable": "Hospitable: bookings, availability and property search, with PostHog and Sentry for its own usage statistics and error monitoring, and Google Analytics on its checkout page.",
         "stripe": "Stripe: payments for bookings.",
         "openstreetmap": "OpenStreetMap Foundation: map images.",

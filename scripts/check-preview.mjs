@@ -124,7 +124,7 @@ for (const [acceptLanguage, want] of [
 // The form endpoints are Pages Functions. A preview has no secrets, so a POST gets
 // 500 service_unavailable (or 400 once secrets are bound): either proves the
 // Function is deployed and running; a 404 or an HTML body means it is not.
-for (const endpoint of ["/api/newsletter/subscribe", "/api/reviews/submit"]) {
+for (const endpoint of ["/api/newsletter/subscribe", "/api/reviews/submit", "/api/contact/submit"]) {
   const r = await get(endpoint, {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -143,7 +143,7 @@ if (missing.err || missing.res.status !== 404) {
   fail(missing.url, `unknown URL gave ${missing.err ?? missing.res.status} (want 404)`);
 }
 
-console.log(`smoke: checked ${pages.length} pages + robots.txt + sitemap.xml + redirect + 2 Functions on ${base}`);
+console.log(`smoke: checked ${pages.length} pages + robots.txt + sitemap.xml + redirect + 3 Functions on ${base}`);
 
 // --- 2. Sustained ---------------------------------------------------------------
 let sustained = null;

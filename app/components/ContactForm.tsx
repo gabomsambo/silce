@@ -1,50 +1,106 @@
 "use client"
 
-import { FormEvent, useState } from "react"
-import { useTranslations } from "next-intl"
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react"
+import Script from "next/script"
+import { useLocale, useTranslations } from "next-intl"
 import { CheckCircle2, LoaderCircle, Send } from "lucide-react"
 import { BUSINESS_CONTACT } from "@/app/data/contact"
+import { CONTACT_LIMITS, CONTACT_TURNSTILE_ACTION } from "@/lib/contactDelivery"
 
 type SubmissionStatus = "idle" | "submitting" | "success" | "error"
 
-interface FormSubmitResponse {
-  success?: boolean | string
-  message?: string
-}
+const SUBMIT_TIMEOUT_MS = 30_000
+const TOKEN_WAIT_MS = 12_000
 
+// The spam check is on every page (the form lives in the footer), so its script is
+// fetched only once a visitor starts using the form, not on every page view.
 export default function ContactForm() {
   const t = useTranslations("footer.contactForm")
+  const locale = useLocale() === "es" ? "es" : "en"
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const [status, setStatus] = useState<SubmissionStatus>("idle")
+  const [armed, setArmed] = useState(false)
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
+  const turnstileTokenRef = useRef("")
+
+  const resetTurnstile = useCallback(() => {
+    turnstileTokenRef.current = ""
+    if (window.turnstile && turnstileWidgetIdRef.current) {
+      window.turnstile.reset(turnstileWidgetIdRef.current)
+    }
+  }, [])
+
+  const renderTurnstile = useCallback(() => {
+    if (!window.turnstile || !turnstileContainerRef.current || !siteKey || turnstileWidgetIdRef.current) {
+      return
+    }
+    const options = {
+      sitekey: siteKey,
+      action: CONTACT_TURNSTILE_ACTION,
+      language: locale,
+      theme: "dark",
+      callback: (token: string) => {
+        turnstileTokenRef.current = token
+      },
+      "expired-callback": resetTurnstile,
+      "error-callback": resetTurnstile,
+      "timeout-callback": resetTurnstile,
+    }
+    turnstileWidgetIdRef.current = window.turnstile.render(
+      turnstileContainerRef.current,
+      options as Parameters<NonNullable<Window["turnstile"]>["render"]>[1],
+    )
+  }, [locale, resetTurnstile, siteKey])
+
+  // The script may already be on the page (home page newsletter form), in which
+  // case Script's onReady does not fire for this component.
+  useEffect(() => {
+    if (armed) renderTurnstile()
+  }, [armed, renderTurnstile])
+
+  const waitForToken = async (): Promise<string> => {
+    const deadline = Date.now() + TOKEN_WAIT_MS
+    while (!turnstileTokenRef.current && Date.now() < deadline) {
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
+    return turnstileTokenRef.current
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (status === "submitting") return
     setStatus("submitting")
 
     const form = event.currentTarget
     const fields = new FormData(form)
+    const controller = new AbortController()
+    const timeoutHandle = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS)
 
     try {
-      const response = await fetch(BUSINESS_CONTACT.formEndpoint, {
+      if (!siteKey) throw new Error("Turnstile site key is not configured")
+      const turnstileToken = await waitForToken()
+      if (!turnstileToken) throw new Error("Spam check did not finish")
+
+      const response = await fetch("/api/contact/submit", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: fields.get("name"),
           email: fields.get("email"),
           message: fields.get("message"),
-          _honey: fields.get("_honey"),
-          _subject: "New Silver Pineapple website inquiry",
-          _template: "table",
-          _url: window.location.href,
+          honey: fields.get("_honey"),
+          pageUrl: window.location.href,
+          locale,
+          turnstileToken,
         }),
+        signal: controller.signal,
       })
-      const result = (await response.json()) as FormSubmitResponse
-      const accepted = result.success === true || result.success === "true"
 
-      if (!response.ok || !accepted) {
-        throw new Error(result.message || `FormSubmit returned ${response.status}`)
+      // Success is shown only when the server says Resend accepted the email.
+      const result = (await response.json().catch(() => null)) as { ok?: boolean; error?: string } | null
+      if (!response.ok || result?.ok !== true) {
+        throw new Error(result?.error || `Contact endpoint returned ${response.status}`)
       }
 
       form.reset()
@@ -52,11 +108,28 @@ export default function ContactForm() {
     } catch (error) {
       console.error("Contact form delivery failed", error)
       setStatus("error")
+    } finally {
+      clearTimeout(timeoutHandle)
+      // A Turnstile token is single use, so every attempt needs a fresh one.
+      resetTurnstile()
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate={false}>
+    <form
+      onSubmit={handleSubmit}
+      onFocusCapture={() => setArmed(true)}
+      className="mt-6 space-y-4"
+      noValidate={false}
+    >
+      {armed && siteKey && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          async
+          defer
+          onReady={renderTurnstile}
+        />
+      )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="contact-name" className="mb-1.5 block text-sm font-medium text-gray-200">
@@ -68,6 +141,7 @@ export default function ContactForm() {
             type="text"
             autoComplete="name"
             required
+            maxLength={CONTACT_LIMITS.name}
             className="w-full rounded border border-white/25 bg-white/10 px-3 py-2.5 text-white outline-none placeholder:text-gray-400 focus:border-tan focus:ring-2 focus:ring-tan/30"
             placeholder={t("namePlaceholder")}
           />
@@ -82,6 +156,7 @@ export default function ContactForm() {
             type="email"
             autoComplete="email"
             required
+            maxLength={CONTACT_LIMITS.email}
             className="w-full rounded border border-white/25 bg-white/10 px-3 py-2.5 text-white outline-none placeholder:text-gray-400 focus:border-tan focus:ring-2 focus:ring-tan/30"
             placeholder={t("emailPlaceholder")}
           />
@@ -97,6 +172,7 @@ export default function ContactForm() {
           name="message"
           rows={4}
           required
+          maxLength={CONTACT_LIMITS.message}
           className="w-full resize-y rounded border border-white/25 bg-white/10 px-3 py-2.5 text-white outline-none placeholder:text-gray-400 focus:border-tan focus:ring-2 focus:ring-tan/30"
           placeholder={t("messagePlaceholder")}
         />
@@ -110,6 +186,8 @@ export default function ContactForm() {
         className="hidden"
         aria-hidden="true"
       />
+
+      <div ref={turnstileContainerRef} />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <button

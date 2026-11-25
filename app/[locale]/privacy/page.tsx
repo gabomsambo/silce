@@ -66,7 +66,6 @@ const THIRD_PARTY_LOADS = ["maps", "hospitable", "stripe", "fonts", "fontsNet", 
 const RECIPIENTS = [
   "cloudflare",
   "resend",
-  "formsubmit",
   "hospitable",
   "stripe",
   "openstreetmap",
