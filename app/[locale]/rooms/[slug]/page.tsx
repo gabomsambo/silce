@@ -373,6 +373,18 @@ export default async function PropertyPage({ params }: Props) {
                       </span>
                     </div>
                   </section>
+                  {/*
+                    "What happens next" note: the widget's button says
+                    "Reserve" but the owner approves each stay, so say so
+                    before the guest commits. Plain in-flow text above the
+                    iframe, so it cannot overlap the widget.
+                  */}
+                  <p className="mb-3 text-sm leading-relaxed text-primary/80">
+                    <strong className="font-semibold text-primary">
+                      {tRoot("unitPage.bookingNote.lead")}
+                    </strong>{" "}
+                    {tRoot("unitPage.bookingNote.body")}
+                  </p>
                   <div className="booking-widget-container">
                     <BookingIframe
                       hospitableId={property.hospitable_id}
