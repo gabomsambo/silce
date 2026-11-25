@@ -394,6 +394,10 @@
       "heading": "Included amenities",
       "subheading": "Real, unit-specific amenities from the listing."
     },
+    "bookingNote": {
+      "lead": "This is a request to book.",
+      "body": "You won't be charged until we accept it, and we reply within 24 hours. Your confirmation will come by email from Hospitable, our booking partner (check spam if you don't see it)."
+    },
     "bookingAccessibility": {
       "heading": "Accessibility information",
       "details": "We do not hold accessibility information for this unit, including details about steps, entrances, bathrooms, or parking. Please ask us about your access needs before booking. We will confirm what we can rather than guess.",

@@ -394,6 +394,10 @@
       "heading": "Comodidades incluidas",
       "subheading": "Comodidades reales y específicas de esta unidad."
     },
+    "bookingNote": {
+      "lead": "Esto es una solicitud de reserva.",
+      "body": "No se le cobrará hasta que la aceptemos y le respondemos en un plazo de 24 horas. Recibirá la confirmación por correo electrónico de Hospitable, nuestro socio de reservas (revise la carpeta de spam si no la ve)."
+    },
     "bookingAccessibility": {
       "heading": "Información de accesibilidad",
       "details": "No tenemos información de accesibilidad para esta unidad, incluidos detalles sobre escalones, entradas, baños o estacionamiento. Pregúntenos por sus necesidades de acceso antes de reservar. Confirmaremos lo que podamos en lugar de adivinar.",
