@@ -40,6 +40,8 @@ export default function ContactForm() {
       action: CONTACT_TURNSTILE_ACTION,
       language: locale,
       theme: "dark",
+      // Stays out of sight unless Cloudflare needs the visitor to do something.
+      appearance: "interaction-only",
       callback: (token: string) => {
         turnstileTokenRef.current = token
       },
